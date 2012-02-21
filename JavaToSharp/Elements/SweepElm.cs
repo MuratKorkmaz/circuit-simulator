@@ -24,10 +24,30 @@ namespace JavaToSharp
         }
         public SweepElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
         {
-            minF = new (double)double?(st.nextToken());
-            maxF = new (double)double?(st.nextToken());
-            maxV = new (double)double?(st.nextToken());
-            sweepTime = new (double)double?(st.nextToken());
+            string sMinF = st.nextToken();
+            bool isParsedMinF = double.TryParse(sMinF, out minF);
+            if (!isParsedMinF)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
+            string sMaxF = st.nextToken();
+            bool isParsedMaxF = double.TryParse(sMaxF, out maxF);
+            if (!isParsedMaxF)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
+            string sMaxV = st.nextToken();
+            bool isParsedMaxV = double.TryParse(sMaxV, out maxV);
+            if (!isParsedMaxV)
+            {
+               throw new Exception("Не удалось привести к типу double"); 
+            }
+            string sSweepTime = st.nextToken();
+            bool isParsedSweepTime = double.TryParse(sSweepTime, out sweepTime);
+            if (!isParsedSweepTime)
+            {
+                 throw new Exception("Не удалось привести к типу double"); 
+            }
             reset();
         }
         internal override int DumpType
@@ -61,17 +81,17 @@ namespace JavaToSharp
             setBbox(point1, point2, circleSize);
             setVoltageColor(g, volts[0]);
             drawThickLine(g, point1, lead1);
-            g.Color = needsHighlight() ? selectColor : Color.gray;
+            g.Color = needsHighlight() ? selectColor : Color.Gray;
             setPowerColor(g, false);
-            int xc = point2.x;
-            int yc = point2.y;
+            int xc = point2.X;
+            int yc = point2.Y;
             drawThickCircle(g, xc, yc, circleSize);
             int wl = 8;
             adjustBbox(xc-circleSize, yc-circleSize, xc+circleSize, yc+circleSize);
             int i;
             int xl = 10;
             int ox = -1, oy = -1;
-            long tm = System.currentTimeMillis();
+            long tm =  (DateTime.Now.Ticks - 621355968000000000) / 10000;
             //double w = (this == mouseElm ? 3 : 2);
             tm %= 2000;
             if (tm > 1000)

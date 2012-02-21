@@ -170,7 +170,7 @@ public abstract class CircuitElm : Editable
         calculateCurrent();
     }
 
-    protected virtual void calculateCurrent()
+    internal virtual void calculateCurrent()
     {
     }
 
