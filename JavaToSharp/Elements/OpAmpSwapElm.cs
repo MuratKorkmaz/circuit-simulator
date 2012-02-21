@@ -1,6 +1,7 @@
 using System;
+using JavaToSharp.Elements;
 
-	internal class OpAmpSwapElm : OpAmpElm
+internal class OpAmpSwapElm : OpAmpElm
 	{
 	public OpAmpSwapElm(int xx, int yy) : base(xx, yy)
 	{

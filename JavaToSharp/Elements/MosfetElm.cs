@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using JavaToSharp;
 
 
@@ -23,7 +24,12 @@ internal class MosfetElm : CircuitElm
 		vt = DefaultThreshold;
 		try
 		{
-		vt = new (double)double?(st.nextToken());
+		    string sVt = st.nextToken();
+		    bool isParsedVt = double.TryParse(sVt, out vt);
+		    if (!isParsedVt)
+		    {
+		        throw new Exception("Не удалось привести к типу double");
+		    }
 		}
 		catch (Exception e)
 		{
@@ -78,7 +84,7 @@ internal class MosfetElm : CircuitElm
 		int segments = 6;
 		int i;
 		setPowerColor(g, true);
-		double segf = 1./segments;
+		double segf = 1.0/segments;
 		for (i = 0; i != segments; i++)
 		{
 		double v = volts[1]+(volts[2]-volts[1])*i/segments;
@@ -97,12 +103,12 @@ internal class MosfetElm : CircuitElm
 		g.fillPolygon(arrowPoly);
 		}
 		if (sim.powerCheckItem.State)
-		g.Color = Color.gray;
+		g.Color = Color.Gray;
 		setVoltageColor(g, volts[0]);
 		drawThickLine(g, point1, gate[1]);
 		drawThickLine(g, gate[0], gate[2]);
 		if (drawDigital() && pnp == -1)
-		drawThickCircle(g, pcircle.x, pcircle.y, pcircler);
+		drawThickCircle(g, pcircle.X, pcircle.Y, pcircler);
 		if ((flags & FLAG_SHOWVT) != 0)
 		{
 		string s = "" + (vt*pnp);
@@ -112,12 +118,12 @@ internal class MosfetElm : CircuitElm
 		}
 		if ((needsHighlight() || sim.dragElm == this) && dy == 0)
 		{
-		g.Color = Color.white;
+		g.Color = Color.White;
 		g.Font = unitsFont;
 		int ds = sign(dx);
-		g.drawString("G", gate[1].x-10*ds, gate[1].y-5);
-		g.drawString(pnp == -1 ? "D" : "S", src[0].x-3+9*ds, src[0].y+4); // x+6 if ds=1, -12 if -1
-		g.drawString(pnp == -1 ? "S" : "D", drn[0].x-3+9*ds, drn[0].y+4);
+		g.drawString("G", gate[1].X-10*ds, gate[1].Y-5);
+		g.drawString(pnp == -1 ? "D" : "S", src[0].X-3+9*ds, src[0].Y+4); // x+6 if ds=1, -12 if -1
+		g.drawString(pnp == -1 ? "S" : "D", drn[0].X-3+9*ds, drn[0].Y+4);
 		}
 		curcount = updateDotCount(-ids, curcount);
 		drawDots(g, src[0], src[1], curcount);

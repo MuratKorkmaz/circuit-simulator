@@ -362,7 +362,7 @@ namespace JavaToSharp
             double ts = sim.timeStep*speed;
             while (gridStep < ts*5)
                 gridStep *= 10;
-            double tstart = sim.t-sim.timeStep*speed*rect.width;
+            double tstart = sim.t-sim.timeStep*speed*rect.Width;
             double tx = sim.t-(sim.t % gridStep);
             for (ll = 0; ; ll++)
             {
@@ -541,7 +541,7 @@ namespace JavaToSharp
                 else if (showI)
                     g.drawString(elm.getCurrentText(realMinI), x, ym);
             }
-            if (text != null && rect.y + rect.Height > yt+5)
+            if (text != null && rect.Y + rect.Height > yt+5)
             {
                 g.drawString(text, x, yt);
                 yt += 15;

@@ -3,6 +3,7 @@
 // FIXME need to add PhotoResistorElm.java to srclist
 
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -23,8 +24,18 @@ namespace JavaToSharp
         }
         public PhotoResistorElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
         {
-            minresistance = new (double)double?(st.nextToken());
-            maxresistance = new (double)double?(st.nextToken());
+            string sMinresistance = st.nextToken();
+            bool isParsedMinresistance = double.TryParse(sMinresistance, out minresistance);
+            if (!isParsedMinresistance)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
+            string sMaxresistance = st.nextToken();
+            bool isParsedMaxresistance = double.TryParse(sMaxresistance, out maxresistance);
+            if (!isParsedMaxresistance)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
             createSlider();
         }
         internal override bool nonLinear()
@@ -48,9 +59,9 @@ namespace JavaToSharp
 
         protected virtual void createSlider()
         {
-            sim.main.add(label = new Label("Уровень света", Label.CENTER));
+            sim.main.Add(label = new Label("Уровень света", Label.CENTER));
             int value = 50;
-            sim.main.add(slider = new Scrollbar(Scrollbar.HORIZONTAL, value, 1, 0, 101));
+            sim.main.Add(slider = new Scrollbar(Scrollbar.HORIZONTAL, value, 1, 0, 101));
             sim.main.validate();
         }
         internal override void setPoints()
@@ -62,8 +73,8 @@ namespace JavaToSharp
         }
         internal override void delete()
         {
-            sim.main.remove(label);
-            sim.main.remove(slider);
+            sim.main.Remove(label);
+            sim.main.Remove(slider);
         }
 
         internal override void draw(Graphics g)
