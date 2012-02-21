@@ -116,12 +116,12 @@ namespace JavaToSharp
             if (abs(dx) > abs(dy))
             {
                 dir = -sign(dx) * sign(dy);
-                point2.y = point1.y;
+                point2.Y = point1.Y;
             }
             else
             {
                 dir = sign(dy) * sign(dx);
-                point2.x = point1.x;
+                point2.X = point1.X;
             }
             if (dir == 0)
                 dir = 1;

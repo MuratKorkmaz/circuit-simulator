@@ -85,6 +85,8 @@ namespace JavaToSharp
             drawPosts(g);
         }
 
+       
+
         private const double default_zvoltage = 5.6;
 
         internal override void getInfo(string[] arr)

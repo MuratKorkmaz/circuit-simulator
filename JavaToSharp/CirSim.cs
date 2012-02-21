@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using JavaToSharp.Elements;
 
 namespace JavaToSharp
 { // CirSim.java (c) 2010 by Paul Falstad

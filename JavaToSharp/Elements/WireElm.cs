@@ -32,6 +32,9 @@ namespace JavaToSharp
             }
             drawPosts(g);
         }
+
+        
+
         internal override void stamp()
         {
             sim.stampVoltageSource(nodes[0], nodes[1], voltSource, 0);

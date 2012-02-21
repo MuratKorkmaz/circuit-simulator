@@ -1,3 +1,5 @@
+using JavaToSharp;
+
 internal class Inductor
 {
 	public const int FLAG_BACK_EULER = 2;

@@ -22,7 +22,6 @@ namespace JavaToSharp
         }
         public TextElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
         {
-            size = new (int)int?
             string sSize = st.nextToken();
             bool isParsedSize = int.TryParse(sSize, out size);
             if (!isParsedSize)
