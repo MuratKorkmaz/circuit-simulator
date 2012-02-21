@@ -75,9 +75,9 @@ namespace JavaToSharp
 
         protected virtual void createSlider()
         {
-            sim.main.add(label = new Label(sliderText, Label.CENTER));
+            sim.main.Add(label = new Label(sliderText, Label.CENTER));
             int value = (int)(position*100);
-            sim.main.add(slider = new Scrollbar(Scrollbar.HORIZONTAL, value, 1, 0, 101));
+            sim.main.Add(slider = new Scrollbar(Scrollbar.HORIZONTAL, value, 1, 0, 101));
             sim.main.validate();
             slider.addAdjustmentListener(this);
         }
@@ -88,8 +88,8 @@ namespace JavaToSharp
         }
         internal override void delete()
         {
-            sim.main.remove(label);
-            sim.main.remove(slider);
+            sim.main.Remove(label);
+            sim.main.Remove(slider);
         }
 
         private Point post3;

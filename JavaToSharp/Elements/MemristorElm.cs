@@ -1,3 +1,7 @@
+using System;
+using System.Drawing;
+using JavaToSharp;
+
 internal class MemristorElm : CircuitElm
 {
 	internal double r_on, r_off, dopeWidth, totalWidth, mobility, resistance;
@@ -12,12 +16,36 @@ internal class MemristorElm : CircuitElm
 	}
 	public MemristorElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
 	{
-	r_on = new (double)double?(st.nextToken());
-	r_off = new (double)double?(st.nextToken());
-	dopeWidth = new (double)double?(st.nextToken());
-	totalWidth = new (double)double?(st.nextToken());
-	mobility = new (double)double?(st.nextToken());
-	resistance = 100;
+	    string sR_on = st.nextToken();
+	    bool isParsedR_on = double.TryParse(sR_on , out r_on);
+	    if (!isParsedR_on)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sR_off = st.nextToken();
+	    bool isParsedR_off = double.TryParse(sR_off, out r_off);
+	    if (!isParsedR_off)
+	    {
+	       throw new Exception("Не удалось привести к типу double"); 
+	    }
+	    dopeWidth = new (double)double?
+	    string sDopeWidth = st.nextToken();
+	    bool isParsedDopeWidth = double.TryParse(sDopeWidth,out dopeWidth);
+	    totalWidth = new (double)double?
+	    string sTotalWidth = st.nextToken();
+	    bool isParsedTotalWidth = double.TryParse(sTotalWidth, out totalWidth);
+	    if (!isParsedTotalWidth)
+	    {
+	         throw new Exception("Не удалось привести к типу double"); 
+	    }
+	    mobility = new (double)double?
+	    string sMobility = st.nextToken();
+	    bool isParsedMobility = double.TryParse(sMobility , out mobility);
+	    if (!isParsedMobility)
+	    {
+	         throw new Exception("Не удалось привести к типу double"); 
+	    }
+	    resistance = 100;
 	}
 	internal override int DumpType
 	{
@@ -51,7 +79,7 @@ internal class MemristorElm : CircuitElm
 	setBbox(point1, point2, hs);
 	draw2Leads(g);
 	setPowerColor(g, true);
-	double segf = 1./segments;
+	double segf = 1.0/segments;
 
 	// draw zigzag
 	for (i = 0; i <= segments; i++)

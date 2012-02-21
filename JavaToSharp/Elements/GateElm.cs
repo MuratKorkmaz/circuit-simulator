@@ -1,4 +1,5 @@
 	using System.Drawing;
+	using JavaToSharp;
 
 internal abstract class GateElm : CircuitElm
 	{

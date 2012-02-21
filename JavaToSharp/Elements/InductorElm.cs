@@ -1,4 +1,6 @@
-	internal class InductorElm : CircuitElm
+	using JavaToSharp;
+
+internal class InductorElm : CircuitElm
 	{
 	internal Inductor ind;
 	internal double inductance;

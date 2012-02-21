@@ -30,14 +30,14 @@ namespace JavaToSharp
             int i;
             for (i = 0; i != 16; i++)
             {
-                double a = i/16.;
+                double a = i/16.0;
                 double b = 1-a*a;
                 interpPoint2(lead1, lead2, triPoints[i], triPoints[32-i],.5+a/2, b*hs2);
             }
             double ww2 = (ww == 0) ? dn*2 : ww*2;
             for (i = 0; i != 5; i++)
             {
-                double a = (i-2)/2.;
+                double a = (i-2)/2.0;
                 double b = 4*(1-a*a)-2;
                 interpPoint(lead1, lead2, triPoints[33+i], b/(ww2), a*hs2);
                 if (this is XorGateElm)

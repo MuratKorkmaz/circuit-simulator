@@ -23,12 +23,19 @@ namespace JavaToSharp
         public SwitchElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
         {
             string str = st.nextToken();
+            string sPosition = null;
             if (System.String.CompareOrdinal(str, "true") == 0)
                 position = (this is LogicInputElm) ? 0 : 1;
             else if (System.String.CompareOrdinal(str, "false") == 0)
                 position = (this is LogicInputElm) ? 1 : 0;
             else
-                position = new (int)int?(str);
+                
+            sPosition = str;
+            bool isParsedPosition = int.TryParse(sPosition, out position);
+            if (!isParsedPosition)
+            {
+                throw new Exception("Не удалось привести к типу int");
+            }
 
             string sMomentary = (st.nextToken());
             bool isParsedMomentary = bool.TryParse(sMomentary, out momentary);
@@ -81,6 +88,7 @@ namespace JavaToSharp
             drawThickLine(g, ps, ps2);
             drawPosts(g);
         }
+
         internal override void calculateCurrent()
         {
             if (position == 1)

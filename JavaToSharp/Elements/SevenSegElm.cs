@@ -21,7 +21,7 @@ namespace JavaToSharp
         private Color darkred;
         internal override void setupPins()
         {
-            darkred = new Color(30, 0, 0);
+            darkred = Color.FromArgb(30, 0, 0);
             sizeX = 4;
             sizeY = 4;
             pins = new Pin[7];
@@ -36,7 +36,7 @@ namespace JavaToSharp
         internal override void draw(Graphics g)
         {
             drawChip(g);
-            g.Color = Color.red;
+            g.Color = Color.Red;
             int xl = x+cspc*5;
             int yl = y+cspc;
             setColor(g, 0);
@@ -57,7 +57,7 @@ namespace JavaToSharp
 
         protected virtual void setColor(Graphics g, int p)
         {
-            g.Color = pins[p].value ? Color.red : sim.printableCheckItem.State ? Color.white : darkred;
+            g.Color = pins[p].value ? Color.Red : sim.printableCheckItem.State ? Color.White : darkred;
         }
         internal virtual int PostCount
         {

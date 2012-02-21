@@ -1,3 +1,5 @@
+using JavaToSharp;
+
 internal class EditOptions : Editable
 {
 	internal CirSim sim;

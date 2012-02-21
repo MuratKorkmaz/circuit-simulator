@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using JavaToSharp;
 
 // stub implementation of DiacElm, based on SparkGapElm
 // FIXME need to add DiacElm.java to srclist

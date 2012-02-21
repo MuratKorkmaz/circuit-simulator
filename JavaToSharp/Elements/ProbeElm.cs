@@ -47,7 +47,7 @@ namespace JavaToSharp
             if (selected)
                 g.Color = selectColor;
             drawThickLine(g, lead2, point2);
-            Font f = new Font("SansSerif", Font.BOLD, 14);
+            Font f = new Font("SansSerif", 14, FontStyle.Bold); 
             g.Font = f;
             if (this == sim.plotXElm)
                 drawCenteredText(g, "X", center.X, center.Y, true);

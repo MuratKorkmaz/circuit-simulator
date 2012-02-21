@@ -55,6 +55,7 @@
     <Compile Include="Elements\AntennaElm.cs" />
     <Compile Include="Elements\CapacitorElm.cs" />
     <Compile Include="Elements\CC2Elm.cs" />
+    <Compile Include="Elements\Checkbox.cs" />
     <Compile Include="Elements\ChipElm.cs" />
     <Compile Include="Circuit.cs" />
     <Compile Include="CircuitCanvas.cs" />
