@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using JavaToSharp;
 
 
@@ -17,11 +18,36 @@ internal class LampElm : CircuitElm
 	}
 	public LampElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
 	{
-		temp = new (double)double?(st.nextToken());
-		nom_pow = new (double)double?(st.nextToken());
-		nom_v = new (double)double?(st.nextToken());
-		warmTime = new (double)double?(st.nextToken());
-		coolTime = new (double)double?(st.nextToken());
+	    string sTemp = st.nextToken();
+	    bool isParsedTemp = double.TryParse(sTemp, out temp);
+	    if (!isParsedTemp)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sNom_pow = st.nextToken();
+	    bool isParsedNom_pow = double.TryParse(sNom_pow, out nom_pow);
+	    if (!isParsedNom_pow)
+	    {
+	         throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sNom_v = st.nextToken();
+	    bool isParsedNom_v = double.TryParse(sNom_v, out nom_v);
+	    if (!isParsedNom_v)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sWarmTime = st.nextToken();
+	    bool isParsedWarmTime = double.TryParse(sWarmTime, out warmTime);
+	    if (!isParsedWarmTime)
+	    {
+	         throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sCoolTime = st.nextToken();
+	    bool isParsedCoolTime = double.TryParse(sCoolTime, out coolTime);
+	    if (!isParsedCoolTime)
+	    {
+	         throw new Exception("Не удалось привести к типу double");
+	    }
 	}
 	internal override string dump()
 	{
@@ -69,23 +95,23 @@ internal class LampElm : CircuitElm
 			int x = (int)(255*(temp-800)/400);
 			if (x < 0)
 				x = 0;
-			return new Color(x, 0, 0);
+			return Color.FromArgb(x, 0, 0);  
 			}
 			if (temp < 1700)
 			{
 			int x = (int)(255*(temp-1200)/500);
 			if (x < 0)
 				x = 0;
-			return new Color(255, x, 0);
+			return  Color.FromArgb(255, x, 0);
 			}
 			if (temp < 2400)
 			{
 			int x = (int)(255*(temp-1700)/700);
 			if (x < 0)
 				x = 0;
-			return new Color(255, 255, x);
+			return  Color.FromArgb(255, 255, x);
 			}
-			return Color.white;
+			return Color.White;
 		}
 	}
 
@@ -94,14 +120,14 @@ internal class LampElm : CircuitElm
 		double v1 = volts[0];
 		double v2 = volts[1];
 		setBbox(point1, point2, 4);
-		adjustBbox(bulb.x-bulbR, bulb.y-bulbR, bulb.x+bulbR, bulb.y+bulbR);
+		adjustBbox(bulb.X-bulbR, bulb.Y-bulbR, bulb.X+bulbR, bulb.Y+bulbR);
 		// adjustbbox
 		draw2Leads(g);
 		setPowerColor(g, true);
 		g.Color = TempColor;
-		g.fillOval(bulb.x-bulbR, bulb.y-bulbR, bulbR*2, bulbR*2);
-		g.Color = Color.white;
-		drawThickCircle(g, bulb.x, bulb.y, bulbR);
+		g.fillOval(bulb.X-bulbR, bulb.Y-bulbR, bulbR*2, bulbR*2);
+		g.Color = Color.White;
+		drawThickCircle(g, bulb.X, bulb.Y, bulbR);
 		setVoltageColor(g, v1);
 		drawThickLine(g, lead1, filament[0]);
 		setVoltageColor(g, v2);

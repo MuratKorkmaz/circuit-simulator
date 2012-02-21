@@ -8,6 +8,7 @@ namespace JavaToSharp
         internal readonly int FLAG_TERNARY = 1;
         internal readonly int FLAG_NUMERIC = 2;
         internal double hiV, loV;
+        private bool Ternary;
         public LogicInputElm(int xx, int yy) : base(xx, yy, false)
         {
             hiV = 5;
@@ -17,8 +18,18 @@ namespace JavaToSharp
         {
             try
             {
-                hiV = new (double)double?(st.nextToken());
-                loV = new (double)double?(st.nextToken());
+                string sHiV = st.nextToken();
+                bool isParsedHiV = double.TryParse(sHiV, out hiV);
+                if (!isParsedHiV)
+                {
+                    throw new Exception("Не удалось привести к типу double");
+                }
+                string sLov = st.nextToken();
+                bool isParsedLov = double.TryParse(sLov, out loV);
+                if (!isParsedLov)
+                {  
+                    throw new Exception("Не удалось привести к типу double");
+                }
             }
             catch (Exception e)
             {
@@ -67,7 +78,7 @@ namespace JavaToSharp
         }
         internal override void draw(Graphics g)
         {
-            Font f = new Font("SansSerif", Font.BOLD, 20);
+            Font f = new Font("SansSerif", 20, FontStyle.Bold);
             g.Font = f;
             g.Color = needsHighlight() ? selectColor : whiteColor;
             string s = position == 0 ? "L" : "H";

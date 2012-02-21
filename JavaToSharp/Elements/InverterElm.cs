@@ -16,11 +16,16 @@ internal class InverterElm : CircuitElm
 		noDiagonal = true;
 		try
 		{
-		slewRate = new (double)double? (st.nextToken());
+		    string sSlewRate = st.nextToken();
+		    bool isParsedSlewRate = double.TryParse(sSlewRate, out slewRate);
+		    if (!isParsedSlewRate)
+		    {
+		        throw new Exception("Не удалось привести к типу double");
+		    }
 		}
 		catch (Exception e)
 		{
-		slewRate =.5;
+		slewRate =0.5;
 		}
 	}
 	internal override string dump()
@@ -41,7 +46,7 @@ internal class InverterElm : CircuitElm
 		draw2Leads(g);
 		g.Color = needsHighlight() ? selectColor : lightGrayColor;
 		drawThickPolygon(g, gatePoly);
-		drawThickCircle(g, pcircle.x, pcircle.y, 3);
+		drawThickCircle(g, pcircle.X, pcircle.Y, 3);
 		curcount = updateDotCount(current, curcount);
 		drawDots(g, lead2, point2, curcount);
 	}

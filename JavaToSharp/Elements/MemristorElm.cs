@@ -28,17 +28,14 @@ internal class MemristorElm : CircuitElm
 	    {
 	       throw new Exception("Не удалось привести к типу double"); 
 	    }
-	    dopeWidth = new (double)double?
 	    string sDopeWidth = st.nextToken();
 	    bool isParsedDopeWidth = double.TryParse(sDopeWidth,out dopeWidth);
-	    totalWidth = new (double)double?
 	    string sTotalWidth = st.nextToken();
 	    bool isParsedTotalWidth = double.TryParse(sTotalWidth, out totalWidth);
 	    if (!isParsedTotalWidth)
 	    {
 	         throw new Exception("Не удалось привести к типу double"); 
 	    }
-	    mobility = new (double)double?
 	    string sMobility = st.nextToken();
 	    bool isParsedMobility = double.TryParse(sMobility , out mobility);
 	    if (!isParsedMobility)

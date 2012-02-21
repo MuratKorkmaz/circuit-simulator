@@ -22,10 +22,30 @@ internal class DiacElm : CircuitElm
 	}
 	public DiacElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
 	{
-	onresistance = new (double)double?(st.nextToken());
-	offresistance = new (double)double?(st.nextToken());
-	breakdown = new (double)double?(st.nextToken());
-	holdcurrent = new (double)double?(st.nextToken());
+	    string sOnresistance = st.nextToken();
+	    bool isParsedOnresistance = double.TryParse(sOnresistance ,out onresistance);
+	    if (isParsedOnresistance)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sOffresistance = st.nextToken();
+	    bool isParsedOffresistance = double.TryParse(sOffresistance, out offresistance);
+	    if (!isParsedOffresistance)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sBreakdown = st.nextToken();
+	    bool isPrarsedBreakdown = double.TryParse(sBreakdown, out breakdown);
+	    if (!isPrarsedBreakdown)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sHoldcurrent = st.nextToken();
+	    bool isParsedHoldcurrent = double.TryParse(sHoldcurrent, out holdcurrent);
+	    if (!isParsedHoldcurrent)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
 	}
 	internal override bool nonLinear()
 	{

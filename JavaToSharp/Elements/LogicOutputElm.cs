@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using JavaToSharp;
 
 
@@ -17,7 +18,12 @@ internal class LogicOutputElm : CircuitElm
 	{
 		try
 		{
-		threshold = new (double)double?(st.nextToken());
+		    string sThreshold = st.nextToken();
+		    bool isParsedThreshold = double.TryParse(sThreshold, out threshold);
+		    if (!isParsedThreshold)
+		    {
+		        throw new Exception("Не удалось привести к типу double");
+		    }
 		}
 		catch (Exception e)
 		{
@@ -42,7 +48,7 @@ internal class LogicOutputElm : CircuitElm
 			return 1;
 		}
 	}
-	internal virtual bool isTernary()
+	internal virtual bool IsTernary()
 	{
 		get
 		{
@@ -67,7 +73,7 @@ internal class LogicOutputElm : CircuitElm
 	}
 	internal override void draw(Graphics g)
 	{
-		Font f = new Font("SansSerif", Font.BOLD, 20);
+		Font f = new Font("SansSerif", 20, FontStyle.Bold);
 		g.Font = f;
 		//g.setColor(needsHighlight() ? selectColor : lightGrayColor);
 		g.Color = lightGrayColor;

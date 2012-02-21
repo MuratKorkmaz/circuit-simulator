@@ -1,3 +1,5 @@
+	using System;
+	using System.Drawing;
 	using JavaToSharp;
 
 internal class InductorElm : CircuitElm
@@ -13,9 +15,19 @@ internal class InductorElm : CircuitElm
 	public InductorElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
 	{
 		ind = new Inductor(sim);
-		inductance = new (double)double?(st.nextToken());
-		current = new (double)double?(st.nextToken());
-		ind.setup(inductance, current, flags);
+	    string sInductance = st.nextToken();
+	    bool isParsedInductance = double.TryParse(sInductance, out inductance);
+	    if (!isParsedInductance)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    string sCurrent = st.nextToken();
+	    bool isParsedCurrent = double.TryParse(sCurrent, out current);
+	    if (!isParsedCurrent)
+	    {
+	        throw new Exception("Не удалось привести к типу double");
+	    }
+	    ind.setup(inductance, current, flags);
 	}
 	internal override int DumpType
 	{
