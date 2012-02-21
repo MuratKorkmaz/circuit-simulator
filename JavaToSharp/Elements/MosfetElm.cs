@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using JavaToSharp;
+using JavaToSharp.Elements;
 
 
 internal class MosfetElm : CircuitElm

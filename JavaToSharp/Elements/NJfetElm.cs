@@ -1,6 +1,7 @@
 using System;
+using JavaToSharp.Elements;
 
-	internal class NJfetElm : JfetElm
+internal class NJfetElm : JfetElm
 	{
 	public NJfetElm(int xx, int yy) : base(xx, yy, false)
 	{

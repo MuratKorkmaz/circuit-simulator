@@ -1,3 +1,5 @@
+	using System;
+	using System.Drawing;
 	using JavaToSharp;
 namespace JavaToSharp
 {
@@ -18,9 +20,24 @@ namespace JavaToSharp
 		if ((f & FLAG_FWDROP) == 0)
 		fwdrop = 2.1024259;
 		setup();
-		colorR = new (double)double?(st.nextToken());
-		colorG = new (double)double?(st.nextToken());
-		colorB = new (double)double?(st.nextToken());
+            string sColorR = st.nextToken();
+            bool isParsedColorR = double.TryParse(sColorR , out colorR);
+            if (!isParsedColorR)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
+            string sColorG = st.nextToken();
+            bool isParsedColorG = double.TryParse(sColorG ,out colorG);
+            if (!isParsedColorG)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
+            string sColorB = st.nextToken();
+            bool isParsedColorB = double.TryParse(sColorB, out colorB);
+            if (!isParsedColorB)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
 	}
         internal override int DumpType
         {
@@ -56,16 +73,16 @@ namespace JavaToSharp
             setVoltageColor(g, volts[1]);
             drawThickLine(g, ledLead2, point2);
 
-            g.Color = Color.gray;
+            g.Color = Color.Gray;
             int cr = 12;
-            drawThickCircle(g, ledCenter.x, ledCenter.y, cr);
+            drawThickCircle(g, ledCenter.X, ledCenter.Y, cr);
             cr -= 4;
             double w = 255 * current / .01;
             if (w > 255)
                 w = 255;
-            Color cc = new Color((int)(colorR * w), (int)(colorG * w), (int)(colorB * w));
+            Color cc =  Color.FromArgb((int)(colorR * w), (int)(colorG * w), (int)(colorB * w));
             g.Color = cc;
-            g.fillOval(ledCenter.x - cr, ledCenter.y - cr, cr * 2, cr * 2);
+            g.fillOval(ledCenter.X - cr, ledCenter.Y - cr, cr * 2, cr * 2);
             setBbox(point1, point2, cr);
             updateDotCount();
             drawDots(g, point1, ledLead1, curcount);
