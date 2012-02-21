@@ -14,7 +14,7 @@ namespace JavaToSharp
                 var xs = new List<int>();
                 foreach (var point in Points)
                 {
-                    xs.Add(point.X);
+                    xs.Add((int)point.X);
                 }
                 return xs;
             }
@@ -27,7 +27,7 @@ namespace JavaToSharp
                 var ys = new List<int>();
                 foreach (var point in Points)
                 {
-                    ys.Add(point.Y);
+                    ys.Add((int)point.Y);
                 }
                 return ys;
             }

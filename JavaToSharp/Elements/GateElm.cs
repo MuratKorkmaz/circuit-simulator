@@ -5,7 +5,7 @@ namespace JavaToSharp.Elements
 {
     internal abstract class GateElm : CircuitElm
     {
-        internal readonly int FLAG_SMALL = 1;
+        private const int FLAG_SMALL = 1;
         internal int inputCount = 2;
         internal bool lastOutput;
 
