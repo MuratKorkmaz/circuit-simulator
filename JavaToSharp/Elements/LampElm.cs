@@ -1,7 +1,8 @@
 using System;
+using JavaToSharp;
 
 
-	internal class LampElm : CircuitElm
+internal class LampElm : CircuitElm
 	{
 	internal double resistance;
 	internal readonly double roomTemp = 300;

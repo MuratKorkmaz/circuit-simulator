@@ -81,7 +81,12 @@ namespace JavaToSharp.Elements
             {
                 throw new Exception("Не удалось привести к типу double");
             }
-            coilR = new (double)double?(st.nextToken());
+            string sCoilR = st.nextToken();
+            bool isParsedCoilR = double.TryParse(sCoilR, out coilR);
+            if (!isParsedCoilR)
+            {
+                throw new Exception("Не удалось привести к типу double");
+            }
             noDiagonal = true;
             ind = new Inductor(sim);
             ind.setup(inductance, coilCurrent, Inductor.FLAG_BACK_EULER);
@@ -125,7 +130,7 @@ namespace JavaToSharp.Elements
             drawCoil(g, dsign*6, coilLeads[x], coilLeads[1-x], volts[nCoil1+x], volts[nCoil2-x]);
 
             // draw lines
-            g.Color = Color.darkGray;
+            g.Color = Color.DarkGray;
             for (i = 0; i != poleCount; i++)
             {
                 if (i == 0)
@@ -133,7 +138,7 @@ namespace JavaToSharp.Elements
                 else
                     interpPoint(point1, point2, lines[i*2],.5, (int)(openhs*(-i*3+3-.5+d_position))+5*dsign);
                 interpPoint(point1, point2, lines[i*2+1],.5, (int)(openhs*(-i*3-.5+d_position))-5*dsign);
-                g.drawLine(lines[i*2].x, lines[i*2].y, lines[i*2+1].x, lines[i*2+1].y);
+                g.drawLine(lines[i*2].X, lines[i*2].Y, lines[i*2+1].X, lines[i*2+1].Y);
             }
 
             for (p = 0; p != poleCount; p++)
@@ -148,7 +153,7 @@ namespace JavaToSharp.Elements
 
                 interpPoint(swpoles[p][1], swpoles[p][2], ptSwitch[p], d_position);
                 //setVoltageColor(g, volts[nSwitch0]);
-                g.Color = Color.lightGray;
+                g.Color = Color.LightGray;
                 drawThickLine(g, swpoles[p][0], ptSwitch[p]);
                 switchCurCount[p] = updateDotCount(switchCurrent[p], switchCurCount[p]);
                 drawDots(g, swposts[p][0], swpoles[p][0], switchCurCount[p]);

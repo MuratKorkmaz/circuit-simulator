@@ -1,7 +1,8 @@
 using System;
+using JavaToSharp;
 
 
-	internal class LogicOutputElm : CircuitElm
+internal class LogicOutputElm : CircuitElm
 	{
 	internal readonly int FLAG_TERNARY = 1;
 	internal readonly int FLAG_NUMERIC = 2;

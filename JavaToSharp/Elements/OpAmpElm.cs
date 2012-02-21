@@ -1,7 +1,8 @@
 using System;
+using JavaToSharp;
 
 
-	internal class OpAmpElm : CircuitElm
+internal class OpAmpElm : CircuitElm
 	{
 	internal int opsize, opheight, opwidth, opaddtext;
 	internal double maxOut, minOut, gain, gbw;

@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using JavaToSharp;
 
 
 internal class InverterElm : CircuitElm

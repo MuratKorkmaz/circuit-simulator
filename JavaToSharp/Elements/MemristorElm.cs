@@ -1,3 +1,5 @@
+using JavaToSharp;
+
 internal class MemristorElm : CircuitElm
 {
 	internal double r_on, r_off, dopeWidth, totalWidth, mobility, resistance;

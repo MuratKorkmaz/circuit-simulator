@@ -1,4 +1,6 @@
-	internal class DFlipFlopElm : ChipElm
+	using JavaToSharp;
+
+internal class DFlipFlopElm : ChipElm
 	{
 	internal readonly int FLAG_RESET = 2;
 	internal virtual bool hasReset()

@@ -1,7 +1,8 @@
 using System;
+using JavaToSharp;
 
 
-	internal class MosfetElm : CircuitElm
+internal class MosfetElm : CircuitElm
 	{
 	internal int pnp;
 	internal int FLAG_PNP = 1;
