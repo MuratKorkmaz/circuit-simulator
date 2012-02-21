@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -35,23 +34,13 @@ namespace JavaToSharp
         }
 
         internal static Container main;
-        private Label titleLabel;
-        private Button resetButton;
-        private Button dumpMatrixButton;
-        private MenuItem exportItem;
-        private MenuItem exportLinkItem;
-        private MenuItem importItem;
-        private MenuItem exitItem;
-        private MenuItem undoItem;
-        private MenuItem redoItem;
-        private MenuItem cutItem;
-        private MenuItem copyItem;
-        private MenuItem pasteItem;
-        private MenuItem selectAllItem;
-        private MenuItem optionsItem;
-        private Menu optionsMenu;
-        internal CheckBox stoppedCheck;
-        internal CheckBoxMenuItem dotsCheckItem;
+        internal Label titleLabel;
+        internal Button resetButton;
+        internal Button dumpMatrixButton;
+        internal MenuItem exportItem, exportLinkItem, importItem, exitItem, undoItem, redoItem, cutItem, copyItem, pasteItem, selectAllItem, optionsItem;
+        internal Menu optionsMenu;
+        internal Checkbox stoppedCheck;
+        internal CheckboxMenuItem dotsCheckItem;
         internal CheckboxMenuItem voltsCheckItem;
         internal CheckboxMenuItem powerCheckItem;
         internal CheckboxMenuItem smallGridCheckItem;
@@ -59,20 +48,20 @@ namespace JavaToSharp
         internal CheckboxMenuItem conductanceCheckItem;
         internal CheckboxMenuItem euroResistorCheckItem;
         internal CheckboxMenuItem printableCheckItem;
-        private CheckboxMenuItem conventionCheckItem;
-        private Scrollbar speedBar;
-        private Scrollbar currentBar;
-        private Label powerLabel;
-        private Scrollbar powerBar;
-        private PopupMenu elmMenu;
-        private MenuItem elmEditMenuItem;
-        private MenuItem elmCutMenuItem;
-        private MenuItem elmCopyMenuItem;
-        private MenuItem elmDeleteMenuItem;
-        private MenuItem elmScopeMenuItem;
+        internal CheckboxMenuItem conventionCheckItem;
+        internal Scrollbar speedBar;
+        internal Scrollbar currentBar;
+        internal Label powerLabel;
+        internal Scrollbar powerBar;
+        internal PopupMenu elmMenu;
+        internal MenuItem elmEditMenuItem;
+        internal MenuItem elmCutMenuItem;
+        internal MenuItem elmCopyMenuItem;
+        internal MenuItem elmDeleteMenuItem;
+        internal MenuItem elmScopeMenuItem;
         internal PopupMenu scopeMenu;
         internal PopupMenu transScopeMenu;
-        private PopupMenu mainMenu;
+        internal PopupMenu mainMenu;
         internal CheckboxMenuItem scopeVMenuItem;
         internal CheckboxMenuItem scopeIMenuItem;
         internal CheckboxMenuItem scopeMaxMenuItem;
@@ -90,62 +79,61 @@ namespace JavaToSharp
         internal CheckboxMenuItem scopeResistMenuItem;
         internal CheckboxMenuItem scopeVceIcMenuItem;
         internal MenuItem scopeSelectYMenuItem;
-        private Type addingClass;
-        internal const int mouseMode = MODE_SELECT;
-        private int tempMouseMode = MODE_SELECT;
-        private const string mouseModeStr = "Select";
-        private const double pi = Math.PI;
-        private const int MODE_ADD_ELM = 0;
-        private const int MODE_DRAG_ALL = 1;
+        internal Type addingClass;
+        internal int mouseMode = MODE_SELECT;
+        internal int tempMouseMode = MODE_SELECT;
+        internal string mouseModeStr = "Select";
+        internal const double pi = 3.14159265358979323846;
+        internal const int MODE_ADD_ELM = 0;
+        internal const int MODE_DRAG_ALL = 1;
         internal const int MODE_DRAG_ROW = 2;
         internal const int MODE_DRAG_COLUMN = 3;
-        private const int MODE_DRAG_SELECTED = 4;
-        private const int MODE_DRAG_POST = 5;
-        private const int MODE_SELECT = 6;
-        private const int infoWidth = 120;
-        private int dragX;
-        private int dragY;
-        private int initDragX;
-        private int initDragY;
+        internal const int MODE_DRAG_SELECTED = 4;
+        internal const int MODE_DRAG_POST = 5;
+        internal const int MODE_SELECT = 6;
+        internal const int infoWidth = 120;
+        internal int dragX, dragY, initDragX, initDragY;
         internal int selectedSource;
-        private Rectangle selectedArea;
-        internal int gridSize;
-        private int gridMask;
-        private int gridRound;
+        internal Rectangle selectedArea;
+        internal int gridSize, gridMask, gridRound;
+        internal bool dragging;
         internal bool analyzeFlag;
-        private bool dumpMatrix;
+        internal bool dumpMatrix;
         internal bool useBufferedImage;
-        private bool isMac;
-        private string ctrlMetaKey;
+        internal bool isMac;
+        internal string ctrlMetaKey;
         internal double t;
-        private int pause = 10;
+        internal int pause = 10;
         internal int scopeSelected = -1;
-        private int menuScope = -1;
+        internal int menuScope = -1;
         internal int hintType = -1, hintItem1, hintItem2;
-        private string stopMessage;
+        internal string stopMessage;
         internal double timeStep;
-        private const int HINT_LC = 1;
-        private const int HINT_RC = 2;
-        private const int HINT_3DB_C = 3;
-        private const int HINT_TWINT = 4;
-        private const int HINT_3DB_L = 5;
+        internal const int HINT_LC = 1;
+        internal const int HINT_RC = 2;
+        internal const int HINT_3DB_C = 3;
+        internal const int HINT_TWINT = 4;
+        internal const int HINT_3DB_L = 5;
         internal ArrayList elmList;
-        private ArrayList setupList;
+        internal ArrayList setupList;
         internal CircuitElm dragElm, menuElm, mouseElm, stopElm;
-        private int mousePost = -1;
+        internal int mousePost = -1;
         internal CircuitElm plotXElm, plotYElm;
-        private int draggingPost;
-        private SwitchElm heldSwitchElm;
-        private double[][] circuitMatrix; internal double[] circuitRightSide; internal double[] origRightSide; internal double[][] origMatrix;
-        private RowInfo[] circuitRowInfo;
-        private int[] circuitPermute;
-        private bool circuitNonLinear;
-        private int voltageSourceCount;
+        internal int draggingPost;
+        internal SwitchElm heldSwitchElm;
+        internal double[][] circuitMatrix; 
+        internal double[] circuitRightSide; 
+        internal double[] origRightSide; 
+        internal double[][] origMatrix;
+        internal RowInfo[] circuitRowInfo;
+        internal int[] circuitPermute;
+        internal bool circuitNonLinear;
+        internal int voltageSourceCount;
         internal int circuitMatrixSize, circuitMatrixFullSize;
-        private bool circuitNeedsMap;
+        internal bool circuitNeedsMap;
         public bool useFrame;
-        private int scopeCount;
-        private Scope[] scopes;
+        internal int scopeCount;
+        internal Scope[] scopes;
         internal int[] scopeColCount;
         internal static EditDialog editDialog;
         internal static ImportDialog impDialog;
@@ -167,7 +155,7 @@ namespace JavaToSharp
         internal CircuitCanvas cv;
         internal Circuit applet;
 
-        internal CirSim(Circuit a) : base("Circuit Simulator v1.5n")
+        internal CirSim(Circuit a) 
         {
             applet = a;
             useFrame = false;
@@ -727,7 +715,6 @@ namespace JavaToSharp
 
         public virtual void updateCircuit(Graphics realg)
         {
-            CircuitElm realMouseElm;
             if (winSize == null || winSize.width == 0)
                 return;
             if (analyzeFlag)
@@ -737,26 +724,26 @@ namespace JavaToSharp
             }
             if (editDialog != null && editDialog.elm is CircuitElm)
                 mouseElm = (CircuitElm)(editDialog.elm);
-            realMouseElm = mouseElm;
+            CircuitElm realMouseElm = mouseElm;
             if (mouseElm == null)
                 mouseElm = stopElm;
             setupScopes();
-            Graphics g = null;
-            g = dbimage.Graphics;
-            CircuitElm.selectColor = Color.cyan;
+            var g = Graphics.FromImage(dbimage);
+            CircuitElm.selectColor = Color.Cyan;
+            Brush backBrush;
             if (printableCheckItem.State)
             {
-                CircuitElm.whiteColor = Color.black;
-                CircuitElm.lightGrayColor = Color.black;
-                g.Color = Color.white;
+                CircuitElm.whiteColor = Color.Black;
+                CircuitElm.lightGrayColor = Color.Black;
+                backBrush = Brushes.White;
             }
             else
             {
-                CircuitElm.whiteColor = Color.white;
-                CircuitElm.lightGrayColor = Color.lightGray;
-                g.Color = Color.black;
+                CircuitElm.whiteColor = Color.White;
+                CircuitElm.lightGrayColor = Color.LightGray;
+                backBrush = Brushes.Black;
             }
-            g.fillRect(0, 0, winSize.width, winSize.height);
+            g.FillRectangle(backBrush, 0, 0, winSize.width, winSize.height);
             if (!stoppedCheck.State)
             {
                 try
@@ -765,7 +752,7 @@ namespace JavaToSharp
                 }
                 catch (Exception e)
                 {
-                    e.printStackTrace();
+                    UserMessageView.Instance.ShowError(e.StackTrace);
                     analyzeFlag = true;
                     cv.repaint();
                     return;
@@ -773,7 +760,7 @@ namespace JavaToSharp
             }
             if (!stoppedCheck.State)
             {
-                long sysTime = System.currentTimeMillis();
+                long sysTime = DateTime.Now.Millisecond;
                 if (lastTime != 0)
                 {
                     int inc = (int)(sysTime-lastTime);
@@ -822,15 +809,14 @@ namespace JavaToSharp
                 CircuitNode cn = getCircuitNode(i);
                 if (!cn.internal && cn.links.Count == 1)
                 {
-                    int bb = 0, j ;
-                    CircuitNodeLink cnl = (CircuitNodeLink) cn.links[0];
-                    for (j = 0; j != elmList.Count; j++)
-                        if (cnl.elm != getElm(j) && getElm(j).boundingBox.contains(cn.x, cn.y))
+                    int bb = 0;
+                    var cnl = (CircuitNodeLink) cn.links[0];
+                    for (int j = 0; j != elmList.Count; j++)
+                        if (cnl.elm != getElm(j) && getElm(j).boundingBox.Contains(cn.x, cn.y))
                             bb++;
                     if (bb > 0)
                     {
-                        g.Color = Color.red;
-                        g.fillOval(cn.x-3, cn.y-3, 7, 7);
+                        g.FillEllipse(Brushes.Red, cn.x-3, cn.y-3, 7, 7);
                         badnodes++;
                     }
                 }
@@ -841,22 +827,21 @@ namespace JavaToSharp
 //	    }
             if (dragElm != null && (dragElm.x != dragElm.x2 || dragElm.y != dragElm.y2))
                 dragElm.draw(g);
-            g.Font = oldfont;
             int ct = scopeCount;
             if (stopMessage != null)
                 ct = 0;
             for (i = 0; i != ct; i++)
                 scopes[i].draw(g);
-            g.Color = CircuitElm.whiteColor;
+            var brush = new SolidBrush(CircuitElm.whiteColor);
             if (stopMessage != null)
             {
-                g.drawString(stopMessage, 10, circuitArea.height);
+                g.DrawString(stopMessage, oldfont, brush, 10, circuitArea.Height);
             }
             else
             {
                 if (circuitBottom == 0)
                     calcCircuitBottom();
-                string[] info = new string[10];
+                var info = new string[10];
                 if (mouseElm != null)
                 {
                     if (mousePost == -1)
@@ -900,15 +885,15 @@ namespace JavaToSharp
 
                 // find where to show data; below circuit, not too high unless we need it
                 int ybase = winSize.height-15*i-5;
-                ybase = min(ybase, circuitArea.height);
+                ybase = min(ybase, circuitArea.Height);
                 ybase = max(ybase, circuitBottom);
                 for (i = 0; info[i] != null; i++)
-                    g.drawString(info[i], x, ybase+15*(i+1));
+                    g.DrawString(info[i], x, ybase+15*(i+1));
             }
             if (selectedArea != null)
             {
-                g.Color = CircuitElm.selectColor;
-                g.drawRect(selectedArea.x, selectedArea.y, selectedArea.width, selectedArea.height);
+                var pen = new Pen(CircuitElm.selectColor);
+                g.DrawRectangle(pen, selectedArea.X, selectedArea.Y, selectedArea.Width, selectedArea.Height);
             }
             mouseElm = realMouseElm;
             frames++;
@@ -1192,7 +1177,7 @@ namespace JavaToSharp
                         CircuitNodeLink cnl = new CircuitNodeLink();
                         cnl.num = j;
                         cnl.elm = ce;
-                        cn.links.Add(cnl);
+                        cn.links.addElement(cnl);
                         ce.setNode(j, nodeList.Count);
                         nodeList.Add(cn);
                     }
@@ -1201,7 +1186,7 @@ namespace JavaToSharp
                         CircuitNodeLink cnl = new CircuitNodeLink();
                         cnl.num = j;
                         cnl.elm = ce;
-                        getCircuitNode(k).links.Add(cnl);
+                        getCircuitNode(k).links.addElement(cnl);
                         ce.setNode(j, k);
                         // if it's the ground node, make sure the node voltage is 0,
                         // cause it may not get set later
@@ -1217,7 +1202,7 @@ namespace JavaToSharp
                     CircuitNodeLink cnl = new CircuitNodeLink();
                     cnl.num = j+posts;
                     cnl.elm = ce;
-                    cn.links.Add(cnl);
+                    cn.links.addElement(cnl);
                     ce.setNode(cnl.num, nodeList.Count);
                     nodeList.Add(cn);
                 }
@@ -2011,9 +1996,9 @@ namespace JavaToSharp
                         if (j < nodeList.Count-1)
                         {
                             CircuitNode cn = getCircuitNode(j+1);
-                            for (k = 0; k != cn.links.Count; k++)
+                            for (k = 0; k != cn.links.size(); k++)
                             {
-                                CircuitNodeLink cnl = (CircuitNodeLink) cn.links[k];
+                                CircuitNodeLink cnl = (CircuitNodeLink) cn.links.elementAt(k);
                                 cnl.elm.setNodeVoltage(cnl.num, res);
                             }
                         }
@@ -2111,19 +2096,19 @@ namespace JavaToSharp
                 doUndo();
             if (e.Source == redoItem)
                 doRedo();
-            if (ac.CompareTo("Вырезать") == 0)
+            if (String.CompareOrdinal(ac, "Вырезать") == 0)
             {
                 if (e.Source != elmCutMenuItem)
                     menuElm = null;
                 doCut();
             }
-            if (ac.CompareTo("Копировать") == 0)
+            if (String.CompareOrdinal(ac, "Копировать") == 0)
             {
                 if (e.Source != elmCopyMenuItem)
                     menuElm = null;
                 doCopy();
             }
-            if (ac.CompareTo("Вставить") == 0)
+            if (String.CompareOrdinal(ac, "Вставить") == 0)
                 doPaste();
             if (e.Source == selectAllItem)
                 doSelectAll();
@@ -2132,13 +2117,13 @@ namespace JavaToSharp
                 destroyFrame();
                 return;
             }
-            if (ac.CompareTo("stackAll") == 0)
+            if (String.CompareOrdinal(ac, "stackAll") == 0)
                 stackAll();
-            if (ac.CompareTo("unstackAll") == 0)
+            if (String.CompareOrdinal(ac, "unstackAll") == 0)
                 unstackAll();
             if (e.Source == elmEditMenuItem)
                 doEdit(menuElm);
-            if (ac.CompareTo("Удалить") == 0)
+            if (String.CompareOrdinal(ac, "Удалить") == 0)
             {
                 if (e.Source != elmDeleteMenuItem)
                     menuElm = null;
@@ -2163,34 +2148,34 @@ namespace JavaToSharp
             }
             if (menuScope != -1)
             {
-                if (ac.CompareTo("remove") == 0)
+                if (String.CompareOrdinal(ac, "remove") == 0)
                     scopes[menuScope].Elm = null;
-                if (ac.CompareTo("speed2") == 0)
+                if (String.CompareOrdinal(ac, "speed2") == 0)
                     scopes[menuScope].speedUp();
-                if (ac.CompareTo("speed1/2") == 0)
+                if (String.CompareOrdinal(ac, "speed1/2") == 0)
                     scopes[menuScope].slowDown();
-                if (ac.CompareTo("scale") == 0)
+                if (String.CompareOrdinal(ac, "scale") == 0)
                     scopes[menuScope].adjustScale(.5);
-                if (ac.CompareTo("maxscale") == 0)
+                if (String.CompareOrdinal(ac, "maxscale") == 0)
                     scopes[menuScope].adjustScale(1e-50);
-                if (ac.CompareTo("stack") == 0)
+                if (String.CompareOrdinal(ac, "stack") == 0)
                     stackScope(menuScope);
-                if (ac.CompareTo("unstack") == 0)
+                if (String.CompareOrdinal(ac, "unstack") == 0)
                     unstackScope(menuScope);
-                if (ac.CompareTo("selecty") == 0)
+                if (String.CompareOrdinal(ac, "selecty") == 0)
                     scopes[menuScope].selectY();
-                if (ac.CompareTo("reset") == 0)
+                if (String.CompareOrdinal(ac, "reset") == 0)
                     scopes[menuScope].resetGraph();
                 cv.repaint();
             }
-            if (ac.IndexOf("setup ") == 0)
+            if (ac.IndexOf("setup ", StringComparison.Ordinal) == 0)
             {
                 pushUndo();
                 readSetupFile(ac.Substring(6), ((MenuItem) e.Source).Label);
             }
         }
 
-        internal virtual void stackScope(int s)
+        protected virtual void stackScope(int s)
         {
             if (s == 0)
             {
@@ -2205,7 +2190,7 @@ namespace JavaToSharp
                 scopes[s].position--;
         }
 
-        internal virtual void unstackScope(int s)
+        protected virtual void unstackScope(int s)
         {
             if (s == 0)
             {
@@ -2219,23 +2204,24 @@ namespace JavaToSharp
                 scopes[s].position++;
         }
 
-        internal virtual void stackAll()
+        protected virtual void stackAll()
         {
             int i;
             for (i = 0; i != scopeCount; i++)
             {
                 scopes[i].position = 0;
-                scopes[i].showMax = scopes[i].showMin = false;
+                scopes[i].showMax(false);
+                scopes[i].showMin(false);
             }
         }
 
-        internal virtual void unstackAll()
+        protected virtual void unstackAll()
         {
             int i;
             for (i = 0; i != scopeCount; i++)
             {
                 scopes[i].position = i;
-                scopes[i].showMax = true;
+                scopes[i].showMax(true);
             }
         }
 
@@ -2253,7 +2239,7 @@ namespace JavaToSharp
             editDialog.show();
         }
 
-        internal virtual void doImport(bool imp, bool url)
+        protected virtual void doImport(bool imp, bool url)
         {
             if (impDialog != null)
             {
@@ -2269,7 +2255,7 @@ namespace JavaToSharp
             pushUndo();
         }
 
-        internal virtual string dumpCircuit()
+        protected virtual string dumpCircuit()
         {
             int i;
             int f = (dotsCheckItem.State) ? 1 : 0;
@@ -2299,7 +2285,7 @@ namespace JavaToSharp
 
 //JAVA TO VB & C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: ByteArrayOutputStream readUrlData(URL url) throws java.io.IOException
-        internal virtual ByteArrayOutputStream readUrlData(URL url)
+        protected virtual ByteArrayOutputStream readUrlData(URL url)
         {
             object o = url.Content;
             FilterInputStream fis = (FilterInputStream) o;
@@ -2316,7 +2302,7 @@ namespace JavaToSharp
             return ba;
         }
 
-        internal virtual URL CodeBase
+        protected virtual URL CodeBase
         {
             get
             {
@@ -2335,7 +2321,7 @@ namespace JavaToSharp
             }
         }
 
-        internal virtual void getSetupList(Menu menu, bool retry)
+        protected virtual void getSetupList(Menu menu, bool retry)
         {
             Menu[] stack = new Menu[6];
             int stackptr = 0;
@@ -2408,13 +2394,13 @@ namespace JavaToSharp
             readSetup(text, false);
         }
 
-        internal virtual void readSetup(string text, bool retain)
+        protected virtual void readSetup(string text, bool retain)
         {
             readSetup(text.Bytes, text.Length, retain);
             titleLabel.Text = "untitled";
         }
 
-        internal virtual void readSetupFile(string str, string title)
+        protected virtual void readSetupFile(string str, string title)
         {
             t = 0;
             Console.WriteLine(str);
@@ -2432,7 +2418,7 @@ namespace JavaToSharp
             titleLabel.Text = title;
         }
 
-        internal virtual void readSetup(sbyte[] b, int len, bool retain)
+        protected virtual void readSetup(sbyte[] b, int len, bool retain)
         {
             int i;
             if (!retain)
@@ -2535,11 +2521,11 @@ namespace JavaToSharp
                         // invoke constructor with starting coordinates
                         object[] oarr = new object[6];
                         //oarr[0] = this;
-                        oarr[0] = new int?(x1);
-                        oarr[1] = new int?(y1);
-                        oarr[2] = new int?(x2);
-                        oarr[3] = new int?(y2);
-                        oarr[4] = new int?(f);
+                        oarr[0] = x1;
+                        oarr[1] = y1;
+                        oarr[2] = x2;
+                        oarr[3] = y2;
+                        oarr[4] = f;
                         oarr[5] = st;
                         ce = (CircuitElm) cstr.newInstance(oarr);
                         ce.setPoints();
@@ -2603,11 +2589,11 @@ namespace JavaToSharp
             return (x+gridRound) & gridMask;
         }
 
-        internal virtual bool doSwitch(int x, int y)
+        protected virtual bool doSwitch(int x, int y)
         {
             if (mouseElm == null || !(mouseElm is SwitchElm))
                 return false;
-            SwitchElm se = (SwitchElm) mouseElm;
+            var se = (SwitchElm) mouseElm;
             se.toggle();
             if (se.momentary)
                 heldSwitchElm = se;
@@ -2666,6 +2652,7 @@ namespace JavaToSharp
                     success = dragSelected(e.X, e.Y);
                     break;
             }
+            dragging = true;
             if (success)
             {
                 if (tempMouseMode == MODE_DRAG_SELECTED && mouseElm is TextElm)
@@ -2682,7 +2669,7 @@ namespace JavaToSharp
             cv.repaint(pause);
         }
 
-        internal virtual void dragAll(int x, int y)
+        protected virtual void dragAll(int x, int y)
         {
             int dx = x-dragX;
             int dy = y-dragY;
@@ -2691,13 +2678,13 @@ namespace JavaToSharp
             int i;
             for (i = 0; i != elmList.Count; i++)
             {
-                CircuitElm ce = getElm(i);
+                var ce = getElm(i);
                 ce.move(dx, dy);
             }
             removeZeroLengthElements();
         }
 
-        internal virtual void dragRow(int x, int y)
+        protected virtual void dragRow(int x, int y)
         {
             int dy = y-dragY;
             if (dy == 0)
@@ -2705,7 +2692,7 @@ namespace JavaToSharp
             int i;
             for (i = 0; i != elmList.Count; i++)
             {
-                CircuitElm ce = getElm(i);
+                var ce = getElm(i);
                 if (ce.y == dragY)
                     ce.movePoint(0, 0, dy);
                 if (ce.y2 == dragY)
@@ -2714,7 +2701,7 @@ namespace JavaToSharp
             removeZeroLengthElements();
         }
 
-        internal virtual void dragColumn(int x, int y)
+        protected virtual void dragColumn(int x, int y)
         {
             int dx = x-dragX;
             if (dx == 0)
@@ -2722,7 +2709,7 @@ namespace JavaToSharp
             int i;
             for (i = 0; i != elmList.Count; i++)
             {
-                CircuitElm ce = getElm(i);
+                var ce = getElm(i);
                 if (ce.x == dragX)
                     ce.movePoint(0, dx, 0);
                 if (ce.x2 == dragX)
@@ -2731,7 +2718,7 @@ namespace JavaToSharp
             removeZeroLengthElements();
         }
 
-        internal virtual bool dragSelected(int x, int y)
+        protected virtual bool dragSelected(int x, int y)
         {
             bool me = false;
             if (mouseElm != null && !mouseElm.Selected)
@@ -2788,7 +2775,7 @@ namespace JavaToSharp
             return allowed;
         }
 
-        internal virtual void dragPost(int x, int y)
+        protected virtual void dragPost(int x, int y)
         {
             if (draggingPost == -1)
             {
@@ -2802,7 +2789,7 @@ namespace JavaToSharp
             needAnalyze();
         }
 
-        internal virtual void selectArea(int x, int y)
+        protected virtual void selectArea(int x, int y)
         {
             int x1 = min(x, initDragX);
             int x2 = max(x, initDragX);
@@ -2831,18 +2818,15 @@ namespace JavaToSharp
             }
         }
 
-        internal virtual void removeZeroLengthElements()
+        protected virtual void removeZeroLengthElements()
         {
-            int i;
-            bool changed = false;
-            for (i = elmList.Count-1; i >= 0; i--)
+            for (int i = elmList.Count-1; i >= 0; i--)
             {
                 CircuitElm ce = getElm(i);
                 if (ce.x == ce.x2 && ce.y == ce.y2)
                 {
                     elmList.RemoveAt(i);
                     ce.delete();
-                    changed = true;
                 }
             }
             needAnalyze();
@@ -2941,7 +2925,7 @@ namespace JavaToSharp
                 cv.repaint();
         }
 
-        internal virtual int distanceSq(int x1, int y1, int x2, int y2)
+        protected virtual int distanceSq(int x1, int y1, int x2, int y2)
         {
             x2 -= x1;
             y2 -= y1;
@@ -2959,6 +2943,7 @@ namespace JavaToSharp
         public virtual void mouseEntered(MouseEvent e)
         {
         }
+
         public virtual void mouseExited(MouseEvent e)
         {
             scopeSelected = -1;
@@ -3008,6 +2993,7 @@ namespace JavaToSharp
             pushUndo();
             initDragX = e.X;
             initDragY = e.Y;
+            dragging = true;
             if (tempMouseMode != MODE_ADD_ELM || addingClass == null)
                 return;
 
@@ -3019,7 +3005,7 @@ namespace JavaToSharp
             dragElm = constructElement(addingClass, x0, y0);
         }
 
-        internal virtual CircuitElm constructElement(Type c, int x0, int y0)
+        protected virtual CircuitElm constructElement(Type c, int x0, int y0)
         {
             // find element class
             Type[] carr = new Class[2];
@@ -3056,7 +3042,7 @@ namespace JavaToSharp
             return null;
         }
 
-        internal virtual void doPopupMenu(MouseEvent e)
+        protected virtual void doPopupMenu(MouseEvent e)
         {
             menuElm = mouseElm;
             menuScope = -1;
@@ -3080,7 +3066,7 @@ namespace JavaToSharp
             }
         }
 
-        internal virtual void doMainMenuChecks(Menu m)
+        protected virtual void doMainMenuChecks(Menu m)
         {
             int i;
             if (m == optionsMenu)
@@ -3098,7 +3084,45 @@ namespace JavaToSharp
             }
         }
 
-        internal virtual void enableItems()
+        public virtual void mouseReleased(MouseEvent e)
+        {
+            int ex = e.ModifiersEx;
+            if ((ex & (MouseEvent.SHIFT_DOWN_MASK|MouseEvent.CTRL_DOWN_MASK| MouseEvent.META_DOWN_MASK)) == 0 && e.PopupTrigger)
+            {
+                doPopupMenu(e);
+                return;
+            }
+            tempMouseMode = mouseMode;
+            selectedArea = null;
+            dragging = false;
+            bool circuitChanged = false;
+            if (heldSwitchElm != null)
+            {
+                heldSwitchElm.mouseUp();
+                heldSwitchElm = null;
+                circuitChanged = true;
+            }
+            if (dragElm != null)
+            {
+                // if the element is zero size then don't create it
+                if (dragElm.x == dragElm.x2 && dragElm.y == dragElm.y2)
+                    dragElm.delete();
+                else
+                {
+                    elmList.Add(dragElm);
+                    circuitChanged = true;
+                }
+                dragElm = null;
+            }
+            if (circuitChanged)
+                needAnalyze();
+            if (dragElm != null)
+                dragElm.delete();
+            dragElm = null;
+            cv.repaint();
+        }
+
+        protected virtual void enableItems()
         {
             if (powerCheckItem.State)
             {
@@ -3113,70 +3137,106 @@ namespace JavaToSharp
             enableUndoRedo();
         }
 
-        internal virtual void setGrid()
+        public virtual void itemStateChanged(ItemEvent e)
+        {
+            cv.repaint(pause);
+            object mi = e.ItemSelectable;
+            if (mi == stoppedCheck)
+                return;
+            if (mi == smallGridCheckItem)
+                setGrid();
+            if (mi == powerCheckItem)
+            {
+                if (powerCheckItem.State)
+                    voltsCheckItem.State = false;
+                else
+                    voltsCheckItem.State = true;
+            }
+            if (mi == voltsCheckItem && voltsCheckItem.State)
+                powerCheckItem.State = false;
+            enableItems();
+            if (menuScope != -1)
+            {
+                Scope sc = scopes[menuScope];
+                sc.handleMenu(e, mi);
+            }
+            if (mi is CheckboxMenuItem)
+            {
+                MenuItem mmi = (MenuItem) mi;
+                mouseMode = MODE_ADD_ELM;
+                string s = mmi.ActionCommand;
+                if (s.Length > 0)
+                    mouseModeStr = s;
+                if (s.CompareTo("DragAll") == 0)
+                    mouseMode = MODE_DRAG_ALL;
+                else if (s.CompareTo("DragRow") == 0)
+                    mouseMode = MODE_DRAG_ROW;
+                else if (s.CompareTo("DragColumn") == 0)
+                    mouseMode = MODE_DRAG_COLUMN;
+                else if (s.CompareTo("DragSelected") == 0)
+                    mouseMode = MODE_DRAG_SELECTED;
+                else if (s.CompareTo("DragPost") == 0)
+                    mouseMode = MODE_DRAG_POST;
+                else if (s.CompareTo("Select") == 0)
+                    mouseMode = MODE_SELECT;
+                else if (s.Length > 0)
+                {
+                    try
+                    {
+                        addingClass = Type.GetType(s);
+                    }
+                    catch (Exception ee)
+                    {
+                        ee.printStackTrace();
+                    }
+                }
+                tempMouseMode = mouseMode;
+            }
+        }
+
+        protected virtual void setGrid()
         {
             gridSize = (smallGridCheckItem.State) ? 8 : 16;
             gridMask = ~(gridSize-1);
             gridRound = gridSize/2-1;
         }
 
-        internal virtual void pushUndo()
+        protected virtual void pushUndo()
         {
             redoStack.Clear();
             string s = dumpCircuit();
-            if (undoStack.Count > 0 && s.CompareTo((string)(undoStack[undoStack.Count - 1])) == 0)
+            if (undoStack.Count > 0 && System.String.CompareOrdinal(s, (string)(undoStack[undoStack.Count - 1])) == 0)
                 return;
             undoStack.Add(s);
             enableUndoRedo();
         }
 
-        internal virtual void doUndo()
-        {
-            if (undoStack.Count == 0)
-                return;
-            redoStack.Add(dumpCircuit());
-            string s = (string)(undoStack.Remove(undoStack.Count-1));
-            readSetup(s);
-            enableUndoRedo();
-        }
-
-        internal virtual void doRedo()
-        {
-            if (redoStack.Count == 0)
-                return;
-            undoStack.Add(dumpCircuit());
-            string s = (string)(redoStack.Remove(redoStack.Count-1));
-            readSetup(s);
-            enableUndoRedo();
-        }
-
-        internal virtual void enableUndoRedo()
+        protected virtual void enableUndoRedo()
         {
             redoItem.Enabled = redoStack.Count > 0;
             undoItem.Enabled = undoStack.Count > 0;
         }
 
-        internal virtual void setMenuSelection()
+        protected virtual void setMenuSelection()
         {
             if (menuElm != null)
             {
                 if (menuElm.selected)
                     return;
                 clearSelection();
-                menuElm.Selected = true;
+                menuElm.selected = true;
             }
         }
 
-        internal virtual void doCut()
+        protected virtual void doCut()
         {
-            int i;
             pushUndo();
             setMenuSelection();
             clipboard = "";
-            for (i = elmList.Count-1; i >= 0; i--)
+            for (int i = elmList.Count-1; i >= 0; i--)
             {
                 CircuitElm ce = getElm(i);
-                if (ce.Selected)
+                if (ce.selected)
                 {
                     clipboard += ce.dump() + "\n";
                     ce.delete();
@@ -3187,15 +3247,14 @@ namespace JavaToSharp
             needAnalyze();
         }
 
-        internal virtual void doDelete()
+        protected virtual void doDelete()
         {
-            int i;
             pushUndo();
             setMenuSelection();
-            for (i = elmList.Count-1; i >= 0; i--)
+            for (int i = elmList.Count-1; i >= 0; i--)
             {
                 CircuitElm ce = getElm(i);
-                if (ce.Selected)
+                if (ce.selected)
                 {
                     ce.delete();
                     elmList.RemoveAt(i);
@@ -3204,37 +3263,36 @@ namespace JavaToSharp
             needAnalyze();
         }
 
-        internal virtual void doCopy()
+        protected virtual void doCopy()
         {
-            int i;
             clipboard = "";
             setMenuSelection();
-            for (i = elmList.Count-1; i >= 0; i--)
+            for (int i = elmList.Count-1; i >= 0; i--)
             {
                 CircuitElm ce = getElm(i);
-                if (ce.Selected)
+                if (ce.selected)
                     clipboard += ce.dump() + "\n";
             }
             enablePaste();
         }
 
-        internal virtual void enablePaste()
+        protected virtual void enablePaste()
         {
             pasteItem.Enabled = clipboard.Length > 0;
         }
 
-        internal virtual void doPaste()
+        protected virtual void doPaste()
         {
             pushUndo();
             clearSelection();
-            int i;
-            Rectangle oldbb = null;
-            for (i = 0; i != elmList.Count; i++)
+            
+            Rectangle oldbb = Rectangle.Empty;
+            for (int i = 0; i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
                 Rectangle bb = ce.BoundingBox;
-                if (oldbb != null)
-                    oldbb = oldbb.union(bb);
+                if (oldbb != Rectangle.Empty)
+                    oldbb = Rectangle.Union(oldbb, bb);
                 else
                     oldbb = bb;
             }
@@ -3242,28 +3300,30 @@ namespace JavaToSharp
             readSetup(clipboard, true);
 
             // select new items
-            Rectangle newbb = null;
-            for (i = oldsz; i != elmList.Count; i++)
+            Rectangle newbb = Rectangle.Empty;
+            for (int i = oldsz; i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
-                ce.Selected = true;
+                ce.selected = true;
                 Rectangle bb = ce.BoundingBox;
-                if (newbb != null)
-                    newbb = newbb.union(bb);
+                if (newbb != Rectangle.Empty)
+                    newbb = Rectangle.Union(oldbb, bb);
                 else
                     newbb = bb;
             }
-            if (oldbb != null && newbb != null && oldbb.intersects(newbb))
+            if (oldbb != Rectangle.Empty && 
+                newbb != Rectangle.Empty && 
+                oldbb.IntersectsWith(newbb))
             {
                 // find a place for new items
                 int dx = 0, dy = 0;
-                int spacew = circuitArea.width - oldbb.width - newbb.width;
-                int spaceh = circuitArea.height - oldbb.height - newbb.height;
+                int spacew = circuitArea.Width - oldbb.Width - newbb.Width;
+                int spaceh = circuitArea.Height - oldbb.Height - newbb.Height;
                 if (spacew > spaceh)
-                    dx = snapGrid(oldbb.x + oldbb.width - newbb.x + gridSize);
+                    dx = snapGrid(oldbb.X + oldbb.Width - newbb.X + gridSize);
                 else
-                    dy = snapGrid(oldbb.y + oldbb.height - newbb.y + gridSize);
-                for (i = oldsz; i != elmList.Count; i++)
+                    dy = snapGrid(oldbb.Y + oldbb.Height - newbb.Y + gridSize);
+                for (int i = oldsz; i != elmList.Count; i++)
                 {
                     CircuitElm ce = getElm(i);
                     ce.move(dx, dy);
@@ -3274,60 +3334,85 @@ namespace JavaToSharp
             needAnalyze();
         }
 
-        internal virtual void clearSelection()
+        protected virtual void clearSelection()
         {
-            int i;
-            for (i = 0; i != elmList.Count; i++)
+            for (int i = 0; i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
-                ce.Selected = false;
+                ce.selected = false;
             }
         }
 
-        internal virtual void doSelectAll()
+        protected virtual void doSelectAll()
         {
-            int i;
-            for (i = 0; i != elmList.Count; i++)
+            for (int i = 0; i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
-                ce.Selected = true;
+                ce.selected = true;
             }
+        }
+
+        public virtual void keyPressed(KeyEvent e)
+        {
+        }
+        public virtual void keyReleased(KeyEvent e)
+        {
+        }
+
+        public virtual void keyTyped(KeyEvent e)
+        {
+            if (e.KeyChar > ' ' && e.KeyChar < 127)
+            {
+                Type c = dumpTypes[e.KeyChar];
+                if (c == null || c == typeof(Scope))
+                    return;
+                CircuitElm elm = null;
+                elm = constructElement(c, 0, 0);
+                if (elm == null || !(elm.needsShortcut() && elm.DumpClass == c))
+                    return;
+                mouseMode = MODE_ADD_ELM;
+                mouseModeStr = c.Name;
+                addingClass = c;
+            }
+            if (e.KeyChar == ' ')
+            {
+                mouseMode = MODE_SELECT;
+                mouseModeStr = "Select";
+            }
+            tempMouseMode = mouseMode;
         }
 
         // factors a matrix into upper and lower triangular matrices by
         // gaussian elimination.  On entry, a[0..n-1][0..n-1] is the
         // matrix to be factored.  ipvt[] returns an integer vector of pivot
         // indices, used in the lu_solve() routine.
-        internal virtual bool lu_factor(double[][] a, int n, int[] ipvt)
+        protected virtual bool lu_factor(double[][] a, int n, int[] ipvt)
         {
-            double[] scaleFactors;
-            int i, j, k;
-
-            scaleFactors = new double[n];
+            var scaleFactors = new double[n];
 
             // divide each row by its largest element, keeping track of the
             // scaling factors
-            for (i = 0; i != n; i++)
+            for (int i = 0; i != n; i++)
             {
                 double largest = 0;
-                for (j = 0; j != n; j++)
+                for (int j = 0; j != n; j++)
                 {
                     double x = Math.Abs(a[i][j]);
                     if (x > largest)
                         largest = x;
                 }
                 // if all zeros, it's a singular matrix
-                if (largest == 0)
+                if (Math.Abs(largest - 0) < double.Epsilon)
                     return false;
                 scaleFactors[i] = 1.0/largest;
             }
 
             // use Crout's method; loop through the columns
-            for (j = 0; j != n; j++)
+            for (int j = 0; j != n; j++)
             {
-
                 // calculate upper triangular elements for this column
-                for (i = 0; i != j; i++)
+                int k;
+                for (int i = 0; i != j; i++)
                 {
                     double q = a[i][j];
                     for (k = 0; k != i; k++)
@@ -3338,7 +3423,7 @@ namespace JavaToSharp
                 // calculate lower triangular elements for this column
                 double largest = 0;
                 int largestRow = -1;
-                for (i = j; i != n; i++)
+                for (int i = j; i != n; i++)
                 {
                     double q = a[i][j];
                     for (k = 0; k != j; k++)
@@ -3355,10 +3440,9 @@ namespace JavaToSharp
                 // pivoting
                 if (j != largestRow)
                 {
-                    double x;
                     for (k = 0; k != n; k++)
                     {
-                        x = a[largestRow][k];
+                        double x = a[largestRow][k];
                         a[largestRow][k] = a[j][k];
                         a[j][k] = x;
                     }
@@ -3369,7 +3453,7 @@ namespace JavaToSharp
                 ipvt[j] = largestRow;
 
                 // avoid zeros
-                if (a[j][j] == 0.0)
+                if (Math.Abs(a[j][j] - 0.0) < double.Epsilon)
                 {
                     Console.WriteLine("avoided zero");
                     a[j][j]=1e-18;
@@ -3378,7 +3462,7 @@ namespace JavaToSharp
                 if (j != n-1)
                 {
                     double mult = 1.0/a[j][j];
-                    for (i = j+1; i != n; i++)
+                    for (int i = j+1; i != n; i++)
                         a[i][j] *= mult;
                 }
             }
@@ -3388,42 +3472,38 @@ namespace JavaToSharp
         // Solves the set of n linear equations using a LU factorization
         // previously performed by lu_factor.  On input, b[0..n-1] is the right
         // hand side of the equations, and on output, contains the solution.
-        internal virtual void lu_solve(double[][] a, int n, int[] ipvt, double[] b)
+        protected virtual void lu_solve(double[][] a, int n, int[] ipvt, double[] b)
         {
-            int i;
-
+            int bi = 0;
             // find first nonzero b element
-            for (i = 0; i != n; i++)
+            for (int i = 0; i != n; i++)
             {
                 int row = ipvt[i];
-
                 double swap = b[row];
                 b[row] = b[i];
                 b[i] = swap;
-                if (swap != 0)
+                if (Math.Abs(swap - 0) > double.Epsilon)
+                {
+                    bi = i + 1;
                     break;
+                }
             }
-
-            int bi = i++;
-            for (; i < n; i++)
+            
+            for (int i = bi; i < n; i++)
             {
                 int row = ipvt[i];
-                int j;
                 double tot = b[row];
-
                 b[row] = b[i];
                 // forward substitution using the lower triangular matrix
-                for (j = bi; j < i; j++)
+                for (int j = bi; j < i; j++)
                     tot -= a[i][j]*b[j];
                 b[i] = tot;
             }
-            for (i = n-1; i >= 0; i--)
+            for (int i = n-1; i >= 0; i--)
             {
                 double tot = b[i];
-
                 // back-substitution using the upper triangular matrix
-                int j;
-                for (j = i+1; j != n; j++)
+                for (int j = i+1; j != n; j++)
                     tot -= a[i][j]*b[j];
                 b[i] = tot/a[i][i];
             }
@@ -3439,7 +3519,7 @@ namespace JavaToSharp
 //	This class provides the logic to simulate Java rectangular arrays, which are jagged
 //	arrays with inner arrays of the same length.
 //----------------------------------------------------------------------------------------
-    internal static partial class RectangularArrays
+    internal static class RectangularArrays
     {
         internal static double[][] ReturnRectangularDoubleArray(int Size1, int Size2)
         {

@@ -153,6 +153,7 @@
     <Compile Include="ucSimulationParameters.Designer.cs">
       <DependentUpon>ucSimulationParameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserMessageView.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
