@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace JavaToSharp.Elements
 {
@@ -77,18 +78,22 @@ namespace JavaToSharp.Elements
             setBbox(point1, point2, hs);
 
             // draw first lead and plate
-            setVoltageColor(g, volts[0]);
-            drawThickLine(g, point1, lead1);
-            setPowerColor(g, false);
-            drawThickLine(g, plate1[0], plate1[1]);
-            if (sim.powerCheckItem.State)
-                g.Color = Color.Gray;
+            voltageColor = setVoltageColor(g, volts[0]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen ,point1, lead1);
+            voltageColor= setPowerColor(g, false);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g,myPen,plate1[0], plate1[1]);
+           // if (sim.powerCheckItem.State)
+             //   g.Color = Color.Gray;
 
             // draw second lead and plate
-            setVoltageColor(g, volts[1]);
-            drawThickLine(g, point2, lead2);
-            setPowerColor(g, false);
-            drawThickLine(g, plate2[0], plate2[1]);
+            voltageColor = setVoltageColor(g, volts[1]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g,myPen, point2, lead2);
+           voltageColor= setPowerColor(g, false);
+           myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,plate2[0], plate2[1]);
 
             updateDotCount();
             if (sim.dragElm != this)
@@ -110,7 +115,7 @@ namespace JavaToSharp.Elements
             // parallel with a resistor.  Trapezoidal is more accurate
             // than backward euler but can cause oscillatory behavior
             // if RC is small relative to the timestep.
-            if (Trapezoidal)
+            if (isTrapezoidal)
                 compResistance = sim.timeStep/(2*capacitance);
             else
                 compResistance = sim.timeStep/capacitance;
@@ -120,14 +125,14 @@ namespace JavaToSharp.Elements
         }
         internal override void startIteration()
         {
-            if (Trapezoidal)
+            if (isTrapezoidal)
                 curSourceValue = -voltdiff/compResistance-current;
             else
                 curSourceValue = -voltdiff/compResistance;
             //System.out.println("cap " + compResistance + " " + curSourceValue + " " + current + " " + voltdiff);
         }
 
-        protected override void calculateCurrent()
+        internal override void calculateCurrent()
         {
             double voltdiff = volts[0] - volts[1];
             // we check compResistance because this might get called
@@ -157,8 +162,14 @@ namespace JavaToSharp.Elements
             if (n == 1)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Трапец. апроксимация", Trapezoidal);
-                return ei;
+                ei.checkbox = new CheckBox();
+                ei.checkbox.Text = "Трапец. апроксимация";
+                if(isTrapezoidal)
+                {
+                    return ei;
+                }
+
+                
             }
             return null;
         }
@@ -168,7 +179,7 @@ namespace JavaToSharp.Elements
                 capacitance = ei.value;
             if (n == 1)
             {
-                if (ei.checkbox.State)
+                if (ei.checkbox.Checked)
                     flags &= ~FLAG_BACK_EULER;
                 else
                     flags |= FLAG_BACK_EULER;

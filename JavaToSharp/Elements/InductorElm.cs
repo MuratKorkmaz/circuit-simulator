@@ -1,5 +1,6 @@
 	using System;
 	using System.Drawing;
+	using System.Windows.Forms;
 	using JavaToSharp;
 
 internal class InductorElm : CircuitElm
@@ -81,7 +82,7 @@ internal class InductorElm : CircuitElm
 		return ind.nonLinear();
 	}
 
-	    protected override void calculateCurrent()
+    internal override void calculateCurrent()
 	{
 		double voltdiff = volts[0]-volts[1];
 		current = ind.calculateCurrent(voltdiff);
@@ -105,8 +106,13 @@ internal class InductorElm : CircuitElm
 		if (n == 1)
 		{
 		EditInfo ei = new EditInfo("", 0, -1, -1);
-		ei.checkbox = new Checkbox("Трапецив. апроксимация", ind.Trapezoidal);
-		return ei;
+		ei.checkbox = new CheckBox();
+		    ei.checkbox.Text = "Трапецив. апроксимация";
+		    if (ind.isTrapezoidal)
+		    {
+		        return ei;
+		    }
+		
 		}
 		return null;
 	}
@@ -116,7 +122,7 @@ internal class InductorElm : CircuitElm
 		inductance = ei.value;
 		if (n == 1)
 		{
-		if (ei.checkbox.State)
+		if (ei.checkbox.Checked)
 			flags &= ~Inductor.FLAG_BACK_EULER;
 		else
 			flags |= Inductor.FLAG_BACK_EULER;

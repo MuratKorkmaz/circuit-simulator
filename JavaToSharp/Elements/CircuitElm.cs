@@ -11,7 +11,7 @@ public abstract class CircuitElm : Editable
 	internal static double currentMult, powerMult;
 	internal static Point ps1, ps2;
 	internal static CirSim sim;
-	internal static Color whiteColor, selectColor, lightGrayColor;
+	internal static Color whiteColor, selectColor, lightGrayColor, voltageColor;
 	internal static Font unitsFont;
 
     public static NumberFormat showFormat;
@@ -31,6 +31,7 @@ public abstract class CircuitElm : Editable
     private double dpx1;
     private double dpy1;
     internal Point point1, point2, lead1, lead2;
+    internal Pen myPen;
 	internal double[] volts;
 	internal double current, curcount;
 	internal Rectangle boundingBox;
@@ -170,7 +171,7 @@ public abstract class CircuitElm : Editable
         calculateCurrent();
     }
 
-    protected virtual void calculateCurrent()
+    internal virtual void calculateCurrent()
     {
     }
 
@@ -743,7 +744,9 @@ public abstract class CircuitElm : Editable
         if (needsHighlight())
         {
             return selectColor;
+            
         }
+        
         if (!sim.voltsCheckItem.State)
         {
             if (!sim.powerCheckItem.State) // && !conductanceCheckItem.getState())

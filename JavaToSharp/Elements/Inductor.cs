@@ -41,7 +41,7 @@ internal class Inductor
 	// The oscillation is a real problem in circuits with switches.
 	nodes[0] = n0;
 	nodes[1] = n1;
-	if (Trapezoidal)
+	if (isTrapezoidal)
 		compResistance = 2*inductance/sim.timeStep;
 	else // backward euler
 		compResistance = inductance/sim.timeStep;
@@ -56,7 +56,7 @@ internal class Inductor
 
 	internal virtual void startIteration(double voltdiff)
 	{
-	if (Trapezoidal)
+	if (isTrapezoidal)
 		curSourceValue = voltdiff/compResistance+current;
 	else // backward euler
 		curSourceValue = current;

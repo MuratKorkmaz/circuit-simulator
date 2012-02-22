@@ -84,7 +84,7 @@ internal class DiacElm : CircuitElm
 	drawPosts(g);
 	}
 
-    protected override void calculateCurrent()
+    internal override void calculateCurrent()
 	{
 	double vd = volts[0] - volts[1];
 	if(state)

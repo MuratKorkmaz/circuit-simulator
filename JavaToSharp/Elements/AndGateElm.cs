@@ -28,8 +28,9 @@ namespace JavaToSharp
                 double b = Math.Sqrt(1-a*a);
                 interpPoint2(lead1, lead2, triPoints[i+1], triPoints[21-i],.5+a/2, b*hs2);
             }
-            triPoints[11] = new Point(lead2);
-            if (Inverting)
+
+            triPoints[11] = lead2;
+            if (isInverting)
             {
                 pcircle = interpPoint(point1, point2,.5+(ww+4)/dn);
                 lead2 = interpPoint(point1, point2,.5+(ww+8)/dn);

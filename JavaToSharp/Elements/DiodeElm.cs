@@ -103,13 +103,13 @@ namespace JavaToSharp
             draw2Leads(g);
 
             // draw arrow thingy
-            setPowerColor(g, true);
             setVoltageColor(g, v1);
             g.fillPolygon(poly);
 
             // draw thing arrow is pointing to
-            setVoltageColor(g, v2);
-            drawThickLine(g, cathode[0], cathode[1]);
+           voltageColor= setVoltageColor(g, v2);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g,myPen, cathode[0], cathode[1]);
         }
 
         internal override void stamp()
@@ -121,7 +121,7 @@ namespace JavaToSharp
             diode.doStep(volts[0] - volts[1]);
         }
 
-        protected override void calculateCurrent()
+        internal override void calculateCurrent()
         {
             current = diode.calculateCurrent(volts[0] - volts[1]);
         }

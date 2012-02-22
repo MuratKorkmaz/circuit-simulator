@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -21,8 +22,18 @@ namespace JavaToSharp
             r_off = 1e10;
             try
             {
-                r_on = new (double)double?(st.nextToken());
-                r_off = new (double)double?(st.nextToken());
+                string sR_on = st.nextToken();
+                bool isParsedR_on = double.TryParse(sR_on, out r_on);
+                if (!isParsedR_on)
+                {
+                    throw new Exception("Не удалось привести к типу double");
+                }
+                string sR_off = st.nextToken();
+                bool isParsedR_off = double.TryParse(sR_off, out r_off);
+                if (!isParsedR_off)
+                {
+                    throw new Exception("Не удалось привести к типу double");
+                }
             }
             catch (Exception e)
             {
@@ -65,19 +76,21 @@ namespace JavaToSharp
 
             draw2Leads(g);
 
-            g.Color = lightGrayColor;
-            interpPoint(lead1, lead2, ps, 1, hs);
-            drawThickLine(g, lead1, ps);
 
-            setVoltageColor(g, volts[2]);
-            drawThickLine(g, point3, lead3);
+            myPen = new Pen(lightGrayColor);
+            interpPoint(lead1, lead2, ps, 1, hs);
+            drawThickLine(g, myPen,lead1, ps);
+
+            voltageColor = setVoltageColor(g, volts[2]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,point3, lead3);
 
             if (!open)
                 doDots(g);
             drawPosts(g);
         }
 
-        protected override void calculateCurrent()
+        internal override void calculateCurrent()
         {
             current = (volts[0]-volts[1])/resistance;
         }
@@ -149,7 +162,14 @@ namespace JavaToSharp
             if (n == 0)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Нормально замкнутый", (flags & FLAG_INVERT) != 0);
+                ei.checkbox = new CheckBox();
+                ei.checkbox.Text = "Нормально замкнутый";
+                bool isCheked = ((flags & FLAG_INVERT) != 0);
+                ;
+                if (isCheked)
+                {
+                    
+                }
                 return ei;
             }
             if (n == 1)
@@ -161,7 +181,7 @@ namespace JavaToSharp
         public override void setEditValue(int n, EditInfo ei)
         {
             if (n == 0)
-                flags = (ei.checkbox.State) ? (flags | FLAG_INVERT) : (flags & ~FLAG_INVERT);
+                flags = (ei.checkbox.Checked) ? (flags | FLAG_INVERT) : (flags & ~FLAG_INVERT);
             if (n == 1 && ei.value > 0)
                 r_on = ei.value;
             if (n == 2 && ei.value > 0)
