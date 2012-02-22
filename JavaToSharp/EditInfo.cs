@@ -12,12 +12,12 @@ namespace JavaToSharp
             {
                 minval = 1e10;
                 while (minval > val/100)
-                    minval /= 10.;
+                    minval /= 10.0;
                 maxval = minval * 1000;
             }
             else
             {
-                minval = mn;
+                minval = mn; 
                 maxval = mx;
             }
             forceLargeM = name.IndexOf("(Ом)") > 0 || name.IndexOf("(Гц)") > 0;

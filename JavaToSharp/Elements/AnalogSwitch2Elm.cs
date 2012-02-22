@@ -2,6 +2,7 @@ using System.Drawing;
 
 namespace JavaToSharp
 {
+
     internal class AnalogSwitch2Elm : AnalogSwitchElm
     {
         public AnalogSwitch2Elm(int xx, int yy) : base(xx, yy)
@@ -38,27 +39,34 @@ namespace JavaToSharp
             setBbox(point1, point2, openhs);
 
             // draw first lead
-            setVoltageColor(g, volts[0]);
-            drawThickLine(g, point1, lead1);
+            voltageColor = setVoltageColor(g, volts[0]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g,myPen,point1, lead1);
 
             // draw second lead
-            setVoltageColor(g, volts[1]);
-            drawThickLine(g, swpoles[0], swposts[0]);
+            voltageColor  = setVoltageColor(g, volts[1]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g,myPen,swpoles[0], swposts[0]);
 
             // draw third lead
-            setVoltageColor(g, volts[2]);
-            drawThickLine(g, swpoles[1], swposts[1]);
+            voltageColor = setVoltageColor(g, volts[2]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g,myPen,swpoles[1], swposts[1]);
 
             // draw switch
-            //g.Color = lightGrayColor;
+            myPen = new Pen(lightGrayColor);
             int position = (open) ? 1 : 0;
-            drawThickLine(g, lead1, swpoles[position]);
+            drawThickLine(g, myPen,lead1, swpoles[position]);
 
             updateDotCount();
             drawDots(g, point1, lead1, curcount);
             drawDots(g, swpoles[position], swposts[position], curcount);
             drawPosts(g);
         }
+
+        
+
+       
 
         internal override Point getPost(int n)
         {

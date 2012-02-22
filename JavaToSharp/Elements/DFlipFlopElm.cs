@@ -1,3 +1,4 @@
+	using System.Windows.Forms;
 	using JavaToSharp;
 
 internal class DFlipFlopElm : ChipElm
@@ -77,8 +78,13 @@ internal class DFlipFlopElm : ChipElm
 		if (n == 2)
 		{
 		EditInfo ei = new EditInfo("", 0, -1, -1);
-		ei.checkbox = new Checkbox("Reset Pin", hasReset());
-		return ei;
+		ei.checkbox = new CheckBox();
+		    ei.checkbox.Text = "Reset Pin";
+		    if (hasReset())
+		    {
+		        return ei;
+		    }
+		
 		}
 		return base.getEditInfo(n);
 	}
@@ -86,7 +92,7 @@ internal class DFlipFlopElm : ChipElm
 	{
 		if (n == 2)
 		{
-		if (ei.checkbox.State)
+		if (ei.checkbox.Checked)
 			flags |= FLAG_RESET;
 		else
 			flags &= ~FLAG_RESET;
