@@ -161,9 +161,9 @@ namespace JavaToSharp
             useFrame = false;
         }
 
-        internal string startCircuit = null;
-        internal string startLabel = null;
-        internal string startCircuitText = null;
+        internal string startCircuit;
+        internal string startLabel;
+        internal string startCircuitText;
         internal string baseURL = "http://www.falstad.com/circuit/";
 
         public virtual void init()
@@ -177,6 +177,7 @@ namespace JavaToSharp
 
             try
             {
+                //todo: ��������� ���������� "����������" ���� �� startup.txt
                 baseURL = applet.DocumentBase.File;
                 // look for circuit embedded in URL
                 string doc = applet.DocumentBase.ToString();
@@ -269,26 +270,6 @@ namespace JavaToSharp
             m.addSeparator();
             m.add(exitItem = getMenuItem("Выход"));
 
-            m = new Menu("Правка");
-            m.add(undoItem = getMenuItem("Отменить"));
-            undoItem.Shortcut = new MenuShortcut(KeyEvent.VK_Z);
-            m.add(redoItem = getMenuItem("Повторить"));
-            redoItem.Shortcut = new MenuShortcut(KeyEvent.VK_Z, true);
-            m.addSeparator();
-            m.add(cutItem = getMenuItem("Вырезать"));
-            cutItem.Shortcut = new MenuShortcut(KeyEvent.VK_X);
-            m.add(copyItem = getMenuItem("Копировать"));
-            copyItem.Shortcut = new MenuShortcut(KeyEvent.VK_C);
-            m.add(pasteItem = getMenuItem("Вставить"));
-            pasteItem.Shortcut = new MenuShortcut(KeyEvent.VK_V);
-            pasteItem.Enabled = false;
-            m.add(selectAllItem = getMenuItem("Выбрать всё"));
-            selectAllItem.Shortcut = new MenuShortcut(KeyEvent.VK_A);
-            if (useFrame)
-                mb.add(m);
-            else
-                mainMenu.add(m);
-
             m = new Menu("Осциллограф");
             if (useFrame)
                 mb.add(m);
@@ -297,34 +278,9 @@ namespace JavaToSharp
             m.add(getMenuItem("Объединить всё", "stackAll"));
             m.add(getMenuItem("Разъединить всё", "unstackAll"));
 
-            optionsMenu = m = new Menu("Настройки");
-            if (useFrame)
-                mb.add(m);
-            else
-                mainMenu.add(m);
-            m.add(dotsCheckItem = getCheckItem("Показывать ток"));
-            dotsCheckItem.State = true;
-            m.add(voltsCheckItem = getCheckItem("Показывать напряжение"));
-            voltsCheckItem.State = true;
-            m.add(powerCheckItem = getCheckItem("Показывать мощность"));
-            m.add(showValuesCheckItem = getCheckItem("Показывать значения"));
-            showValuesCheckItem.State = true;
-            //m.add(conductanceCheckItem = getCheckItem("Show Conductance"));
-            m.add(smallGridCheckItem = getCheckItem("Мелкая сетка"));
-            m.add(euroResistorCheckItem = getCheckItem("Резисторы по ГОСТ")); //must be default in russia
-            euroResistorCheckItem.State = euro;
-            m.add(printableCheckItem = getCheckItem("Белый фон"));
-            printableCheckItem.State = printable;
-            m.add(conventionCheckItem = getCheckItem("Общепринятое направление тока"));
-            conventionCheckItem.State = convention;
-            m.add(optionsItem = getMenuItem("Другие настройки..."));
-
             Menu circuitsMenu = new Menu("Схемы");
-            if (useFrame)
-                mb.add(circuitsMenu);
-            else
-                mainMenu.add(circuitsMenu);
-
+            mb.add(circuitsMenu);
+            
             mainMenu.add(getClassCheckItem("Добавить Соединение", "WireElm"));
             mainMenu.add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
 
@@ -534,10 +490,10 @@ namespace JavaToSharp
 
         #region UI Form
 
-        internal virtual PopupMenu buildScopeMenu(bool t)
+        internal virtual ContextMenuStrip buildScopeMenu(bool t)
         {
-            PopupMenu m = new PopupMenu();
-            m.add(getMenuItem("Убрать", "remove"));
+            ContextMenuStrip m = new ContextMenuStrip();
+            m.Items.Add(getMenuItem("Убрать", "remove"));
             m.add(getMenuItem("Скорость 2x", "speed2"));
             m.add(getMenuItem("Скорость 1/2x", "speed1/2"));
             m.add(getMenuItem("Масштаб 2x", "scale"));
@@ -587,7 +543,7 @@ namespace JavaToSharp
             return mi;
         }
 
-        internal virtual CheckboxMenuItem getCheckItem(string s)
+        internal virtual ToolStripMenuItem getCheckItem(string s)
         {
             CheckboxMenuItem mi = new CheckboxMenuItem(s);
             mi.addItemListener(this);
