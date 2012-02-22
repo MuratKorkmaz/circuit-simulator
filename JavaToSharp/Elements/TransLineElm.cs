@@ -141,9 +141,8 @@ namespace JavaToSharp
             g.fillRect(inner[2].X, inner[2].Y, inner[1].X-inner[2].X+2, inner[1].Y-inner[2].Y+2);
             for (i = 0; i != 4; i++)
             {
-               voltageColor = setVoltageColor(g, volts[i]);
-                myPen = new Pen(voltageColor);
-                drawThickLine(g, myPen ,posts[i], inner[i]);
+                setVoltageColor(g, volts[i]);
+                drawThickLine(g, posts[i], inner[i]);
             }
             if (voltageL != null)
             {
@@ -152,19 +151,16 @@ namespace JavaToSharp
                     int ix1 = (ix0-lenSteps*i/segments) % lenSteps;
                     int ix2 = (ix0-lenSteps*(segments-1-i)/segments) % lenSteps;
                     double v = (voltageL[ix1]+voltageR[ix2])/2;
-                 voltageColor=   setVoltageColor(g, v);
-                 myPen = new Pen(voltageColor);
+                    setVoltageColor(g, v);
                     interpPoint(inner[0], inner[1], ps1, i*segf);
                     interpPoint(inner[2], inner[3], ps2, i*segf);
                     g.drawLine(ps1.Y, ps1.Y, ps2.X, ps2.Y);
                     interpPoint(inner[2], inner[3], ps1, (i+1)*segf);
-                    drawThickLine(g,myPen , ps1, ps2);
+                    drawThickLine(g, ps1, ps2);
                 }
             }
-           voltageColor = setVoltageColor(g, volts[0]);
-            myPen = new Pen(voltageColor);
-
-            drawThickLine(g, myPen,inner[0], inner[1]);
+            setVoltageColor(g, volts[0]);
+            drawThickLine(g, inner[0], inner[1]);
             drawPosts(g);
 
             curCount1 = updateDotCount(-current1, curCount1);

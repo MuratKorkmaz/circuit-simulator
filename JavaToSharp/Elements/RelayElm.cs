@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace JavaToSharp.Elements
 { // 0 = switch
@@ -124,9 +123,8 @@ namespace JavaToSharp.Elements
             int i, p;
             for (i = 0; i != 2; i++)
             {
-              voltageColor=  setVoltageColor(g, volts[nCoil1+i]);
-                myPen = new Pen(voltageColor);
-                drawThickLine(g, myPen,coilLeads[i], coilPosts[i]);
+                setVoltageColor(g, volts[nCoil1+i]);
+                drawThickLine(g, coilLeads[i], coilPosts[i]);
             }
             int x = ((flags & FLAG_SWAP_COIL) != 0) ? 1 : 0;
             drawCoil(g, dsign*6, coilLeads[x], coilLeads[1-x], volts[nCoil1+x], volts[nCoil2-x]);
@@ -149,15 +147,14 @@ namespace JavaToSharp.Elements
                 for (i = 0; i != 3; i++)
                 {
                     // draw lead
-                   voltageColor= setVoltageColor(g, volts[nSwitch0+po+i]);
-                    myPen = new Pen(voltageColor);
-                    drawThickLine(g, myPen ,swposts[p][i], swpoles[p][i]);
+                    setVoltageColor(g, volts[nSwitch0+po+i]);
+                    drawThickLine(g, swposts[p][i], swpoles[p][i]);
                 }
 
                 interpPoint(swpoles[p][1], swpoles[p][2], ptSwitch[p], d_position);
                 //setVoltageColor(g, volts[nSwitch0]);
                 g.Color = Color.LightGray;
-                drawThickLine(g, myPen,swpoles[p][0], ptSwitch[p]);
+                drawThickLine(g, swpoles[p][0], ptSwitch[p]);
                 switchCurCount[p] = updateDotCount(switchCurrent[p], switchCurCount[p]);
                 drawDots(g, swposts[p][0], swpoles[p][0], switchCurCount[p]);
 
@@ -344,11 +341,7 @@ namespace JavaToSharp.Elements
             if (n == 6)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new CheckBox();
-                if ((flags & FLAG_SWAP_COIL) != 0)
-                {
-                    ei.checkbox.Text = "Поменять направление обмотки";
-                }
+                ei.checkbox = new Checkbox("Поменять направление обмотки", (flags & FLAG_SWAP_COIL) != 0);
                 return ei;
             }
             return null;
@@ -375,7 +368,7 @@ namespace JavaToSharp.Elements
                 coilR = ei.value;
             if (n == 6)
             {
-                if (ei.checkbox.Checked)
+                if (ei.checkbox.State)
                     flags |= FLAG_SWAP_COIL;
                 else
                     flags &= ~FLAG_SWAP_COIL;

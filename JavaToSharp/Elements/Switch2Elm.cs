@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -60,24 +59,21 @@ namespace JavaToSharp
             setBbox(point1, point2, openhs);
 
             // draw first lead
-         voltageColor=   setVoltageColor(g, volts[0]);
-            myPen = new Pen(voltageColor);
-            drawThickLine(g, myPen ,point1, lead1);
+            setVoltageColor(g, volts[0]);
+            drawThickLine(g, point1, lead1);
 
             // draw second lead
-           voltageColor = setVoltageColor(g, volts[1]);
-            myPen = new Pen(voltageColor);
-            drawThickLine(g, myPen,swpoles[0], swposts[0]);
+            setVoltageColor(g, volts[1]);
+            drawThickLine(g, swpoles[0], swposts[0]);
 
             // draw third lead
-            voltageColor = setVoltageColor(g, volts[2]);
-            myPen = new Pen(voltageColor);
-            drawThickLine(g,myPen, swpoles[1], swposts[1]);
+            setVoltageColor(g, volts[2]);
+            drawThickLine(g, swpoles[1], swposts[1]);
 
             // draw switch
             if (!needsHighlight())
                 g.Color = whiteColor;
-            drawThickLine(g, myPen,lead1, swpoles[position]);
+            drawThickLine(g, lead1, swpoles[position]);
 
             updateDotCount();
             drawDots(g, point1, lead1, curcount);
@@ -148,11 +144,7 @@ namespace JavaToSharp
             if (n == 1)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new CheckBox();
-                if (hasCenterOff())
-                {
-                    ei.checkbox.Text = "Center Off";
-                }
+                ei.checkbox = new Checkbox("Center Off", hasCenterOff());
                 return ei;
             }
             return base.getEditInfo(n);
@@ -162,7 +154,7 @@ namespace JavaToSharp
             if (n == 1)
             {
                 flags &= ~FLAG_CENTER_OFF;
-                if (ei.checkbox.Checked)
+                if (ei.checkbox.State)
                     flags |= FLAG_CENTER_OFF;
                 if (hasCenterOff())
                     momentary = false;

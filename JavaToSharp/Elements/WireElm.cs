@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -17,9 +16,8 @@ namespace JavaToSharp
         private const int FLAG_SHOWVOLTAGE = 2;
         internal override void draw(Graphics g)
         {
-          voltageColor=  setVoltageColor(g, volts[0]);
-            myPen = new Pen(voltageColor);
-            drawThickLine(g, myPen,point1, point2);
+            setVoltageColor(g, volts[0]);
+            drawThickLine(g, point1, point2);
             doDots(g);
             setBbox(point1, point2, 3);
             if (mustShowCurrent())
@@ -97,23 +95,13 @@ namespace JavaToSharp
             if (n == 0)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new CheckBox();
-               
-                if (mustShowCurrent())
-                {
-                     ei.checkbox.Text = "Показывать ток";
-                }
+                ei.checkbox = new Checkbox("Показывать ток", mustShowCurrent());
                 return ei;
             }
             if (n == 1)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new CheckBox();
-               
-                if (mustShowVoltage())
-                {
-                     ei.checkbox.Text = "Показывать напряжение";
-                }
+                ei.checkbox = new Checkbox("Показывать напряжение", mustShowVoltage());
                 return ei;
             }
             return null;
@@ -122,14 +110,14 @@ namespace JavaToSharp
         {
             if (n == 0)
             {
-                if (ei.checkbox.Checked)
+                if (ei.checkbox.State)
                     flags = FLAG_SHOWCURRENT;
                 else
                     flags &= ~FLAG_SHOWCURRENT;
             }
             if (n == 1)
             {
-                if (ei.checkbox.Checked)
+                if (ei.checkbox.State)
                     flags = FLAG_SHOWVOLTAGE;
                 else
                     flags &= ~FLAG_SHOWVOLTAGE;

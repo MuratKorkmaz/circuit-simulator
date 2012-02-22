@@ -79,20 +79,20 @@ namespace JavaToSharp
             int i;
             for (i = 0; i != 5; i++)
             {
-              voltageColor =  setVoltageColor(g, volts[i]);
-                myPen = new Pen(voltageColor);
-                drawThickLine(g, myPen,ptEnds[i], ptCoil[i]);
+                setVoltageColor(g, volts[i]);
+                drawThickLine(g, ptEnds[i], ptCoil[i]);
             }
             for (i = 0; i != 4; i++)
             {
                 if (i == 1)
                     continue;
+                setPowerColor(current[i]*(volts[i]-volts[i+1]));
                 drawCoil(g, i > 1 ? -6 : 6, ptCoil[i], ptCoil[i+1], volts[i], volts[i+1]);
             }
             g.Color = needsHighlight() ? selectColor : lightGrayColor;
             for (i = 0; i != 4; i += 2)
             {
-                drawThickLine(g, myPen,ptCore[i], ptCore[i+1]);
+                drawThickLine(g, ptCore[i], ptCore[i+1]);
             }
             // calc current of tap wire
             current[3] = current[1]-current[2];

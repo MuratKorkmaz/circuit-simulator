@@ -50,8 +50,8 @@ namespace JavaToSharp
         }
         internal override void delete()
         {
-            sim.main.Remove(label);
-            sim.main.Remove(slider);
+            sim.main.remove(label);
+            sim.main.remove(slider);
         }
         public new virtual EditInfo getEditInfo(int n)
         {
