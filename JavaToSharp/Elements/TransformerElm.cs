@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -105,8 +106,9 @@ namespace JavaToSharp
             int i;
             for (i = 0; i != 4; i++)
             {
-                setVoltageColor(g, volts[i]);
-                drawThickLine(g, ptEnds[i], ptCoil[i]);
+                voltageColor= setVoltageColor(g, volts[i]);
+                myPen = new Pen(voltageColor);
+                drawThickLine(g, myPen,ptEnds[i], ptCoil[i]);
             }
             for (i = 0; i != 2; i++)
             {
@@ -116,7 +118,7 @@ namespace JavaToSharp
             g.Color = needsHighlight() ? selectColor : lightGrayColor;
             for (i = 0; i != 2; i++)
             {
-                drawThickLine(g, ptCore[i], ptCore[i+2]);
+                drawThickLine(g, myPen,ptCore[i], ptCore[i+2]);
                 curcount[i] = updateDotCount(current[i], curcount[i]);
             }
             for (i = 0; i != 2; i++)
@@ -281,7 +283,11 @@ namespace JavaToSharp
             if (n == 3)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("трапецив. апроксимация", Trapezoidal);
+                ei.checkbox = new CheckBox();
+                if (isTrapezoidal)
+                {
+                    ei.checkbox.Text = "трапецив. апроксимация";
+                }
                 return ei;
             }
             return null;
@@ -296,7 +302,7 @@ namespace JavaToSharp
                 couplingCoef = ei.value;
             if (n == 3)
             {
-                if (ei.checkbox.State)
+                if (ei.checkbox.Checked)
                     flags &= ~Inductor.FLAG_BACK_EULER;
                 else
                     flags |= Inductor.FLAG_BACK_EULER;

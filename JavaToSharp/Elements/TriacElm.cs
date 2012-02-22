@@ -171,16 +171,16 @@ namespace JavaToSharp
             draw2Leads(g);
 
             // draw arrow thingy
-            setPowerColor(g, true);
             setVoltageColor(g, v1);
             g.fillPolygon(poly);
 
             // draw thing arrow is pointing to
-            setVoltageColor(g, v2);
-            drawThickLine(g, cathode[0], cathode[1]);
+            voltageColor = setVoltageColor(g, v2);
+            myPen = new Pen(voltageColor);
+           drawThickLine(g, myPen,cathode[0], cathode[1]);
 
-            drawThickLine(g, lead2, gate[0]);
-            drawThickLine(g, gate[0], gate[1]);
+           drawThickLine(g, myPen, lead2, gate[0]);
+           drawThickLine(g, myPen, gate[0], gate[1]);
 
             curcount_a = updateDotCount(ia, curcount_a);
             curcount_c = updateDotCount(ic, curcount_c);

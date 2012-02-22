@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -97,19 +98,22 @@ namespace JavaToSharp
             setBbox(point1, point2, 16);
             setPowerColor(g, true);
             // draw collector
-            setVoltageColor(g, volts[1]);
-            drawThickLine(g, coll[0], coll[1]);
+           voltageColor = setVoltageColor(g, volts[1]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,coll[0], coll[1]);
             // draw emitter
-            setVoltageColor(g, volts[2]);
-            drawThickLine(g, emit[0], emit[1]);
+           voltageColor = setVoltageColor(g, volts[2]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,emit[0], emit[1]);
             // draw arrow
             g.Color = lightGrayColor;
             g.fillPolygon(arrowPoly);
             // draw base
-            setVoltageColor(g, volts[0]);
+          voltageColor =  setVoltageColor(g, volts[0]);
+            myPen = new Pen(voltageColor);
             if (sim.powerCheckItem.State)
                 g.Color = Color.Gray;
-            drawThickLine(g, point1, @base);
+            drawThickLine(g, myPen,point1, @base);
             // draw dots
             curcount_b = updateDotCount(-ib, curcount_b);
             drawDots(g, @base, point1, curcount_b);
@@ -349,7 +353,12 @@ namespace JavaToSharp
             if (n == 1)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Поменять местами Э/К", (flags & FLAG_FLIP) != 0);
+                ei.checkbox = new CheckBox();
+                if ((flags & FLAG_FLIP) != 0)
+                {
+                    ei.checkbox.Text = "Поменять местами Э/К";
+                }
+                
                 return ei;
             }
             return null;
@@ -363,7 +372,7 @@ namespace JavaToSharp
             }
             if (n == 1)
             {
-                if (ei.checkbox.State)
+                if (ei.checkbox.Checked)
                     flags |= FLAG_FLIP;
                 else
                     flags &= ~FLAG_FLIP;

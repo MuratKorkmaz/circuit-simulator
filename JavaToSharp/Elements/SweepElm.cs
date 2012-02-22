@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -79,8 +80,9 @@ namespace JavaToSharp
         internal override void draw(Graphics g)
         {
             setBbox(point1, point2, circleSize);
-            setVoltageColor(g, volts[0]);
-            drawThickLine(g, point1, lead1);
+           voltageColor = setVoltageColor(g, volts[0]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,point1, lead1);
             g.Color = needsHighlight() ? selectColor : Color.Gray;
             setPowerColor(g, false);
             int xc = point2.X;
@@ -229,7 +231,11 @@ namespace JavaToSharp
             if (n == 3)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Логарифмич.", (flags & FLAG_LOG) != 0);
+                ei.checkbox = new CheckBox();
+                if ((flags & FLAG_LOG) != 0)
+                {
+                    ei.checkbox.Text = "Логарифмич.";
+                }
                 return ei;
             }
             if (n == 4)
@@ -237,7 +243,11 @@ namespace JavaToSharp
             if (n == 5)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Двунаправленн.", (flags & FLAG_BIDIR) != 0);
+                ei.checkbox = new CheckBox();
+                if ((flags & FLAG_BIDIR) != 0)
+                {
+                    ei.checkbox.Text = "Двунаправленн.";
+                }
                 return ei;
             }
             return null;
@@ -262,7 +272,7 @@ namespace JavaToSharp
             if (n == 3)
             {
                 flags &= ~FLAG_LOG;
-                if (ei.checkbox.State)
+                if (ei.checkbox.Checked)
                     flags |= FLAG_LOG;
             }
             if (n == 4)
@@ -270,7 +280,7 @@ namespace JavaToSharp
             if (n == 5)
             {
                 flags &= ~FLAG_BIDIR;
-                if (ei.checkbox.State)
+                if (ei.checkbox.Checked)
                     flags |= FLAG_BIDIR;
             }
             setParams();

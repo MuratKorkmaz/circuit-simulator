@@ -168,15 +168,16 @@ namespace JavaToSharp
             draw2Leads(g);
             if (waveform == WF_DC)
             {
-                setPowerColor(g, false);
-                setVoltageColor(g, volts[0]);
+                voltageColor = setVoltageColor(g, volts[0]);
                 interpPoint2(lead1, lead2, ps1, ps2, 0, 10);
-                drawThickLine(g, ps1, ps2);
+                myPen = new Pen(voltageColor);
+                drawThickLine(g, myPen,ps1, ps2);
                 setVoltageColor(g, volts[1]);
                 int hs = 16;
                 setBbox(point1, point2, hs);
                 interpPoint2(lead1, lead2, ps1, ps2, 1, hs);
-                drawThickLine(g, ps1, ps2);
+                myPen = new Pen(voltageColor);
+                drawThickLine(g, myPen,ps1, ps2);
             }
             else
             {

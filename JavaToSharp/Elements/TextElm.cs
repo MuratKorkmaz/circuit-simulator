@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Drawing;
 using System.Text;
+using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -119,13 +120,21 @@ namespace JavaToSharp
             if (n == 2)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Center", (flags & FLAG_CENTER) != 0);
+                ei.checkbox = new CheckBox();
+                if ((flags & FLAG_CENTER) != 0)
+                {
+                    ei.checkbox.Text = "Center";
+                }
                 return ei;
             }
             if (n == 3)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Draw Bar On Top", (flags & FLAG_BAR) != 0);
+                ei.checkbox = new CheckBox();
+                if ((flags & FLAG_BAR) != 0)
+                {
+                    ei.checkbox.Text = "Draw Bar On Top";
+                }
                 return ei;
             }
             return null;

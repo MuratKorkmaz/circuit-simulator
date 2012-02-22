@@ -74,12 +74,13 @@ namespace JavaToSharp
             g.fillPolygon(poly);    
 
             // draw thing arrow is pointing to
-            setVoltageColor(g, v2);
-            drawThickLine(g, cathode[0], cathode[1]);
+           voltageColor= setVoltageColor(g, v2);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,cathode[0], cathode[1]);
 
             // draw wings on cathode
-            drawThickLine(g, wing[0], cathode[0]);
-            drawThickLine(g, wing[1], cathode[1]);
+            drawThickLine(g, myPen,wing[0], cathode[0]);
+            drawThickLine(g, myPen,wing[1], cathode[1]);
 
             doDots(g);
             drawPosts(g);

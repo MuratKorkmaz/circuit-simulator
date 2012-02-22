@@ -72,30 +72,34 @@ namespace JavaToSharp
                             break;
                     }
                     double v = v1+(v2-v1)*i/segments;
-                    setVoltageColor(g, v);
+                    voltageColor = setVoltageColor(g, v);
+                    myPen = new Pen(voltageColor);
                     interpPoint(lead1, lead2, ps1, i*segf, hs*ox);
                     interpPoint(lead1, lead2, ps2, (i+1)*segf, hs*nx);
-                    drawThickLine(g, ps1, ps2);
+                    drawThickLine(g, myPen,ps1, ps2);
                     ox = nx;
                 }
             }
             else
             {
                 // draw rectangle
-                setVoltageColor(g, v1);
+               voltageColor = setVoltageColor(g, v1);
+                myPen = new Pen(voltageColor);
                 interpPoint2(lead1, lead2, ps1, ps2, 0, hs);
-                drawThickLine(g, ps1, ps2);
+                drawThickLine(g, myPen,ps1, ps2);
                 for (i = 0; i != segments; i++)
                 {
                     double v = v1+(v2-v1)*i/segments;
-                    setVoltageColor(g, v);
+                   voltageColor = setVoltageColor(g, v);
+                   myPen = new Pen(voltageColor);
                     interpPoint2(lead1, lead2, ps1, ps2, i*segf, hs);
                     interpPoint2(lead1, lead2, ps3, ps4, (i+1)*segf, hs);
-                    drawThickLine(g, ps1, ps3);
-                    drawThickLine(g, ps2, ps4);
+                    drawThickLine(g, myPen,ps1, ps3);
+                    drawThickLine(g, myPen ,ps2, ps4);
                 }
                 interpPoint2(lead1, lead2, ps1, ps2, 1, hs);
-                drawThickLine(g, ps1, ps2);
+
+                drawThickLine(g,myPen, ps1, ps2);
             }
             if (sim.showValuesCheckItem.State)
             {
@@ -106,7 +110,7 @@ namespace JavaToSharp
             drawPosts(g);
         }
 
-        protected override void calculateCurrent()
+        internal override void calculateCurrent()
         {
             current = (volts[0]-volts[1])/resistance;
             //System.out.print(this + " res current set to " + current + "\n");

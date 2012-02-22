@@ -45,7 +45,7 @@ namespace JavaToSharp
         internal CheckboxMenuItem voltsCheckItem;
         internal CheckboxMenuItem powerCheckItem;
         internal CheckboxMenuItem smallGridCheckItem;
-        internal CheckboxMenuItem showValuesCheckItem;
+        internal CheckboxMenuItem showValuesCheckItem; 
         internal CheckboxMenuItem conductanceCheckItem;
         internal CheckboxMenuItem euroResistorCheckItem;
         internal CheckboxMenuItem printableCheckItem;

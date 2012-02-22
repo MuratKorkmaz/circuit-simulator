@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -84,8 +85,8 @@ namespace JavaToSharp
                 g.Color = whiteColor;
             interpPoint(lead1, lead2, ps, 0, hs1);
             interpPoint(lead1, lead2, ps2, 1, hs2);
-
-            drawThickLine(g, ps, ps2);
+            myPen = new Pen(whiteColor);
+            drawThickLine(g, myPen,ps, ps2);
             drawPosts(g);
         }
 
@@ -148,7 +149,11 @@ namespace JavaToSharp
             if (n == 0)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Самовозврат", momentary);
+                ei.checkbox = new CheckBox();
+                if (momentary)
+                {
+                    ei.checkbox.Text = "Самовозврат";
+                }
                 return ei;
             }
             return null;
@@ -156,7 +161,7 @@ namespace JavaToSharp
         public override void setEditValue(int n, EditInfo ei)
         {
             if (n == 0)
-                momentary = ei.checkbox.State;
+                momentary = ei.checkbox.Checked;
         }
     }
 }
