@@ -70,6 +70,7 @@
             this.btReset.TabIndex = 0;
             this.btReset.Text = "Сброс";
             this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // chbStop
             // 
@@ -80,6 +81,7 @@
             this.chbStop.TabIndex = 1;
             this.chbStop.Text = "Остановлено";
             this.chbStop.UseVisualStyleBackColor = true;
+            this.chbStop.CheckedChanged += new System.EventHandler(this.chbStop_CheckedChanged);
             // 
             // label1
             // 
@@ -98,6 +100,7 @@
             this.sbSimulationSpeed.Name = "sbSimulationSpeed";
             this.sbSimulationSpeed.Size = new System.Drawing.Size(119, 17);
             this.sbSimulationSpeed.TabIndex = 3;
+            this.sbSimulationSpeed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbSimulationSpeed_Scroll);
             // 
             // label2
             // 
@@ -115,6 +118,7 @@
             this.sbCurrentSpeed.Name = "sbCurrentSpeed";
             this.sbCurrentSpeed.Size = new System.Drawing.Size(119, 17);
             this.sbCurrentSpeed.TabIndex = 5;
+            this.sbCurrentSpeed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbCurrentSpeed_Scroll);
             // 
             // label3
             // 
@@ -132,6 +136,7 @@
             this.sbPowerLight.Name = "sbPowerLight";
             this.sbPowerLight.Size = new System.Drawing.Size(119, 17);
             this.sbPowerLight.TabIndex = 7;
+            this.sbPowerLight.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbPowerLight_Scroll);
             // 
             // lbCopyright
             // 

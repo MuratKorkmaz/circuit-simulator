@@ -2033,9 +2033,9 @@ namespace JavaToSharp
                 // a while.  Recreating it fixes the problem, so we do that here.
                 dbimage = main.createImage(winSize.width, winSize.height);
 
-                for (i = 0; i != elmList.Count; i++)
+                for (i = 0; i < elmList.Count; i++)
                     getElm(i).reset();
-                for (i = 0; i != scopeCount; i++)
+                for (i = 0; i < scopeCount; i++)
                     scopes[i].resetGraph();
                 analyzeFlag = true;
                 t = 0;

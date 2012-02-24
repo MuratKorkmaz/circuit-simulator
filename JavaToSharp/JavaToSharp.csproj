@@ -112,6 +112,7 @@
     <Compile Include="Elements\PhaseCompElm.cs" />
     <Compile Include="Elements\PhotoResistorElm.cs" />
     <Compile Include="Elements\PMosfetElm.cs" />
+    <Compile Include="ISimulationView.cs" />
     <Compile Include="Polygon.cs" />
     <Compile Include="Elements\PotElm.cs" />
     <Compile Include="Elements\ProbeElm.cs" />
