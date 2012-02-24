@@ -57,7 +57,9 @@
     <Compile Include="Elements\CC2Elm.cs" />
     <Compile Include="Elements\Checkbox.cs" />
     <Compile Include="Elements\ChipElm.cs" />
-    <Compile Include="CircuitCanvas.cs" />
+    <Compile Include="CircuitCanvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Elements\CircuitElm.cs" />
     <Compile Include="CircuitLayout.cs" />
     <Compile Include="CircuitNode.cs" />
@@ -70,7 +72,6 @@
     <Compile Include="Elements\DCVoltageElm.cs" />
     <Compile Include="Elements\DecadeElm.cs" />
     <Compile Include="Elements\DFlipFlopElm.cs" />
-    <Compile Include="Elements\DiacElm.cs" />
     <Compile Include="Elements\Diode.cs" />
     <Compile Include="Elements\DiodeElm.cs" />
     <Compile Include="EditDialog.cs" />
@@ -115,7 +116,6 @@
     <Compile Include="Elements\OrGateElm.cs" />
     <Compile Include="Elements\OutputElm.cs" />
     <Compile Include="Elements\PhaseCompElm.cs" />
-    <Compile Include="Elements\PhotoResistorElm.cs" />
     <Compile Include="Elements\PMosfetElm.cs" />
     <Compile Include="Views\ISimulationView.cs" />
     <Compile Include="Polygon.cs" />
@@ -140,12 +140,10 @@
     <Compile Include="Elements\SwitchElm.cs" />
     <Compile Include="Elements\TappedTransformerElm.cs" />
     <Compile Include="Elements\TextElm.cs" />
-    <Compile Include="Elements\ThermistorElm.cs" />
     <Compile Include="Elements\TimerElm.cs" />
     <Compile Include="Elements\TransformerElm.cs" />
     <Compile Include="Elements\TransistorElm.cs" />
     <Compile Include="Elements\TransLineElm.cs" />
-    <Compile Include="Elements\TriacElm.cs" />
     <Compile Include="Elements\TriodeElm.cs" />
     <Compile Include="Elements\TunnelDiodeElm.cs" />
     <Compile Include="Elements\VarRailElm.cs" />
