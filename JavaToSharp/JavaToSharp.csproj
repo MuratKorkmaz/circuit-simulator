@@ -78,10 +78,16 @@
     <Compile Include="EditDialogLayout.cs" />
     <Compile Include="EditInfo.cs" />
     <Compile Include="EditOptions.cs" />
-    <Compile Include="FormMain.cs">
+    <Compile Include="Views\FormImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
+    <Compile Include="Views\FormImport.Designer.cs">
+      <DependentUpon>FormImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Elements\GateElm.cs" />
@@ -112,7 +118,7 @@
     <Compile Include="Elements\PhaseCompElm.cs" />
     <Compile Include="Elements\PhotoResistorElm.cs" />
     <Compile Include="Elements\PMosfetElm.cs" />
-    <Compile Include="ISimulationView.cs" />
+    <Compile Include="Views\ISimulationView.cs" />
     <Compile Include="Polygon.cs" />
     <Compile Include="Elements\PotElm.cs" />
     <Compile Include="Elements\ProbeElm.cs" />
@@ -149,14 +155,14 @@
     <Compile Include="Elements\WireElm.cs" />
     <Compile Include="Elements\XorGateElm.cs" />
     <Compile Include="Elements\ZenerElm.cs" />
-    <Compile Include="ucSimulationParameters.cs">
+    <Compile Include="Views\ucSimulationParameters.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ucSimulationParameters.Designer.cs">
+    <Compile Include="Views\ucSimulationParameters.Designer.cs">
       <DependentUpon>ucSimulationParameters.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserMessageView.cs" />
-    <EmbeddedResource Include="FormMain.resx">
+    <Compile Include="Views\UserMessageView.cs" />
+    <EmbeddedResource Include="Views\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -169,7 +175,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ucSimulationParameters.resx">
+    <EmbeddedResource Include="Views\ucSimulationParameters.resx">
       <DependentUpon>ucSimulationParameters.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

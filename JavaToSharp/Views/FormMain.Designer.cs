@@ -44,6 +44,7 @@ namespace JavaToSharp
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.pbFooter = new System.Windows.Forms.PictureBox();
             this.pbCircuit = new System.Windows.Forms.PictureBox();
+            this.menuStrip1.SuspendLayout();
             this.tlpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCircuit)).BeginInit();
@@ -51,17 +52,15 @@ namespace JavaToSharp
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem,
+            this.осциллографToolStripMenuItem,
+            this.схемыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(700, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "enuStrip";
-            this.menuStrip1.Items.AddRange(new ToolStripItem[]
-                                               {
-                                                   файлToolStripMenuItem,
-                                                   осциллографToolStripMenuItem,
-                                                   схемыToolStripMenuItem
-                                               });
             // 
             // файлToolStripMenuItem
             // 
@@ -80,18 +79,21 @@ namespace JavaToSharp
             this.tsmiImport.Name = "tsmiImport";
             this.tsmiImport.Size = new System.Drawing.Size(165, 22);
             this.tsmiImport.Text = "Импорт";
+            this.tsmiImport.Click += new System.EventHandler(this.tsmiImport_Click);
             // 
             // tsmiExport
             // 
             this.tsmiExport.Name = "tsmiExport";
             this.tsmiExport.Size = new System.Drawing.Size(165, 22);
             this.tsmiExport.Text = "Экспорт";
+            this.tsmiExport.Click += new System.EventHandler(this.tsmiExport_Click);
             // 
             // tsmiExportLink
             // 
             this.tsmiExportLink.Name = "tsmiExportLink";
             this.tsmiExportLink.Size = new System.Drawing.Size(165, 22);
             this.tsmiExportLink.Text = "Экспорт. ссылку";
+            this.tsmiExportLink.Click += new System.EventHandler(this.tsmiExportLink_Click);
             // 
             // toolStripSeparator1
             // 
@@ -183,6 +185,8 @@ namespace JavaToSharp
             this.Name = "FormMain";
             this.Text = "Circuit Simulator v0.99";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.tlpMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCircuit)).EndInit();

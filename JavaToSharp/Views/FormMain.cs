@@ -42,5 +42,20 @@ namespace JavaToSharp
             stoppedCheck.State = false;
             pbCircuit.Invalidate();
         }
+
+        private void tsmiImport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiExport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tsmiExportLink_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
