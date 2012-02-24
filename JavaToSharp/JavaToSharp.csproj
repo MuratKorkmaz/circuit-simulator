@@ -57,7 +57,6 @@
     <Compile Include="Elements\CC2Elm.cs" />
     <Compile Include="Elements\Checkbox.cs" />
     <Compile Include="Elements\ChipElm.cs" />
-    <Compile Include="Circuit.cs" />
     <Compile Include="CircuitCanvas.cs" />
     <Compile Include="Elements\CircuitElm.cs" />
     <Compile Include="CircuitLayout.cs" />
