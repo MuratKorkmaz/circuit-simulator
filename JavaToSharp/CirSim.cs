@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using JavaToSharp.Elements;
@@ -22,16 +23,6 @@ namespace JavaToSharp
         internal Image dbimage;
 
         internal Random random;
-        public const int sourceRadius = 7;
-        public const double freqMult = 3.14159265*2*4;
-
-        public virtual string AppletInfo
-        {
-            get
-            {
-                return "Circuit by Paul Falstad";
-            }
-        }
 
         internal static Control main;
         internal Label titleLabel;
@@ -45,7 +36,6 @@ namespace JavaToSharp
         internal ToolStripMenuItem powerCheckItem;
         internal ToolStripMenuItem smallGridCheckItem;
         internal ToolStripMenuItem showValuesCheckItem;
-        internal ToolStripMenuItem conductanceCheckItem;
         internal ToolStripMenuItem euroResistorCheckItem;
         internal ToolStripMenuItem printableCheckItem;
         internal ToolStripMenuItem conventionCheckItem;
@@ -93,17 +83,15 @@ namespace JavaToSharp
         internal const int MODE_SELECT = 6;
         internal const int infoWidth = 120;
         internal int dragX, dragY, initDragX, initDragY;
-        internal int selectedSource;
         internal Rectangle selectedArea;
         internal int gridSize, gridMask, gridRound;
-        internal bool dragging;
         internal bool analyzeFlag;
         internal bool dumpMatrix;
         internal bool useBufferedImage;
         internal bool isMac;
         internal string ctrlMetaKey;
         internal double t;
-        internal int pause = 10;
+        internal int pause = 20;
         internal int scopeSelected = -1;
         internal int menuScope = -1;
         internal int hintType = -1, hintItem1, hintItem2;
@@ -115,7 +103,6 @@ namespace JavaToSharp
         internal const int HINT_TWINT = 4;
         internal const int HINT_3DB_L = 5;
         internal ArrayList elmList;
-        internal ArrayList setupList;
         internal CircuitElm dragElm, menuElm, mouseElm, stopElm;
         internal int mousePost = -1;
         internal CircuitElm plotXElm, plotYElm;
@@ -128,7 +115,6 @@ namespace JavaToSharp
         internal RowInfo[] circuitRowInfo;
         internal int[] circuitPermute;
         internal bool circuitNonLinear;
-        internal int voltageSourceCount;
         internal int circuitMatrixSize, circuitMatrixFullSize;
         internal bool circuitNeedsMap;
         public bool useFrame;
@@ -153,94 +139,25 @@ namespace JavaToSharp
             return q % x;
         }
         internal CircuitCanvas cv;
-        internal Circuit applet;
 
-        internal CirSim(Circuit a) 
+        internal CirSim() 
         {
-            applet = a;
             useFrame = false;
         }
 
-        internal string startCircuit;
-        internal string startLabel;
         internal string startCircuitText;
         internal string baseURL = "http://www.falstad.com/circuit/";
 
         public virtual void init()
         {
-            string euroResistor = null;
-            string useFrameStr = null;
-            bool printable = false;
-            bool convention = true;
-
             CircuitElm.initClass(this);
-
-            try
-            {
-                //todo: ��������� ���������� "����������" ���� �� startup.txt
-                baseURL = applet.DocumentBase.File;
-                // look for circuit embedded in URL
-                string doc = applet.DocumentBase.ToString();
-                int @in = doc.IndexOf('#');
-                if (@in > 0)
-                {
-                    string x = null;
-                    try
-                    {
-                        x = doc.Substring(@in+1);
-                        x = URLDecoder.decode(x);
-                        startCircuitText = x;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("can't decode " + x);
-                        e.printStackTrace();
-                    }
-                }
-                @in = doc.LastIndexOf('/');
-                if (@in > 0)
-                    baseURL = doc.Substring(0, @in+1);
-
-                string param = applet.getParameter("PAUSE");
-                if (param != null)
-                    pause = Convert.ToInt32(param);
-                startCircuit = applet.getParameter("startCircuit");
-                startLabel = applet.getParameter("startLabel");
-                euroResistor = applet.getParameter("euroResistors");
-                useFrameStr = applet.getParameter("useFrame");
-                string x = applet.getParameter("whiteBackground");
-                if (x != null && x.equalsIgnoreCase("true"))
-                    printable = true;
-                x = applet.getParameter("conventionalCurrent");
-                if (x != null && x.equalsIgnoreCase("true"))
-                    convention = false;
-            }
-            catch (Exception e)
-            {
-            }
-
-            bool euro = (euroResistor != null && euroResistor.equalsIgnoreCase("true"));
-            useFrame = (useFrameStr == null || !useFrameStr.equalsIgnoreCase("false"));
-            if (useFrame)
-                main = this;
-            else
-                main = applet;
-
-            string os = System.getProperty("os.name");
-            isMac = (os.IndexOf("Mac ") == 0);
-            ctrlMetaKey = (isMac) ? "\u2318" : "Ctrl";
-            string jv = System.getProperty("java.class.version");
-            double jvf = new (double)double?(jv);
-            if (jvf >= 48)
-            {
-                muString = "мк";
-                ohmString = "\u03a9";
-                useBufferedImage = true;
-            }
-
+            baseURL = Application.StartupPath;
+           
+            ctrlMetaKey = "Ctrl";
+            
             dumpTypes = new Class[300];
             // these characters are reserved
-            dumpTypes[(int)'o'] = typeof(Scope);
+            dumpTypes['o'] = typeof(Scope);
             dumpTypes[(int)'h'] = typeof(Scope);
             dumpTypes[(int)'$'] = typeof(Scope);
             dumpTypes[(int)'%'] = typeof(Scope);
@@ -256,14 +173,8 @@ namespace JavaToSharp
             main.add(cv);
 
             mainMenu = new PopupMenu();
-            MenuBar mb = null;
-            if (useFrame)
-                mb = new MenuBar();
             Menu m = new Menu("Файл");
-            if (useFrame)
-                mb.add(m);
-            else
-                mainMenu.add(m);
+            mainMenu.add(m);
             m.add(importItem = getMenuItem("Импорт"));
             m.add(exportItem = getMenuItem("Экспорт"));
             m.add(exportLinkItem = getMenuItem("Экспорт. ссылку"));
@@ -271,16 +182,10 @@ namespace JavaToSharp
             m.add(exitItem = getMenuItem("Выход"));
 
             m = new Menu("Осциллограф");
-            if (useFrame)
-                mb.add(m);
-            else
-                mainMenu.add(m);
+            mainMenu.add(m);
             m.add(getMenuItem("Объединить всё", "stackAll"));
             m.add(getMenuItem("Разъединить всё", "unstackAll"));
 
-            Menu circuitsMenu = new Menu("Схемы");
-            mb.add(circuitsMenu);
-            
             mainMenu.add(getClassCheckItem("Добавить Соединение", "WireElm"));
             mainMenu.add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
 
@@ -424,7 +329,7 @@ namespace JavaToSharp
 
             setGrid();
             elmList = new ArrayList();
-            setupList = new ArrayList();
+            new ArrayList();
             undoStack = new ArrayList();
             redoStack = new ArrayList();
 
@@ -447,36 +352,18 @@ namespace JavaToSharp
             scopeMenu = buildScopeMenu(false);
             transScopeMenu = buildScopeMenu(true);
 
-            getSetupList(circuitsMenu, false);
-            if (useFrame)
-                MenuBar = mb;
+            Menu circuitsMenu = new Menu("Схемы");
+            getSetupList(circuitsMenu);
             if (startCircuitText != null)
                 readSetup(startCircuitText);
-            else if (stopMessage == null && startCircuit != null)
-                readSetupFile(startCircuit, startLabel);
-
-            if (useFrame)
+            
+           
+            if (!powerCheckItem.State)
             {
-                Dimension screen = Toolkit.ScreenSize;
-                resize(860, 640);
-                handleResize();
-                Dimension x = Size;
-                setLocation((screen.width - x.width)/2, (screen.height - x.height)/2);
-                show();
+                main.remove(powerBar);
+                main.remove(powerLabel);
+                main.validate();
             }
-            else
-            {
-                if (!powerCheckItem.State)
-                {
-                    main.remove(powerBar);
-                    main.remove(powerLabel);
-                    main.validate();
-                }
-                hide();
-                handleResize();
-                applet.validate();
-            }
-            main.requestFocus();
         }
 
         internal bool shown = false;
@@ -643,30 +530,7 @@ namespace JavaToSharp
             needAnalyze();
             circuitBottom = 0;
         }
-
-        internal virtual void destroyFrame()
-        {
-            if (applet == null)
-                Dispose();
-            else
-                applet.destroyFrame();
-        }
-
-        public virtual bool handleEvent(Event ev)
-        {
-            if (ev.id == Event.WINDOW_DESTROY)
-            {
-                destroyFrame();
-                return true;
-            }
-            return base.handleEvent(ev);
-        }
-
-        public virtual void paint(Graphics g)
-        {
-            cv.repaint();
-        }
-
+        
         internal const int resct = 6;
         internal long lastTime = 0, lastFrameTime, lastIterTime, secTime = 0;
         internal int frames = 0;
@@ -869,7 +733,7 @@ namespace JavaToSharp
             if (!stoppedCheck.State && circuitMatrix != null)
             {
                 // Limit to 50 fps (thanks to Jьrgen Klцtzer for this)
-                long delay = 1000/50 - (System.currentTimeMillis() - lastFrameTime);
+                int delay = (int)(1000/50 - (DateTime.Now.Millisecond - lastFrameTime));
                 //realg.drawString("delay: " + delay,  10, 90);
                 if (delay > 0)
                 {
@@ -877,11 +741,10 @@ namespace JavaToSharp
                     {
                         Thread.Sleep(delay);
                     }
-                    catch (InterruptedException e)
+                    catch (ThreadInterruptedException e)
                     {
                     }
                 }
-
                 cv.repaint(0);
             }
             lastFrameTime = lastTime;
@@ -1061,6 +924,7 @@ namespace JavaToSharp
             return (CircuitElm) elmList[n];
         }
 
+        
         internal virtual void analyzeCircuit()
         {
             calcCircuitBottom();
@@ -1186,7 +1050,6 @@ namespace JavaToSharp
                     ce.setVoltageSource(j, vscount++);
                 }
             }
-            voltageSourceCount = vscount;
 
             int matrixSize = nodeList.Count-1 + vscount;
 //ORIGINAL LINE: circuitMatrix = new double[matrixSize][matrixSize];
@@ -1689,6 +1552,8 @@ namespace JavaToSharp
             }
         }
 
+
+
         internal virtual void stop(string s, CircuitElm ce)
         {
             stopMessage = s;
@@ -1739,11 +1604,9 @@ namespace JavaToSharp
         internal virtual void stampResistor(int n1, int n2, double r)
         {
             double r0 = 1/r;
-            if (double.isNaN(r0) || double.IsInfinity(r0))
+            if (double.IsNaN(r0) || double.IsInfinity(r0))
             {
-                Console.Write("плохое сопротивление " + r + " " + r0 + "\n");
-                int a = 0;
-                a /= a;
+                Console.Write("Nan or Infinity defected: " + r + " " + r0 + "\n");
             }
             stampMatrix(n1, n1, r0);
             stampMatrix(n2, n2, r0);
@@ -1850,7 +1713,7 @@ namespace JavaToSharp
                 if (speedBar.Value == 0)
                     return 0;
                 //return (Math.exp((speedBar.getValue()-1)/24.) + .5);
-                return.1*Math.Exp((speedBar.Value-61)/24.);
+                return.1*Math.Exp((speedBar.Value-61)/24.0);
             }
         }
 
@@ -1868,7 +1731,7 @@ namespace JavaToSharp
             bool debugprint = dumpMatrix;
             dumpMatrix = false;
             long steprate = (long)(160*IterCount);
-            long tm = System.currentTimeMillis();
+            long tm = DateTime.Now.Millisecond;
             long lit = lastIterTime;
             if (1000 >= steprate*(tm-lastIterTime))
                 return;
@@ -1908,7 +1771,7 @@ namespace JavaToSharp
                         for (i = 0; i != circuitMatrixSize; i++)
                         {
                             double x = circuitMatrix[i][j];
-                            if (double.isNaN(x) || double.IsInfinity(x))
+                            if (double.IsNaN(x) || double.IsInfinity(x))
                             {
                                 stop("nan/infinite matrix!", null);
                                 return;
@@ -1947,7 +1810,7 @@ namespace JavaToSharp
                             res = circuitRightSide[ri.mapCol];
 //		    System.out.println(j + " " + res + " " +
 //		      ri.type + " " + ri.mapCol);
-                        if (double.isNaN(res))
+                        if (double.IsNaN(res))
                         {
                             converged = false;
                             //debugprint = true;
@@ -1956,9 +1819,9 @@ namespace JavaToSharp
                         if (j < nodeList.Count-1)
                         {
                             CircuitNode cn = getCircuitNode(j+1);
-                            for (k = 0; k != cn.links.size(); k++)
+                            for (k = 0; k != cn.links.Count; k++)
                             {
-                                CircuitNodeLink cnl = (CircuitNodeLink) cn.links.elementAt(k);
+                                var cnl = (CircuitNodeLink) cn.links[k];
                                 cnl.elm.setNodeVoltage(cnl.num, res);
                             }
                         }
@@ -1982,7 +1845,7 @@ namespace JavaToSharp
                 t += timeStep;
                 for (i = 0; i != scopeCount; i++)
                     scopes[i].timeStep();
-                tm = System.currentTimeMillis();
+                tm = DateTime.Now.Millisecond;
                 lit = tm;
                 if (iter*1000 >= steprate*(tm-lastIterTime) || (tm-lastFrameTime > 500))
                     break;
@@ -2000,18 +1863,6 @@ namespace JavaToSharp
             return (a > b) ? a : b;
         }
 
-        internal virtual void editFuncPoint(int x, int y)
-        {
-            // XXX
-            cv.repaint(pause);
-        }
-
-        public virtual void componentHidden(ComponentEvent e)
-        {
-        }
-        public virtual void componentMoved(ComponentEvent e)
-        {
-        }
         public virtual void componentShown(ComponentEvent e)
         {
             cv.repaint();
@@ -2261,42 +2112,21 @@ namespace JavaToSharp
             }
             return ba;
         }
-
-        protected virtual URL CodeBase
-        {
-            get
-            {
-                try
-                {
-                    if (applet != null)
-                        return applet.CodeBase;
-                    File f = new File(".");
-                    return new URL("file:" + f.CanonicalPath + "/");
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-        }
-
-        protected virtual void getSetupList(Menu menu, bool retry)
+        
+        protected virtual void getSetupList(Menu menu)
         {
             Menu[] stack = new Menu[6];
             int stackptr = 0;
             stack[stackptr++] = menu;
             try
             {
-                URL url = new URL(CodeBase + "setuplist.txt");
-                ByteArrayOutputStream ba = readUrlData(url);
-                sbyte[] b = ba.toByteArray();
-                int len = ba.size();
+                byte[] b = File.ReadAllBytes("setuplist.txt");
+                int len = b.Length;
                 int p;
                 if (len == 0 || b[0] != '#')
                 {
                     // got a redirect, try again
-                    getSetupList(menu, true);
+                    getSetupList(menu);
                     return;
                 }
                 for (p = 0; p < len;)
@@ -2327,15 +2157,12 @@ namespace JavaToSharp
                         if (i > 0)
                         {
                             string title = line.Substring(i+1);
-                            bool first = false;
-                            if (line[0] == '>')
-                                first = true;
-                            string file = line.Substring(first ? 1 : 0, i - (first ? 1 : 0));
+                            bool first = line[0] == '>';
+                            int start = first ? 1 : 0;
+                            string file = line.Substring(start, i - start);
                             menu.add(getMenuItem(title, "setup " + file));
-                            if (first && startCircuit == null)
+                            if (first)
                             {
-                                startCircuit = file;
-                                startLabel = title;
                             }
                         }
                     }
@@ -2612,7 +2439,6 @@ namespace JavaToSharp
                     success = dragSelected(e.X, e.Y);
                     break;
             }
-            dragging = true;
             if (success)
             {
                 if (tempMouseMode == MODE_DRAG_SELECTED && mouseElm is TextElm)
@@ -2953,7 +2779,6 @@ namespace JavaToSharp
             pushUndo();
             initDragX = e.X;
             initDragY = e.Y;
-            dragging = true;
             if (tempMouseMode != MODE_ADD_ELM || addingClass == null)
                 return;
 
@@ -3054,7 +2879,6 @@ namespace JavaToSharp
             }
             tempMouseMode = mouseMode;
             selectedArea = null;
-            dragging = false;
             bool circuitChanged = false;
             if (heldSwitchElm != null)
             {

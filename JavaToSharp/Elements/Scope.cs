@@ -5,6 +5,8 @@ namespace JavaToSharp
 {
     internal class Scope
     {
+        #region Fields
+
         private const int FLAG_YELM = 32;
         private const int VAL_POWER = 1;
         internal const int VAL_IB = 1;
@@ -50,6 +52,8 @@ namespace JavaToSharp
             reset();
             sim = s;
         }
+
+        #endregion
 
         protected virtual void showCurrent(bool b)
         {
@@ -741,8 +745,8 @@ namespace JavaToSharp
                     Type biclass = Type.GetType("java.awt.image.BufferedImage");
                     Type dbiclass = Type.GetType("java.awt.image.DataBufferInt");
                     Type rasclass = Type.GetType("java.awt.image.Raster");
-                    Constructor cstr = biclass.GetConstructor(new Class[] { typeof(int), typeof(int), typeof(int) });
-                    image = (Image) cstr.newInstance(new object[] { new int?(w), new int?(h), new int?(BufferedImage.TYPE_INT_RGB)});
+                    Constructor cstr = biclass.GetConstructor(new[] {typeof (int), typeof (int), typeof (int)});
+                    image = (Image) cstr.newInstance(new object[] { w, h, BufferedImage.TYPE_INT_RGB});
                     Method m = biclass.GetMethod("getRaster");
                     object ras = m.Invoke(image);
                     object db = rasclass.GetMethod("getDataBuffer").Invoke(ras);

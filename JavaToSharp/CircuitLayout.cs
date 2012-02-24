@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Windows.Forms;
 
 internal class CircuitLayout : LayoutManager
 {

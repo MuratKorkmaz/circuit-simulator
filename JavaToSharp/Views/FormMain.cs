@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace JavaToSharp
 {
     public partial class FormMain : Form, ISimulationView
     {
-        private CirSim _simController;
+        private readonly CirSim _simController;
 
         public FormMain()
         {
             InitializeComponent();
             _simController = new CirSim();
+            _simController.init();
         }
 
         private void Form1_Load(object sender, EventArgs e)
