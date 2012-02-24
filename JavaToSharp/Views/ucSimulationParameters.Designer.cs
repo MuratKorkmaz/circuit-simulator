@@ -97,9 +97,11 @@
             this.sbSimulationSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.sbSimulationSpeed.Location = new System.Drawing.Point(0, 65);
+            this.sbSimulationSpeed.Maximum = 260;
             this.sbSimulationSpeed.Name = "sbSimulationSpeed";
             this.sbSimulationSpeed.Size = new System.Drawing.Size(119, 17);
             this.sbSimulationSpeed.TabIndex = 3;
+            this.sbSimulationSpeed.Value = 3;
             this.sbSimulationSpeed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbSimulationSpeed_Scroll);
             // 
             // label2
@@ -115,9 +117,11 @@
             // 
             this.sbCurrentSpeed.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sbCurrentSpeed.Location = new System.Drawing.Point(0, 95);
+            this.sbCurrentSpeed.Minimum = 1;
             this.sbCurrentSpeed.Name = "sbCurrentSpeed";
             this.sbCurrentSpeed.Size = new System.Drawing.Size(119, 17);
             this.sbCurrentSpeed.TabIndex = 5;
+            this.sbCurrentSpeed.Value = 50;
             this.sbCurrentSpeed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbCurrentSpeed_Scroll);
             // 
             // label3
@@ -132,10 +136,13 @@
             // sbPowerLight
             // 
             this.sbPowerLight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sbPowerLight.Enabled = false;
             this.sbPowerLight.Location = new System.Drawing.Point(0, 125);
+            this.sbPowerLight.Minimum = 1;
             this.sbPowerLight.Name = "sbPowerLight";
             this.sbPowerLight.Size = new System.Drawing.Size(119, 17);
             this.sbPowerLight.TabIndex = 7;
+            this.sbPowerLight.Value = 50;
             this.sbPowerLight.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbPowerLight_Scroll);
             // 
             // lbCopyright

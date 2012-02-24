@@ -346,7 +346,7 @@ namespace JavaToSharp
             {
                 // don't show gridlines if plotting multiple values,
                 // or if lines are too close together (except for center line)
-                if (ll != 0 && ((showI && showV) || gridStep == 0))
+                if (ll != 0 && ((showI && showV) || Math.Abs(gridStep - 0.0) < double.Epsilon))
                     continue;
                 int yl = maxy-(int)(maxy*ll*gridStep/gridMax);
                 if (yl < 0 || yl >= rect.Height-1)
@@ -521,7 +521,7 @@ namespace JavaToSharp
                     freq = 0;
                 // System.out.println(freq + " " + periodstd + " " + periodct);
             }
-            g.drawImage(image, rect.X, rect.Y, null);
+            g.DrawImage(image, rect.X, rect.Y, null);
             g.Color = elm.whiteColor;
             int yt = rect.Y+10;
             x += rect.X;
@@ -574,42 +574,7 @@ namespace JavaToSharp
             speed *= 2;
             resetGraph();
         }
-
-        internal virtual PopupMenu Menu   
-        {
-            get
-            {
-                if (elm == null)
-                    return null;
-                if (elm is TransistorElm)
-                {
-                    sim.scopeIbMenuItem.Checked = value == VAL_IB;
-                    sim.scopeIcMenuItem.Checked = value == VAL_IC;
-                    sim.scopeIeMenuItem.Checked = value == VAL_IE;
-                    sim.scopeVbeMenuItem.Checked  = value == VAL_VBE;
-                    sim.scopeVbcMenuItem.Checked = value == VAL_VBC;
-                    sim.scopeVceMenuItem.Checked  = value == VAL_VCE && ivalue != VAL_IC;
-                    sim.scopeVceIcMenuItem.Checked  = value == VAL_VCE && ivalue == VAL_IC;
-                    return sim.transScopeMenu;
-                }
-                else
-                {
-                    sim.scopeVMenuItem.Checked  = showV && value == 0;
-                    sim.scopeIMenuItem.Checked  = showI && value == 0;
-                    sim.scopeMaxMenuItem.Checked  = BshowMax;
-                    sim.scopeMinMenuItem.Checked  = BshowMin;
-                    sim.scopeFreqMenuItem.Checked  = BshowFreq;
-                    sim.scopePowerMenuItem.Checked = value == VAL_POWER;
-                    sim.scopeVIMenuItem.Checked= plot2d && !plotXY;
-                    sim.scopeXYMenuItem.Checked  = plotXY;
-                    sim.scopeSelectYMenuItem.Enabled = plotXY;
-                    sim.scopeResistMenuItem.Checked  = value == VAL_R;
-                    sim.scopeResistMenuItem.Enabled = elm is MemristorElm;
-                    return sim.scopeMenu;
-                }
-            }
-        }
-
+        
         protected virtual int Value
         {
             set

@@ -86,10 +86,7 @@ namespace JavaToSharp
         internal Rectangle selectedArea;
         internal int gridSize, gridMask, gridRound;
         internal bool analyzeFlag;
-        internal bool dumpMatrix;
         internal bool useBufferedImage;
-        internal bool isMac;
-        internal string ctrlMetaKey;
         internal double t;
         internal int pause = 20;
         internal int scopeSelected = -1;
@@ -117,7 +114,6 @@ namespace JavaToSharp
         internal bool circuitNonLinear;
         internal int circuitMatrixSize, circuitMatrixFullSize;
         internal bool circuitNeedsMap;
-        public bool useFrame;
         internal int scopeCount;
         internal Scope[] scopes;
         internal int[] scopeColCount;
@@ -142,7 +138,6 @@ namespace JavaToSharp
 
         internal CirSim() 
         {
-            useFrame = false;
         }
 
         internal string startCircuitText;
@@ -152,180 +147,135 @@ namespace JavaToSharp
         {
             CircuitElm.initClass(this);
             baseURL = Application.StartupPath;
-           
-            ctrlMetaKey = "Ctrl";
-            
-            dumpTypes = new Class[300];
+
+            dumpTypes = new Type[300];
             // these characters are reserved
             dumpTypes['o'] = typeof(Scope);
-            dumpTypes[(int)'h'] = typeof(Scope);
-            dumpTypes[(int)'$'] = typeof(Scope);
-            dumpTypes[(int)'%'] = typeof(Scope);
-            dumpTypes[(int)'?'] = typeof(Scope);
-            dumpTypes[(int)'B'] = typeof(Scope);
+            dumpTypes['h'] = typeof(Scope);
+            dumpTypes['$'] = typeof(Scope);
+            dumpTypes['%'] = typeof(Scope);
+            dumpTypes['?'] = typeof(Scope);
+            dumpTypes['B'] = typeof(Scope);
 
-            main.Layout = new CircuitLayout();
+            //main.Layout = new CircuitLayout();
             cv = new CircuitCanvas(this);
-            cv.addComponentListener(this);
-            cv.addMouseMotionListener(this);
-            cv.addMouseListener(this);
-            cv.addKeyListener(this);
-            main.add(cv);
+            //cv.addComponentListener(this);
+            //cv.addMouseMotionListener(this);
+            //cv.addMouseListener(this);
+            //cv.addKeyListener(this);
+            main.Controls.Add(cv);
 
-            mainMenu = new PopupMenu();
-            Menu m = new Menu("Файл");
-            mainMenu.add(m);
-            m.add(importItem = getMenuItem("Импорт"));
-            m.add(exportItem = getMenuItem("Экспорт"));
-            m.add(exportLinkItem = getMenuItem("Экспорт. ссылку"));
-            m.addSeparator();
-            m.add(exitItem = getMenuItem("Выход"));
+            //mainMenu = new PopupMenu();
+            //Menu m = new Menu("Файл");
+            //mainMenu.add(m);
+            //m.add(importItem = getMenuItem("Импорт"));
+            //m.add(exportItem = getMenuItem("Экспорт"));
+            //m.add(exportLinkItem = getMenuItem("Экспорт. ссылку"));
+            //m.addSeparator();
+            //m.add(exitItem = getMenuItem("Выход"));
 
-            m = new Menu("Осциллограф");
-            mainMenu.add(m);
-            m.add(getMenuItem("Объединить всё", "stackAll"));
-            m.add(getMenuItem("Разъединить всё", "unstackAll"));
+            //m = new Menu("Осциллограф");
+            //mainMenu.add(m);
+            //m.add(getMenuItem("Объединить всё", "stackAll"));
+            //m.add(getMenuItem("Разъединить всё", "unstackAll"));
 
-            mainMenu.add(getClassCheckItem("Добавить Соединение", "WireElm"));
-            mainMenu.add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
+            //mainMenu.add(getClassCheckItem("Добавить Соединение", "WireElm"));
+            //mainMenu.add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
 
-            Menu passMenu = new Menu("Пассивные компоненты");
-            mainMenu.add(passMenu);
-            passMenu.add(getClassCheckItem("Добавить Конденсатор", "CapacitorElm"));
-            passMenu.add(getClassCheckItem("Добавить Индуктивность", "InductorElm"));
-            passMenu.add(getClassCheckItem("Добавить Выключатель", "SwitchElm"));
-            passMenu.add(getClassCheckItem("Добавить Кнопочный выключатель", "PushSwitchElm"));
-            passMenu.add(getClassCheckItem("Добавить Переключатель", "Switch2Elm"));
-            passMenu.add(getClassCheckItem("Добавить Переменное сопротивление", "PotElm"));
-            passMenu.add(getClassCheckItem("Добавить Трансформатор", "TransformerElm"));
-            passMenu.add(getClassCheckItem("Добавить Трансформатор с отводом", "TappedTransformerElm"));
-            passMenu.add(getClassCheckItem("Добавить Линию передачи", "TransLineElm"));
-            passMenu.add(getClassCheckItem("Добавить Реле", "RelayElm"));
-            passMenu.add(getClassCheckItem("Добавить Мемристор", "MemristorElm"));
-            passMenu.add(getClassCheckItem("Добавить Искровой промежуток", "SparkGapElm"));
+            //Menu passMenu = new Menu("Пассивные компоненты");
+            //mainMenu.add(passMenu);
+            //passMenu.add(getClassCheckItem("Добавить Конденсатор", "CapacitorElm"));
+            //passMenu.add(getClassCheckItem("Добавить Индуктивность", "InductorElm"));
+            //passMenu.add(getClassCheckItem("Добавить Выключатель", "SwitchElm"));
+            //passMenu.add(getClassCheckItem("Добавить Кнопочный выключатель", "PushSwitchElm"));
+            //passMenu.add(getClassCheckItem("Добавить Переключатель", "Switch2Elm"));
+            //passMenu.add(getClassCheckItem("Добавить Переменное сопротивление", "PotElm"));
+            //passMenu.add(getClassCheckItem("Добавить Трансформатор", "TransformerElm"));
+            //passMenu.add(getClassCheckItem("Добавить Трансформатор с отводом", "TappedTransformerElm"));
+            //passMenu.add(getClassCheckItem("Добавить Линию передачи", "TransLineElm"));
+            //passMenu.add(getClassCheckItem("Добавить Реле", "RelayElm"));
+            //passMenu.add(getClassCheckItem("Добавить Мемристор", "MemristorElm"));
+            //passMenu.add(getClassCheckItem("Добавить Искровой промежуток", "SparkGapElm"));
 
-            Menu inputMenu = new Menu("Входы/Выходы");
-            mainMenu.add(inputMenu);
-            inputMenu.add(getClassCheckItem("Добавить Заземление", "GroundElm"));
-            inputMenu.add(getClassCheckItem("Добавить Ист. постоянного тока (2-вывода)", "DCVoltageElm"));
-            inputMenu.add(getClassCheckItem("Добавить Ист. переменного тока (2-вывода)", "ACVoltageElm"));
-            inputMenu.add(getClassCheckItem("Добавить Ист. напряжения (1-вывод)", "RailElm"));
-            inputMenu.add(getClassCheckItem("Добавить Ист. переменного тока (1-вывод)", "ACRailElm"));
-            inputMenu.add(getClassCheckItem("Добавить Ист. Прямоуг. напряжения (1-вывод)", "SquareRailElm"));
-            inputMenu.add(getClassCheckItem("Добавить Аналоговый выход", "OutputElm"));
-            inputMenu.add(getClassCheckItem("Добавить Логический вход", "LogicInputElm"));
-            inputMenu.add(getClassCheckItem("Добавить Логический выход", "LogicOutputElm"));
-            inputMenu.add(getClassCheckItem("Добавить Тактовые импульсы", "ClockElm"));
-            inputMenu.add(getClassCheckItem("Добавить Свип", "SweepElm"));
-            inputMenu.add(getClassCheckItem("Добавить Регулируемое напряжение", "VarRailElm"));
-            inputMenu.add(getClassCheckItem("Добавить Антенну", "AntennaElm"));
-            inputMenu.add(getClassCheckItem("Добавить Источник тока", "CurrentElm"));
-            inputMenu.add(getClassCheckItem("Добавить Светодиод", "LEDElm"));
-            inputMenu.add(getClassCheckItem("Добавить Лампу (beta)", "LampElm"));
+            //Menu inputMenu = new Menu("Входы/Выходы");
+            //mainMenu.add(inputMenu);
+            //inputMenu.add(getClassCheckItem("Добавить Заземление", "GroundElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Ист. постоянного тока (2-вывода)", "DCVoltageElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Ист. переменного тока (2-вывода)", "ACVoltageElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Ист. напряжения (1-вывод)", "RailElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Ист. переменного тока (1-вывод)", "ACRailElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Ист. Прямоуг. напряжения (1-вывод)", "SquareRailElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Аналоговый выход", "OutputElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Логический вход", "LogicInputElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Логический выход", "LogicOutputElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Тактовые импульсы", "ClockElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Свип", "SweepElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Регулируемое напряжение", "VarRailElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Антенну", "AntennaElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Источник тока", "CurrentElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Светодиод", "LEDElm"));
+            //inputMenu.add(getClassCheckItem("Добавить Лампу (beta)", "LampElm"));
 
-            Menu activeMenu = new Menu("Активные компоненты");
-            mainMenu.add(activeMenu);
-            activeMenu.add(getClassCheckItem("Добавить Диод", "DiodeElm"));
-            activeMenu.add(getClassCheckItem("Добавить Стабилитрон", "ZenerElm"));
-            activeMenu.add(getClassCheckItem("Добавить Транзистор (биполярный, NPN)", "NTransistorElm"));
-            activeMenu.add(getClassCheckItem("Добавить Транзистор (биполярный, PNP)", "PTransistorElm"));
-            activeMenu.add(getClassCheckItem("Добавить Операционный усилитель (- вверху)", "OpAmpElm"));
-            activeMenu.add(getClassCheckItem("Добавить Операционный усилитель (+ вверху)", "OpAmpSwapElm"));
-            activeMenu.add(getClassCheckItem("Добавить MOSFET (n-канальный)", "NMosfetElm"));
-            activeMenu.add(getClassCheckItem("Добавить MOSFET (p-канальный)", "PMosfetElm"));
-            activeMenu.add(getClassCheckItem("Добавить Полевой транзистор (n-канальный)", "NJfetElm"));
-            activeMenu.add(getClassCheckItem("Добавить Полевой транзистор (p-канальный)", "PJfetElm"));
-            activeMenu.add(getClassCheckItem("Добавить Аналоговый выключатель", "AnalogSwitchElm"));
-            activeMenu.add(getClassCheckItem("Добавить Аналоговый переключатель", "AnalogSwitch2Elm"));
-            activeMenu.add(getClassCheckItem("Добавить Тиристор", "SCRElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Варикап", "VaractorElm"));
-            activeMenu.add(getClassCheckItem("Добавить Туннельный диод", "TunnelDiodeElm"));
-            activeMenu.add(getClassCheckItem("Добавить Триод", "TriodeElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Динистор", "DiacElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Симистор", "TriacElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Фоторезистор", "PhotoResistorElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Термистор", "ThermistorElm"));
-            activeMenu.add(getClassCheckItem("Добавить CCII+", "CC2Elm"));
-            activeMenu.add(getClassCheckItem("Добавить CCII-", "CC2NegElm"));
+            //Menu activeMenu = new Menu("Активные компоненты");
+            //mainMenu.add(activeMenu);
+            //activeMenu.add(getClassCheckItem("Добавить Диод", "DiodeElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Стабилитрон", "ZenerElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Транзистор (биполярный, NPN)", "NTransistorElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Транзистор (биполярный, PNP)", "PTransistorElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Операционный усилитель (- вверху)", "OpAmpElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Операционный усилитель (+ вверху)", "OpAmpSwapElm"));
+            //activeMenu.add(getClassCheckItem("Добавить MOSFET (n-канальный)", "NMosfetElm"));
+            //activeMenu.add(getClassCheckItem("Добавить MOSFET (p-канальный)", "PMosfetElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Полевой транзистор (n-канальный)", "NJfetElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Полевой транзистор (p-канальный)", "PJfetElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Аналоговый выключатель", "AnalogSwitchElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Аналоговый переключатель", "AnalogSwitch2Elm"));
+            //activeMenu.add(getClassCheckItem("Добавить Тиристор", "SCRElm"));
+            ////activeMenu.add(getClassCheckItem("Добавить Варикап", "VaractorElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Туннельный диод", "TunnelDiodeElm"));
+            //activeMenu.add(getClassCheckItem("Добавить Триод", "TriodeElm"));
+            ////activeMenu.add(getClassCheckItem("Добавить Динистор", "DiacElm"));
+            ////activeMenu.add(getClassCheckItem("Добавить Симистор", "TriacElm"));
+            ////activeMenu.add(getClassCheckItem("Добавить Фоторезистор", "PhotoResistorElm"));
+            ////activeMenu.add(getClassCheckItem("Добавить Термистор", "ThermistorElm"));
+            //activeMenu.add(getClassCheckItem("Добавить CCII+", "CC2Elm"));
+            //activeMenu.add(getClassCheckItem("Добавить CCII-", "CC2NegElm"));
 
-            Menu gateMenu = new Menu("Логические элементы");
-            mainMenu.add(gateMenu);
-            gateMenu.add(getClassCheckItem("Добавить Инвертор", "InverterElm"));
-            gateMenu.add(getClassCheckItem("Добавить элемент И-НЕ", "NandGateElm"));
-            gateMenu.add(getClassCheckItem("Добавить элемент ИЛИ-НЕ", "NorGateElm"));
-            gateMenu.add(getClassCheckItem("Добавить элемент И", "AndGateElm"));
-            gateMenu.add(getClassCheckItem("Добавить элемент ИЛИ", "OrGateElm"));
-            gateMenu.add(getClassCheckItem("Добавить элемент исключающее ИЛИ", "XorGateElm"));
+            //Menu gateMenu = new Menu("Логические элементы");
+            //mainMenu.add(gateMenu);
+            //gateMenu.add(getClassCheckItem("Добавить Инвертор", "InverterElm"));
+            //gateMenu.add(getClassCheckItem("Добавить элемент И-НЕ", "NandGateElm"));
+            //gateMenu.add(getClassCheckItem("Добавить элемент ИЛИ-НЕ", "NorGateElm"));
+            //gateMenu.add(getClassCheckItem("Добавить элемент И", "AndGateElm"));
+            //gateMenu.add(getClassCheckItem("Добавить элемент ИЛИ", "OrGateElm"));
+            //gateMenu.add(getClassCheckItem("Добавить элемент исключающее ИЛИ", "XorGateElm"));
 
-            Menu chipMenu = new Menu("Микросхемы");
-            mainMenu.add(chipMenu);
-            chipMenu.add(getClassCheckItem("Добавить D триггер", "DFlipFlopElm"));
-            chipMenu.add(getClassCheckItem("Добавить JK триггер", "JKFlipFlopElm"));
-            chipMenu.add(getClassCheckItem("Добавить 7ми сегментный светодиод", "SevenSegElm"));
-            chipMenu.add(getClassCheckItem("Добавить VCO", "VCOElm"));
-            chipMenu.add(getClassCheckItem("Добавить Фазовый компаратор", "PhaseCompElm"));
-            chipMenu.add(getClassCheckItem("Добавить Счетчик", "CounterElm"));
-            chipMenu.add(getClassCheckItem("Добавить Декадный счетчик", "DecadeElm"));
-            chipMenu.add(getClassCheckItem("Добавить 555 Таймер", "TimerElm"));
-            chipMenu.add(getClassCheckItem("Добавить ЦАП", "DACElm"));
-            chipMenu.add(getClassCheckItem("Добавить АЦП", "ADCElm"));
-            chipMenu.add(getClassCheckItem("Добавить Защелку", "LatchElm"));
+            //Menu chipMenu = new Menu("Микросхемы");
+            //mainMenu.add(chipMenu);
+            //chipMenu.add(getClassCheckItem("Добавить D триггер", "DFlipFlopElm"));
+            //chipMenu.add(getClassCheckItem("Добавить JK триггер", "JKFlipFlopElm"));
+            //chipMenu.add(getClassCheckItem("Добавить 7ми сегментный светодиод", "SevenSegElm"));
+            //chipMenu.add(getClassCheckItem("Добавить VCO", "VCOElm"));
+            //chipMenu.add(getClassCheckItem("Добавить Фазовый компаратор", "PhaseCompElm"));
+            //chipMenu.add(getClassCheckItem("Добавить Счетчик", "CounterElm"));
+            //chipMenu.add(getClassCheckItem("Добавить Декадный счетчик", "DecadeElm"));
+            //chipMenu.add(getClassCheckItem("Добавить 555 Таймер", "TimerElm"));
+            //chipMenu.add(getClassCheckItem("Добавить ЦАП", "DACElm"));
+            //chipMenu.add(getClassCheckItem("Добавить АЦП", "ADCElm"));
+            //chipMenu.add(getClassCheckItem("Добавить Защелку", "LatchElm"));
 
-            Menu otherMenu = new Menu("Прочее");
-            mainMenu.add(otherMenu);
-            otherMenu.add(getClassCheckItem("Добавить Текст", "TextElm"));
-            otherMenu.add(getClassCheckItem("Добавить пробу осциллографа", "ProbeElm"));
-            otherMenu.add(getCheckItem("Drag All (Alt-drag)", "DragAll"));
-            otherMenu.add(getCheckItem(isMac ? "Drag Row (Alt-S-drag, S-right)" : "Drag Row (S-right)", "DragRow"));
-            otherMenu.add(getCheckItem(isMac ? "Drag Column (Alt-\u2318-drag, \u2318-right)" : "Drag Column (C-right)", "DragColumn"));
-            otherMenu.add(getCheckItem("Drag Selected", "DragSelected"));
-            otherMenu.add(getCheckItem("Drag Post (" + ctrlMetaKey + "-drag)", "DragPost"));
+            //Menu otherMenu = new Menu("Прочее");
+            //mainMenu.add(otherMenu);
+            //otherMenu.add(getClassCheckItem("Добавить Текст", "TextElm"));
+            //otherMenu.add(getClassCheckItem("Добавить пробу осциллографа", "ProbeElm"));
+            //otherMenu.add(getCheckItem("Drag All (Alt-drag)", "DragAll"));
+            //otherMenu.add(getCheckItem(isMac ? "Drag Row (Alt-S-drag, S-right)" : "Drag Row (S-right)", "DragRow"));
+            //otherMenu.add(getCheckItem(isMac ? "Drag Column (Alt-\u2318-drag, \u2318-right)" : "Drag Column (C-right)", "DragColumn"));
+            //otherMenu.add(getCheckItem("Drag Selected", "DragSelected"));
+            //otherMenu.add(getCheckItem("Drag Post (" + ctrlMetaKey + "-drag)", "DragPost"));
 
-            mainMenu.add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
-            main.add(mainMenu);
-
-            main.add(resetButton = new Button("Сброс"));
-            resetButton.addActionListener(this);
-            dumpMatrixButton = new Button("Dump Matrix");
-            //main.add(dumpMatrixButton);
-            dumpMatrixButton.addActionListener(this);
-            stoppedCheck = new Checkbox("Остановлено");
-            stoppedCheck.addItemListener(this);
-            main.add(stoppedCheck);
-
-            main.add(new Label("Скорость симуляции", Label.CENTER));
-
-            // was max of 140
-            main.add(speedBar = new Scrollbar(Scrollbar.HORIZONTAL, 3, 1, 0, 260));
-            speedBar.addAdjustmentListener(this);
-
-            main.add(new Label("Скорость тока", Label.CENTER));
-            currentBar = new Scrollbar(Scrollbar.HORIZONTAL, 50, 1, 1, 100);
-            currentBar.addAdjustmentListener(this);
-            main.add(currentBar);
-
-            main.add(powerLabel = new Label("Яркость мощности", Label.CENTER));
-            main.add(powerBar = new Scrollbar(Scrollbar.HORIZONTAL, 50, 1, 1, 100));
-            powerBar.addAdjustmentListener(this);
-            powerBar.disable();
-            powerLabel.disable();
-
-            main.add(new Label("www.falstad.com"));
-            main.add(new Label("Перевод licrym.org")); //"translated into russian by licrym.org"
-
-            if (useFrame)
-                main.add(new Label(""));
-            Font f = new Font("SansSerif", 0, 10);
-            Label l;
-            l = new Label("Текущая схема:");
-            l.Font = f;
-            titleLabel = new Label("Метка");
-            titleLabel.Font = f;
-            if (useFrame)
-            {
-                main.add(l);
-                main.add(titleLabel);
-            }
+            //mainMenu.add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
+            //main.add(mainMenu);
 
             setGrid();
             elmList = new ArrayList();
@@ -338,89 +288,23 @@ namespace JavaToSharp
             scopeCount = 0;
 
             random = new Random();
-            cv.Background = Color.black;
-            cv.Foreground = Color.lightGray;
+            
+            //elmMenu = new PopupMenu();
+            //elmMenu.add(elmEditMenuItem = getMenuItem("Параметры"));
+            //elmMenu.add(elmScopeMenuItem = getMenuItem("Смотреть в осциллографе"));
+            //elmMenu.add(elmCutMenuItem = getMenuItem("Вырезать"));
+            //elmMenu.add(elmCopyMenuItem = getMenuItem("Копировать"));
+            //elmMenu.add(elmDeleteMenuItem = getMenuItem("Удалить"));
+            //main.add(elmMenu);
 
-            elmMenu = new PopupMenu();
-            elmMenu.add(elmEditMenuItem = getMenuItem("Параметры"));
-            elmMenu.add(elmScopeMenuItem = getMenuItem("Смотреть в осциллографе"));
-            elmMenu.add(elmCutMenuItem = getMenuItem("Вырезать"));
-            elmMenu.add(elmCopyMenuItem = getMenuItem("Копировать"));
-            elmMenu.add(elmDeleteMenuItem = getMenuItem("Удалить"));
-            main.add(elmMenu);
-
-            scopeMenu = buildScopeMenu(false);
-            transScopeMenu = buildScopeMenu(true);
-
-            Menu circuitsMenu = new Menu("Схемы");
+            Menu circuitsMenu = null;
             getSetupList(circuitsMenu);
+            
             if (startCircuitText != null)
                 readSetup(startCircuitText);
-            
-           
-            if (!powerCheckItem.State)
-            {
-                main.remove(powerBar);
-                main.remove(powerLabel);
-                main.validate();
-            }
-        }
-
-        internal bool shown = false;
-
-        public virtual void triggerShow()
-        {
-            if (!shown)
-                show();
-            shown = true;
         }
 
         #region UI Form
-
-        internal virtual ContextMenuStrip buildScopeMenu(bool t)
-        {
-            ContextMenuStrip m = new ContextMenuStrip();
-            m.Items.Add(getMenuItem("Убрать", "remove"));
-            m.add(getMenuItem("Скорость 2x", "speed2"));
-            m.add(getMenuItem("Скорость 1/2x", "speed1/2"));
-            m.add(getMenuItem("Масштаб 2x", "scale"));
-            m.add(getMenuItem("Максимальный масштаб", "maxscale"));
-            m.add(getMenuItem("Объединить", "stack"));
-            m.add(getMenuItem("Разъединить", "unstack"));
-            m.add(getMenuItem("Сброс", "reset"));
-            if (t)
-            {
-                m.add(scopeIbMenuItem = getCheckItem("Показать Iб"));
-                m.add(scopeIcMenuItem = getCheckItem("Показать Iк"));
-                m.add(scopeIeMenuItem = getCheckItem("Показать Iэ"));
-                m.add(scopeVbeMenuItem = getCheckItem("Показать Vбэ"));
-                m.add(scopeVbcMenuItem = getCheckItem("Показать Vбк"));
-                m.add(scopeVceMenuItem = getCheckItem("Показать Vкэ"));
-                m.add(scopeVceIcMenuItem = getCheckItem("Показать Vкэ и Iк"));
-            }
-            else
-            {
-                m.add(scopeVMenuItem = getCheckItem("Показать Напряжение"));
-                m.add(scopeIMenuItem = getCheckItem("Показать Ток"));
-                m.add(scopePowerMenuItem = getCheckItem("Показать Потребленную мощность"));
-                m.add(scopeMaxMenuItem = getCheckItem("Показать Пиковое значение"));
-                m.add(scopeMinMenuItem = getCheckItem("Показать Отрицательное пиковое значение"));
-                m.add(scopeFreqMenuItem = getCheckItem("Показать Частоту"));
-                m.add(scopeVIMenuItem = getCheckItem("Показать V и I"));
-                m.add(scopeXYMenuItem = getCheckItem("График X/Y"));
-                m.add(scopeSelectYMenuItem = getMenuItem("Показать Y", "selecty"));
-                m.add(scopeResistMenuItem = getCheckItem("Показать Сопротивление"));
-            }
-            main.add(m);
-            return m;
-        }
-
-        internal virtual MenuItem getMenuItem(string s)
-        {
-            MenuItem mi = new MenuItem(s);
-            mi.addActionListener(this);
-            return mi;
-        }
 
         internal virtual MenuItem getMenuItem(string s, string ac)
         {
@@ -631,7 +515,7 @@ namespace JavaToSharp
             for (i = 0; i != nodeList.Count; i++)
             {
                 CircuitNode cn = getCircuitNode(i);
-                if (!cn.internal && cn.links.Count == 1)
+                if (!cn.Internal && cn.links.Count == 1)
                 {
                     int bb = 0;
                     var cnl = (CircuitNodeLink) cn.links[0];
@@ -1022,7 +906,7 @@ namespace JavaToSharp
                 {
                     CircuitNode cn = new CircuitNode();
                     cn.x = cn.y = -1;
-                    cn.internal = true;
+                    cn.Internal = true;
                     CircuitNodeLink cnl = new CircuitNodeLink();
                     cnl.num = j+posts;
                     cnl.elm = ce;
@@ -1116,7 +1000,7 @@ namespace JavaToSharp
 
                 // connect unconnected nodes
                 for (i = 0; i != nodeList.Count; i++)
-                    if (!closure[i] && !getCircuitNode(i).internal)
+                    if (!closure[i] && !getCircuitNode(i).Internal)
                     {
                         Console.WriteLine("узел " + i + " не подключен");
                         stampResistor(0, i, 1e8);
@@ -1728,8 +1612,6 @@ namespace JavaToSharp
             }
             int iter;
             //int maxIter = getIterCount();
-            bool debugprint = dumpMatrix;
-            dumpMatrix = false;
             long steprate = (long)(160*IterCount);
             long tm = DateTime.Now.Millisecond;
             long lit = lastIterTime;
@@ -1764,8 +1646,6 @@ namespace JavaToSharp
                     }
                     if (stopMessage != null)
                         return;
-                    bool printit = debugprint;
-                    debugprint = false;
                     for (j = 0; j != circuitMatrixSize; j++)
                     {
                         for (i = 0; i != circuitMatrixSize; i++)
@@ -1777,16 +1657,6 @@ namespace JavaToSharp
                                 return;
                             }
                         }
-                    }
-                    if (printit)
-                    {
-                        for (j = 0; j != circuitMatrixSize; j++)
-                        {
-                            for (i = 0; i != circuitMatrixSize; i++)
-                                Console.Write(circuitMatrix[j][i] + ",");
-                            Console.Write("  " + circuitRightSide[j] + "\n");
-                        }
-                        Console.Write("\n");
                     }
                     if (circuitNonLinear)
                     {
@@ -1893,8 +1763,6 @@ namespace JavaToSharp
                 stoppedCheck.State = false;
                 cv.repaint();
             }
-            if (e.Source == dumpMatrixButton)
-                dumpMatrix = true;
             if (e.Source == exportItem)
                 doImport(false, false);
             if (e.Source == optionsItem)
@@ -1907,20 +1775,6 @@ namespace JavaToSharp
                 doUndo();
             if (e.Source == redoItem)
                 doRedo();
-            if (String.CompareOrdinal(ac, "Вырезать") == 0)
-            {
-                if (e.Source != elmCutMenuItem)
-                    menuElm = null;
-                doCut();
-            }
-            if (String.CompareOrdinal(ac, "Копировать") == 0)
-            {
-                if (e.Source != elmCopyMenuItem)
-                    menuElm = null;
-                doCopy();
-            }
-            if (String.CompareOrdinal(ac, "Вставить") == 0)
-                doPaste();
             if (e.Source == selectAllItem)
                 doSelectAll();
             if (e.Source == exitItem)
@@ -2284,12 +2138,12 @@ namespace JavaToSharp
                             break;
                         }
                         if (tint >= '0' && tint <= '9')
-                            tint = new (int)int?(type);
-                        int x1 = new (int)int?(st.nextToken());
-                        int y1 = new (int)int?(st.nextToken());
-                        int x2 = new (int)int?(st.nextToken());
-                        int y2 = new (int)int?(st.nextToken());
-                        int f = new (int)int?(st.nextToken());
+                            tint = int.Parse(type);
+                        int x1 = int.Parse(st.nextToken());
+                        int y1 = int.Parse(st.nextToken());
+                        int x2 = int.Parse(st.nextToken());
+                        int y2 = int.Parse(st.nextToken());
+                        int f = int.Parse(st.nextToken());
                         CircuitElm ce = null;
                         Type cls = dumpTypes[tint];
                         if (cls == null)
@@ -2341,21 +2195,21 @@ namespace JavaToSharp
 
         internal virtual void readHint(StringTokenizer st)
         {
-            hintType = new (int)int?(st.nextToken());
-            hintItem1 = new (int)int?(st.nextToken());
-            hintItem2 = new (int)int?(st.nextToken());
+            hintType = int.Parse(st.nextToken());
+            hintItem1 = int.Parse(st.nextToken());
+            hintItem2 = int.Parse(st.nextToken());
         }
 
         internal virtual void readOptions(StringTokenizer st)
         {
-            int flags = new (int)int?(st.nextToken());
+            int flags = int.Parse(st.nextToken());
             dotsCheckItem.State = (flags & 1) != 0;
             smallGridCheckItem.State = (flags & 2) != 0;
             voltsCheckItem.State = (flags & 4) == 0;
             powerCheckItem.State = (flags & 8) == 8;
             showValuesCheckItem.State = (flags & 16) == 0;
-            timeStep = new (double)double? (st.nextToken());
-            double sp = new (double)double?(st.nextToken());
+            timeStep = int.Parse(st.nextToken());
+            double sp = int.Parse(st.nextToken());
             int sp2 = (int)(Math.Log(10*sp)*24+61.5);
             //int sp2 = (int) (Math.log(sp)*24+1.5);
             speedBar.Value = sp2;
