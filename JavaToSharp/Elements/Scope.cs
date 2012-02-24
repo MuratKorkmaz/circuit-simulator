@@ -229,7 +229,7 @@ namespace JavaToSharp
                 // from min to max x and calculate y for each step
                 double sgn = CircuitElm.sign(x2-draw_ox);
                 int x, y;
-                for (x = draw_ox; x != x2+sgn; x += Convert.ToInt32(sgn))
+                for (x = draw_ox; Math.Abs(x - (x2+sgn)) > double.Epsilon; x += Convert.ToInt32(sgn))
                 {
                     y = draw_oy+(y2-draw_oy)*(x-draw_ox)/(x2-draw_ox);
                     dpixels[x+rect.Width*y] = 1;

@@ -2,25 +2,25 @@ using System.Drawing;
 
 namespace JavaToSharp
 {
-    internal class CircuitCanvas : Canvas
+    internal class CircuitCanvas 
     {
         private readonly CirSim pg;
         internal CircuitCanvas(CirSim p)
         {
             pg = p;
         }
-        public virtual Dimension PreferredSize
+        public virtual Size PreferredSize
         {
             get
             {
-                return new Dimension(300,400);
+                return new Size(300,400);
             }
         }
-        public virtual void update(Graphics g)
+        public virtual void Update(Graphics g)
         {
             pg.updateCircuit(g);
         }
-        public virtual void paint(Graphics g)
+        public virtual void Paint(Graphics g)
         {
             pg.updateCircuit(g);
         }
