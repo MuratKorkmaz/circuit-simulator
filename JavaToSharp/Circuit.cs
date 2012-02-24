@@ -22,7 +22,7 @@ namespace JavaToSharp
             addComponentListener(this);
         }
 
-        static void Main(string[] args)
+        static void SMain(string[] args)
         {
             ogf = new CirSim(null);
             ogf.init();
