@@ -306,49 +306,40 @@ namespace JavaToSharp
 
         #region UI Form
 
-        internal virtual MenuItem getMenuItem(string s, string ac)
+        internal virtual ToolStripMenuItem getMenuItem(string s, string ac)
         {
-            MenuItem mi = new MenuItem(s);
-            mi.ActionCommand = ac;
-            mi.addActionListener(this);
+            ToolStripMenuItem mi = new ToolStripMenuItem(s);
+            //mi.ActionCommand = ac;
+            //mi.addActionListener(this);
             return mi;
         }
 
-        internal virtual ToolStripMenuItem getCheckItem(string s)
-        {
-            CheckboxMenuItem mi = new CheckboxMenuItem(s);
-            mi.addItemListener(this);
-            mi.ActionCommand = "";
-            return mi;
-        }
-
-        internal virtual CheckboxMenuItem getClassCheckItem(string s, string t)
+        internal virtual ToolStripMenuItem getClassCheckItem(string s, string t)
         {
             try
             {
                 Type c = Type.GetType(t);
                 CircuitElm elm = constructElement(c, 0, 0);
                 register(c, elm);
-                int dt = 0;
                 if (elm.needsShortcut() && elm.DumpClass == c)
                 {
-                    dt = elm.DumpType;
+                    int dt = elm.DumpType;
                     s += " (" + (char)dt + ")";
                 }
                 elm.delete();
             }
             catch (Exception ee)
             {
-                ee.printStackTrace();
+                UserMessageView.Instance.ShowError(ee.StackTrace);
             }
             return getCheckItem(s, t);
         }
 
-        internal virtual CheckboxMenuItem getCheckItem(string s, string t)
+        internal virtual ToolStripMenuItem getCheckItem(string s, string t)
         {
-            CheckboxMenuItem mi = new CheckboxMenuItem(s);
-            mi.addItemListener(this);
-            mi.ActionCommand = t;
+            ToolStripMenuItem mi = new ToolStripMenuItem(s);
+            //mi.addItemListener(this);
+            //mi.ActionCommand = t;
             return mi;
         }
 
@@ -376,13 +367,13 @@ namespace JavaToSharp
         internal virtual void handleResize()
         {
             winSize = cv.Size;
-            if (winSize.width == 0)
+            if (winSize.Width == 0)
                 return;
-            dbimage = main.createImage(winSize.width, winSize.height);
-            int h = winSize.height / 5;
+            dbimage = main.CreateImage(winSize.Width, winSize.Height);
+            int h = winSize.Height / 5;
 //	if (h < 128 && winSize.height > 300)
 //	  h = 128;
-            circuitArea = new Rectangle(0, 0, winSize.width, winSize.height-h);
+            circuitArea = new Rectangle(0, 0, winSize.Width, winSize.Height-h);
             int i;
             int minx = 1000, maxx = 0, miny = 1000, maxy = 0;
             for (i = 0; i != elmList.Count; i++)
@@ -390,7 +381,7 @@ namespace JavaToSharp
                 CircuitElm ce = getElm(i);
                 // centered text causes problems when trying to center the circuit,
                 // so we special-case it here
-                if (!ce.CenteredText)
+                if (!ce.isCenteredText)
                 {
                     minx = min(ce.x, min(ce.x2, minx));
                     maxx = max(ce.x, max(ce.x2, maxx));
@@ -399,8 +390,8 @@ namespace JavaToSharp
                 maxy = max(ce.y, max(ce.y2, maxy));
             }
             // center circuit; we don't use snapGrid() because that rounds
-            int dx = gridMask & ((circuitArea.width -(maxx-minx))/2-minx);
-            int dy = gridMask & ((circuitArea.height-(maxy-miny))/2-miny);
+            int dx = gridMask & ((circuitArea.Width -(maxx-minx))/2-minx);
+            int dy = gridMask & ((circuitArea.Height-(maxy-miny))/2-miny);
             if (dx+minx < 0)
                 dx = gridMask & (-minx);
             if (dy+miny < 0)
@@ -423,7 +414,7 @@ namespace JavaToSharp
 
         public virtual void updateCircuit(Graphics realg)
         {
-            if (winSize == null || winSize.width == 0)
+            if (winSize.Width == 0)
                 return;
             if (analyzeFlag)
             {
@@ -439,7 +430,7 @@ namespace JavaToSharp
             var g = Graphics.FromImage(dbimage);
             CircuitElm.selectColor = Color.Cyan;
             Brush backBrush;
-            if (printableCheckItem.State)
+            if (printableCheckItem.Checked)
             {
                 CircuitElm.whiteColor = Color.Black;
                 CircuitElm.lightGrayColor = Color.Black;
@@ -451,8 +442,8 @@ namespace JavaToSharp
                 CircuitElm.lightGrayColor = Color.LightGray;
                 backBrush = Brushes.Black;
             }
-            g.FillRectangle(backBrush, 0, 0, winSize.width, winSize.height);
-            if (!stoppedCheck.State)
+            g.FillRectangle(backBrush, 0, 0, winSize.Width, winSize.Height);
+            if (!stoppedCheck.Checked)
             {
                 try
                 {
@@ -462,11 +453,11 @@ namespace JavaToSharp
                 {
                     UserMessageView.Instance.ShowError(e.StackTrace);
                     analyzeFlag = true;
-                    cv.repaint();
+                    cv.Refresh();
                     return;
                 }
             }
-            if (!stoppedCheck.State)
+            if (!stoppedCheck.Checked)
             {
                 long sysTime = DateTime.Now.Millisecond;
                 if (lastTime != 0)
@@ -475,7 +466,7 @@ namespace JavaToSharp
                     double c = currentBar.Value;
                     c = Math.Exp(c/3.5-14.2);
                     CircuitElm.currentMult = 1.7 * inc * c;
-                    if (!conventionCheckItem.State)
+                    if (!conventionCheckItem.Checked)
                         CircuitElm.currentMult = -CircuitElm.currentMult;
                 }
                 if (sysTime-secTime >= 1000)
@@ -497,7 +488,7 @@ namespace JavaToSharp
             for (i = 0; i != elmList.Count; i++)
             {
                 if (powerCheckItem.State)
-                    g.Color = Color.gray;
+                    g.Color = Color.Gray;
 //	    else if (conductanceCheckItem.getState())
 //	      g.setColor(Color.white);
                 getElm(i).draw(g);
@@ -583,7 +574,7 @@ namespace JavaToSharp
                 int x = 0;
                 if (ct != 0)
                     x = scopes[ct-1].rightEdge() + 20;
-                x = max(x, winSize.width*2/3);
+                x = max(x, winSize.Width*2/3);
 
                 // count lines of data
                 for (i = 0; info[i] != null; i++)
@@ -592,7 +583,7 @@ namespace JavaToSharp
                     info[i++] = badnodes + ((badnodes == 1) ? " плохое соединение" : " плохие соединения");
 
                 // find where to show data; below circuit, not too high unless we need it
-                int ybase = winSize.height-15*i-5;
+                int ybase = winSize.Height-15*i-5;
                 ybase = min(ybase, circuitArea.Height);
                 ybase = max(ybase, circuitBottom);
                 for (i = 0; info[i] != null; i++)
@@ -613,8 +604,8 @@ namespace JavaToSharp
 //	g.drawString("iterc: " + (getIterCount()),  10, 70);
 //	
 
-            realg.drawImage(dbimage, 0, 0, this);
-            if (!stoppedCheck.State && circuitMatrix != null)
+            realg.DrawImage(dbimage, 0, 0);
+            if (!stoppedCheck.Checked && circuitMatrix != null)
             {
                 // Limit to 50 fps (thanks to Jьrgen Klцtzer for this)
                 int delay = (int)(1000/50 - (DateTime.Now.Millisecond - lastFrameTime));
@@ -629,7 +620,7 @@ namespace JavaToSharp
                     {
                     }
                 }
-                cv.repaint(0);
+                cv.Refresh();
             }
             lastFrameTime = lastTime;
         }
@@ -660,7 +651,7 @@ namespace JavaToSharp
             }
             while (scopeCount > 0 && scopes[scopeCount-1].elm == null)
                 scopeCount--;
-            int h = winSize.height - circuitArea.height;
+            int h = winSize.Height - circuitArea.Height;
             pos = 0;
             for (i = 0; i != scopeCount; i++)
                 scopeColCount[i] = 0;
@@ -673,7 +664,7 @@ namespace JavaToSharp
             int iw = infoWidth;
             if (colct <= 2)
                 iw = iw*3/2;
-            int w = (winSize.width-iw) / colct;
+            int w = (winSize.Width-iw) / colct;
             int marg = 10;
             if (w < marg*2)
                 w = marg*2;
@@ -696,7 +687,7 @@ namespace JavaToSharp
                     s.speed = speed;
                     s.resetGraph();
                 }
-                Rectangle r = new Rectangle(pos*w, winSize.height-h+colh*row, w-marg, colh);
+                Rectangle r = new Rectangle(pos*w, winSize.Height-h+colh*row, w-marg, colh);
                 row++;
                 if (!r.Equals(s.rect))
                     s.Rect = r;
@@ -778,7 +769,7 @@ namespace JavaToSharp
                     {
                         ((SwitchElm) ce).toggle();
                         analyzeFlag = true;
-                        cv.repaint();
+                        cv.Refresh();
                         return;
                     }
                 }
@@ -788,7 +779,7 @@ namespace JavaToSharp
         internal virtual void needAnalyze()
         {
             analyzeFlag = true;
-            cv.repaint();
+            cv.Refresh();
         }
 
         internal ArrayList nodeList;
@@ -845,8 +836,8 @@ namespace JavaToSharp
             {
                 CircuitNode cn = new CircuitNode();
                 Point pt = volt.getPost(0);
-                cn.x = pt.x;
-                cn.y = pt.y;
+                cn.x = pt.X;
+                cn.y = pt.Y;
                 nodeList.Add(cn);
             }
             else
@@ -874,18 +865,18 @@ namespace JavaToSharp
                     for (k = 0; k != nodeList.Count; k++)
                     {
                         CircuitNode cn = getCircuitNode(k);
-                        if (pt.x == cn.x && pt.y == cn.y)
+                        if (pt.X == cn.x && pt.Y == cn.y)
                             break;
                     }
                     if (k == nodeList.Count)
                     {
                         CircuitNode cn = new CircuitNode();
-                        cn.x = pt.x;
-                        cn.y = pt.y;
+                        cn.x = pt.X;
+                        cn.y = pt.Y;
                         CircuitNodeLink cnl = new CircuitNodeLink();
                         cnl.num = j;
                         cnl.elm = ce;
-                        cn.links.addElement(cnl);
+                        cn.links.Add(cnl);
                         ce.setNode(j, nodeList.Count);
                         nodeList.Add(cn);
                     }
@@ -894,7 +885,7 @@ namespace JavaToSharp
                         CircuitNodeLink cnl = new CircuitNodeLink();
                         cnl.num = j;
                         cnl.elm = ce;
-                        getCircuitNode(k).links.addElement(cnl);
+                        getCircuitNode(k).links.Add(cnl);
                         ce.setNode(j, k);
                         // if it's the ground node, make sure the node voltage is 0,
                         // cause it may not get set later
@@ -910,7 +901,7 @@ namespace JavaToSharp
                     CircuitNodeLink cnl = new CircuitNodeLink();
                     cnl.num = j+posts;
                     cnl.elm = ce;
-                    cn.links.addElement(cnl);
+                    cn.links.Add(cnl);
                     ce.setNode(cnl.num, nodeList.Count);
                     nodeList.Add(cn);
                 }
@@ -1311,7 +1302,7 @@ namespace JavaToSharp
             for (i = 0; i != elmList.Count; i++)
             {
                 Rectangle rect = getElm(i).boundingBox;
-                int bottom = rect.height + rect.y;
+                int bottom = rect.Height + rect.Y;
                 if (bottom > circuitBottom)
                     circuitBottom = bottom;
             }
@@ -1335,7 +1326,7 @@ namespace JavaToSharp
                 type = t;
                 firstElm = e;
 //JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-                used = new bool[nodeList.size()];
+                used = new bool[nodeList.Count];
             }
             internal virtual bool findPath(int n1)
             {
@@ -1355,7 +1346,7 @@ namespace JavaToSharp
                 used[n1] = true;
                 int i;
 //JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-                for (i = 0; i != elmList.size(); i++)
+                for (i = 0; i != elmList.Count; i++)
                 {
 //JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
                     CircuitElm ce = getElm(i);
@@ -1368,32 +1359,33 @@ namespace JavaToSharp
                     }
                     if (type == VOLTAGE)
                     {
-                        if (!(ce.Wire || ce is VoltageElm))
+                        if (!(ce.isWire || ce is VoltageElm))
                             continue;
                     }
-                    if (type == SHORT && !ce.Wire)
+                    if (type == SHORT && !ce.isWire)
                         continue;
                     if (type == CAP_V)
                     {
-                        if (!(ce.Wire || ce is CapacitorElm || ce is VoltageElm))
+                        if (!(ce.isWire || ce is CapacitorElm || ce is VoltageElm))
                             continue;
                     }
                     if (n1 == 0)
                     {
                         // look for posts which have a ground connection;
                         // our path can go through ground
-                        int j;
-                        for (j = 0; j != ce.PostCount; j++)
-                            if (ce.hasGroundConnection(j) && findPath(ce.getNode(j), depth))
+
+                        for (int l = 0; l != ce.PostCount; l++)
+                        {
+                            if (ce.hasGroundConnection(l) && findPath(ce.getNode(l), depth))
                             {
                                 used[n1] = false;
                                 return true;
                             }
+                        }
                     }
                     int j;
                     for (j = 0; j != ce.PostCount; j++)
                     {
-                        //System.out.println(ce + " " + ce.getNode(j));
                         if (ce.getNode(j) == n1)
                             break;
                     }
@@ -1401,7 +1393,6 @@ namespace JavaToSharp
                         continue;
                     if (ce.hasGroundConnection(j) && findPath(0, depth))
                     {
-                        //System.out.println(ce + " has ground");
                         used[n1] = false;
                         return true;
                     }
@@ -1410,8 +1401,6 @@ namespace JavaToSharp
                         double c = ce.Current;
                         if (j == 0)
                             c = -c;
-                        //System.out.println("matching " + c + " to " + firstElm.getCurrent());
-                        //System.out.println(ce + " " + firstElm);
                         if (Math.Abs(c-firstElm.Current) > 1e-10)
                             continue;
                     }
@@ -1443,9 +1432,9 @@ namespace JavaToSharp
             stopMessage = s;
             circuitMatrix = null;
             stopElm = ce;
-            stoppedCheck.State = true;
+            stoppedCheck.Checked = true;
             analyzeFlag = false;
-            cv.repaint();
+            cv.Refresh();
         }
 
         // control voltage source vs with voltage from n1 to n2 (must
@@ -1733,17 +1722,8 @@ namespace JavaToSharp
             return (a > b) ? a : b;
         }
 
-        public virtual void componentShown(ComponentEvent e)
-        {
-            cv.repaint();
-        }
-
-        public virtual void componentResized(ComponentEvent e)
-        {
-            handleResize();
-            cv.repaint(100);
-        }
-        public virtual void actionPerformed(ActionEvent e)
+        //todo: replace into UI controls
+        /*public virtual void actionPerformed(ActionEvent e)
         {
             string ac = e.ActionCommand;
             if (e.Source == resetButton)
@@ -1771,10 +1751,6 @@ namespace JavaToSharp
                 doImport(true, false);
             if (e.Source == exportLinkItem)
                 doImport(false, true);
-            if (e.Source == undoItem)
-                doUndo();
-            if (e.Source == redoItem)
-                doRedo();
             if (e.Source == selectAllItem)
                 doSelectAll();
             if (e.Source == exitItem)
@@ -1839,7 +1815,8 @@ namespace JavaToSharp
                 readSetupFile(ac.Substring(6), ((MenuItem) e.Source).Label);
             }
         }
-
+        */
+        
         protected virtual void stackScope(int s)
         {
             if (s == 0)
@@ -2361,15 +2338,15 @@ namespace JavaToSharp
         protected virtual bool dragSelected(int x, int y)
         {
             bool me = false;
-            if (mouseElm != null && !mouseElm.Selected)
-                mouseElm.Selected = me = true;
+            if (mouseElm != null && !mouseElm.isSelected)
+                mouseElm.isSelected = me = true;
 
             // snap grid, unless we're only dragging text elements
             int i;
             for (i = 0; i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
-                if (ce.Selected && !(ce is TextElm))
+                if (ce.isSelected && !(ce is TextElm))
                     break;
             }
             if (i != elmList.Count)
@@ -2384,7 +2361,7 @@ namespace JavaToSharp
             {
                 // don't leave mouseElm selected if we selected it above
                 if (me)
-                    mouseElm.Selected = false;
+                    mouseElm.isSelected = false;
                 return false;
             }
             bool allowed = true;
@@ -2393,7 +2370,7 @@ namespace JavaToSharp
             for (i = 0; allowed && i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
-                if (ce.Selected && !ce.allowMove(dx, dy))
+                if (ce.isSelected && !ce.allowMove(dx, dy))
                     allowed = false;
             }
 
@@ -2402,7 +2379,7 @@ namespace JavaToSharp
                 for (i = 0; i != elmList.Count; i++)
                 {
                     CircuitElm ce = getElm(i);
-                    if (ce.Selected)
+                    if (ce.isSelected)
                         ce.move(dx, dy);
                 }
                 needAnalyze();
@@ -2410,7 +2387,7 @@ namespace JavaToSharp
 
             // don't leave mouseElm selected if we selected it above
             if (me)
-                mouseElm.Selected = false;
+                mouseElm.isSelected = false;
 
             return allowed;
         }
@@ -2452,7 +2429,7 @@ namespace JavaToSharp
                 for (i = 0; i != elmList.Count; i++)
                 {
                     CircuitElm ce = getElm(i);
-                    ce.Selected = ce == value;
+                    ce.isSelected = (ce == value);
                 }
                 mouseElm = value;
             }
