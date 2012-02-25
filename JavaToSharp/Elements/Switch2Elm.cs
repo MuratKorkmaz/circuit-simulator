@@ -120,9 +120,9 @@ namespace JavaToSharp
             if (link != 0)
             {
                 int i;
-                for (i = 0; i != sim.elmList.Size(); i++)
+                for (i = 0; i != sim.elmList.Count; i++)
                 {
-                    object o = sim.elmList.elementAt(i);
+                    object o = sim.elmList[i];
                     if (o is Switch2Elm)
                     {
                         Switch2Elm s2 = (Switch2Elm) o;

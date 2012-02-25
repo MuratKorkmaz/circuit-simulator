@@ -73,7 +73,6 @@ internal abstract class ChipElm : CircuitElm
 	{
 		int i;
 		Font f = new Font("SansSerif", 10*csize, FontStyle.Bold );
-		g.Font = f;
 		FontMetrics fm = g.FontMetrics;
 		for (i = 0; i != PostCount; i++)
 		{
@@ -93,11 +92,11 @@ internal abstract class ChipElm : CircuitElm
 		}
 		g.GetNearestColor(whiteColor);
 		int sw = fm.stringWidth(p.text);
-		g.drawString(p.text, p.textloc.X-sw/2, p.textloc.Y+fm.Ascent/2);
+		g.DrawString(p.text, f,p.textloc.X-sw/2, p.textloc.Y+fm.Ascent/2);
 		if (p.lineOver)
 		{
 			int ya = p.textloc.Y-fm.Ascent/2;
-			g.drawLine(p.textloc.X-sw/2, ya, p.textloc.X+sw/2, ya);
+			g.DrawLine(myPen,p.textloc.X-sw/2, ya, p.textloc.X+sw/2, ya);
 		}
 		}
 		g.GetNearestColor(needsHighlight() ? selectColor : lightGrayColor);

@@ -45,7 +45,7 @@ namespace JavaToSharp
             if (waveform == WF_DC || waveform == WF_VAR || clock)
             {
                 Font f = new Font("SansSerif", 12, FontStyle.Bold);
-                g.Font = f;
+                
                 g.GetNearestColor(needsHighlight() ? selectColor : whiteColor);
                 double v = Voltage;
                 string s = getShortUnitText(v, "В");
@@ -57,7 +57,7 @@ namespace JavaToSharp
                     s = "Ant";
                 if (clock)
                     s = "CLK";
-                drawCenteredText(g, s, x2, y2, true);
+                drawCenteredText(g, f,s, x2, y2, true);
             }
             else
             {

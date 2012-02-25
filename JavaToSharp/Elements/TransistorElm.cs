@@ -90,8 +90,9 @@ namespace JavaToSharp
         private double curcount_c;
         private double curcount_e;
         private double curcount_b;
-        private Polygon rectPoly;
-        private Polygon arrowPoly;
+        private Polygon  rectPoly;
+        private Polygon  arrowPoly;
+        private SolidBrush myBrush;
 
         internal override void draw(Graphics g)
         {
@@ -105,7 +106,8 @@ namespace JavaToSharp
             drawThickLine(g, myPen,emit[0], emit[1]);
             // draw arrow
             g.GetNearestColor(lightGrayColor);
-            g.fillPolygon(arrowPoly);
+            myBrush = new SolidBrush(lightGrayColor);
+            g.FillPolygon(myBrush ,arrowPoly.Points.ToArray());
             // draw base
             voltageColor = setVoltageColor(g, volts[0]);
             drawThickLine(g, myPen,point1, @base);
@@ -117,17 +119,19 @@ namespace JavaToSharp
             curcount_e = updateDotCount(-ie, curcount_e);
             drawDots(g, emit[1], emit[0], curcount_e);
             // draw base rectangle
-            setVoltageColor(g, volts[0]);
-            g.fillPolygon(rectPoly);
+            voltageColor=  setVoltageColor(g, volts[0]);
+            myBrush = new SolidBrush(voltageColor);
+            g.FillPolygon(myBrush ,rectPoly.Points.ToArray());
 
             if ((needsHighlight() || sim.dragElm == this) && dy == 0)
             {
                 g.GetNearestColor(Color.White);
-                g.Font = unitsFont;
+               // g.Font = unitsFont;
                 int ds = sign(dx);
-                g.drawString("Б", @base.X-10*ds, @base.Y-5);
-                g.drawString("К", coll[0].X-3+9*ds, coll[0].Y+4); // x+6 if ds=1, -12 if -1
-                g.drawString("Э", emit[0].X-3+9*ds, emit[0].Y+4);
+                myBrush = new SolidBrush(Color.White);
+                g.DrawString("Б", unitsFont ,myBrush ,@base.X-10*ds, @base.Y-5);
+                g.DrawString("К", unitsFont,myBrush,coll[0].X-3+9*ds, coll[0].Y+4); // x+6 if ds=1, -12 if -1
+                g.DrawString("Э", unitsFont ,myBrush ,emit[0].X-3+9*ds, emit[0].Y+4);
             }
             drawPosts(g);
         }
@@ -157,7 +161,7 @@ namespace JavaToSharp
         private Point @base;
         internal override void setPoints()
         {
-            @base.setPoints();
+            @base.SetPoints();
             int hs = 16;
             if ((flags & FLAG_FLIP) != 0)
                 dsign = -dsign;

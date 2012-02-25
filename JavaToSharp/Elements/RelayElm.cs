@@ -140,7 +140,7 @@ namespace JavaToSharp.Elements
                 else
                     interpPoint(point1, point2, lines[i*2],.5, (int)(openhs*(-i*3+3-.5+d_position))+5*dsign);
                 interpPoint(point1, point2, lines[i*2+1],.5, (int)(openhs*(-i*3-.5+d_position))-5*dsign);
-                g.drawLine(lines[i*2].X, lines[i*2].Y, lines[i*2+1].X, lines[i*2+1].Y);
+                g.DrawLine(myPen,lines[i*2].X, lines[i*2].Y, lines[i*2+1].X, lines[i*2+1].Y);
             }
 
             for (p = 0; p != poleCount; p++)

@@ -49,14 +49,14 @@ internal class LogicOutputElm : CircuitElm
 			return 1;
 		}
 	}
-	internal virtual bool IsTernary()
+	internal virtual bool IsTernary
 	{
 		get
 		{
 			return (flags & FLAG_TERNARY) != 0;
 		}
 	}
-	internal virtual bool isNumeric()
+	internal virtual bool isNumeric
 	{
 		get
 		{
@@ -75,11 +75,11 @@ internal class LogicOutputElm : CircuitElm
 	internal override void draw(Graphics g)
 	{
 		Font f = new Font("SansSerif", 20, FontStyle.Bold);
-		g.Font = f;
+	
 		//g.setColor(needsHighlight() ? selectColor : lightGrayColor);
 		g.GetNearestColor(lightGrayColor);
 		string s = (volts[0] < threshold) ? "L" : "H";
-		if (IsTernary())
+		if (IsTernary)
 		{
 		if (volts[0] > 3.75)
 			s = "2";
@@ -88,11 +88,11 @@ internal class LogicOutputElm : CircuitElm
 		else
 			s = "0";
 		}
-		else if (isNumeric())
+		else if (isNumeric)
 		s = (volts[0] < threshold) ? "0" : "1";
 		value = s;
 		setBbox(point1, lead1, 0);
-		drawCenteredText(g, s, x2, y2, true);
+		drawCenteredText(g, f,s, x2, y2, true);
 	voltageColor  =	setVoltageColor(g, volts[0]);
 	    myPen = new Pen(voltageColor);
 		drawThickLine(g,myPen, point1, lead1);
@@ -114,7 +114,7 @@ internal class LogicOutputElm : CircuitElm
 	{
 		arr[0] = "логический выход";
 		arr[1] = (volts[0] < threshold) ? "low" : "high";
-		if (isNumeric())
+		if (isNumeric)
 		arr[1] = value;
 		arr[2] = "V = " + getVoltageText(volts[0]);
 	}

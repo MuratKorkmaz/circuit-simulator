@@ -59,8 +59,8 @@ namespace JavaToSharp.Elements
             myPen = new Pen(voltageColor);
             drawThickCircle(g, center.X, center.Y, cr);
             drawThickLine(g,myPen,ashaft1, ashaft2);
-
-            g.fillPolygon(arrow);
+            myBrush = new SolidBrush(voltageColor);
+            g.FillPolygon(myBrush,arrow.Points.ToArray());
             setBbox(point1, point2, cr);
             doDots(g);
            

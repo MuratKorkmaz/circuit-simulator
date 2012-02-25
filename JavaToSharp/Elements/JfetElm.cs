@@ -30,9 +30,10 @@ namespace JavaToSharp.Elements
             drawThickLine(g, myPen,drn[1], drn[2]);
           voltageColor =  setVoltageColor(g, volts[0]);
           myPen = new Pen(voltageColor);
+            myBrush = new SolidBrush(voltageColor);
             drawThickLine(g, myPen ,point1, gatePt);
-            g.fillPolygon(arrowPoly);
-            g.fillPolygon(gatePoly);
+            g.FillPolygon(myBrush ,arrowPoly.Points.ToArray());
+            g.FillPolygon(myBrush,gatePoly.Points.ToArray());
             curcount = updateDotCount(-ids, curcount);
             if (curcount != 0)
             {

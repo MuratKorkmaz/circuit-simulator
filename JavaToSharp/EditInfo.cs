@@ -30,9 +30,9 @@ namespace JavaToSharp
         }
         internal string name, text;
         internal double value, minval, maxval;
-        internal TextField textf;
+        internal TextBox textf; 
         internal ScrollBar bar;
-        internal Choice choice;
+        internal  ComboBox choice;
         internal CheckBox checkbox;
         internal bool newDialog;
         internal bool forceLargeM;

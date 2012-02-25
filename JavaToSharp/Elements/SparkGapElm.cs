@@ -83,9 +83,11 @@ namespace JavaToSharp
             setBbox(point1, point2, 8);
             draw2Leads(g);
             voltageColor = setVoltageColor(g, volts[0]);
-            g.fillPolygon(arrow1);
+            myBrush = new SolidBrush(voltageColor);
+            g.FillPolygon(myBrush ,arrow1.Points.ToArray());
             voltageColor = setVoltageColor(g, volts[1]);
-            g.fillPolygon(arrow2);
+            myBrush = new SolidBrush(voltageColor);
+            g.FillPolygon(myBrush,arrow2.Points.ToArray());
             if (state)
                 doDots(g);
             drawPosts(g);

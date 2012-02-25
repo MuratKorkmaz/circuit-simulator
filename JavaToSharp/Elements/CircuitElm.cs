@@ -13,7 +13,7 @@ public abstract class CircuitElm : Editable
 	internal static CirSim sim;
 	internal static Color whiteColor, selectColor, lightGrayColor, voltageColor;
 	internal static Font unitsFont;
-
+    internal SolidBrush myBrush;
     public static NumberFormatInfo showFormat;
     private static NumberFormatInfo shortFormat;
     private static NumberFormatInfo noCommaFormat;
@@ -521,13 +521,13 @@ public abstract class CircuitElm : Editable
         get { return false; }
     }
 
-    internal void drawCenteredText(Graphics g, string s, int xp, int yp, bool cx)
+    internal void drawCenteredText(Graphics g,Font o ,string s, int xp, int yp, bool cx)
     {
         FontMetrics fm = g.FontMetrics;
         int w = fm.stringWidth(s);
         if (cx)
             xp -= w/2;
-        g.DrawString(s, xp, yp + fm.Ascent/2);
+        g.DrawString(s, o,xp, yp + fm.Ascent/2);
         adjustBbox(xp, yp - fm.Ascent/2, xp + w, yp + fm.Ascent/2 + fm.Descent);
     }
 

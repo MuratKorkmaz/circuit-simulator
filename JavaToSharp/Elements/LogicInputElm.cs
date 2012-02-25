@@ -80,13 +80,13 @@ namespace JavaToSharp
         internal override void draw(Graphics g)
         {
             Font f = new Font("SansSerif", 20, FontStyle.Bold);
-            g.Font = f;
+            
             g.GetNearestColor(needsHighlight() ? selectColor : whiteColor);
             string s = position == 0 ? "L" : "H";
             if (isNumeric)
                 s = "" + position;
             setBbox(point1, lead1, 0);
-            drawCenteredText(g, s, x2, y2, true);
+            drawCenteredText(g, f,s, x2, y2, true);
            voltageColor= setVoltageColor(g, volts[0]);
            myPen = new Pen(voltageColor);
             drawThickLine(g, myPen,point1, lead1);

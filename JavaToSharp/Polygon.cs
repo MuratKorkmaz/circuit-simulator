@@ -5,8 +5,8 @@ namespace JavaToSharp
 {
     class Polygon
     {
-        private List<PointF> Points { get; set; }
-
+        //private List<PointF> Points { get; set; }
+        public List<PointF> Points { get; private set; }
         public List<int> xpoints
         {
             get

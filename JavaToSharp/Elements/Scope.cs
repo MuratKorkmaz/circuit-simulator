@@ -276,14 +276,14 @@ namespace JavaToSharp
                     pixels[i] = (int) (0xFF000000 | (0x10101*q));
                 dpixels[i] *=(float).997;
             }
-            g.drawImage(image, rect.X, rect.Y, null);
+            g.DrawImage(image, rect.X, rect.Y, null);
             g.GetNearestColor(Color.White);
             g.fillOval(rect.X+draw_ox-2, rect.Y+draw_oy-2, 5, 5);
             int yt = rect.Y+10;
             int x = rect.X;
             if (text != null && rect.Y + rect.Height > yt+5)
             {
-                g.drawString(text, x, yt);
+                g.DrawString(text, x, yt);
                 yt += 15;
             }
         }
@@ -524,30 +524,30 @@ namespace JavaToSharp
             if (BshowMax)
             {
                 if (value != 0)
-                    g.drawString(elm.getUnitText(realMaxV, elm.getScopeUnits(value)), x, yt);
+                    g.DrawString(elm.getUnitText(realMaxV, elm.getScopeUnits(value)), x, yt);
                 else if (showV)
-                    g.drawString(elm.getVoltageText(realMaxV), x, yt);
+                    g.DrawString(elm.getVoltageText(realMaxV), x, yt);
                 else if (showI)
-                    g.drawString(elm.getCurrentText(realMaxI), x, yt);
+                    g.DrawString(elm.getCurrentText(realMaxI), x, yt);
                 yt += 15;
             }
             if (BshowMin)
             {
                 int ym = rect.Y+rect.Height-5;
                 if (value != 0)
-                    g.drawString(elm.getUnitText(realMinV, elm.getScopeUnits(value)), x, ym);
+                    g.DrawString(elm.getUnitText(realMinV, elm.getScopeUnits(value)), x, ym);
                 else if (showV)
-                    g.drawString(elm.getVoltageText(realMinV), x, ym);
+                    g.DrawString(elm.getVoltageText(realMinV), x, ym);
                 else if (showI)
-                    g.drawString(elm.getCurrentText(realMinI), x, ym);
+                    g.DrawString(elm.getCurrentText(realMinI), x, ym);
             }
             if (text != null && rect.Y + rect.Height > yt+5)
             {
-                g.drawString(text, x, yt);
+                g.DrawString(text, x, yt);
                 yt += 15;
             }
             if (BshowFreq && freq != 0 && rect.Y + rect.Height > yt+5)
-                g.drawString(elm.getUnitText(freq, "Гц"), x, yt);
+                g.DrawString(elm.getUnitText(freq, "Гц"), x, yt);
             if (ptr > 5 && !lockScale)
             {
                 if (!gotI && minMaxI > 1e-4)

@@ -35,16 +35,23 @@ namespace JavaToSharp
         protected virtual void createSlider()
         {
             waveform = WF_VAR;
-            sim.main.add(label = new Label(sliderText, Label.CENTER));
+            label = new Label(sliderText, Label.CENTER);
+            sim.main.add();
             int value = (int)((frequency-bias)*100/(maxVoltage-bias));
-            sim.main.add(slider = new ScrollBar(ScrollBar.HORIZONTAL, value, 1, 0, 101));
+            slider = new HScrollBar();
+            slider.Value = value;
+            slider.Minimum = 0;
+            slider.Maximum = 101;
+
+            sim.main.(slider);
+            
             sim.main.validate();
         }
         internal new virtual double Voltage
         {
             get
             {
-                frequency = slider.Value * (maxVoltage-bias) / 100.+ bias;
+                frequency = slider.Value * (maxVoltage-bias) / 100.0+ bias;
                 return frequency;
             }
         }

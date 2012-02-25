@@ -138,7 +138,8 @@ namespace JavaToSharp
             double segf = 1.0/segments;
             int i;
             g.GetNearestColor(Color.DarkGray);
-            g.fillRect(inner[2].X, inner[2].Y, inner[1].X-inner[2].X+2, inner[1].Y-inner[2].Y+2);
+            myBrush = new SolidBrush(Color.DarkGray);
+            g.FillRectangle(myBrush,inner[2].X, inner[2].Y, inner[1].X-inner[2].X+2, inner[1].Y-inner[2].Y+2);
             for (i = 0; i != 4; i++)
             {
                voltageColor = setVoltageColor(g, volts[i]);
@@ -156,7 +157,7 @@ namespace JavaToSharp
                     myPen = new Pen(voltageColor);
                     interpPoint(inner[0], inner[1], ps1, i*segf);
                     interpPoint(inner[2], inner[3], ps2, i*segf);
-                    g.drawLine(ps1.Y, ps1.Y, ps2.X, ps2.Y);
+                    g.DrawLine(myPen,ps1.Y, ps1.Y, ps2.X, ps2.Y);
                     interpPoint(inner[2], inner[3], ps1, (i+1)*segf);
                     drawThickLine(g, myPen,ps1, ps2);
                 }

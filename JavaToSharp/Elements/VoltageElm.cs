@@ -1,6 +1,6 @@
 using System;
 using System.Drawing;
-
+using System.Windows.Forms;
 namespace JavaToSharp
 {
     internal class VoltageElm : CircuitElm
@@ -329,14 +329,14 @@ namespace JavaToSharp
             if (n == 1)
             {
                 EditInfo ei = new EditInfo("Форма напряжения", waveform, -1, -1);
-                ei.choice = new Choice();
-                ei.choice.add("Постоянный ток");  
-                ei.choice.add("Переменный ток");
-                ei.choice.add("Прямоугольн.");
-                ei.choice.add("Треугольн.");
-                ei.choice.add("Пилообразн.");
-                ei.choice.add("Импульсн.");
-                ei.choice.select(waveform);
+                ei.choice = new ComboBox();
+                ei.choice.Items.Add("Постоянный ток");
+                ei.choice.Items.Add("Переменный ток");
+                ei.choice.Items.Add("Прямоугольн.");
+                ei.choice.Items.Add("Треугольн.");
+                ei.choice.Items.Add("Пилообразн.");
+                ei.choice.Items.Add("Импульсн.");
+                ei.choice.SelectedItem.Equals(waveform);
                 return ei;
             }
             if (waveform == WF_DC)

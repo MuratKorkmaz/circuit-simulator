@@ -105,8 +105,9 @@ internal class MosfetElm : CircuitElm
 		drawThickLine(g, myPen ,drn[1], drn[2]);
 		if (!drawDigital())
 		{
-		setVoltageColor(g, pnp == 1 ? volts[1] : volts[2]);
-		g.fillPolygon(arrowPoly);
+            voltageColor = setVoltageColor(g, pnp == 1 ? volts[1] : volts[2]);
+		    myBrush = new SolidBrush(voltageColor);
+		g.FillPolygon(myBrush ,arrowPoly.Points.ToArray());
 		}
 	voltageColor=	setVoltageColor(g, volts[0]);
     myPen = new Pen(voltageColor);
@@ -118,17 +119,16 @@ internal class MosfetElm : CircuitElm
 		{
 		string s = "" + (vt*pnp);
 		g.GetNearestColor(whiteColor);
-		g.Font = unitsFont;
-		drawCenteredText(g, s, x2+2, y2, false);
+		drawCenteredText(g, unitsFont ,s, x2+2, y2, false);
 		}
 		if ((needsHighlight() || sim.dragElm == this) && dy == 0)
 		{
-		g.GetNearestColor(Color.White);
-		g.Font = unitsFont;
+		g.GetNearestColor(whiteColor);
+		    myBrush = new SolidBrush(whiteColor);
 		int ds = sign(dx);
-		g.drawString("G", gate[1].X-10*ds, gate[1].Y-5);
-		g.drawString(pnp == -1 ? "D" : "S", src[0].X-3+9*ds, src[0].Y+4); // x+6 if ds=1, -12 if -1
-		g.drawString(pnp == -1 ? "S" : "D", drn[0].X-3+9*ds, drn[0].Y+4);
+		g.DrawString("G", unitsFont ,myBrush ,gate[1].X-10*ds, gate[1].Y-5);
+		g.DrawString(pnp == -1 ? "D" : "S",  unitsFont ,myBrush ,src[0].X-3+9*ds, src[0].Y+4); // x+6 if ds=1, -12 if -1
+		g.DrawString(pnp == -1 ? "S" : "D", unitsFont ,myBrush ,drn[0].X-3+9*ds, drn[0].Y+4);
 		}
 		curcount = updateDotCount(-ids, curcount);
 		drawDots(g, src[0], src[1], curcount);

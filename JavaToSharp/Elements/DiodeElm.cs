@@ -103,8 +103,9 @@ namespace JavaToSharp
             draw2Leads(g);
 
             // draw arrow thingy
-            setVoltageColor(g, v1);
-            g.fillPolygon(poly);
+            voltageColor =  setVoltageColor(g, v1);
+            myBrush = new SolidBrush(voltageColor);
+            g.FillPolygon(myBrush,poly.Points.ToArray());
 
             // draw thing arrow is pointing to
            voltageColor= setVoltageColor(g, v2);

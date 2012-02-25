@@ -50,11 +50,11 @@ namespace JavaToSharp
                 g.GetNearestColor(selectColor);
             drawThickLine(g, myPen ,lead2, point2);
             Font f = new Font("SansSerif", 14, FontStyle.Bold); 
-            g.Font = f;
+           
             if (this == sim.plotXElm)
-                drawCenteredText(g, "X", center.X, center.Y, true);
+                drawCenteredText(g, f,"X", center.X, center.Y, true);
             if (this == sim.plotYElm)
-                drawCenteredText(g, "Y", center.X, center.Y, true);
+                drawCenteredText(g, f,"Y", center.X, center.Y, true);
             if (mustShowVoltage())
             {
                 string s = getShortUnitText(volts[0], "В");

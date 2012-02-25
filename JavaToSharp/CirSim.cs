@@ -19,7 +19,7 @@ namespace JavaToSharp
     public class CirSim
     {
         internal Thread engine = null;
-
+        
         internal Size winSize;
         internal Image dbimage;
 

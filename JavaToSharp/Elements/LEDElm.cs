@@ -84,7 +84,8 @@ namespace JavaToSharp
                 w = 255;
             Color cc =  Color.FromArgb((int)(colorR * w), (int)(colorG * w), (int)(colorB * w));
             g.GetNearestColor(cc);
-            g.fillOval(ledCenter.X - cr, ledCenter.Y - cr, cr * 2, cr * 2);
+            SolidBrush myBrush = new SolidBrush(cc);
+            g.FillEllipse(myBrush ,ledCenter.X - cr, ledCenter.Y - cr, cr*2, cr*2);
             setBbox(point1, point2, cr);
             updateDotCount();
             drawDots(g, point1, ledLead1, curcount);

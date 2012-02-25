@@ -34,7 +34,7 @@ internal class OutputElm : CircuitElm
 	{
 		bool selected = (needsHighlight() || sim.plotYElm == this);
 		Font f = new Font("SansSerif",14 , selected ? FontStyle.Bold : 0);
-		g.Font = f;
+		
 		g.GetNearestColor(selected ? selectColor : whiteColor);
 		string s = (flags & FLAG_VALUE) != 0 ? getVoltageText(volts[0]) : "out";
 		FontMetrics fm = g.FontMetrics;
@@ -44,7 +44,7 @@ internal class OutputElm : CircuitElm
 		s = "Y";
 		interpPoint(point1, point2, lead1, 1-(fm.stringWidth(s)/2+8)/dn);
 		setBbox(point1, lead1, 0);
-		drawCenteredText(g, s, x2, y2, true);
+		drawCenteredText(g, f,s, x2, y2, true);
 	    voltageColor=	setVoltageColor(g, volts[0]);
 	    myPen = new Pen(voltageColor);
 		if (selected)
