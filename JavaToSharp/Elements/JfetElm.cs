@@ -32,7 +32,6 @@ namespace JavaToSharp.Elements
           myPen = new Pen(voltageColor);
             drawThickLine(g, myPen ,point1, gatePt);
             g.fillPolygon(arrowPoly);
-            setPowerColor(g, true);
             g.fillPolygon(gatePoly);
             curcount = updateDotCount(-ids, curcount);
             if (curcount != 0)

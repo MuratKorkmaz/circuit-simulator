@@ -262,7 +262,6 @@ namespace JavaToSharp
             int i;
             if (pixels == null || dpixels == null)
                 return;
-            int col = (sim.printableCheckItem.Checked) ? 0xFFFFFFFF : 0;
             for (i = 0; i != pixels.Length; i++)
                 pixels[i] = col;
             for (i = 0; i != rect.Width; i++)
@@ -301,9 +300,6 @@ namespace JavaToSharp
             if (pixels == null)
                 return;
             int i;
-            int col = (int) ((sim.printableCheckItem.Checked) ? 0xFFFFFFFF : 0);
-            for (i = 0; i != pixels.Length; i++)
-                pixels[i] = col;
             int x = 0;
             int maxy = (rect.Height-1)/2;
             int y = maxy;

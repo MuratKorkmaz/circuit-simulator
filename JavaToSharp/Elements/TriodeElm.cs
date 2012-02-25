@@ -105,20 +105,21 @@ namespace JavaToSharp
             drawThickCircle(g, point2.X, point2.Y, circler);
             setBbox(point1, plate[0], 16);
             adjustBbox(cath[0].X, cath[1].Y, point2.X+circler, point2.Y+circler);
-            setPowerColor(g, true);
             // draw plate
-            setVoltageColor(g, volts[0]);
-            drawThickLine(g, plate[0], plate[1]);
-            drawThickLine(g, plate[2], plate[3]);
+            voltageColor = setVoltageColor(g, volts[0]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,plate[0], plate[1]);
+            drawThickLine(g, myPen,plate[2], plate[3]);
             // draw grid
-            setVoltageColor(g, volts[1]);
+            voltageColor = setVoltageColor(g, volts[1]);
+            myPen = new Pen(voltageColor);
             int i;
             for (i = 0; i != 8; i += 2)
-                drawThickLine(g, grid[i], grid[i+1]);
+                drawThickLine(g, myPen,grid[i], grid[i+1]);
             // draw cathode
             setVoltageColor(g, volts[2]);
             for (i = 0; i != 3; i++)
-                drawThickLine(g, cath[i], cath[i+1]);
+                drawThickLine(g, myPen,cath[i], cath[i+1]);
             // draw dots
             curcountp = updateDotCount(currentp, curcountp);
             curcountc = updateDotCount(currentc, curcountc);

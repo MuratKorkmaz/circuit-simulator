@@ -17,7 +17,6 @@ namespace JavaToSharp.Elements
             maxOut = 15;
             minOut = -15;
             gbw = 1e6;
-            Size = sim.smallGridCheckItem.Checked ? 1 : 2;
             setGain();
         }
         public OpAmpElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
@@ -80,7 +79,6 @@ namespace JavaToSharp.Elements
             myPen = new Pen(voltageColor);
             drawThickLine(g, myPen,in2p[0], in2p[1]);
             g.Color = needsHighlight() ? selectColor : lightGrayColor;
-            setPowerColor(g, true);
             drawThickPolygon(g, triangle);
             g.Font = plusFont;
             drawCenteredText(g, "-", textp[0].X, textp[0].Y-2, true);

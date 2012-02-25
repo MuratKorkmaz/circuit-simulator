@@ -4,7 +4,7 @@ namespace JavaToSharp
 {
     internal class VarRailElm : RailElm
     {
-        private Scrollbar slider;
+        private ScrollBar slider;
         private Label label;
         private string sliderText;
         public VarRailElm(int xx, int yy) : base(xx, yy, WF_VAR)

@@ -47,7 +47,6 @@ namespace JavaToSharp
                 Font f = new Font("SansSerif", 12, FontStyle.Bold);
                 g.Font = f;
                 g.Color = needsHighlight() ? selectColor : whiteColor;
-                setPowerColor(g, false);
                 double v = Voltage;
                 string s = getShortUnitText(v, "В");
                 if (Math.Abs(v) < 1)

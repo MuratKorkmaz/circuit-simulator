@@ -63,12 +63,7 @@ namespace JavaToSharp.Elements
             g.fillPolygon(arrow);
             setBbox(point1, point2, cr);
             doDots(g);
-            if (sim.showValuesCheckItem.Checked)
-            {
-                string s = getShortUnitText(currentValue, "A");
-                if (dx == 0 || dy == 0)
-                    drawValues(g, s, cr);
-            }
+           
             drawPosts(g);
         }
         internal override void stamp()

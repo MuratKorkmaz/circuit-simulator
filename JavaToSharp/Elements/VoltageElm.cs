@@ -168,15 +168,16 @@ namespace JavaToSharp
             draw2Leads(g);
             if (waveform == WF_DC)
             {
-                setPowerColor(g, false);
-                setVoltageColor(g, volts[0]);
+                voltageColor = setVoltageColor(g, volts[0]);
+                myPen = new Pen(voltageColor);
                 interpPoint2(lead1, lead2, ps1, ps2, 0, 10);
-                drawThickLine(g, ps1, ps2);
-                setVoltageColor(g, volts[1]);
+                drawThickLine(g, myPen,ps1, ps2);
+                voltageColor = setVoltageColor(g, volts[1]);
+                myPen = new Pen(voltageColor);
                 int hs = 16;
                 setBbox(point1, point2, hs);
                 interpPoint2(lead1, lead2, ps1, ps2, 1, hs);
-                drawThickLine(g, ps1, ps2);
+                drawThickLine(g, myPen,ps1, ps2);
             }
             else
             {
@@ -201,7 +202,6 @@ namespace JavaToSharp
         internal void drawWaveform(Graphics g, Point center)
         {
             g.Color = needsHighlight() ? selectColor : Color.Gray;
-            setPowerColor(g, false);
             int xc = center.X;
             int yc = center.Y;
             drawThickCircle(g, xc, yc, circleSize);
@@ -260,12 +260,7 @@ namespace JavaToSharp
                         break;
                     }
             }
-            if (sim.showValuesCheckItem.State)
-            {
-                string s = getShortUnitText(frequency, "Гц");
-                if (dx == 0 || dy == 0)
-                    drawValues(g, s, circleSize);
-            }
+           
         }
 
         internal override int VoltageSourceCount
@@ -335,7 +330,7 @@ namespace JavaToSharp
             {
                 EditInfo ei = new EditInfo("Форма напряжения", waveform, -1, -1);
                 ei.choice = new Choice();
-                ei.choice.add("Постоянный ток");
+                ei.choice.add("Постоянный ток");  
                 ei.choice.add("Переменный ток");
                 ei.choice.add("Прямоугольн.");
                 ei.choice.add("Треугольн.");

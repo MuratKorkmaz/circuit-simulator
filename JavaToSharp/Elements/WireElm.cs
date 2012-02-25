@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace JavaToSharp
 {
@@ -16,8 +17,9 @@ namespace JavaToSharp
         private const int FLAG_SHOWVOLTAGE = 2;
         internal override void draw(Graphics g)
         {
-            setVoltageColor(g, volts[0]);
-            drawThickLine(g, point1, point2);
+            voltageColor= setVoltageColor(g, volts[0]);
+            myPen = new Pen(voltageColor);
+            drawThickLine(g, myPen,point1, point2);
             doDots(g);
             setBbox(point1, point2, 3);
             if (mustShowCurrent())
@@ -95,13 +97,21 @@ namespace JavaToSharp
             if (n == 0)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Показывать ток", mustShowCurrent());
+                ei.checkbox = new CheckBox();
+                if (mustShowCurrent())
+                {
+                    ei.checkbox.Text = "Показывать ток";
+                }
                 return ei;
             }
             if (n == 1)
             {
                 EditInfo ei = new EditInfo("", 0, -1, -1);
-                ei.checkbox = new Checkbox("Показывать напряжение", mustShowVoltage());
+                ei.checkbox = new CheckBox();
+                if ( mustShowVoltage())
+                {
+                    ei.checkbox.Text ="Показывать напряжение";
+                }
                 return ei;
             }
             return null;
@@ -110,14 +120,14 @@ namespace JavaToSharp
         {
             if (n == 0)
             {
-                if (ei.checkbox.State)
+                if (ei.checkbox.Checked)
                     flags = FLAG_SHOWCURRENT;
                 else
                     flags &= ~FLAG_SHOWCURRENT;
             }
             if (n == 1)
             {
-                if (ei.checkbox.State)
+                if (ei.checkbox.Checked)
                     flags = FLAG_SHOWVOLTAGE;
                 else
                     flags &= ~FLAG_SHOWVOLTAGE;

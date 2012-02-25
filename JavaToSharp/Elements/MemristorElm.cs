@@ -75,7 +75,6 @@ internal class MemristorElm : CircuitElm
 	int hs = 2+(int)(8*(1-dopeWidth/totalWidth));
 	setBbox(point1, point2, hs);
 	draw2Leads(g);
-	setPowerColor(g, true);
 	double segf = 1.0/segments;
 
 	// draw zigzag

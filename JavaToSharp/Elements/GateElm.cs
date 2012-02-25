@@ -13,7 +13,6 @@ namespace JavaToSharp.Elements
         {
             noDiagonal = true;
             inputCount = 2;
-            Size = sim.smallGridCheckItem.Checked ? 1 : 2;
         }
         public GateElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
         {

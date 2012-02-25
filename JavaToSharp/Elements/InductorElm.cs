@@ -54,13 +54,8 @@ internal class InductorElm : CircuitElm
 		int hs = 8;
 		setBbox(point1, point2, hs);
 		draw2Leads(g);
-		setPowerColor(g, false);
 		drawCoil(g, 8, lead1, lead2, v1, v2);
-		if (sim.showValuesCheckItem.Checked)
-		{
-		string s = getShortUnitText(inductance, "Гн");
-		drawValues(g, s, hs);
-		}
+		
 		doDots(g);
 		drawPosts(g);
 	}

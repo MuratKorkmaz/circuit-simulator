@@ -262,7 +262,7 @@ public abstract class CircuitElm : Editable
 
     internal void drawDots(Graphics g, Point pa, Point pb, double pos)
     {
-        if (sim.stoppedCheck.Checked || Math.Abs(pos - 0) < double.Epsilon || !sim.dotsCheckItem.Checked)
+        if (sim.stoppedCheck.Checked || Math.Abs(pos - 0) < double.Epsilon)
             return;
         int dxp = pb.X - pa.X;
         int dyp = pb.Y - pa.Y;
@@ -750,11 +750,7 @@ public abstract class CircuitElm : Editable
             
         }
         
-        if (!sim.voltsCheckItem.Checked)
-        {
-            if (!sim.powerCheckItem.Checked) // && !conductanceCheckItem.getState())
-                return whiteColor;
-        }
+       
         int c = (int) ((voltsValue + voltageRange)*(colorScaleCount - 1)/(voltageRange*2));
         if (c < 0)
             c = 0;
@@ -763,29 +759,7 @@ public abstract class CircuitElm : Editable
         return colorScale[c];
     }
 
-    internal Color setPowerColor(Graphics g, bool yellow)
-    {
-//	if (conductanceCheckItem.getState()) {
-//	  setConductanceColor(g, current/getVoltageDiff());
-//	  return;
-//	  }
-        return !sim.powerCheckItem.Checked ? Color.Empty : setPowerColor(Power);
-    }
-
-    internal Color setPowerColor(double w0)
-    {
-        w0 *= powerMult;
-        //System.out.println(w);
-        double w = (w0 < 0) ? -w0 : w0;
-        if (w > 1)
-            w = 1;
-        int rg = 128 + (int) (w*127);
-        int b = (int) (128*(1 - w));
-        //	if (yellow)
-        //	  g.setColor(new Color(rg, rg, b));
-        //	  else 
-        return w0 > 0 ? Color.FromArgb(rg, b, b) : Color.FromArgb(b, rg, b);
-    }
+   
 
     internal Color setConductanceColor(Graphics g, double w0)
     {

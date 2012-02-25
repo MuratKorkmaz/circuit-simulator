@@ -20,7 +20,6 @@ internal abstract class ChipElm : CircuitElm
 		bits = (this is DecadeElm) ? 10 : 4;
 		noDiagonal = true;
 		setupPins();
-		Size = sim.smallGridCheckItem.Checked ? 1 : 2;
 	}
 	public ChipElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
 	{
@@ -88,18 +87,17 @@ internal abstract class ChipElm : CircuitElm
 		drawDots(g, b, a, p.curcount);
 		if (p.bubble)
 		{
-			g.Color = sim.printableCheckItem.Checked ? Color.White : Color.Black;
 			drawThickCircle(g, p.bubbleX, p.bubbleY, 1);
 			g.Color = lightGrayColor;
 			drawThickCircle(g, p.bubbleX, p.bubbleY, 3);
 		}
 		g.Color = whiteColor;
 		int sw = fm.stringWidth(p.text);
-		g.drawString(p.text, p.textloc.x-sw/2, p.textloc.y+fm.Ascent/2);
+		g.drawString(p.text, p.textloc.X-sw/2, p.textloc.Y+fm.Ascent/2);
 		if (p.lineOver)
 		{
-			int ya = p.textloc.y-fm.Ascent/2;
-			g.drawLine(p.textloc.x-sw/2, ya, p.textloc.x+sw/2, ya);
+			int ya = p.textloc.Y-fm.Ascent/2;
+			g.drawLine(p.textloc.X-sw/2, ya, p.textloc.X+sw/2, ya);
 		}
 		}
 		g.Color = needsHighlight() ? selectColor : lightGrayColor;
@@ -107,7 +105,7 @@ internal abstract class ChipElm : CircuitElm
 		if (clockPointsX != null)
 		g.drawPolyline(clockPointsX, clockPointsY, 3);
 		for (i = 0; i != PostCount; i++)
-		drawPost(g, pins[i].post.x, pins[i].post.y, nodes[i]);
+		drawPost(g, pins[i].post.X, pins[i].post.Y, nodes[i]);
 	}
 	internal int[] rectPointsX; internal int[] rectPointsY;
 	internal static int[] clockPointsX; internal static int[] clockPointsY;

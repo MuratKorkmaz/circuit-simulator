@@ -29,17 +29,9 @@ namespace JavaToSharp
         internal Label titleLabel;
         internal Button resetButton;
         internal Button dumpMatrixButton;
-        internal MenuItem exportItem, exportLinkItem, importItem, exitItem, undoItem, redoItem, cutItem, copyItem, pasteItem, selectAllItem, optionsItem;
+        internal MenuItem exportItem, exportLinkItem, importItem, exitItem;
         internal Menu optionsMenu;
         internal CheckBox stoppedCheck;
-        internal ToolStripMenuItem dotsCheckItem;
-        internal ToolStripMenuItem voltsCheckItem;
-        internal ToolStripMenuItem powerCheckItem;
-        internal ToolStripMenuItem smallGridCheckItem;
-        internal ToolStripMenuItem showValuesCheckItem;
-        internal ToolStripMenuItem euroResistorCheckItem;
-        internal ToolStripMenuItem printableCheckItem;
-        internal ToolStripMenuItem conventionCheckItem;
         internal HScrollBar speedBar;
         internal HScrollBar currentBar;
         internal Label powerLabel;
@@ -167,13 +159,13 @@ namespace JavaToSharp
             //main.Controls.Add(cv);
 
             //mainMenu = new PopupMenu();
-            //Menu m = new Menu("Ð¤Ð°Ð¹Ð»");
+            //Menu m = new Menu("Ôàéë»");
             //mainMenu.add(m);
-            //m.add(importItem = getMenuItem("Ð˜Ð¼Ð¿Ð¾Ñ€Ñ‚"));
-            //m.add(exportItem = getMenuItem("Ð­ÐºÑÐ¿Ð¾Ñ€Ñ‚"));
-            //m.add(exportLinkItem = getMenuItem("Ð­ÐºÑÐ¿Ð¾Ñ€Ñ‚. ÑÑÑ‹Ð»ÐºÑƒ"));
+            //m.add(importItem = getMenuItem("Èìïîðò"));
+            //m.add(exportItem = getMenuItem("Ýêñïîðò"));
+            //m.add(exportLinkItem = getMenuItem("Ýêñïîðò. ññûëêó"));
             //m.addSeparator();
-            //m.add(exitItem = getMenuItem("Ð’Ñ‹Ñ…Ð¾Ð´"));
+            //m.add(exitItem = getMenuItem("Âûõîä"));
 
             //m = new Menu("ÐžÑÑ†Ð¸Ð»Ð»Ð¾Ð³Ñ€Ð°Ñ„");
             //mainMenu.add(m);
@@ -430,19 +422,7 @@ namespace JavaToSharp
             setupScopes();
             var g = Graphics.FromImage(dbimage);
             CircuitElm.selectColor = Color.Cyan;
-            Brush backBrush;
-            if (printableCheckItem.Checked)
-            {
-                CircuitElm.whiteColor = Color.Black;
-                CircuitElm.lightGrayColor = Color.Black;
-                backBrush = Brushes.White;
-            }
-            else
-            {
-                CircuitElm.whiteColor = Color.White;
-                CircuitElm.lightGrayColor = Color.LightGray;
-                backBrush = Brushes.Black;
-            }
+           
             g.FillRectangle(backBrush, 0, 0, winSize.Width, winSize.Height);
             if (!stoppedCheck.Checked)
             {
@@ -467,8 +447,6 @@ namespace JavaToSharp
                     double c = currentBar.Value;
                     c = Math.Exp(c/3.5-14.2);
                     CircuitElm.currentMult = 1.7 * inc * c;
-                    if (!conventionCheckItem.Checked)
-                        CircuitElm.currentMult = -CircuitElm.currentMult;
                 }
                 if (sysTime-secTime >= 1000)
                 {
@@ -488,10 +466,6 @@ namespace JavaToSharp
             Font oldfont = SystemFonts.DefaultFont;
             for (i = 0; i != elmList.Count; i++)
             {
-                //if (powerCheckItem.Checked)
-                //    g.Color = Color.Gray;
-//	    else if (conductanceCheckItem.getState())
-//	      g.setColor(Color.white);
                 getElm(i).draw(g);
             }
             if (tempMouseMode == MODE_DRAG_ROW || tempMouseMode == MODE_DRAG_COLUMN || tempMouseMode == MODE_DRAG_POST || tempMouseMode == MODE_DRAG_SELECTED)
@@ -1904,13 +1878,8 @@ namespace JavaToSharp
         protected virtual string dumpCircuit()
         {
             int i;
-            int f = (dotsCheckItem.Checked) ? 1 : 0;
-            f |= (smallGridCheckItem.Checked) ? 2 : 0;
-            f |= (voltsCheckItem.Checked) ? 0 : 4;
-            f |= (powerCheckItem.Checked) ? 8 : 0;
-            f |= (showValuesCheckItem.Checked) ? 0 : 16;
             // 32 = linear scale in afilter
-            string dump = "$ " + f + " " + timeStep + " " + IterCount + " " + currentBar.Value + " " + CircuitElm.voltageRange + " " + powerBar.Value + "\n";
+            string dump = "$ " +  " " + timeStep + " " + IterCount + " " + currentBar.Value + " " + CircuitElm.voltageRange + " " + powerBar.Value + "\n";
             for (i = 0; i != elmList.Count; i++)
                 dump += getElm(i).dump() + "\n";
             for (i = 0; i != scopeCount; i++)
@@ -2051,11 +2020,6 @@ namespace JavaToSharp
                 elmList.Clear();
                 hintType = -1;
                 timeStep = 5e-6;
-                dotsCheckItem.Checked = true;
-                smallGridCheckItem.Checked = false;
-                powerCheckItem.Checked = false;
-                voltsCheckItem.Checked = true;
-                showValuesCheckItem.Checked = true;
                 setGrid();
                 speedBar.Value = 117; // 57
                 currentBar.Value = 50;
@@ -2180,11 +2144,6 @@ namespace JavaToSharp
         internal virtual void readOptions(StringTokenizer st)
         {
             int flags = int.Parse(st.nextToken());
-            dotsCheckItem.Checked = (flags & 1) != 0;
-            smallGridCheckItem.Checked = (flags & 2) != 0;
-            voltsCheckItem.Checked = (flags & 4) == 0;
-            powerCheckItem.Checked = (flags & 8) == 8;
-            showValuesCheckItem.Checked = (flags & 16) == 0;
             timeStep = int.Parse(st.nextToken());
             double sp = int.Parse(st.nextToken());
             int sp2 = (int)(Math.Log(10*sp)*24+61.5);
@@ -2739,10 +2698,9 @@ namespace JavaToSharp
 
         protected virtual void enableItems()
         {
-            bool isEnabled = powerCheckItem.Checked;
             powerBar.Enabled = isEnabled;
             powerLabel.Enabled = isEnabled;
-            enableUndoRedo();
+           
         }
 
         public virtual void itemStateChanged(ToolStripItemEventArgs e)
@@ -2751,15 +2709,9 @@ namespace JavaToSharp
             object mi = e.Item;
             if (mi == stoppedCheck)
                 return;
-            if (mi == smallGridCheckItem)
-                setGrid();
-            if (mi == powerCheckItem)
-            {
-                voltsCheckItem.Checked = !powerCheckItem.Checked;
-            }
-            if (mi == voltsCheckItem && voltsCheckItem.Checked)
-                powerCheckItem.Checked = false;
-            enableItems();
+           
+           
+           
             if (menuScope != -1)
             {
                 Scope sc = scopes[menuScope];
@@ -2801,7 +2753,6 @@ namespace JavaToSharp
 
         protected virtual void setGrid()
         {
-            gridSize = (smallGridCheckItem.Checked) ? 8 : 16;
             gridMask = ~(gridSize-1);
             gridRound = gridSize/2-1;
         }
@@ -2813,15 +2764,10 @@ namespace JavaToSharp
             if (undoStack.Count > 0 && String.CompareOrdinal(s, (string)(undoStack[undoStack.Count - 1])) == 0)
                 return;
             undoStack.Add(s);
-            enableUndoRedo();
+           
         }
 
-        protected virtual void enableUndoRedo()
-        {
-            redoItem.Enabled = redoStack.Count > 0;
-            undoItem.Enabled = undoStack.Count > 0;
-        }
-
+        
         protected virtual void setMenuSelection()
         {
             if (menuElm != null)
@@ -2848,7 +2794,6 @@ namespace JavaToSharp
                     elmList.RemoveAt(i);
                 }
             }
-            enablePaste();
             needAnalyze();
         }
 
@@ -2878,13 +2823,8 @@ namespace JavaToSharp
                 if (ce.selected)
                     clipboard += ce.dump() + "\n";
             }
-            enablePaste();
         }
 
-        protected virtual void enablePaste()
-        {
-            pasteItem.Enabled = clipboard.Length > 0;
-        }
 
         protected virtual void doPaste()
         {

@@ -46,65 +46,10 @@ namespace JavaToSharp
             int segments = 16;
             int i;
             int ox = 0;
-            int hs = sim.euroResistorCheckItem.Checked ? 6 : 8;
             double v1 = volts[0];
             double v2 = volts[1];
-            setBbox(point1, point2, hs);
             draw2Leads(g);
-            setPowerColor(g, true);
             double segf = 1.0/segments;
-            if (!sim.euroResistorCheckItem.Checked)
-            {
-                // draw zigzag
-                for (i = 0; i != segments; i++)
-                {
-                    int nx = 0;
-                    switch (i & 3)
-                    {
-                        case 0:
-                            nx = 1;
-                            break;
-                        case 2:
-                            nx = -1;
-                            break;
-                        default:
-                            nx = 0;
-                            break;
-                    }
-                    double v = v1+(v2-v1)*i/segments;
-                    voltageColor=   setVoltageColor(g, v);
-                    myPen = new Pen(voltageColor);
-                    interpPoint(lead1, lead2, ps1, i*segf, hs*ox);
-                    interpPoint(lead1, lead2, ps2, (i+1)*segf, hs*nx);
-                    drawThickLine(g, myPen,ps1, ps2);
-                    ox = nx;
-                }
-            }
-            else
-            {
-                // draw rectangle
-                voltageColor=  setVoltageColor(g, v1);
-                myPen = new Pen(voltageColor);
-                interpPoint2(lead1, lead2, ps1, ps2, 0, hs);
-                drawThickLine(g, myPen,ps1, ps2);
-                for (i = 0; i != segments; i++)
-                {
-                    double v = v1+(v2-v1)*i/segments;
-                   voltageColor = setVoltageColor(g, v);
-                   myPen = new Pen(voltageColor);
-                    interpPoint2(lead1, lead2, ps1, ps2, i*segf, hs);
-                    interpPoint2(lead1, lead2, ps3, ps4, (i+1)*segf, hs);
-                    drawThickLine(g, myPen,ps1, ps3);
-                    drawThickLine(g, myPen ,ps2, ps4);
-                }
-                interpPoint2(lead1, lead2, ps1, ps2, 1, hs);
-                drawThickLine(g, myPen,ps1, ps2);
-            }
-            if (sim.showValuesCheckItem.Checked)
-            {
-                string s = getShortUnitText(resistance, "");
-                drawValues(g, s, hs);
-            }
             doDots(g);
             drawPosts(g);
         }

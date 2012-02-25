@@ -123,7 +123,6 @@ internal class LampElm : CircuitElm
 		adjustBbox(bulb.X-bulbR, bulb.Y-bulbR, bulb.X+bulbR, bulb.Y+bulbR);
 		// adjustbbox
 		draw2Leads(g);
-		setPowerColor(g, true);
 		g.Color = TempColor;
 		g.fillOval(bulb.X-bulbR, bulb.Y-bulbR, bulbR*2, bulbR*2);
 		g.Color = Color.White;
@@ -191,7 +190,7 @@ internal class LampElm : CircuitElm
 	{
 		arr[0] = "лампа";
 		getBasicInfo(arr);
-		arr[3] = "R = " + getUnitText(resistance, sim.ohmString);
+		arr[3] = "R = " + getUnitText(resistance, "Ом");
 		arr[4] = "P = " + getUnitText(Power, "Вт");
 		arr[5] = "T = " + ((int) temp) + " K";
 	}

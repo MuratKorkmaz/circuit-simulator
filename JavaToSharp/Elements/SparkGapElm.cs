@@ -82,10 +82,9 @@ namespace JavaToSharp
         {
             setBbox(point1, point2, 8);
             draw2Leads(g);
-            setPowerColor(g, true);
-            setVoltageColor(g, volts[0]);
+            voltageColor = setVoltageColor(g, volts[0]);
             g.fillPolygon(arrow1);
-            setVoltageColor(g, volts[1]);
+            voltageColor = setVoltageColor(g, volts[1]);
             g.fillPolygon(arrow2);
             if (state)
                 doDots(g);

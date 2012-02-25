@@ -81,7 +81,6 @@ namespace JavaToSharp.Elements
             voltageColor = setVoltageColor(g, volts[0]);
             myPen = new Pen(voltageColor);
             drawThickLine(g, myPen ,point1, lead1);
-            voltageColor= setPowerColor(g, false);
             myPen = new Pen(voltageColor);
             drawThickLine(g,myPen,plate1[0], plate1[1]);
            // if (sim.powerCheckItem.State)
@@ -91,7 +90,6 @@ namespace JavaToSharp.Elements
             voltageColor = setVoltageColor(g, volts[1]);
             myPen = new Pen(voltageColor);
             drawThickLine(g,myPen, point2, lead2);
-           voltageColor= setPowerColor(g, false);
            myPen = new Pen(voltageColor);
             drawThickLine(g, myPen,plate2[0], plate2[1]);
 
@@ -102,11 +100,7 @@ namespace JavaToSharp.Elements
                 drawDots(g, point2, lead2, -curcount);
             }
             drawPosts(g);
-            if (sim.showValuesCheckItem.Checked)
-            {
-                string s = getShortUnitText(capacitance, "Ф");
-                drawValues(g, s, hs);
-            }
+           
         }
         internal override void stamp()
         {

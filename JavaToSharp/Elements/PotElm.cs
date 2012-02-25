@@ -16,7 +16,7 @@ namespace JavaToSharp
         private double curcount1;
         private double curcount2;
         private double curcount3;
-        private Scrollbar slider;
+        private ScrollBar slider;
         private Label label;
         private string sliderText;
         public PotElm(int xx, int yy) : base(xx, yy)
@@ -77,7 +77,7 @@ namespace JavaToSharp
         {
             sim.main.Add(label = new Label(sliderText, Label.CENTER));
             int value = (int)(position*100);
-            sim.main.Add(slider = new Scrollbar(Scrollbar.HORIZONTAL, value, 1, 0, 101));
+            sim.main.Add(slider = new ScrollBar(ScrollBar.HORIZONTAL, value, 1, 0, 101));
             sim.main.validate();
             slider.addAdjustmentListener(this);
         }
@@ -144,66 +144,12 @@ namespace JavaToSharp
             int segments = 16;
             int i;
             int ox = 0;
-            int hs = sim.euroResistorCheckItem.Checked ? 6 : 8;
             double v1 = volts[0];
             double v2 = volts[1];
             double v3 = volts[2];
-            setBbox(point1, point2, hs);
             draw2Leads(g);
-            setPowerColor(g, true);
             double segf = 1.0/segments;
             int divide = (int)(segments*position);
-            if (!sim.euroResistorCheckItem.Checked)
-            {
-                // draw zigzag
-                for (i = 0; i != segments; i++)
-                {
-                    int nx = 0;
-                    switch (i & 3)
-                    {
-                        case 0:
-                            nx = 1;
-                            break;
-                        case 2:
-                            nx = -1;
-                            break;
-                        default:
-                            nx = 0;
-                            break;
-                    }
-                    double v = v1+(v3-v1)*i/divide;
-                    if (i >= divide)
-                        v = v3+(v2-v3)*(i-divide)/(segments-divide);
-                  voltageColor=  setVoltageColor(g, v);
-                  myPen = new Pen(voltageColor);
-                    interpPoint(lead1, lead2, ps1, i*segf, hs*ox);
-                    interpPoint(lead1, lead2, ps2, (i+1)*segf, hs*nx);
-                    drawThickLine(g, myPen, ps1, ps2);
-                    ox = nx;
-                }
-            }
-            else
-            {
-                // draw rectangle
-              voltageColor=  setVoltageColor(g, v1);
-              myPen = new Pen(voltageColor);
-                interpPoint2(lead1, lead2, ps1, ps2, 0, hs);
-                drawThickLine(g, myPen, ps1, ps2);
-                for (i = 0; i != segments; i++)
-                {
-                    double v = v1+(v3-v1)*i/divide;
-                    if (i >= divide)
-                        v = v3+(v2-v3)*(i-divide)/(segments-divide);
-                   voltageColor= setVoltageColor(g, v);
-                   myPen = new Pen(voltageColor);
-                    interpPoint2(lead1, lead2, ps1, ps2, i*segf, hs);
-                    interpPoint2(lead1, lead2, ps3, ps4, (i+1)*segf, hs);
-                    drawThickLine(g, myPen, ps1, ps3);
-                    drawThickLine(g, myPen, ps2, ps4);
-                }
-                interpPoint2(lead1, lead2, ps1, ps2, 1, hs);
-                drawThickLine(g, myPen, ps1, ps2);
-            }
            voltageColor= setVoltageColor(g, v3);
             myPen = new Pen(voltageColor);
             drawThickLine(g, myPen ,post3, corner2);

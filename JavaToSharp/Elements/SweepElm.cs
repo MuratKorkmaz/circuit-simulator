@@ -83,8 +83,6 @@ namespace JavaToSharp
             voltageColor = setVoltageColor(g, volts[0]);
             myPen = new Pen(voltageColor);
             drawThickLine(g, myPen,point1, lead1);
-            g.Color = needsHighlight() ? selectColor : Color.Gray;
-            setPowerColor(g, false);
             int xc = point2.X;
             int yc = point2.Y;
             drawThickCircle(g, xc, yc, circleSize);
@@ -109,12 +107,7 @@ namespace JavaToSharp
                 ox = xc+i;
                 oy = yy;
             }
-            if (sim.showValuesCheckItem.Checked)
-            {
-                string s = getShortUnitText(frequency, "Hz");
-                if (dx == 0 || dy == 0)
-                    drawValues(g, s, circleSize);
-            }
+          
 
             drawPosts(g);
             curcount = updateDotCount(-current, curcount);

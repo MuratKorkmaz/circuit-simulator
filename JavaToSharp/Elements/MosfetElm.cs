@@ -87,7 +87,6 @@ internal class MosfetElm : CircuitElm
 		drawThickLine(g, myPen,drn[0], drn[1]);
 		int segments = 6;
 		int i;
-		setPowerColor(g, true);
 		double segf = 1.0/segments;
 		for (i = 0; i != segments; i++)
 		{
@@ -109,8 +108,6 @@ internal class MosfetElm : CircuitElm
 		setVoltageColor(g, pnp == 1 ? volts[1] : volts[2]);
 		g.fillPolygon(arrowPoly);
 		}
-		if (sim.powerCheckItem.Checked)
-		g.Color = Color.Gray;
 	voltageColor=	setVoltageColor(g, volts[0]);
     myPen = new Pen(voltageColor);
 		drawThickLine(g,myPen, point1, gate[1]);

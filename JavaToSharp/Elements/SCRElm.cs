@@ -156,10 +156,7 @@ namespace JavaToSharp
 
             draw2Leads(g);
 
-            // draw arrow thingy
-            setPowerColor(g, true);
-            setVoltageColor(g, v1);
-            g.fillPolygon(poly);
+            
 
             // draw thing arrow is pointing to
            voltageColor=  setVoltageColor(g, v2);
