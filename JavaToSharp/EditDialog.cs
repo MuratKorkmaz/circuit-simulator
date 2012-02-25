@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -10,7 +11,7 @@ namespace JavaToSharp
         void setEditValue(int n, EditInfo ei);
     }
 
-    internal class EditDialog : VisualStyleElement.Window.Dialog, AdjustmentListener, ActionListener, ItemListener
+    internal class EditDialog
     {
         internal Editable elm;
         internal CirSim cframe;
