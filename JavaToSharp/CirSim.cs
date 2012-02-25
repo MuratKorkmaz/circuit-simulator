@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using JavaToSharp.Elements;
@@ -1867,7 +1868,8 @@ namespace JavaToSharp
             }
         }
 
-        internal virtual void doEdit(Editable eable)
+        //todo: переделать вызов формы редактирования и саму форму
+        /*internal virtual void doEdit(Editable eable)
         {
             clearSelection();
             pushUndo();
@@ -1879,9 +1881,10 @@ namespace JavaToSharp
             }
             editDialog = new EditDialog(eable, this);
             editDialog.show();
-        }
+        }*/
 
-        protected virtual void doImport(bool imp, bool url)
+        //todo: переделать импорт
+        /*protected virtual void doImport(bool imp, bool url)
         {
             if (impDialog != null)
             {
@@ -1895,16 +1898,16 @@ namespace JavaToSharp
             impDialog = new ImportDialog(this, dump, url);
             impDialog.show();
             pushUndo();
-        }
+        }*/
 
         protected virtual string dumpCircuit()
         {
             int i;
-            int f = (dotsCheckItem.State) ? 1 : 0;
-            f |= (smallGridCheckItem.State) ? 2 : 0;
-            f |= (voltsCheckItem.State) ? 0 : 4;
-            f |= (powerCheckItem.State) ? 8 : 0;
-            f |= (showValuesCheckItem.State) ? 0 : 16;
+            int f = (dotsCheckItem.Checked) ? 1 : 0;
+            f |= (smallGridCheckItem.Checked) ? 2 : 0;
+            f |= (voltsCheckItem.Checked) ? 0 : 4;
+            f |= (powerCheckItem.Checked) ? 8 : 0;
+            f |= (showValuesCheckItem.Checked) ? 0 : 16;
             // 32 = linear scale in afilter
             string dump = "$ " + f + " " + timeStep + " " + IterCount + " " + currentBar.Value + " " + CircuitElm.voltageRange + " " + powerBar.Value + "\n";
             for (i = 0; i != elmList.Count; i++)
@@ -1920,30 +1923,25 @@ namespace JavaToSharp
             return dump;
         }
 
-        public virtual void adjustmentValueChanged(AdjustmentEvent e)
-        {
-            Console.Write(((Scrollbar) e.Source).Value + "\n");
-        }
-
 //JAVA TO VB & C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: ByteArrayOutputStream readUrlData(URL url) throws java.io.IOException
-        protected virtual ByteArrayOutputStream readUrlData(URL url)
+        protected virtual sbyte[] readUrlData(string url)
         {
-            object o = url.Content;
-            FilterInputStream fis = (FilterInputStream) o;
-            ByteArrayOutputStream ba = new ByteArrayOutputStream(fis.available());
-            int blen = 1024;
-            sbyte[] b = new sbyte[blen];
-            while (true)
+            if (!File.Exists(url))
             {
-                int len = fis.read(b);
-                if (len <= 0)
-                    break;
-                ba.write(b, 0, len);
+                throw new Exception(string.Format("File {0} is no exists", url));
             }
-            return ba;
+            try
+            {
+                var data = File.
+                return data;
+            }
+            catch (Exception ex)
+            {
+                UserMessageView.Instance.ShowError(ex.StackTrace);
+            }
         }
-        
+
         protected virtual void getSetupList(Menu menu)
         {
             Menu[] stack = new Menu[6];
@@ -2024,13 +2022,14 @@ namespace JavaToSharp
             Console.WriteLine(str);
             try
             {
-                URL url = new URL(CodeBase + "circuits/" + str);
-                ByteArrayOutputStream ba = readUrlData(url);
-                readSetup(ba.toByteArray(), ba.size(), false);
+                const string path = "circuits/";
+                string url = path + str;
+                sbyte[] ba = readUrlData(url);
+                readSetup(ba, ba.Length, false);
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                UserMessageView.Instance.ShowError(e.StackTrace);
                 stop("Unable to read " + str + "!", null);
             }
             titleLabel.Text = title;
@@ -2049,11 +2048,11 @@ namespace JavaToSharp
                 elmList.Clear();
                 hintType = -1;
                 timeStep = 5e-6;
-                dotsCheckItem.State = true;
-                smallGridCheckItem.State = false;
-                powerCheckItem.State = false;
-                voltsCheckItem.State = true;
-                showValuesCheckItem.State = true;
+                dotsCheckItem.Checked = true;
+                smallGridCheckItem.Checked = false;
+                powerCheckItem.Checked = false;
+                voltsCheckItem.Checked = true;
+                showValuesCheckItem.Checked = true;
                 setGrid();
                 speedBar.Value = 117; // 57
                 currentBar.Value = 50;
@@ -2121,7 +2120,6 @@ namespace JavaToSharp
                         int x2 = int.Parse(st.nextToken());
                         int y2 = int.Parse(st.nextToken());
                         int f = int.Parse(st.nextToken());
-                        CircuitElm ce = null;
                         Type cls = dumpTypes[tint];
                         if (cls == null)
                         {
@@ -2129,15 +2127,14 @@ namespace JavaToSharp
                             break;
                         }
                         // find element class
-                        Type[] carr = new Class[6];
+                        var carr = new Type[6];
                         //carr[0] = getClass();
                         carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof(int);
                         carr[5] = typeof(StringTokenizer);
-                        Constructor cstr = null;
-                        cstr = cls.GetConstructor(carr);
+                        ConstructorInfo cstr = cls.GetConstructor(carr);
 
                         // invoke constructor with starting coordinates
-                        object[] oarr = new object[6];
+                        var oarr = new object[6];
                         //oarr[0] = this;
                         oarr[0] = x1;
                         oarr[1] = y1;
@@ -2145,18 +2142,18 @@ namespace JavaToSharp
                         oarr[3] = y2;
                         oarr[4] = f;
                         oarr[5] = st;
-                        ce = (CircuitElm) cstr.newInstance(oarr);
+                        var ce = (CircuitElm) cstr.Invoke(oarr);
                         ce.setPoints();
                         elmList.Add(ce);
                     }
-                    catch (java.lang.reflect.InvocationTargetException ee)
+                    catch (ReflectionTypeLoadException ex)
                     {
-                        ee.TargetException.printStackTrace();
+                        UserMessageView.Instance.ShowError(ex.InnerException.StackTrace);
                         break;
                     }
-                    catch (Exception ee)
+                    catch (Exception ex)
                     {
-                        ee.printStackTrace();
+                        UserMessageView.Instance.ShowError(ex.StackTrace);
                         break;
                     }
                     break;
@@ -2517,8 +2514,8 @@ namespace JavaToSharp
                     for (j = 0; j != jn; j++)
                     {
                         Point pt = ce.getPost(j);
-                        int dist = distanceSq(x, y, pt.x, pt.y);
-                        if (distanceSq(pt.x, pt.y, x, y) < 26)
+                        int dist = distanceSq(x, y, pt.X, pt.Y);
+                        if (distanceSq(pt.X, pt.Y, x, y) < 26)
                         {
                             mouseElm = ce;
                             mousePost = j;
@@ -2568,7 +2565,7 @@ namespace JavaToSharp
             cv.repaint();
         }
 
-        public virtual void mousePressed(MouseEvent e)
+        public virtual void mousePressed(MouseEventArgs e)
         {
             Console.WriteLine(e.Modifiers);
             int ex = e.ModifiersEx;
@@ -2615,7 +2612,7 @@ namespace JavaToSharp
 
             int x0 = snapGrid(e.X);
             int y0 = snapGrid(e.Y);
-            if (!circuitArea.contains(x0, y0))
+            if (!circuitArea.Contains(x0, y0))
                 return;
 
             dragElm = constructElement(addingClass, x0, y0);
@@ -2658,7 +2655,8 @@ namespace JavaToSharp
             return null;
         }
 
-        protected virtual void doPopupMenu(MouseEvent e)
+        //todo: обработать события выбора меню в соответствующих контролах
+        /*protected virtual void doPopupMenu(MouseEventArgs e)
         {
             menuElm = mouseElm;
             menuScope = -1;
@@ -2678,7 +2676,7 @@ namespace JavaToSharp
             else
             {
                 doMainMenuChecks(mainMenu);
-                mainMenu.show(e.Component, e.X, e.Y);
+                mainMenu.Show(e.Component, e.X, e.Y);
             }
         }
 
@@ -2698,18 +2696,18 @@ namespace JavaToSharp
                     cmi.State = mouseModeStr.CompareTo(cmi.ActionCommand) == 0;
                 }
             }
-        }
+        }*/
 
-        public virtual void mouseReleased(MouseEvent e)
+        public virtual void mouseReleased(MouseEventArgs e)
         {
             int ex = e.ModifiersEx;
             if ((ex & (MouseEvent.SHIFT_DOWN_MASK|MouseEvent.CTRL_DOWN_MASK| MouseEvent.META_DOWN_MASK)) == 0 && e.PopupTrigger)
             {
-                doPopupMenu(e);
+                //doPopupMenu(e);
                 return;
             }
             tempMouseMode = mouseMode;
-            selectedArea = null;
+            selectedArea = Rectangle.Empty;
             bool circuitChanged = false;
             if (heldSwitchElm != null)
             {
@@ -2734,21 +2732,14 @@ namespace JavaToSharp
             if (dragElm != null)
                 dragElm.delete();
             dragElm = null;
-            cv.repaint();
+            cv.Refresh();
         }
 
         protected virtual void enableItems()
         {
-            if (powerCheckItem.State)
-            {
-                powerBar.enable();
-                powerLabel.enable();
-            }
-            else
-            {
-                powerBar.disable();
-                powerLabel.disable();
-            }
+            bool isEnabled = powerCheckItem.Checked;
+            powerBar.Enabled = isEnabled;
+            powerLabel.Enabled = isEnabled;
             enableUndoRedo();
         }
 
@@ -2762,37 +2753,34 @@ namespace JavaToSharp
                 setGrid();
             if (mi == powerCheckItem)
             {
-                if (powerCheckItem.State)
-                    voltsCheckItem.State = false;
-                else
-                    voltsCheckItem.State = true;
+                voltsCheckItem.Checked = !powerCheckItem.Checked;
             }
-            if (mi == voltsCheckItem && voltsCheckItem.State)
-                powerCheckItem.State = false;
+            if (mi == voltsCheckItem && voltsCheckItem.Checked)
+                powerCheckItem.Checked = false;
             enableItems();
             if (menuScope != -1)
             {
                 Scope sc = scopes[menuScope];
                 sc.handleMenu(e, mi);
             }
-            if (mi is CheckboxMenuItem)
+            if (mi is ToolStripMenuItem)
             {
-                MenuItem mmi = (MenuItem) mi;
+                var mmi = mi as ToolStripMenuItem;
                 mouseMode = MODE_ADD_ELM;
-                string s = mmi.ActionCommand;
+                string s = mmi.Text;
                 if (s.Length > 0)
                     mouseModeStr = s;
-                if (s.CompareTo("DragAll") == 0)
+                if (String.CompareOrdinal(s, "DragAll") == 0)
                     mouseMode = MODE_DRAG_ALL;
-                else if (s.CompareTo("DragRow") == 0)
+                else if (String.CompareOrdinal(s, "DragRow") == 0)
                     mouseMode = MODE_DRAG_ROW;
-                else if (s.CompareTo("DragColumn") == 0)
+                else if (String.CompareOrdinal(s, "DragColumn") == 0)
                     mouseMode = MODE_DRAG_COLUMN;
-                else if (s.CompareTo("DragSelected") == 0)
+                else if (String.CompareOrdinal(s, "DragSelected") == 0)
                     mouseMode = MODE_DRAG_SELECTED;
-                else if (s.CompareTo("DragPost") == 0)
+                else if (String.CompareOrdinal(s, "DragPost") == 0)
                     mouseMode = MODE_DRAG_POST;
-                else if (s.CompareTo("Select") == 0)
+                else if (String.CompareOrdinal(s, "Select") == 0)
                     mouseMode = MODE_SELECT;
                 else if (s.Length > 0)
                 {
@@ -2800,9 +2788,9 @@ namespace JavaToSharp
                     {
                         addingClass = Type.GetType(s);
                     }
-                    catch (Exception ee)
+                    catch (Exception ex)
                     {
-                        ee.printStackTrace();
+                        UserMessageView.Instance.ShowError(ex.StackTrace);
                     }
                 }
                 tempMouseMode = mouseMode;
