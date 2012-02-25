@@ -201,7 +201,7 @@ namespace JavaToSharp
 
         internal void drawWaveform(Graphics g, Point center)
         {
-            g.Color = needsHighlight() ? selectColor : Color.Gray;
+            g.GetNearestColor(needsHighlight() ? selectColor : Color.Gray);
             int xc = center.X;
             int yc = center.Y;
             drawThickCircle(g, xc, yc, circleSize);

@@ -77,7 +77,7 @@ internal class LogicOutputElm : CircuitElm
 		Font f = new Font("SansSerif", 20, FontStyle.Bold);
 		g.Font = f;
 		//g.setColor(needsHighlight() ? selectColor : lightGrayColor);
-		g.Color = lightGrayColor;
+		g.GetNearestColor(lightGrayColor);
 		string s = (volts[0] < threshold) ? "L" : "H";
 		if (IsTernary())
 		{

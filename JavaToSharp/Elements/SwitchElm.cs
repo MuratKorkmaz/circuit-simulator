@@ -82,7 +82,7 @@ namespace JavaToSharp
                 doDots(g);
 
             if (!needsHighlight())
-                g.Color = whiteColor;
+                g.GetNearestColor(whiteColor);
             interpPoint(lead1, lead2, ps, 0, hs1);
             interpPoint(lead1, lead2, ps2, 1, hs2);
             myPen = new Pen(whiteColor);

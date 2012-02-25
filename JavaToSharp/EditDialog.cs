@@ -68,7 +68,7 @@ namespace JavaToSharp
             okButton.addActionListener(this);
             Point x = new Point(0, 0);
             Dimension d = Size;
-            setLocation(x.x + (cframe.winSize.width-d.width)/2, x.y + (cframe.winSize.height-d.height)/2);
+            setLocation(x.X + (cframe.winSize.Width-d.width)/2, x.Y + (cframe.winSize.Height-d.height)/2);
         }
 
         internal virtual string unitString(EditInfo ei)
@@ -214,7 +214,7 @@ namespace JavaToSharp
                 EditInfo ei = einfos[i];
                 if (ei.bar == src)
                 {
-                    double v = ei.bar.Value / 1000.;
+                    double v = ei.bar.Value / 1000.0;
                     if (v < 0)
                         v = 0;
                     if (v > 1)

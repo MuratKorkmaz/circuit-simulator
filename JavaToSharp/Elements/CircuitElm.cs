@@ -538,7 +538,7 @@ public abstract class CircuitElm : Editable
         g.Font = unitsFont;
         FontMetrics fm = g.FontMetrics;
         int w = fm.stringWidth(s);
-        g.Color = whiteColor;
+        g.GetNearestColor(whiteColor);
         int ya = fm.Ascent/2;
         int xc, yc;
         if (this is RailElm || this is SweepElm)

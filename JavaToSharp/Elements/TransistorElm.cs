@@ -104,7 +104,7 @@ namespace JavaToSharp
             voltageColor =  setVoltageColor(g, volts[2]);
             drawThickLine(g, myPen,emit[0], emit[1]);
             // draw arrow
-            g.Color = lightGrayColor;
+            g.GetNearestColor(lightGrayColor);
             g.fillPolygon(arrowPoly);
             // draw base
             voltageColor = setVoltageColor(g, volts[0]);
@@ -122,7 +122,7 @@ namespace JavaToSharp
 
             if ((needsHighlight() || sim.dragElm == this) && dy == 0)
             {
-                g.Color = Color.White;
+                g.GetNearestColor(Color.White);
                 g.Font = unitsFont;
                 int ds = sign(dx);
                 g.drawString("Б", @base.X-10*ds, @base.Y-5);

@@ -25,7 +25,7 @@ namespace JavaToSharp
             Point x = new Point(0, 0);
             resize(400, 300);
             Dimension d = Size;
-            setLocation(x.x + (cframe.winSize.width-d.width)/2, x.y + (cframe.winSize.height-d.height)/2);
+            setLocation(x.X + (cframe.winSize.Width-d.width)/2, x.Y + (cframe.winSize.Height-d.height)/2);
             show();
             if (str.Length > 0)
                 text.selectAll();

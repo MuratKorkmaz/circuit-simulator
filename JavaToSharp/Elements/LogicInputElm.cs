@@ -81,7 +81,7 @@ namespace JavaToSharp
         {
             Font f = new Font("SansSerif", 20, FontStyle.Bold);
             g.Font = f;
-            g.Color = needsHighlight() ? selectColor : whiteColor;
+            g.GetNearestColor(needsHighlight() ? selectColor : whiteColor);
             string s = position == 0 ? "L" : "H";
             if (isNumeric)
                 s = "" + position;

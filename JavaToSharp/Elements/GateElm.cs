@@ -99,7 +99,7 @@ namespace JavaToSharp.Elements
            voltageColor = setVoltageColor(g, volts[inputCount]);
             myPen = new Pen(voltageColor);
             drawThickLine(g, myPen,lead2, point2);
-            g.Color = needsHighlight() ? selectColor : lightGrayColor;
+            g.GetNearestColor(needsHighlight() ? selectColor : lightGrayColor);
             drawThickPolygon(g, gatePoly);
             if (linePoints != null)
                 for (i = 0; i != linePoints.Length-1; i++)

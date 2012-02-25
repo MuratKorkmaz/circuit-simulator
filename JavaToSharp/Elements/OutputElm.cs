@@ -35,7 +35,7 @@ internal class OutputElm : CircuitElm
 		bool selected = (needsHighlight() || sim.plotYElm == this);
 		Font f = new Font("SansSerif",14 , selected ? FontStyle.Bold : 0);
 		g.Font = f;
-		g.Color = selected ? selectColor : whiteColor;
+		g.GetNearestColor(selected ? selectColor : whiteColor);
 		string s = (flags & FLAG_VALUE) != 0 ? getVoltageText(volts[0]) : "out";
 		FontMetrics fm = g.FontMetrics;
 		if (this == sim.plotXElm)
@@ -48,7 +48,7 @@ internal class OutputElm : CircuitElm
 	    voltageColor=	setVoltageColor(g, volts[0]);
 	    myPen = new Pen(voltageColor);
 		if (selected)
-		g.Color = selectColor;
+		g.GetNearestColor(selectColor);
 		drawThickLine(g, myPen,point1, lead1);
 		drawPosts(g);
 	}

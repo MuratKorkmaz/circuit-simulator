@@ -76,7 +76,7 @@ namespace JavaToSharp
 
             // draw switch
             if (!needsHighlight())
-                g.Color = whiteColor;
+                g.GetNearestColor(whiteColor);
             drawThickLine(g, myPen, lead1, swpoles[position]);
 
             updateDotCount();

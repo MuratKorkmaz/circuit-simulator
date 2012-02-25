@@ -88,10 +88,10 @@ internal abstract class ChipElm : CircuitElm
 		if (p.bubble)
 		{
 			drawThickCircle(g, p.bubbleX, p.bubbleY, 1);
-			g.Color = lightGrayColor;
+			g.GetNearestColor(lightGrayColor);
 			drawThickCircle(g, p.bubbleX, p.bubbleY, 3);
 		}
-		g.Color = whiteColor;
+		g.GetNearestColor(whiteColor);
 		int sw = fm.stringWidth(p.text);
 		g.drawString(p.text, p.textloc.X-sw/2, p.textloc.Y+fm.Ascent/2);
 		if (p.lineOver)
@@ -100,7 +100,7 @@ internal abstract class ChipElm : CircuitElm
 			g.drawLine(p.textloc.X-sw/2, ya, p.textloc.X+sw/2, ya);
 		}
 		}
-		g.Color = needsHighlight() ? selectColor : lightGrayColor;
+		g.GetNearestColor(needsHighlight() ? selectColor : lightGrayColor);
 		drawThickPolygon(g, rectPointsX, rectPointsY, 4);
 		if (clockPointsX != null)
 		g.drawPolyline(clockPointsX, clockPointsY, 3);

@@ -117,13 +117,13 @@ internal class MosfetElm : CircuitElm
 		if ((flags & FLAG_SHOWVT) != 0)
 		{
 		string s = "" + (vt*pnp);
-		g.Color = whiteColor;
+		g.GetNearestColor(whiteColor);
 		g.Font = unitsFont;
 		drawCenteredText(g, s, x2+2, y2, false);
 		}
 		if ((needsHighlight() || sim.dragElm == this) && dy == 0)
 		{
-		g.Color = Color.White;
+		g.GetNearestColor(Color.White);
 		g.Font = unitsFont;
 		int ds = sign(dx);
 		g.drawString("G", gate[1].X-10*ds, gate[1].Y-5);

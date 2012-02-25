@@ -277,7 +277,7 @@ namespace JavaToSharp
                 dpixels[i] *=(float).997;
             }
             g.drawImage(image, rect.X, rect.Y, null);
-            g.Color = elm.whiteColor;
+            g.GetNearestColor(Color.White);
             g.fillOval(rect.X+draw_ox-2, rect.Y+draw_oy-2, 5, 5);
             int yt = rect.Y+10;
             int x = rect.X;
@@ -518,7 +518,7 @@ namespace JavaToSharp
                 // System.out.println(freq + " " + periodstd + " " + periodct);
             }
             g.DrawImage(image, rect.X, rect.Y, null);
-            g.Color = elm.whiteColor;
+            g.GetNearestColor(Color.White);
             int yt = rect.Y+10;
             x += rect.X;
             if (BshowMax)

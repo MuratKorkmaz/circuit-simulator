@@ -101,7 +101,7 @@ namespace JavaToSharp
 
         internal override void draw(Graphics g)
         {
-            g.Color = Color.Gray;
+            g.GetNearestColor(Color.Gray);
             drawThickCircle(g, point2.X, point2.Y, circler);
             setBbox(point1, plate[0], 16);
             adjustBbox(cath[0].X, cath[1].Y, point2.X+circler, point2.Y+circler);

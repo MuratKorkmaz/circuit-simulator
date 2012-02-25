@@ -89,7 +89,7 @@ namespace JavaToSharp
                     continue;
                 drawCoil(g, i > 1 ? -6 : 6, ptCoil[i], ptCoil[i+1], volts[i], volts[i+1]);
             }
-            g.Color = needsHighlight() ? selectColor : lightGrayColor;
+            g.GetNearestColor(needsHighlight() ? selectColor : lightGrayColor);
             for (i = 0; i != 4; i += 2)
             {
                 drawThickLine(g, myPen,ptCore[i], ptCore[i+1]);

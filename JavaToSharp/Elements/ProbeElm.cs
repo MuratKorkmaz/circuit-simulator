@@ -43,11 +43,11 @@ namespace JavaToSharp
             voltageColor= setVoltageColor(g, volts[0]);
             myPen = new Pen(voltageColor);
             if (selected)
-                g.Color = selectColor;
+                g.GetNearestColor(selectColor);
             drawThickLine(g, myPen,point1, lead1);
             voltageColor = setVoltageColor(g, volts[1]);
             if (selected)
-                g.Color = selectColor;
+                g.GetNearestColor(selectColor);
             drawThickLine(g, myPen ,lead2, point2);
             Font f = new Font("SansSerif", 14, FontStyle.Bold); 
             g.Font = f;

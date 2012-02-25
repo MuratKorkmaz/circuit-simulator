@@ -75,7 +75,7 @@ namespace JavaToSharp
          myPen = new Pen(voltageColor);
             drawThickLine(g, myPen,ledLead2, point2);
 
-            g.Color = Color.Gray;
+            g.GetNearestColor(Color.Gray);
             int cr = 12;
             drawThickCircle(g, ledCenter.X, ledCenter.Y, cr);
             cr -= 4;
@@ -83,7 +83,7 @@ namespace JavaToSharp
             if (w > 255)
                 w = 255;
             Color cc =  Color.FromArgb((int)(colorR * w), (int)(colorG * w), (int)(colorB * w));
-            g.Color = cc;
+            g.GetNearestColor(cc);
             g.fillOval(ledCenter.X - cr, ledCenter.Y - cr, cr * 2, cr * 2);
             setBbox(point1, point2, cr);
             updateDotCount();

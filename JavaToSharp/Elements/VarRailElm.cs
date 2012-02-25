@@ -37,7 +37,7 @@ namespace JavaToSharp
             waveform = WF_VAR;
             sim.main.add(label = new Label(sliderText, Label.CENTER));
             int value = (int)((frequency-bias)*100/(maxVoltage-bias));
-            sim.main.add(slider = new Scrollbar(Scrollbar.HORIZONTAL, value, 1, 0, 101));
+            sim.main.add(slider = new ScrollBar(ScrollBar.HORIZONTAL, value, 1, 0, 101));
             sim.main.validate();
         }
         internal new virtual double Voltage

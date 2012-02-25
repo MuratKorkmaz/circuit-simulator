@@ -78,7 +78,7 @@ namespace JavaToSharp.Elements
             voltageColor=  setVoltageColor(g, volts[1]);
             myPen = new Pen(voltageColor);
             drawThickLine(g, myPen,in2p[0], in2p[1]);
-            g.Color = needsHighlight() ? selectColor : lightGrayColor;
+            g.GetNearestColor(needsHighlight() ? selectColor : lightGrayColor);
             drawThickPolygon(g, triangle);
             g.Font = plusFont;
             drawCenteredText(g, "-", textp[0].X, textp[0].Y-2, true);

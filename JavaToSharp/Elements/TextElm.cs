@@ -76,7 +76,7 @@ namespace JavaToSharp
         }
         internal override void draw(Graphics g)
         {
-            g.Color = needsHighlight() ? selectColor : lightGrayColor;
+            g.GetNearestColor(needsHighlight() ? selectColor : lightGrayColor);
             Font f = new Font("SansSerif", size, FontStyle.Bold);
             g.Font = f;
             FontMetrics fm = g.FontMetrics;

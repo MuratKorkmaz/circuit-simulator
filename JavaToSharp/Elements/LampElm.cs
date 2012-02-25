@@ -123,9 +123,9 @@ internal class LampElm : CircuitElm
 		adjustBbox(bulb.X-bulbR, bulb.Y-bulbR, bulb.X+bulbR, bulb.Y+bulbR);
 		// adjustbbox
 		draw2Leads(g);
-		g.Color = TempColor;
+		g.GetNearestColor(TempColor);
 		g.fillOval(bulb.X-bulbR, bulb.Y-bulbR, bulbR*2, bulbR*2);
-		g.Color = Color.White;
+		g.GetNearestColor(Color.White);
 		drawThickCircle(g, bulb.X, bulb.Y, bulbR);
 	    voltageColor=	setVoltageColor(g, v1);
         myPen = new Pen(voltageColor);

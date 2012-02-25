@@ -132,7 +132,7 @@ namespace JavaToSharp.Elements
             drawCoil(g, dsign*6, coilLeads[x], coilLeads[1-x], volts[nCoil1+x], volts[nCoil2-x]);
 
             // draw lines
-            g.Color = Color.DarkGray;
+            g.GetNearestColor(Color.DarkGray);
             for (i = 0; i != poleCount; i++)
             {
                 if (i == 0)
@@ -156,7 +156,7 @@ namespace JavaToSharp.Elements
 
                 interpPoint(swpoles[p][1], swpoles[p][2], ptSwitch[p], d_position);
                 //setVoltageColor(g, volts[nSwitch0]);
-                g.Color = Color.LightGray;
+                g.GetNearestColor(Color.LightGray);
                 drawThickLine(g, myPen,swpoles[p][0], ptSwitch[p]);
                 switchCurCount[p] = updateDotCount(switchCurrent[p], switchCurCount[p]);
                 drawDots(g, swposts[p][0], swpoles[p][0], switchCurCount[p]);

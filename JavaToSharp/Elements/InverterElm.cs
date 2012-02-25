@@ -44,7 +44,7 @@ internal class InverterElm : CircuitElm
 	{
 		drawPosts(g);
 		draw2Leads(g);
-		g.Color = needsHighlight() ? selectColor : lightGrayColor;
+		g.GetNearestColor(needsHighlight() ? selectColor : lightGrayColor);
 		drawThickPolygon(g, gatePoly);
 		drawThickCircle(g, pcircle.X, pcircle.Y, 3);
 		curcount = updateDotCount(current, curcount);

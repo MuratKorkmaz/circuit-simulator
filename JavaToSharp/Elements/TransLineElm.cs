@@ -137,7 +137,7 @@ namespace JavaToSharp
             int ix0 = ptr-1+lenSteps;
             double segf = 1.0/segments;
             int i;
-            g.Color = Color.DarkGray;
+            g.GetNearestColor(Color.DarkGray);
             g.fillRect(inner[2].X, inner[2].Y, inner[1].X-inner[2].X+2, inner[1].Y-inner[2].Y+2);
             for (i = 0; i != 4; i++)
             {
