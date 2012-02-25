@@ -276,9 +276,10 @@ namespace JavaToSharp
                     pixels[i] = (int) (0xFF000000 | (0x10101*q));
                 dpixels[i] *=(float).997;
             }
-            g.DrawImage(image, rect.X, rect.Y, null);
+            g.DrawImage(image, rect.X, rect.Y);
             g.GetNearestColor(Color.White);
-            g.fillOval(rect.X+draw_ox-2, rect.Y+draw_oy-2, 5, 5);
+            var whiteBrush = new SolidBrush(Color.White);
+            g.FillEllipse(whiteBrush, rect.X+draw_ox-2, rect.Y+draw_oy-2, 5, 5);
             int yt = rect.Y+10;
             int x = rect.X;
             if (text != null && rect.Y + rect.Height > yt+5)
