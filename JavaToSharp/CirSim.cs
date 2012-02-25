@@ -25,7 +25,7 @@ namespace JavaToSharp
 
         internal Random random;
 
-        internal static Control main;
+        internal static PictureBox main;
         internal Label titleLabel;
         internal Button resetButton;
         internal Button dumpMatrixButton;
@@ -164,7 +164,7 @@ namespace JavaToSharp
             //cv.addMouseMotionListener(this);
             //cv.addMouseListener(this);
             //cv.addKeyListener(this);
-            main.Controls.Add(cv);
+            //main.Controls.Add(cv);
 
             //mainMenu = new PopupMenu();
             //Menu m = new Menu("Р¤Р°Р№Р»");
@@ -370,7 +370,7 @@ namespace JavaToSharp
             winSize = cv.Size;
             if (winSize.Width == 0)
                 return;
-            dbimage = main.CreateImage(winSize.Width, winSize.Height);
+            dbimage = main.Image;
             int h = winSize.Height / 5;
 //	if (h < 128 && winSize.height > 300)
 //	  h = 128;
@@ -485,11 +485,11 @@ namespace JavaToSharp
             CircuitElm.powerMult = Math.Exp(powerBar.Value/4.762-7);
 
             int i;
-            Font oldfont = g.Font;
+            Font oldfont = SystemFonts.DefaultFont;
             for (i = 0; i != elmList.Count; i++)
             {
-                if (powerCheckItem.State)
-                    g.Color = Color.Gray;
+                //if (powerCheckItem.Checked)
+                //    g.Color = Color.Gray;
 //	    else if (conductanceCheckItem.getState())
 //	      g.setColor(Color.white);
                 getElm(i).draw(g);
@@ -558,9 +558,9 @@ namespace JavaToSharp
                 }
                 else
                 {
-                    CircuitElm.showFormat.MinimumFractionDigits = 2;
+                    CircuitElm.showFormat.NumberDecimalDigits = 2;
                     info[0] = "t = " + CircuitElm.getUnitText(t, "СЃ");
-                    CircuitElm.showFormat.MinimumFractionDigits = 0;
+                    CircuitElm.showFormat.NumberDecimalDigits = 0;
                 }
                 if (hintType != -1)
                 {
@@ -579,7 +579,8 @@ namespace JavaToSharp
 
                 // count lines of data
                 for (i = 0; info[i] != null; i++)
-                    ;
+                {
+                }
                 if (badnodes > 0)
                     info[i++] = badnodes + ((badnodes == 1) ? " РїР»РѕС…РѕРµ СЃРѕРµРґРёРЅРµРЅРёРµ" : " РїР»РѕС…РёРµ СЃРѕРµРґРёРЅРµРЅРёСЏ");
 
@@ -1925,21 +1926,23 @@ namespace JavaToSharp
 
 //JAVA TO VB & C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: ByteArrayOutputStream readUrlData(URL url) throws java.io.IOException
-        protected virtual sbyte[] readUrlData(string url)
+        protected virtual byte[] readUrlData(string url)
         {
+            byte[] data = null;
             if (!File.Exists(url))
             {
                 throw new Exception(string.Format("File {0} is no exists", url));
             }
             try
             {
-                var data = File.
-                return data;
+                data = File.ReadAllBytes(url);
+                
             }
             catch (Exception ex)
             {
                 UserMessageView.Instance.ShowError(ex.StackTrace);
             }
+            return data;
         }
 
         protected virtual void getSetupList(Menu menu)
@@ -1972,8 +1975,8 @@ namespace JavaToSharp
                         ;
                     else if (line[0] == '+')
                     {
-                        Menu n = new Menu(line.Substring(1));
-                        menu.add(n);
+                        MenuItem n = new MenuItem(line.Substring(1));
+                        menu.MenuItems.Add(n);
                         menu = stack[stackptr++] = n;
                     }
                     else if (line[0] == '-')
@@ -1998,9 +2001,9 @@ namespace JavaToSharp
                     p += l;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                e.printStackTrace();
+                UserMessageView.Instance.ShowError(ex.StackTrace);
                 stop("Can't read setuplist.txt!", null);
             }
         }
@@ -2012,7 +2015,7 @@ namespace JavaToSharp
 
         protected virtual void readSetup(string text, bool retain)
         {
-            readSetup(text.Bytes, text.Length, retain);
+            readSetup(text, text.Length, retain);
             titleLabel.Text = "untitled";
         }
 
@@ -2060,7 +2063,7 @@ namespace JavaToSharp
                 CircuitElm.voltageRange = 5;
                 scopeCount = 0;
             }
-            cv.repaint();
+            cv.Refresh();
             int p;
             for (p = 0; p < len;)
             {
@@ -2079,9 +2082,9 @@ namespace JavaToSharp
                 {
                     line = new string(b, p, linelen, "UTF-8");
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    e.printStackTrace();
+                    UserMessageView.Instance.ShowError(ex.StackTrace);
                 }
                 StringTokenizer st = new StringTokenizer(line);
                 while (st.hasMoreTokens())
@@ -2177,21 +2180,21 @@ namespace JavaToSharp
         internal virtual void readOptions(StringTokenizer st)
         {
             int flags = int.Parse(st.nextToken());
-            dotsCheckItem.State = (flags & 1) != 0;
-            smallGridCheckItem.State = (flags & 2) != 0;
-            voltsCheckItem.State = (flags & 4) == 0;
-            powerCheckItem.State = (flags & 8) == 8;
-            showValuesCheckItem.State = (flags & 16) == 0;
+            dotsCheckItem.Checked = (flags & 1) != 0;
+            smallGridCheckItem.Checked = (flags & 2) != 0;
+            voltsCheckItem.Checked = (flags & 4) == 0;
+            powerCheckItem.Checked = (flags & 8) == 8;
+            showValuesCheckItem.Checked = (flags & 16) == 0;
             timeStep = int.Parse(st.nextToken());
             double sp = int.Parse(st.nextToken());
             int sp2 = (int)(Math.Log(10*sp)*24+61.5);
             //int sp2 = (int) (Math.log(sp)*24+1.5);
             speedBar.Value = sp2;
-            currentBar.Value = new (int)int?(st.nextToken());
-            CircuitElm.voltageRange = new (double)double? (st.nextToken());
+            currentBar.Value = int.Parse(st.nextToken());
+            CircuitElm.voltageRange = double.Parse(st.nextToken());
             try
             {
-                powerBar.Value = new (int)int?(st.nextToken());
+                powerBar.Value = int.Parse(st.nextToken());
             }
             catch (Exception e)
             {
@@ -2225,7 +2228,9 @@ namespace JavaToSharp
             return -1;
         }
 
-        public virtual void mouseDragged(MouseEvent e)
+        //todo: перенести обработчики событий мыши в форму
+        /*
+        public virtual void mouseDragged(MouseEventArgs e)
         {
             // ignore right mouse button with no modifiers (needed on PC)
             if ((e.Modifiers & MouseEvent.BUTTON3_MASK) != 0)
@@ -2234,7 +2239,7 @@ namespace JavaToSharp
                 if ((ex & (MouseEvent.META_DOWN_MASK| MouseEvent.SHIFT_DOWN_MASK| MouseEvent.CTRL_DOWN_MASK| MouseEvent.ALT_DOWN_MASK)) == 0)
                     return;
             }
-            if (!circuitArea.contains(e.X, e.Y))
+            if (!circuitArea.Contains(e.X, e.Y))
                 return;
             if (dragElm != null)
                 dragElm.drag(e.X, e.Y);
@@ -2281,7 +2286,7 @@ namespace JavaToSharp
                 }
             }
             cv.repaint(pause);
-        }
+        }*/
 
         protected virtual void dragAll(int x, int y)
         {
@@ -2446,7 +2451,15 @@ namespace JavaToSharp
             needAnalyze();
         }
 
-        public virtual void mouseMoved(MouseEvent e)
+        protected virtual int distanceSq(int x1, int y1, int x2, int y2)
+        {
+            x2 -= x1;
+            y2 -= y1;
+            return x2*x2+y2*y2;
+        }
+        //todo: перенести обработку событий мыши в соответствующие контролы
+        /*
+        public virtual void mouseMoved(MouseEventArgs e)
         {
             if ((e.Modifiers & MouseEvent.BUTTON1_MASK) != 0)
                 return;
@@ -2465,17 +2478,17 @@ namespace JavaToSharp
             for (i = 0; i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
-                if (ce.boundingBox.contains(x, y))
+                if (ce.boundingBox.Contains(x, y))
                 {
                     int j;
-                    int area = ce.boundingBox.width * ce.boundingBox.height;
+                    int area = ce.boundingBox.Width * ce.boundingBox.Height;
                     int jn = ce.PostCount;
                     if (jn > 2)
                         jn = 2;
                     for (j = 0; j != jn; j++)
                     {
                         Point pt = ce.getPost(j);
-                        int dist = distanceSq(x, y, pt.x, pt.y);
+                        int dist = distanceSq(x, y, pt.X, pt.Y);
 
                         // if multiple elements have overlapping bounding boxes,
                         // we prefer selecting elements that have posts close
@@ -2498,7 +2511,7 @@ namespace JavaToSharp
                 for (i = 0; i != scopeCount; i++)
                 {
                     Scope s = scopes[i];
-                    if (s.rect.contains(x, y))
+                    if (s.rect.Contains(x, y))
                     {
                         s.select();
                         scopeSelected = i;
@@ -2531,22 +2544,15 @@ namespace JavaToSharp
                 for (i = 0; i != mouseElm.PostCount; i++)
                 {
                     Point pt = mouseElm.getPost(i);
-                    if (distanceSq(pt.x, pt.y, x, y) < 26)
+                    if (distanceSq(pt.X, pt.Y, x, y) < 26)
                         mousePost = i;
                 }
             }
             if (mouseElm != origMouse)
-                cv.repaint();
+                cv.Refresh();
         }
-
-        protected virtual int distanceSq(int x1, int y1, int x2, int y2)
-        {
-            x2 -= x1;
-            y2 -= y1;
-            return x2*x2+y2*y2;
-        }
-
-        public virtual void mouseClicked(MouseEvent e)
+        
+        public virtual void mouseClicked(MouseEventArgs e)
         {
             if ((e.Modifiers & MouseEvent.BUTTON1_MASK) != 0)
             {
@@ -2554,15 +2560,12 @@ namespace JavaToSharp
                     clearSelection();
             }
         }
-        public virtual void mouseEntered(MouseEvent e)
-        {
-        }
 
-        public virtual void mouseExited(MouseEvent e)
+        public virtual void mouseExited(MouseEventArgs e)
         {
             scopeSelected = -1;
             mouseElm = plotXElm = plotYElm = null;
-            cv.repaint();
+            cv.Refresh();
         }
 
         public virtual void mousePressed(MouseEventArgs e)
@@ -2617,40 +2620,39 @@ namespace JavaToSharp
 
             dragElm = constructElement(addingClass, x0, y0);
         }
-
+        */
+        
         protected virtual CircuitElm constructElement(Type c, int x0, int y0)
         {
             // find element class
-            Type[] carr = new Class[2];
+            var carr = new Type[2];
             //carr[0] = getClass();
             carr[0] = carr[1] = typeof(int);
-            Constructor cstr = null;
+            ConstructorInfo cstr;
             try
             {
                 cstr = c.GetConstructor(carr);
             }
-            catch (NoSuchMethodException ee)
+            catch (Exception ex)
             {
-                Console.WriteLine("caught NoSuchMethodException " + c);
+                UserMessageView.Instance.ShowError(ex.StackTrace);
                 return null;
             }
-            catch (Exception ee)
+            if (cstr == null)
             {
-                ee.printStackTrace();
                 return null;
             }
-
             // invoke constructor with starting coordinates
-            object[] oarr = new object[2];
-            oarr[0] = new int?(x0);
-            oarr[1] = new int?(y0);
+            var oarr = new object[2];
+            oarr[0] = x0;
+            oarr[1] = y0;
             try
             {
-                return (CircuitElm) cstr.newInstance(oarr);
+                return (CircuitElm) cstr.Invoke(oarr);
             }
-            catch (Exception ee)
+            catch (Exception ex)
             {
-                ee.printStackTrace();
+                UserMessageView.Instance.ShowError(ex.StackTrace);
             }
             return null;
         }
@@ -2696,7 +2698,7 @@ namespace JavaToSharp
                     cmi.State = mouseModeStr.CompareTo(cmi.ActionCommand) == 0;
                 }
             }
-        }*/
+        }
 
         public virtual void mouseReleased(MouseEventArgs e)
         {
@@ -2733,7 +2735,7 @@ namespace JavaToSharp
                 dragElm.delete();
             dragElm = null;
             cv.Refresh();
-        }
+        }*/
 
         protected virtual void enableItems()
         {
@@ -2743,10 +2745,10 @@ namespace JavaToSharp
             enableUndoRedo();
         }
 
-        public virtual void itemStateChanged(ItemEvent e)
+        public virtual void itemStateChanged(ToolStripItemEventArgs e)
         {
-            cv.repaint(pause);
-            object mi = e.ItemSelectable;
+            //cv.repaint(pause);
+            object mi = e.Item;
             if (mi == stoppedCheck)
                 return;
             if (mi == smallGridCheckItem)
@@ -2761,7 +2763,7 @@ namespace JavaToSharp
             if (menuScope != -1)
             {
                 Scope sc = scopes[menuScope];
-                sc.handleMenu(e, mi);
+                //sc.handleMenu(e, mi);
             }
             if (mi is ToolStripMenuItem)
             {
@@ -2799,7 +2801,7 @@ namespace JavaToSharp
 
         protected virtual void setGrid()
         {
-            gridSize = (smallGridCheckItem.State) ? 8 : 16;
+            gridSize = (smallGridCheckItem.Checked) ? 8 : 16;
             gridMask = ~(gridSize-1);
             gridRound = gridSize/2-1;
         }
@@ -2808,7 +2810,7 @@ namespace JavaToSharp
         {
             redoStack.Clear();
             string s = dumpCircuit();
-            if (undoStack.Count > 0 && System.String.CompareOrdinal(s, (string)(undoStack[undoStack.Count - 1])) == 0)
+            if (undoStack.Count > 0 && String.CompareOrdinal(s, (string)(undoStack[undoStack.Count - 1])) == 0)
                 return;
             undoStack.Add(s);
             enableUndoRedo();
@@ -2955,14 +2957,7 @@ namespace JavaToSharp
             }
         }
 
-        public virtual void keyPressed(KeyEvent e)
-        {
-        }
-        public virtual void keyReleased(KeyEvent e)
-        {
-        }
-
-        public virtual void keyTyped(KeyEvent e)
+        public virtual void keyTyped(KeyPressEventArgs e)
         {
             if (e.KeyChar > ' ' && e.KeyChar < 127)
             {

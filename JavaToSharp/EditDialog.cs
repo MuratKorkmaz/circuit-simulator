@@ -66,7 +66,7 @@ namespace JavaToSharp
             applyButton.addActionListener(this);
             add(okButton = new Button("OK"));
             okButton.addActionListener(this);
-            Point x = cframe.main.LocationOnScreen;
+            Point x = new Point(0, 0);
             Dimension d = Size;
             setLocation(x.x + (cframe.winSize.width-d.width)/2, x.y + (cframe.winSize.height-d.height)/2);
         }
@@ -197,7 +197,7 @@ namespace JavaToSharp
             if (e.Source == okButton)
             {
                 apply();
-                cframe.main.requestFocus();
+                //cframe.main.requestFocus();
                 Visible = false;
                 cframe.editDialog = null;
             }
@@ -260,7 +260,7 @@ namespace JavaToSharp
         {
             if (ev.id == Event.WINDOW_DESTROY)
             {
-                cframe.main.requestFocus();
+                //cframe.main.requestFocus();
                 Visible = false;
                 cframe.editDialog = null;
                 return true;

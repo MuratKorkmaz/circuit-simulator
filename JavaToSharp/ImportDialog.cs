@@ -22,7 +22,7 @@ namespace JavaToSharp
             importButton.addActionListener(this);
             add(closeButton = new Button("Close"));
             closeButton.addActionListener(this);
-            Point x = cframe.main.LocationOnScreen;
+            Point x = new Point(0, 0);
             resize(400, 300);
             Dimension d = Size;
             setLocation(x.x + (cframe.winSize.width-d.width)/2, x.y + (cframe.winSize.height-d.height)/2);
@@ -48,7 +48,7 @@ namespace JavaToSharp
         {
             if (ev.id == Event.WINDOW_DESTROY)
             {
-                CirSim.main.requestFocus();
+                //CirSim.main.requestFocus();
                 Visible = false;
                 cframe.impDialog = null;
                 return true;
