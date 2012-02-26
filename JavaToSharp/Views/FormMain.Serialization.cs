@@ -8,6 +8,8 @@ namespace JavaToSharp
 {
     public partial class FormMain
     {
+        private string _startSircuitPath;
+
         private void SerializeMenu(ToolStripMenuItem ownerMenu)
         {
             const string path = "setuplist.txt";
@@ -69,6 +71,7 @@ namespace JavaToSharp
                         menuItems.Add(item);
                         if (isFirst)
                         {
+                            _startSircuitPath = filePath;
                         }
                     }
                 }
