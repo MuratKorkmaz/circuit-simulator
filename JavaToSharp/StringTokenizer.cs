@@ -14,6 +14,7 @@ namespace JavaToSharp
 
         public StringTokenizer(IList<string> lines)
         {
+            _tokens = new Queue<string>();
             int len = lines.Count;
             for (int i = 0; i < len; i++)
             {
