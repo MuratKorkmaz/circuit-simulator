@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D20C7F49-63BF-45A2-A9A6-30D1DE99E6AB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JavaToSharp</RootNamespace>
+    <AssemblyName>JavaToSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Elements\ACRailElm.cs" />
+    <Compile Include="Elements\ACVoltageElm.cs" />
+    <Compile Include="Elements\ADCElm.cs" />
+    <Compile Include="Elements\AnalogSwitch2Elm.cs" />
+    <Compile Include="Elements\AnalogSwitchElm.cs" />
+    <Compile Include="Elements\AndGateElm.cs" />
+    <Compile Include="Elements\AntennaElm.cs" />
+    <Compile Include="Elements\CapacitorElm.cs" />
+    <Compile Include="Elements\CC2Elm.cs" />
+    <Compile Include="Elements\Checkbox.cs" />
+    <Compile Include="Elements\ChipElm.cs" />
+    <Compile Include="CircuitCanvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Elements\CircuitElm.cs" />
+    <Compile Include="CircuitLayout.cs" />
+    <Compile Include="CircuitNode.cs" />
+    <Compile Include="CircuitNodeLink.cs" />
+    <Compile Include="CirSim.cs" />
+    <Compile Include="Elements\ClockElm.cs" />
+    <Compile Include="Elements\CounterElm.cs" />
+    <Compile Include="Elements\CurrentElm.cs" />
+    <Compile Include="Elements\DACElm.cs" />
+    <Compile Include="Elements\DCVoltageElm.cs" />
+    <Compile Include="Elements\DecadeElm.cs" />
+    <Compile Include="Elements\DFlipFlopElm.cs" />
+    <Compile Include="Elements\Diode.cs" />
+    <Compile Include="Elements\DiodeElm.cs" />
+    <Compile Include="EditDialog.cs" />
+    <Compile Include="EditDialogLayout.cs" />
+    <Compile Include="EditInfo.cs" />
+    <Compile Include="EditOptions.cs" />
+    <Compile Include="MatrixCalculator.cs" />
+    <Compile Include="Views\FormImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormImport.Designer.cs">
+      <DependentUpon>FormImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\GateElm.cs" />
+    <Compile Include="Elements\GroundElm.cs" />
+    <Compile Include="ImportDialog.cs" />
+    <Compile Include="ImportDialogLayout.cs" />
+    <Compile Include="Elements\Inductor.cs" />
+    <Compile Include="Elements\InductorElm.cs" />
+    <Compile Include="Elements\InverterElm.cs" />
+    <Compile Include="Elements\JfetElm.cs" />
+    <Compile Include="Elements\JKFlipFlopElm.cs" />
+    <Compile Include="Elements\LampElm.cs" />
+    <Compile Include="Elements\LatchElm.cs" />
+    <Compile Include="Elements\LEDElm.cs" />
+    <Compile Include="Elements\LogicInputElm.cs" />
+    <Compile Include="Elements\LogicOutputElm.cs" />
+    <Compile Include="Elements\MemristorElm.cs" />
+    <Compile Include="Elements\MosfetElm.cs" />
+    <Compile Include="Elements\NandGateElm.cs" />
+    <Compile Include="Elements\NJfetElm.cs" />
+    <Compile Include="Elements\NMosfetElm.cs" />
+    <Compile Include="Elements\NorGateElm.cs" />
+    <Compile Include="Elements\NTransistorElm.cs" />
+    <Compile Include="Elements\OpAmpElm.cs" />
+    <Compile Include="Elements\OpAmpSwapElm.cs" />
+    <Compile Include="Elements\OrGateElm.cs" />
+    <Compile Include="Elements\OutputElm.cs" />
+    <Compile Include="Elements\PhaseCompElm.cs" />
+    <Compile Include="Elements\PMosfetElm.cs" />
+    <Compile Include="Views\FormMain.Serialization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ISimulationView.cs" />
+    <Compile Include="Polygon.cs" />
+    <Compile Include="Elements\PotElm.cs" />
+    <Compile Include="Elements\ProbeElm.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Elements\PTransistorElm.cs" />
+    <Compile Include="Elements\PushSwitchElm.cs" />
+    <Compile Include="Elements\RailElm.cs" />
+    <Compile Include="Elements\RelayElm.cs" />
+    <Compile Include="Elements\ResistorElm.cs" />
+    <Compile Include="Elements\RowInfo.cs" />
+    <Compile Include="Scope.cs" />
+    <Compile Include="Elements\SCRElm.cs" />
+    <Compile Include="Elements\SevenSegElm.cs" />
+    <Compile Include="Elements\SparkGapElm.cs" />
+    <Compile Include="Elements\SquareRailElm.cs" />
+    <Compile Include="StringTokenizer.cs" />
+    <Compile Include="Elements\SweepElm.cs" />
+    <Compile Include="Elements\Switch2Elm.cs" />
+    <Compile Include="Elements\SwitchElm.cs" />
+    <Compile Include="Elements\TappedTransformerElm.cs" />
+    <Compile Include="Elements\TextElm.cs" />
+    <Compile Include="Elements\TimerElm.cs" />
+    <Compile Include="Elements\TransformerElm.cs" />
+    <Compile Include="Elements\TransistorElm.cs" />
+    <Compile Include="Elements\TransLineElm.cs" />
+    <Compile Include="Elements\TriodeElm.cs" />
+    <Compile Include="Elements\TunnelDiodeElm.cs" />
+    <Compile Include="Elements\VarRailElm.cs" />
+    <Compile Include="Elements\VCOElm.cs" />
+    <Compile Include="Elements\VoltageElm.cs" />
+    <Compile Include="Elements\WireElm.cs" />
+    <Compile Include="Elements\XorGateElm.cs" />
+    <Compile Include="Elements\ZenerElm.cs" />
+    <Compile Include="Views\ucSimulationParameters.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ucSimulationParameters.Designer.cs">
+      <DependentUpon>ucSimulationParameters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserMessageView.cs" />
+    <EmbeddedResource Include="Views\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Views\ucSimulationParameters.resx">
+      <DependentUpon>ucSimulationParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\footer.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
