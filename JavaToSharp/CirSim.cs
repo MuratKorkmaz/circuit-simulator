@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -21,12 +22,12 @@ namespace JavaToSharp
         internal Thread engine = null;
         
         internal Size winSize;
-        internal Image dbimage;
+        private Image dbimage;
 
-        internal Random random;
+        private Random random;
 
         internal static PictureBox main;
-        internal Label titleLabel;
+        private Label titleLabel;
         internal Button resetButton;
         internal Button dumpMatrixButton;
         internal MenuItem exportItem, exportLinkItem, importItem, exitItem;
@@ -92,7 +93,7 @@ namespace JavaToSharp
         internal const int HINT_3DB_C = 3;
         internal const int HINT_TWINT = 4;
         internal const int HINT_3DB_L = 5;
-        internal ArrayList elmList;
+        internal List<CircuitElm> elmList;
         internal CircuitElm dragElm, menuElm, mouseElm, stopElm;
         internal int mousePost = -1;
         internal CircuitElm plotXElm, plotYElm;
@@ -271,7 +272,7 @@ namespace JavaToSharp
             //main.add(mainMenu);
 
             setGrid();
-            elmList = new ArrayList();
+            elmList = new List<CircuitElm>();
             new ArrayList();
             undoStack = new ArrayList();
             redoStack = new ArrayList();
@@ -422,7 +423,7 @@ namespace JavaToSharp
             setupScopes();
             var g = Graphics.FromImage(dbimage);
             CircuitElm.selectColor = Color.Cyan;
-           
+            var backBrush = new SolidBrush(Color.Black);
             g.FillRectangle(backBrush, 0, 0, winSize.Width, winSize.Height);
             if (!stoppedCheck.Checked)
             {
@@ -539,7 +540,8 @@ namespace JavaToSharp
                 if (hintType != -1)
                 {
                     for (i = 0; info[i] != null; i++)
-                        ;
+                    {
+                    }
                     string s = Hint;
                     if (s == null)
                         hintType = -1;
@@ -556,16 +558,17 @@ namespace JavaToSharp
                 {
                 }
                 if (badnodes > 0)
-                    info[i++] = badnodes + ((badnodes == 1) ? " РїР»РѕС…РѕРµ СЃРѕРµРґРёРЅРµРЅРёРµ" : " РїР»РѕС…РёРµ СЃРѕРµРґРёРЅРµРЅРёСЏ");
+                    info[i++] = badnodes + ((badnodes == 1) ? " плохое соединение" : " плохие соединения");
 
                 // find where to show data; below circuit, not too high unless we need it
                 int ybase = winSize.Height-15*i-5;
                 ybase = min(ybase, circuitArea.Height);
                 ybase = max(ybase, circuitBottom);
+                
                 for (i = 0; info[i] != null; i++)
-                    g.DrawString(info[i], x, ybase+15*(i+1));
+                    g.DrawString(info[i], oldfont, brush, x, ybase+15*(i+1));
             }
-            if (selectedArea != null)
+            if (selectedArea != Rectangle.Empty)
             {
                 var pen = new Pen(CircuitElm.selectColor);
                 g.DrawRectangle(pen, selectedArea.X, selectedArea.Y, selectedArea.Width, selectedArea.Height);
@@ -759,7 +762,7 @@ namespace JavaToSharp
         }
 
         internal ArrayList nodeList;
-        internal CircuitElm[] voltageSources;
+        private CircuitElm[] voltageSources;
 
         public virtual CircuitNode getCircuitNode(int n)
         {
@@ -981,55 +984,23 @@ namespace JavaToSharp
             for (i = 0; i != elmList.Count; i++)
             {
                 CircuitElm ce = getElm(i);
-                // look for inductors with no current path
                 if (ce is InductorElm)
                 {
-                    FindPathInfo fpi = new FindPathInfo(FindPathInfo.INDUCT, ce, ce.getNode(1));
-                    // first try findPath with maximum depth of 5, to avoid slowdowns
-                    if (!fpi.findPath(ce.getNode(0), 5) && !fpi.findPath(ce.getNode(0)))
-                    {
-                        Console.WriteLine(ce + " РЅРµС‚ РїСѓС‚Рё");
-                        ce.reset();
-                    }
+                    FindInductPath(ce);
                 }
-                // look for current sources with no current path
                 if (ce is CurrentElm)
                 {
-                    FindPathInfo fpi = new FindPathInfo(FindPathInfo.INDUCT, ce, ce.getNode(1));
-                    if (!fpi.findPath(ce.getNode(0)))
-                    {
-                        stop("РќРµС‚ РїСѓС‚Рё РґР»СЏ РёСЃС‚РѕС‡РЅРёРєР° С‚РѕРєР°!", ce);
-                        return;
-                    }
+                    if (TryFindCurrentSourcesPath(ce)) return;
                 }
                 // look for voltage source loops
                 if ((ce is VoltageElm && ce.PostCount == 2) || ce is WireElm)
                 {
-                    FindPathInfo fpi = new FindPathInfo(FindPathInfo.VOLTAGE, ce, ce.getNode(1));
-                    if (fpi.findPath(ce.getNode(0)))
-                    {
-                        stop("РљРѕСЂРѕС‚РєРѕРµ Р·Р°РјС‹РєР°РЅРёРµ РёСЃС‚РѕС‡РЅРёРєР° РЅР°РїСЂСЏР¶РµРЅРёСЏ!", ce);
-                        return;
-                    }
+                    if (TryFindVoltagePath(ce)) return;
                 }
                 // look for shorted caps, or caps w/ voltage but no R
                 if (ce is CapacitorElm)
                 {
-                    FindPathInfo fpi = new FindPathInfo(FindPathInfo.SHORT, ce, ce.getNode(1));
-                    if (fpi.findPath(ce.getNode(0)))
-                    {
-                        Console.WriteLine(ce + " shorted");
-                        ce.reset();
-                    }
-                    else
-                    {
-                        fpi = new FindPathInfo(FindPathInfo.CAP_V, ce, ce.getNode(1));
-                        if (fpi.findPath(ce.getNode(0)))
-                        {
-                            stop("РљРѕСЂРѕС‚РєРѕРµ Р·Р°РјС‹РєР°РЅРёРµ РєРѕРЅРґРµРЅСЃР°С‚РѕСЂР°!", ce);
-                            return;
-                        }
-                    }
+                    if (TryFindShortOrCapsVPath(ce)) return;
                 }
             }
             //System.out.println("ac6");
@@ -1271,6 +1242,71 @@ namespace JavaToSharp
             }
         }
 
+        private bool TryFindShortOrCapsVPath(CircuitElm ce)
+        {
+            int dest = ce.getNode(1);
+            int size = nodeList.Count;
+            CircuitElm[] elms = elmList.ToArray();
+            FindPathInfo fpi = new FindPathInfo(FindPathInfo.SHORT, ce, dest, size, elms);
+            if (fpi.findPath(ce.getNode(0)))
+            {
+                Console.WriteLine(ce + " shorted");
+                ce.reset();
+            }
+            else
+            {
+                fpi = new FindPathInfo(FindPathInfo.CAP_V, ce, dest, size, elms);
+                if (fpi.findPath(ce.getNode(0)))
+                {
+                    stop("Короткое замыкание конденсатора!", ce);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool TryFindVoltagePath(CircuitElm ce)
+        {
+            int dest = ce.getNode(1);
+            int size = nodeList.Count;
+            CircuitElm[] elms = elmList.ToArray();
+            FindPathInfo fpi = new FindPathInfo(FindPathInfo.VOLTAGE, ce, dest, size, elms);
+            if (fpi.findPath(ce.getNode(0)))
+            {
+                stop("Короткое замыкание источника напряжения!", ce);
+                return true;
+            }
+            return false;
+        }
+
+        private bool TryFindCurrentSourcesPath(CircuitElm ce)
+        {
+            int dest = ce.getNode(1);
+            int size = nodeList.Count;
+            CircuitElm[] elms = elmList.ToArray();
+            FindPathInfo fpi = new FindPathInfo(FindPathInfo.INDUCT, ce, dest, size, elms);
+            if (!fpi.findPath(ce.getNode(0)))
+            {
+                stop("Нет пути для источника тока!", ce);
+                return true;
+            }
+            return false;
+        }
+
+        private void FindInductPath(CircuitElm ce)
+        {
+            int dest = ce.getNode(1);
+            int size = nodeList.Count;
+            CircuitElm[] elms = elmList.ToArray();
+            FindPathInfo fpi = new FindPathInfo(FindPathInfo.INDUCT, ce, dest, size, elms);
+            // first try findPath with maximum depth of 5, to avoid slowdowns
+            if (!fpi.findPath(ce.getNode(0), 5) && !fpi.findPath(ce.getNode(0)))
+            {
+                Console.WriteLine(ce + " нет пути");
+                ce.reset();
+            }
+        }
+
         internal virtual void calcCircuitBottom()
         {
             int i;
@@ -1284,25 +1320,24 @@ namespace JavaToSharp
             }
         }
 
-        internal class FindPathInfo
+        private class FindPathInfo
         {
             internal const int INDUCT = 1;
             internal const int VOLTAGE = 2;
             internal const int SHORT = 3;
             internal const int CAP_V = 4;
-            internal bool[] used;
-            internal int dest;
-            internal CircuitElm firstElm;
-            internal int type;
-//JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-            internal FindPathInfo(int t, CircuitElm e, int d)
+            private readonly bool[] used;
+            private readonly int dest;
+            private readonly CircuitElm firstElm;
+            private readonly CircuitElm[] elmList;
+            private readonly int type;
+            internal FindPathInfo(int t, CircuitElm e, int d, int size, CircuitElm[] elms)
             {
                 dest = d;
-//JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
                 type = t;
                 firstElm = e;
-//JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-                used = new bool[nodeList.Count];
+                used = new bool[size];
+                elmList = elms;
             }
             internal virtual bool findPath(int n1)
             {
@@ -1322,10 +1357,10 @@ namespace JavaToSharp
                 used[n1] = true;
                 int i;
 //JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-                for (i = 0; i != elmList.Count; i++)
+                for (i = 0; i != elmList.Length; i++)
                 {
 //JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-                    CircuitElm ce = getElm(i);
+                    CircuitElm ce = elmList[i];
                     if (ce == firstElm)
                         continue;
                     if (type == INDUCT)
@@ -2698,8 +2733,8 @@ namespace JavaToSharp
 
         protected virtual void enableItems()
         {
-            powerBar.Enabled = isEnabled;
-            powerLabel.Enabled = isEnabled;
+            powerBar.Enabled = true;
+            powerLabel.Enabled = true;
            
         }
 
