@@ -42,7 +42,7 @@ namespace JavaToSharp
             try
             {
                 int len = data.Count;
-                for (int i = 2; i < len; i++)
+                for (int i = 0; i < len; i++)
                 {
                     string line = data[i];
                     if (line[0] == '#')
@@ -51,7 +51,7 @@ namespace JavaToSharp
                     {
                         var subMenuItem = new ToolStripMenuItem(line.Substring(1));
                         var submenuData = data.GetRange(i + 1, len - i - 1);
-                        i = SerializeSubmenu(submenuData, subMenuItem);
+                        i = i + 1 + SerializeSubmenu(submenuData, subMenuItem);
                         menuItems.Add(subMenuItem);
                     }
                     else if (line[0] == '-')
@@ -193,8 +193,9 @@ namespace JavaToSharp
         private void readOptions(StringTokenizer st)
         {
             int flags = int.Parse(st.nextToken());
-            _simController.timeStep = int.Parse(st.nextToken());
-            double sp = int.Parse(st.nextToken());
+            string ssp = st.nextToken();
+            _simController.timeStep = double.Parse(ssp);
+            double sp = double.Parse(st.nextToken());
             int sp2 = (int)(Math.Log(10 * sp) * 24 + 61.5);
             //int sp2 = (int) (Math.log(sp)*24+1.5);
             _ucSimulationParameters.SimulationSpeed = sp2;
