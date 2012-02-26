@@ -7,10 +7,12 @@ namespace JavaToSharp
     public partial class FormMain : Form, ISimulationView
     {
         private readonly CirSim _simController;
+        private readonly ucSimulationParameters _ucSimulationParameters;
 
         public FormMain()
         {
             InitializeComponent();
+            _ucSimulationParameters = new ucSimulationParameters();
             _simController = new CirSim();
             _simController.init();
         }
@@ -22,20 +24,18 @@ namespace JavaToSharp
 
         public Image Image
         {
-            get { throw new NotImplementedException(); }
+            get { return pbCircuit.Image; }
         }
 
         public void ResetSimulation()
         {
-            dbimage = main.createImage(winSize.width, winSize.height);
-
-            for (i = 0; i < elmList.Count; i++)
-                getElm(i).reset();
-            for (i = 0; i < scopeCount; i++)
-                scopes[i].resetGraph();
-            analyzeFlag = true;
-            t = 0;
-            stoppedCheck.State = false;
+            for (int i = 0; i < _simController.elmList.Count; i++)
+                _simController.getElm(i).reset();
+            for (int i = 0; i < _simController.scopeCount; i++)
+                _simController.scopes[i].resetGraph();
+            _simController.analyzeFlag = true;
+            _simController.t = 0;
+            _ucSimulationParameters.IsStopped = false;
             pbCircuit.Invalidate();
         }
 
