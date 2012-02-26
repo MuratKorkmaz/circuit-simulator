@@ -120,12 +120,14 @@ namespace JavaToSharp
             this.tsmiUnionCurves.Name = "tsmiUnionCurves";
             this.tsmiUnionCurves.Size = new System.Drawing.Size(164, 22);
             this.tsmiUnionCurves.Text = "Объединить всё";
+            this.tsmiUnionCurves.Click += new System.EventHandler(this.tsmiUnionCurves_Click);
             // 
             // tsmiBreakCurves
             // 
             this.tsmiBreakCurves.Name = "tsmiBreakCurves";
             this.tsmiBreakCurves.Size = new System.Drawing.Size(164, 22);
             this.tsmiBreakCurves.Text = "Разъединить всё";
+            this.tsmiBreakCurves.Click += new System.EventHandler(this.tsmiBreakCurves_Click);
             // 
             // схемыToolStripMenuItem
             // 
@@ -184,7 +186,6 @@ namespace JavaToSharp
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Circuit Simulator v0.99";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tlpMain.ResumeLayout(false);

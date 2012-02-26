@@ -1856,28 +1856,7 @@ namespace JavaToSharp
             for (; s < scopeCount; s++)
                 scopes[s].position++;
         }
-
-        protected virtual void stackAll()
-        {
-            int i;
-            for (i = 0; i != scopeCount; i++)
-            {
-                scopes[i].position = 0;
-                scopes[i].showMax(false);
-                scopes[i].showMin(false);
-            }
-        }
-
-        protected virtual void unstackAll()
-        {
-            int i;
-            for (i = 0; i != scopeCount; i++)
-            {
-                scopes[i].position = i;
-                scopes[i].showMax(true);
-            }
-        }
-
+        
         //todo: переделать вызов формы редактирования и саму форму
         /*internal virtual void doEdit(Editable eable)
         {
