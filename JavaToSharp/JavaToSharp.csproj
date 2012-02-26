@@ -132,7 +132,7 @@
     <Compile Include="Elements\RelayElm.cs" />
     <Compile Include="Elements\ResistorElm.cs" />
     <Compile Include="Elements\RowInfo.cs" />
-    <Compile Include="Elements\Scope.cs" />
+    <Compile Include="Scope.cs" />
     <Compile Include="Elements\SCRElm.cs" />
     <Compile Include="Elements\SevenSegElm.cs" />
     <Compile Include="Elements\SparkGapElm.cs" />
