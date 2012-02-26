@@ -117,6 +117,9 @@
     <Compile Include="Elements\OutputElm.cs" />
     <Compile Include="Elements\PhaseCompElm.cs" />
     <Compile Include="Elements\PMosfetElm.cs" />
+    <Compile Include="Views\FormMain.Serialization.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\ISimulationView.cs" />
     <Compile Include="Polygon.cs" />
     <Compile Include="Elements\PotElm.cs" />

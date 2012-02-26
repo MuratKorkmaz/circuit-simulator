@@ -1,27 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace JavaToSharp
 {
     public partial class ucSimulationParameters : UserControl
     {
-        private Control _canvas;
+        public int SimulationSpeed
+        {
+            get { return sbSimulationSpeed.Value; }
+            set
+            {
+                sbSimulationSpeed.Scroll -= sbSimulationSpeed_Scroll;
+                sbSimulationSpeed.Value = value;
+                sbSimulationSpeed.Scroll += sbSimulationSpeed_Scroll;
+            }
+        }
+
+        public int CurrentSpeed
+        {
+            get { return sbCurrentSpeed.Value; }
+            set
+            {
+                sbCurrentSpeed.Scroll -= sbCurrentSpeed_Scroll;
+                sbCurrentSpeed.Value = value;
+                sbCurrentSpeed.Scroll += sbCurrentSpeed_Scroll;
+            }
+        }
+
+        public int PowerLight
+        {
+            get { return sbPowerLight.Value; }
+            set
+            {
+                sbPowerLight.Scroll -= sbPowerLight_Scroll;
+                sbPowerLight.Value = value;
+                sbPowerLight.Scroll += sbPowerLight_Scroll;
+            }
+        }
+
+        public bool IsStopped
+        {
+            get { return chbStop.Checked; }
+            set 
+            { 
+                chbStop.CheckedChanged -= chbStop_CheckedChanged;
+                chbStop.Checked = value;
+                chbStop.CheckedChanged += chbStop_CheckedChanged;
+            }
+        }
 
         public ucSimulationParameters()
         {
             InitializeComponent();
-            _canvas = null;
-        }
-
-        public void SetCanvas(Control canvas)
-        {
-            _canvas = canvas;
         }
 
         private void btReset_Click(object sender, EventArgs e)
