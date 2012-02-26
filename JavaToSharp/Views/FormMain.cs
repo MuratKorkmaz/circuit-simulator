@@ -15,13 +15,10 @@ namespace JavaToSharp
             _ucSimulationParameters = new ucSimulationParameters();
             _simController = new CirSim();
             _simController.init();
+            _ucSimulationParameters.Initialize(this);
+            SerializeMenu(схемыToolStripMenuItem);
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         public Image Image
         {
             get { return pbCircuit.Image; }
@@ -39,6 +36,27 @@ namespace JavaToSharp
             pbCircuit.Invalidate();
         }
 
+        private void stackAll()
+        {
+            int count = _simController.scopeCount;
+            for (int i = 0; i < count; i++)
+            {
+                _simController.scopes[i].position = 0;
+                _simController.scopes[i].showMax(false);
+                _simController.scopes[i].showMin(false);
+            }
+        }
+
+        private void unstackAll()
+        {
+            int count = _simController.scopeCount;
+            for (int i = 0; i < count; i++)
+            {
+                _simController.scopes[i].position = i;
+                _simController.scopes[i].showMax(true);
+            }
+        }
+
         private void tsmiImport_Click(object sender, EventArgs e)
         {
 
@@ -52,6 +70,46 @@ namespace JavaToSharp
         private void tsmiExportLink_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tsmiUnionCurves_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                stackAll();
+            }
+            catch (Exception ex)
+            {
+                UserMessageView.Instance.ShowError(ex.StackTrace);
+            }
+        }
+
+        private void tsmiBreakCurves_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                unstackAll();
+            }
+            catch (Exception ex)
+            {
+               UserMessageView.Instance.ShowError(ex.StackTrace);
+            }
+        }
+
+        private void tsmiScheme_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var menuItem = (ToolStripMenuItem) sender;
+                string filePath = (string) menuItem.Tag;
+                string title = menuItem.Text;
+                SerializeScheme(filePath);
+                _ucSimulationParameters.SetSchemeName(title);
+            }
+            catch (Exception ex)
+            {
+                UserMessageView.Instance.ShowError(ex.StackTrace);
+            }
         }
     }
 }

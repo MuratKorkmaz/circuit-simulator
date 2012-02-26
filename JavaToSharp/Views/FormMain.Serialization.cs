@@ -65,6 +65,7 @@ namespace JavaToSharp
                         string filePath = line.Substring(start, firstSpaceIndex);
                         string title = line.Substring(firstSpaceIndex + 1);
                         var item = new ToolStripMenuItem(title) {Tag = filePath};
+                        item.Click += tsmiScheme_Click;
                         menuItems.Add(item);
                         if (isFirst)
                         {

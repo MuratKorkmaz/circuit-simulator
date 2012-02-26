@@ -49,14 +49,33 @@ namespace JavaToSharp
             }
         }
 
+        private ISimulationView _simulationView;
+
         public ucSimulationParameters()
         {
             InitializeComponent();
         }
 
+        internal void Initialize(ISimulationView view)
+        {
+            _simulationView = view;
+        }
+
+        public void SetSchemeName(string title)
+        {
+            lbCurrentScheme.Text = string.Format("Текущая схема:\r\n\r\n{0}", title);
+        }
+
         private void btReset_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                _simulationView.ResetSimulation();
+            }
+            catch (Exception ex)
+            {
+                UserMessageView.Instance.ShowError(ex.StackTrace);
+            }
         }
 
         private void chbStop_CheckedChanged(object sender, EventArgs e)
