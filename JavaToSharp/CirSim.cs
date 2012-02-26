@@ -291,11 +291,11 @@ namespace JavaToSharp
             //elmMenu.add(elmDeleteMenuItem = getMenuItem("Удалить"));
             //main.add(elmMenu);
 
-            Menu circuitsMenu = null;
-            getSetupList(circuitsMenu);
+            //Menu circuitsMenu = null;
+            //getSetupList(circuitsMenu);
             
-            if (startCircuitText != null)
-                readSetup(startCircuitText);
+            //if (startCircuitText != null)
+            //    readSetup(startCircuitText);
         }
 
         #region UI Form
@@ -1927,275 +1927,7 @@ namespace JavaToSharp
                 dump += "h " + hintType + " " + hintItem1 + " " + hintItem2 + "\n";
             return dump;
         }
-
-//JAVA TO VB & C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
-//ORIGINAL LINE: ByteArrayOutputStream readUrlData(URL url) throws java.io.IOException
-        protected virtual byte[] readUrlData(string url)
-        {
-            byte[] data = null;
-            if (!File.Exists(url))
-            {
-                throw new Exception(string.Format("File {0} is no exists", url));
-            }
-            try
-            {
-                data = File.ReadAllBytes(url);
-                
-            }
-            catch (Exception ex)
-            {
-                UserMessageView.Instance.ShowError(ex.StackTrace);
-            }
-            return data;
-        }
-
-        protected virtual void getSetupList(Menu menu)
-        {
-            Menu[] stack = new Menu[6];
-            int stackptr = 0;
-            stack[stackptr++] = menu;
-            try
-            {
-                byte[] b = File.ReadAllBytes("setuplist.txt");
-                int len = b.Length;
-                int p;
-                if (len == 0 || b[0] != '#')
-                {
-                    // got a redirect, try again
-                    getSetupList(menu);
-                    return;
-                }
-                for (p = 0; p < len;)
-                {
-                    int l;
-                    for (l = 0; l != len-p; l++)
-                        if (b[l+p] == '\n')
-                        {
-                            l++;
-                            break;
-                        }
-                    string line = new string(b, p, l-1, "UTF-8");
-                    if (line[0] == '#')
-                        ;
-                    else if (line[0] == '+')
-                    {
-                        MenuItem n = new MenuItem(line.Substring(1));
-                        menu.MenuItems.Add(n);
-                        menu = stack[stackptr++] = n;
-                    }
-                    else if (line[0] == '-')
-                    {
-                        menu = stack[--stackptr-1];
-                    }
-                    else
-                    {
-                        int i = line.IndexOf(' ');
-                        if (i > 0)
-                        {
-                            string title = line.Substring(i+1);
-                            bool first = line[0] == '>';
-                            int start = first ? 1 : 0;
-                            string file = line.Substring(start, i - start);
-                            menu.add(getMenuItem(title, "setup " + file));
-                            if (first)
-                            {
-                            }
-                        }
-                    }
-                    p += l;
-                }
-            }
-            catch (Exception ex)
-            {
-                UserMessageView.Instance.ShowError(ex.StackTrace);
-                stop("Can't read setuplist.txt!", null);
-            }
-        }
-
-        internal virtual void readSetup(string text)
-        {
-            readSetup(text, false);
-        }
-
-        protected virtual void readSetup(string text, bool retain)
-        {
-            readSetup(text, text.Length, retain);
-            titleLabel.Text = "untitled";
-        }
-
-        protected virtual void readSetupFile(string str, string title)
-        {
-            t = 0;
-            Console.WriteLine(str);
-            try
-            {
-                const string path = "circuits/";
-                string url = path + str;
-                sbyte[] ba = readUrlData(url);
-                readSetup(ba, ba.Length, false);
-            }
-            catch (Exception e)
-            {
-                UserMessageView.Instance.ShowError(e.StackTrace);
-                stop("Unable to read " + str + "!", null);
-            }
-            titleLabel.Text = title;
-        }
-
-        protected virtual void readSetup(sbyte[] b, int len, bool retain)
-        {
-            int i;
-            if (!retain)
-            {
-                for (i = 0; i != elmList.Count; i++)
-                {
-                    CircuitElm ce = getElm(i);
-                    ce.delete();
-                }
-                elmList.Clear();
-                hintType = -1;
-                timeStep = 5e-6;
-                setGrid();
-                speedBar.Value = 117; // 57
-                currentBar.Value = 50;
-                powerBar.Value = 50;
-                CircuitElm.voltageRange = 5;
-                scopeCount = 0;
-            }
-            cv.Refresh();
-            int p;
-            for (p = 0; p < len;)
-            {
-                int l;
-                int linelen = 0;
-                for (l = 0; l != len-p; l++)
-                    if (b[l+p] == '\n' || b[l+p] == '\r')
-                    {
-                        linelen = l++;
-                        if (l+p < b.Length && b[l+p] == '\n')
-                            l++;
-                        break;
-                    }
-                string line = null;
-                try
-                {
-                    line = new string(b, p, linelen, "UTF-8");
-                }
-                catch (Exception ex)
-                {
-                    UserMessageView.Instance.ShowError(ex.StackTrace);
-                }
-                StringTokenizer st = new StringTokenizer(line);
-                while (st.hasMoreTokens())
-                {
-                    string type = st.nextToken();
-                    int tint = type[0];
-                    try
-                    {
-                        if (tint == 'o')
-                        {
-                            Scope sc = new Scope(this);
-                            sc.position = scopeCount;
-                            sc.undump(st);
-                            scopes[scopeCount++] = sc;
-                            break;
-                        }
-                        if (tint == 'h')
-                        {
-                            readHint(st);
-                            break;
-                        }
-                        if (tint == '$')
-                        {
-                            readOptions(st);
-                            break;
-                        }
-                        if (tint == '%' || tint == '?' || tint == 'B')
-                        {
-                            // ignore afilter-specific stuff
-                            break;
-                        }
-                        if (tint >= '0' && tint <= '9')
-                            tint = int.Parse(type);
-                        int x1 = int.Parse(st.nextToken());
-                        int y1 = int.Parse(st.nextToken());
-                        int x2 = int.Parse(st.nextToken());
-                        int y2 = int.Parse(st.nextToken());
-                        int f = int.Parse(st.nextToken());
-                        Type cls = dumpTypes[tint];
-                        if (cls == null)
-                        {
-                            Console.WriteLine("unrecognized dump type: " + type);
-                            break;
-                        }
-                        // find element class
-                        var carr = new Type[6];
-                        //carr[0] = getClass();
-                        carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof(int);
-                        carr[5] = typeof(StringTokenizer);
-                        ConstructorInfo cstr = cls.GetConstructor(carr);
-
-                        // invoke constructor with starting coordinates
-                        var oarr = new object[6];
-                        //oarr[0] = this;
-                        oarr[0] = x1;
-                        oarr[1] = y1;
-                        oarr[2] = x2;
-                        oarr[3] = y2;
-                        oarr[4] = f;
-                        oarr[5] = st;
-                        var ce = (CircuitElm) cstr.Invoke(oarr);
-                        ce.setPoints();
-                        elmList.Add(ce);
-                    }
-                    catch (ReflectionTypeLoadException ex)
-                    {
-                        UserMessageView.Instance.ShowError(ex.InnerException.StackTrace);
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                        UserMessageView.Instance.ShowError(ex.StackTrace);
-                        break;
-                    }
-                    break;
-                }
-                p += l;
-
-            }
-            enableItems();
-            if (!retain)
-                handleResize(); // for scopes
-            needAnalyze();
-        }
-
-        internal virtual void readHint(StringTokenizer st)
-        {
-            hintType = int.Parse(st.nextToken());
-            hintItem1 = int.Parse(st.nextToken());
-            hintItem2 = int.Parse(st.nextToken());
-        }
-
-        internal virtual void readOptions(StringTokenizer st)
-        {
-            int flags = int.Parse(st.nextToken());
-            timeStep = int.Parse(st.nextToken());
-            double sp = int.Parse(st.nextToken());
-            int sp2 = (int)(Math.Log(10*sp)*24+61.5);
-            //int sp2 = (int) (Math.log(sp)*24+1.5);
-            speedBar.Value = sp2;
-            currentBar.Value = int.Parse(st.nextToken());
-            CircuitElm.voltageRange = double.Parse(st.nextToken());
-            try
-            {
-                powerBar.Value = int.Parse(st.nextToken());
-            }
-            catch (Exception e)
-            {
-            }
-            setGrid();
-        }
-
+        
         internal virtual int snapGrid(int x)
         {
             return (x+gridRound) & gridMask;
@@ -2786,7 +2518,7 @@ namespace JavaToSharp
             }
         }
 
-        protected virtual void setGrid()
+        public void setGrid()
         {
             gridMask = ~(gridSize-1);
             gridRound = gridSize/2-1;
@@ -2877,7 +2609,7 @@ namespace JavaToSharp
                     oldbb = bb;
             }
             int oldsz = elmList.Count;
-            readSetup(clipboard, true);
+            //readSetup(clipboard, true);
 
             // select new items
             Rectangle newbb = Rectangle.Empty;
