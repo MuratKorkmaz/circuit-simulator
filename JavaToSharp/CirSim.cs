@@ -21,7 +21,8 @@ namespace JavaToSharp
     {
         internal Size winSize;
         private Image dbimage;
-        private MatrixCalculator _calculator;
+        private readonly MatrixCalculator _calculator;
+        private readonly FindPathInfo _pathFinder;
         private Random random;
         internal Type addingClass;
         internal static PictureBox main;
@@ -115,6 +116,7 @@ namespace JavaToSharp
         internal CirSim() 
         {
             _calculator = new MatrixCalculator();
+            _pathFinder = new FindPathInfo(this);
         }
 
         internal string startCircuitText;
@@ -124,7 +126,6 @@ namespace JavaToSharp
         {
             CircuitElm.initClass(this);
             baseURL = Application.StartupPath;
-
             dumpTypes = new Type[300];
             // these characters are reserved
             dumpTypes['o'] = typeof(Scope);
@@ -133,7 +134,6 @@ namespace JavaToSharp
             dumpTypes['%'] = typeof(Scope);
             dumpTypes['?'] = typeof(Scope);
             dumpTypes['B'] = typeof(Scope);
-
             //main.Layout = new CircuitLayout();
             cv = new CircuitCanvas(this);
             //cv.addComponentListener(this);
@@ -141,144 +141,16 @@ namespace JavaToSharp
             //cv.addMouseListener(this);
             //cv.addKeyListener(this);
             //main.Controls.Add(cv);
-
-            //mainMenu = new PopupMenu();
-            //Menu m = new Menu("����");
-            //mainMenu.add(m);
-            //m.add(importItem = getMenuItem("������"));
-            //m.add(exportItem = getMenuItem("�������"));
-            //m.add(exportLinkItem = getMenuItem("�������. ������"));
-            //m.addSeparator();
-            //m.add(exitItem = getMenuItem("�����"));
-
-            //m = new Menu("Осциллограф");
-            //mainMenu.add(m);
-            //m.add(getMenuItem("Объединить всё", "stackAll"));
-            //m.add(getMenuItem("Разъединить всё", "unstackAll"));
-
-            //mainMenu.add(getClassCheckItem("Добавить Соединение", "WireElm"));
-            //mainMenu.add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
-
-            //Menu passMenu = new Menu("Пассивные компоненты");
-            //mainMenu.add(passMenu);
-            //passMenu.add(getClassCheckItem("Добавить Конденсатор", "CapacitorElm"));
-            //passMenu.add(getClassCheckItem("Добавить Индуктивность", "InductorElm"));
-            //passMenu.add(getClassCheckItem("Добавить Выключатель", "SwitchElm"));
-            //passMenu.add(getClassCheckItem("Добавить Кнопочный выключатель", "PushSwitchElm"));
-            //passMenu.add(getClassCheckItem("Добавить Переключатель", "Switch2Elm"));
-            //passMenu.add(getClassCheckItem("Добавить Переменное сопротивление", "PotElm"));
-            //passMenu.add(getClassCheckItem("Добавить Трансформатор", "TransformerElm"));
-            //passMenu.add(getClassCheckItem("Добавить Трансформатор с отводом", "TappedTransformerElm"));
-            //passMenu.add(getClassCheckItem("Добавить Линию передачи", "TransLineElm"));
-            //passMenu.add(getClassCheckItem("Добавить Реле", "RelayElm"));
-            //passMenu.add(getClassCheckItem("Добавить Мемристор", "MemristorElm"));
-            //passMenu.add(getClassCheckItem("Добавить Искровой промежуток", "SparkGapElm"));
-
-            //Menu inputMenu = new Menu("Входы/Выходы");
-            //mainMenu.add(inputMenu);
-            //inputMenu.add(getClassCheckItem("Добавить Заземление", "GroundElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Ист. постоянного тока (2-вывода)", "DCVoltageElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Ист. переменного тока (2-вывода)", "ACVoltageElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Ист. напряжения (1-вывод)", "RailElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Ист. переменного тока (1-вывод)", "ACRailElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Ист. Прямоуг. напряжения (1-вывод)", "SquareRailElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Аналоговый выход", "OutputElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Логический вход", "LogicInputElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Логический выход", "LogicOutputElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Тактовые импульсы", "ClockElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Свип", "SweepElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Регулируемое напряжение", "VarRailElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Антенну", "AntennaElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Источник тока", "CurrentElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Светодиод", "LEDElm"));
-            //inputMenu.add(getClassCheckItem("Добавить Лампу (beta)", "LampElm"));
-
-            //Menu activeMenu = new Menu("Активные компоненты");
-            //mainMenu.add(activeMenu);
-            //activeMenu.add(getClassCheckItem("Добавить Диод", "DiodeElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Стабилитрон", "ZenerElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Транзистор (биполярный, NPN)", "NTransistorElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Транзистор (биполярный, PNP)", "PTransistorElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Операционный усилитель (- вверху)", "OpAmpElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Операционный усилитель (+ вверху)", "OpAmpSwapElm"));
-            //activeMenu.add(getClassCheckItem("Добавить MOSFET (n-канальный)", "NMosfetElm"));
-            //activeMenu.add(getClassCheckItem("Добавить MOSFET (p-канальный)", "PMosfetElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Полевой транзистор (n-канальный)", "NJfetElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Полевой транзистор (p-канальный)", "PJfetElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Аналоговый выключатель", "AnalogSwitchElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Аналоговый переключатель", "AnalogSwitch2Elm"));
-            //activeMenu.add(getClassCheckItem("Добавить Тиристор", "SCRElm"));
-            ////activeMenu.add(getClassCheckItem("Добавить Варикап", "VaractorElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Туннельный диод", "TunnelDiodeElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Триод", "TriodeElm"));
-            ////activeMenu.add(getClassCheckItem("Добавить Динистор", "DiacElm"));
-            ////activeMenu.add(getClassCheckItem("Добавить Симистор", "TriacElm"));
-            ////activeMenu.add(getClassCheckItem("Добавить Фоторезистор", "PhotoResistorElm"));
-            ////activeMenu.add(getClassCheckItem("Добавить Термистор", "ThermistorElm"));
-            //activeMenu.add(getClassCheckItem("Добавить CCII+", "CC2Elm"));
-            //activeMenu.add(getClassCheckItem("Добавить CCII-", "CC2NegElm"));
-
-            //Menu gateMenu = new Menu("Логические элементы");
-            //mainMenu.add(gateMenu);
-            //gateMenu.add(getClassCheckItem("Добавить Инвертор", "InverterElm"));
-            //gateMenu.add(getClassCheckItem("Добавить элемент И-НЕ", "NandGateElm"));
-            //gateMenu.add(getClassCheckItem("Добавить элемент ИЛИ-НЕ", "NorGateElm"));
-            //gateMenu.add(getClassCheckItem("Добавить элемент И", "AndGateElm"));
-            //gateMenu.add(getClassCheckItem("Добавить элемент ИЛИ", "OrGateElm"));
-            //gateMenu.add(getClassCheckItem("Добавить элемент исключающее ИЛИ", "XorGateElm"));
-
-            //Menu chipMenu = new Menu("Микросхемы");
-            //mainMenu.add(chipMenu);
-            //chipMenu.add(getClassCheckItem("Добавить D триггер", "DFlipFlopElm"));
-            //chipMenu.add(getClassCheckItem("Добавить JK триггер", "JKFlipFlopElm"));
-            //chipMenu.add(getClassCheckItem("Добавить 7ми сегментный светодиод", "SevenSegElm"));
-            //chipMenu.add(getClassCheckItem("Добавить VCO", "VCOElm"));
-            //chipMenu.add(getClassCheckItem("Добавить Фазовый компаратор", "PhaseCompElm"));
-            //chipMenu.add(getClassCheckItem("Добавить Счетчик", "CounterElm"));
-            //chipMenu.add(getClassCheckItem("Добавить Декадный счетчик", "DecadeElm"));
-            //chipMenu.add(getClassCheckItem("Добавить 555 Таймер", "TimerElm"));
-            //chipMenu.add(getClassCheckItem("Добавить ЦАП", "DACElm"));
-            //chipMenu.add(getClassCheckItem("Добавить АЦП", "ADCElm"));
-            //chipMenu.add(getClassCheckItem("Добавить Защелку", "LatchElm"));
-
-            //Menu otherMenu = new Menu("Прочее");
-            //mainMenu.add(otherMenu);
-            //otherMenu.add(getClassCheckItem("Добавить Текст", "TextElm"));
-            //otherMenu.add(getClassCheckItem("Добавить пробу осциллографа", "ProbeElm"));
-            //otherMenu.add(getCheckItem("Drag All (Alt-drag)", "DragAll"));
-            //otherMenu.add(getCheckItem(isMac ? "Drag Row (Alt-S-drag, S-right)" : "Drag Row (S-right)", "DragRow"));
-            //otherMenu.add(getCheckItem(isMac ? "Drag Column (Alt-\u2318-drag, \u2318-right)" : "Drag Column (C-right)", "DragColumn"));
-            //otherMenu.add(getCheckItem("Drag Selected", "DragSelected"));
-            //otherMenu.add(getCheckItem("Drag Post (" + ctrlMetaKey + "-drag)", "DragPost"));
-
-            //mainMenu.add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
-            //main.add(mainMenu);
-
             setGrid();
             elmList = new List<CircuitElm>();
             new ArrayList();
             undoStack = new ArrayList();
             redoStack = new ArrayList();
-
             scopes = new Scope[20];
             scopeColCount = new int[20];
             scopeCount = 0;
 
             random = new Random();
-            
-            //elmMenu = new PopupMenu();
-            //elmMenu.add(elmEditMenuItem = getMenuItem("Параметры"));
-            //elmMenu.add(elmScopeMenuItem = getMenuItem("Смотреть в осциллографе"));
-            //elmMenu.add(elmCutMenuItem = getMenuItem("Вырезать"));
-            //elmMenu.add(elmCopyMenuItem = getMenuItem("Копировать"));
-            //elmMenu.add(elmDeleteMenuItem = getMenuItem("Удалить"));
-            //main.add(elmMenu);
-
-            //Menu circuitsMenu = null;
-            //getSetupList(circuitsMenu);
-            
-            //if (startCircuitText != null)
-            //    readSetup(startCircuitText);
         }
 
         #region UI Form
@@ -760,7 +632,6 @@ namespace JavaToSharp
                 return null;
             return (CircuitElm) elmList[n];
         }
-
         
         internal virtual void analyzeCircuit()
         {
@@ -889,12 +760,8 @@ namespace JavaToSharp
             }
 
             int matrixSize = nodeList.Count-1 + vscount;
-//ORIGINAL LINE: circuitMatrix = new double[matrixSize][matrixSize];
-//JAVA TO VB & C# CONVERTER NOTE: The following call to the 'RectangularArrays' helper class reproduces the rectangular array initialization that is automatic in Java:
             circuitMatrix = RectangularArrays.ReturnRectangularDoubleArray(matrixSize, matrixSize);
             circuitRightSide = new double[matrixSize];
-//ORIGINAL LINE: origMatrix = new double[matrixSize][matrixSize];
-//JAVA TO VB & C# CONVERTER NOTE: The following call to the 'RectangularArrays' helper class reproduces the rectangular array initialization that is automatic in Java:
             origMatrix = RectangularArrays.ReturnRectangularDoubleArray(matrixSize, matrixSize);
             origRightSide = new double[matrixSize];
             circuitMatrixSize = circuitMatrixFullSize = matrixSize;
@@ -955,38 +822,14 @@ namespace JavaToSharp
                 for (i = 0; i != nodeList.Count; i++)
                     if (!closure[i] && !getCircuitNode(i).Internal)
                     {
-                        Console.WriteLine("узел " + i + " не подключен");
                         stampResistor(0, i, 1e8);
                         closure[i] = true;
                         changed = true;
                         break;
                     }
             }
-            //System.out.println("ac5");
 
-            for (i = 0; i != elmList.Count; i++)
-            {
-                CircuitElm ce = getElm(i);
-                if (ce is InductorElm)
-                {
-                    FindInductPath(ce);
-                }
-                if (ce is CurrentElm)
-                {
-                    if (TryFindCurrentSourcesPath(ce)) return;
-                }
-                // look for voltage source loops
-                if ((ce is VoltageElm && ce.PostCount == 2) || ce is WireElm)
-                {
-                    if (TryFindVoltagePath(ce)) return;
-                }
-                // look for shorted caps, or caps w/ voltage but no R
-                if (ce is CapacitorElm)
-                {
-                    if (TryFindShortOrCapsVPath(ce)) return;
-                }
-            }
-            //System.out.println("ac6");
+            _pathFinder.TryFindPath(elmList.ToArray());
 
             // simplify the matrix; this speeds things up quite a bit
             for (i = 0; i != matrixSize; i++)
@@ -994,8 +837,6 @@ namespace JavaToSharp
                 int qm = -1, qp = -1;
                 double qv = 0;
                 RowInfo re = circuitRowInfo[i];
-//	    System.out.println("row " + i + " " + re.lsChanges + " " + re.rsChanges + " " +
-//			       re.dropRow);
                 if (re.lsChanges || re.dropRow || re.rsChanges)
                     continue;
                 double rsadd = 0;
@@ -1011,7 +852,7 @@ namespace JavaToSharp
                         rsadd -= circuitRowInfo[j].value*q;
                         continue;
                     }
-                    if (q == 0)
+                    if (Math.Abs(q - 0.0) < double.Epsilon)
                         continue;
                     if (qp == -1)
                     {
@@ -1019,22 +860,14 @@ namespace JavaToSharp
                         qv = q;
                         continue;
                     }
-                    if (qm == -1 && q == -qv)
+                    if (qm == -1 && Math.Abs(q - -qv) < double.Epsilon)
                     {
                         qm = j;
                         continue;
                     }
                     break;
                 }
-                //System.out.println("line " + i + " " + qp + " " + qm + " " + j);
-//	    if (qp != -1 && circuitRowInfo[qp].lsChanges) {
-//		System.out.println("lschanges");
-//		continue;
-//	    }
-//	    if (qm != -1 && circuitRowInfo[qm].lsChanges) {
-//		System.out.println("lschanges");
-//		continue;
-//		}
+                
                 if (j == matrixSize)
                 {
                     if (qp == -1)
@@ -1051,8 +884,6 @@ namespace JavaToSharp
                         for (k = 0; elt.type == RowInfo.ROW_EQUAL && k < 100; k++)
                         {
                             // follow the chain
-//			System.out.println("following equal chain from " +
-//					   i + " " + qp + " to " + elt.nodeEq);
                             qp = elt.nodeEq;
                             elt = circuitRowInfo[qp];
                         }
@@ -1071,10 +902,9 @@ namespace JavaToSharp
                         elt.type = RowInfo.ROW_CONST;
                         elt.value = (circuitRightSide[i]+rsadd)/qv;
                         circuitRowInfo[i].dropRow = true;
-                        //System.out.println(qp + " * " + qv + " = const " + elt.value);
                         i = -1; // start over from scratch
                     }
-                    else if (circuitRightSide[i]+rsadd == 0)
+                    else if (Math.Abs(circuitRightSide[i]+rsadd - 0.0) < double.Epsilon)
                     {
                         // we found a row with only two nonzero entries, and one
                         // is the negative of the other; the values are equal
@@ -1097,11 +927,9 @@ namespace JavaToSharp
                         elt.type = RowInfo.ROW_EQUAL;
                         elt.nodeEq = qm;
                         circuitRowInfo[i].dropRow = true;
-                        //System.out.println(qp + " = " + qm);
                     }
                 }
             }
-            //System.out.println("ac7");
 
             // find size of new matrix
             int nn = 0;
@@ -1111,7 +939,6 @@ namespace JavaToSharp
                 if (elt.type == RowInfo.ROW_NORMAL)
                 {
                     elt.mapCol = nn++;
-                    //System.out.println("col " + i + " maps to " + elt.mapCol);
                     continue;
                 }
                 if (elt.type == RowInfo.ROW_EQUAL)
@@ -1143,32 +970,15 @@ namespace JavaToSharp
                         elt.type = e2.type;
                         elt.value = e2.value;
                         elt.mapCol = -1;
-                        //System.out.println(i + " = [late]const " + elt.value);
                     }
                     else
                     {
                         elt.mapCol = e2.mapCol;
-                        //System.out.println(i + " maps to: " + e2.mapCol);
                     }
                 }
             }
-            //System.out.println("ac8");
-
-//	System.out.println("matrixSize = " + matrixSize);
-//	
-//	for (j = 0; j != circuitMatrixSize; j++) {
-//	    System.out.println(j + ": ");
-//	    for (i = 0; i != circuitMatrixSize; i++)
-//		System.out.print(circuitMatrix[j][i] + " ");
-//	    System.out.print("  " + circuitRightSide[j] + "\n");
-//	}
-//	System.out.print("\n");
-
-
             // make the new, simplified matrix
             int newsize = nn;
-//ORIGINAL LINE: double[][] newmatx = new double[newsize][newsize];
-//JAVA TO VB & C# CONVERTER NOTE: The following call to the 'RectangularArrays' helper class reproduces the rectangular array initialization that is automatic in Java:
             double[][] newmatx = RectangularArrays.ReturnRectangularDoubleArray(newsize, newsize);
             double[] newrs = new double[newsize];
             int ii = 0;
@@ -1182,7 +992,6 @@ namespace JavaToSharp
                 }
                 newrs[ii] = circuitRightSide[i];
                 rri.mapRow = ii;
-                //System.out.println("Row " + i + " maps to " + ii);
                 for (j = 0; j != matrixSize; j++)
                 {
                     RowInfo ri = circuitRowInfo[j];
@@ -1203,16 +1012,7 @@ namespace JavaToSharp
                 for (j = 0; j != matrixSize; j++)
                     origMatrix[i][j] = circuitMatrix[i][j];
             circuitNeedsMap = true;
-
-//	
-//	System.out.println("matrixSize = " + matrixSize + " " + circuitNonLinear);
-//	for (j = 0; j != circuitMatrixSize; j++) {
-//	    for (i = 0; i != circuitMatrixSize; i++)
-//		System.out.print(circuitMatrix[j][i] + " ");
-//	    System.out.print("  " + circuitRightSide[j] + "\n");
-//	}
-//	System.out.print("\n");
-
+            
             // if a matrix is linear, we can do the lu_factor here instead of
             // needing to do it every frame
             if (!circuitNonLinear)
@@ -1220,75 +1020,10 @@ namespace JavaToSharp
                 if (!_calculator.lu_factor(circuitMatrix, circuitMatrixSize, circuitPermute))
                 {
                     stop("Singular matrix!", null);
-                    return;
                 }
             }
         }
 
-        private bool TryFindShortOrCapsVPath(CircuitElm ce)
-        {
-            int dest = ce.getNode(1);
-            int size = nodeList.Count;
-            CircuitElm[] elms = elmList.ToArray();
-            FindPathInfo fpi = new FindPathInfo(FindPathInfo.SHORT, ce, dest, size, elms);
-            if (fpi.findPath(ce.getNode(0)))
-            {
-                Console.WriteLine(ce + " shorted");
-                ce.reset();
-            }
-            else
-            {
-                fpi = new FindPathInfo(FindPathInfo.CAP_V, ce, dest, size, elms);
-                if (fpi.findPath(ce.getNode(0)))
-                {
-                    stop("�������� ��������� ������������!", ce);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool TryFindVoltagePath(CircuitElm ce)
-        {
-            int dest = ce.getNode(1);
-            int size = nodeList.Count;
-            CircuitElm[] elms = elmList.ToArray();
-            FindPathInfo fpi = new FindPathInfo(FindPathInfo.VOLTAGE, ce, dest, size, elms);
-            if (fpi.findPath(ce.getNode(0)))
-            {
-                stop("�������� ��������� ��������� ����������!", ce);
-                return true;
-            }
-            return false;
-        }
-
-        private bool TryFindCurrentSourcesPath(CircuitElm ce)
-        {
-            int dest = ce.getNode(1);
-            int size = nodeList.Count;
-            CircuitElm[] elms = elmList.ToArray();
-            FindPathInfo fpi = new FindPathInfo(FindPathInfo.INDUCT, ce, dest, size, elms);
-            if (!fpi.findPath(ce.getNode(0)))
-            {
-                stop("��� ���� ��� ��������� ����!", ce);
-                return true;
-            }
-            return false;
-        }
-
-        private void FindInductPath(CircuitElm ce)
-        {
-            int dest = ce.getNode(1);
-            int size = nodeList.Count;
-            CircuitElm[] elms = elmList.ToArray();
-            FindPathInfo fpi = new FindPathInfo(FindPathInfo.INDUCT, ce, dest, size, elms);
-            // first try findPath with maximum depth of 5, to avoid slowdowns
-            if (!fpi.findPath(ce.getNode(0), 5) && !fpi.findPath(ce.getNode(0)))
-            {
-                Console.WriteLine(ce + " ��� ����");
-                ce.reset();
-            }
-        }
 
         internal virtual void calcCircuitBottom()
         {
@@ -1302,124 +1037,6 @@ namespace JavaToSharp
                     circuitBottom = bottom;
             }
         }
-
-        private class FindPathInfo
-        {
-            internal const int INDUCT = 1;
-            internal const int VOLTAGE = 2;
-            internal const int SHORT = 3;
-            internal const int CAP_V = 4;
-            private readonly bool[] used;
-            private readonly int dest;
-            private readonly CircuitElm firstElm;
-            private readonly CircuitElm[] elmList;
-            private readonly int type;
-            internal FindPathInfo(int t, CircuitElm e, int d, int size, CircuitElm[] elms)
-            {
-                dest = d;
-                type = t;
-                firstElm = e;
-                used = new bool[size];
-                elmList = elms;
-            }
-            internal virtual bool findPath(int n1)
-            {
-                return findPath(n1, -1);
-            }
-            internal virtual bool findPath(int n1, int depth)
-            {
-                if (n1 == dest)
-                    return true;
-                if (depth-- == 0)
-                    return false;
-                if (used[n1])
-                {
-                    //System.out.println("used " + n1);
-                    return false;
-                }
-                used[n1] = true;
-                int i;
-//JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-                for (i = 0; i != elmList.Length; i++)
-                {
-//JAVA TO VB & C# CONVERTER TODO TASK: C# doesn't allow accessing outer class instance members within a nested class:
-                    CircuitElm ce = elmList[i];
-                    if (ce == firstElm)
-                        continue;
-                    if (type == INDUCT)
-                    {
-                        if (ce is CurrentElm)
-                            continue;
-                    }
-                    if (type == VOLTAGE)
-                    {
-                        if (!(ce.isWire || ce is VoltageElm))
-                            continue;
-                    }
-                    if (type == SHORT && !ce.isWire)
-                        continue;
-                    if (type == CAP_V)
-                    {
-                        if (!(ce.isWire || ce is CapacitorElm || ce is VoltageElm))
-                            continue;
-                    }
-                    if (n1 == 0)
-                    {
-                        // look for posts which have a ground connection;
-                        // our path can go through ground
-
-                        for (int l = 0; l != ce.PostCount; l++)
-                        {
-                            if (ce.hasGroundConnection(l) && findPath(ce.getNode(l), depth))
-                            {
-                                used[n1] = false;
-                                return true;
-                            }
-                        }
-                    }
-                    int j;
-                    for (j = 0; j != ce.PostCount; j++)
-                    {
-                        if (ce.getNode(j) == n1)
-                            break;
-                    }
-                    if (j == ce.PostCount)
-                        continue;
-                    if (ce.hasGroundConnection(j) && findPath(0, depth))
-                    {
-                        used[n1] = false;
-                        return true;
-                    }
-                    if (type == INDUCT && ce is InductorElm)
-                    {
-                        double c = ce.Current;
-                        if (j == 0)
-                            c = -c;
-                        if (Math.Abs(c-firstElm.Current) > 1e-10)
-                            continue;
-                    }
-                    int k;
-                    for (k = 0; k != ce.PostCount; k++)
-                    {
-                        if (j == k)
-                            continue;
-                        //System.out.println(ce + " " + ce.getNode(j) + "-" + ce.getNode(k));
-                        if (ce.getConnection(j, k) && findPath(ce.getNode(k), depth))
-                        {
-                            //System.out.println("got findpath " + n1);
-                            used[n1] = false;
-                            return true;
-                        }
-                        //System.out.println("back on findpath " + n1);
-                    }
-                }
-                used[n1] = false;
-                //System.out.println(n1 + " failed");
-                return false;
-            }
-        }
-
-
 
         internal virtual void stop(string s, CircuitElm ce)
         {
@@ -1720,23 +1337,6 @@ namespace JavaToSharp
         /*public virtual void actionPerformed(ActionEvent e)
         {
             string ac = e.ActionCommand;
-            if (e.Source == resetButton)
-            {
-                int i;
-
-                // on IE, drawImage() stops working inexplicably every once in
-                // a while.  Recreating it fixes the problem, so we do that here.
-                dbimage = main.createImage(winSize.width, winSize.height);
-
-                for (i = 0; i < elmList.Count; i++)
-                    getElm(i).reset();
-                for (i = 0; i < scopeCount; i++)
-                    scopes[i].resetGraph();
-                analyzeFlag = true;
-                t = 0;
-                stoppedCheck.State = false;
-                cv.repaint();
-            }
             if (e.Source == exportItem)
                 doImport(false, false);
             if (e.Source == optionsItem)
@@ -2495,7 +2095,6 @@ namespace JavaToSharp
             undoStack.Add(s);
            
         }
-
         
         protected virtual void setMenuSelection()
         {
@@ -2553,8 +2152,7 @@ namespace JavaToSharp
                     clipboard += ce.dump() + "\n";
             }
         }
-
-
+        
         protected virtual void doPaste()
         {
             pushUndo();
@@ -2649,8 +2247,7 @@ namespace JavaToSharp
             tempMouseMode = mouseMode;
         }
     }
-
-
+    
 //----------------------------------------------------------------------------------------
 //	Copyright � 2008 - 2010 Tangible Software Solutions Inc.
 //	This class can be used by anyone provided that the copyright notice remains intact.

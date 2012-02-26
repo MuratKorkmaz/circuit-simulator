@@ -16,9 +16,19 @@ namespace JavaToSharp
             _simController = new CirSim();
             _simController.init();
             _ucSimulationParameters.Initialize(this);
-            SerializeMenu(схемыToolStripMenuItem);
+            InitializeSchemes();
         }
-        
+
+        private void InitializeSchemes()
+        {
+            _startSircuitPath = string.Empty;
+            SerializeMenu(схемыToolStripMenuItem);
+            if (!string.IsNullOrEmpty(_startSircuitPath))
+            {
+                SerializeScheme(_startSircuitPath);
+            }
+        }
+
         public Image Image
         {
             get { return pbCircuit.Image; }

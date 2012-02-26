@@ -78,6 +78,7 @@
     <Compile Include="EditDialogLayout.cs" />
     <Compile Include="EditInfo.cs" />
     <Compile Include="EditOptions.cs" />
+    <Compile Include="FindPathInfo.cs" />
     <Compile Include="MatrixCalculator.cs" />
     <Compile Include="Views\FormImport.cs">
       <SubType>Form</SubType>
