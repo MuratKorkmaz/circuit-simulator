@@ -1,0 +1,6 @@
+syntax: glob
+_ReSharper.JavaToSharp/*
+JavaToSharp.sln.DotSettings.user
+JavaToSharp/obj/*
+JavaToSharp/bin/*
+JavaToSharp.suo
