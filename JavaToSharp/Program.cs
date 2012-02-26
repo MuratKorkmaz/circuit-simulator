@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,6 +16,7 @@ namespace JavaToSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
             Application.Run(new FormMain());
         }
     }
