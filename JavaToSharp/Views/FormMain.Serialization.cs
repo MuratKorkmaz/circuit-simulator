@@ -119,22 +119,22 @@ namespace JavaToSharp
                         sc.position = _simController.scopeCount;
                         sc.undump(st);
                         _simController.scopes[_simController.scopeCount++] = sc;
-                        break;
+                        continue;
                     }
                     if (tint == 'h')
                     {
                         readHint(st);
-                        break;
+                        continue;
                     }
                     if (tint == '$')
                     {
                         readOptions(st);
-                        break;
+                        continue;
                     }
                     if (tint == '%' || tint == '?' || tint == 'B')
                     {
                         // ignore afilter-specific stuff
-                        break;
+                        continue;
                     }
                     if (tint >= '0' && tint <= '9')
                         tint = int.Parse(type);
