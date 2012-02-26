@@ -9,10 +9,25 @@ namespace JavaToSharp
         public StringTokenizer(string line)
         {
             _tokens = new Queue<string>();
-            var items = line.Split(' ');
-            foreach (var item in items)
+            ConstructFrom(line);
+        }
+
+        public StringTokenizer(IList<string> lines)
+        {
+            int len = lines.Count;
+            for (int i = 0; i < len; i++)
             {
-                _tokens.Enqueue(item);
+                ConstructFrom(lines[i]);
+            }
+        }
+
+        private void ConstructFrom(string line)
+        {
+            var items = line.Split(' ');
+            int len = items.Length;
+            for (int i = 0; i < len; i++)
+            {
+                _tokens.Enqueue(items[i]);
             }
         }
 
