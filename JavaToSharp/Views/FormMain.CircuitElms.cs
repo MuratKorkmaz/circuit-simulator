@@ -6,20 +6,21 @@ namespace JavaToSharp
 {
     public partial class FormMain
     {
-        private ContextMenuStrip _tsmiAddCircuitElms;
+        private ContextMenuStrip _cmsAddCircuitElms;
 
         private void InitializeCircuitElms()
         {
-            _tsmiAddCircuitElms = new ContextMenuStrip();
-            _tsmiAddCircuitElms.Items.Add(getClassCheckItem("Добавить Соединение", "WireElm"));
-            _tsmiAddCircuitElms.Items.Add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
-            _tsmiAddCircuitElms.Items.Add(CreatePassMenu());
-            _tsmiAddCircuitElms.Items.Add(CreateInputMenu());
-            _tsmiAddCircuitElms.Items.Add(CreateActiveMenu());
-            _tsmiAddCircuitElms.Items.Add(CreateGateMenu());
-            _tsmiAddCircuitElms.Items.Add(CreateChipMenu());
-            _tsmiAddCircuitElms.Items.Add(CreateOtherMenu());
-            _tsmiAddCircuitElms.Items.Add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
+            _cmsAddCircuitElms = new ContextMenuStrip();
+            _cmsAddCircuitElms.Items.Add(getClassCheckItem("Добавить Соединение", "WireElm"));
+            _cmsAddCircuitElms.Items.Add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
+            _cmsAddCircuitElms.Items.Add(CreatePassMenu());
+            _cmsAddCircuitElms.Items.Add(CreateInputMenu());
+            _cmsAddCircuitElms.Items.Add(CreateActiveMenu());
+            _cmsAddCircuitElms.Items.Add(CreateGateMenu());
+            _cmsAddCircuitElms.Items.Add(CreateChipMenu());
+            _cmsAddCircuitElms.Items.Add(CreateOtherMenu());
+            _cmsAddCircuitElms.Items.Add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
+            pbCircuit.ContextMenuStrip = _cmsAddCircuitElms;
         }
 
         private ToolStripMenuItem CreatePassMenu()

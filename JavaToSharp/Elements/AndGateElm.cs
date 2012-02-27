@@ -5,11 +5,11 @@ namespace JavaToSharp
 {
     internal class AndGateElm : GateElm
     {
-        protected AndGateElm(int xx, int yy) : base(xx, yy)
+        public AndGateElm(int xx, int yy) : base(xx, yy)
         {
         }
 
-        protected AndGateElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f, st)
+        public AndGateElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f, st)
         {
         }
         internal override void setPoints()

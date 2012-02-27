@@ -4,11 +4,11 @@ namespace JavaToSharp
 {
     internal class OrGateElm : GateElm
     {
-        protected OrGateElm(int xx, int yy) : base(xx, yy)
+        public OrGateElm(int xx, int yy) : base(xx, yy)
         {
         }
 
-        protected OrGateElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f, st)
+        public OrGateElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f, st)
         {
         }
         internal override string GateName
