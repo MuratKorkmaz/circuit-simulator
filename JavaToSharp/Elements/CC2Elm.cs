@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using JavaToSharp;
 
-namespace JavaToSharp.Elements
+namespace JavaToSharp
 {
     internal class CC2Elm : ChipElm
     {

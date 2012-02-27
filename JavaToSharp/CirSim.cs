@@ -2,11 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using JavaToSharp.Elements;
 
 namespace JavaToSharp
 { // CirSim.java (c) 2010 by Paul Falstad
@@ -47,17 +44,17 @@ namespace JavaToSharp
         internal ToolStripMenuItem scopeXYMenuItem;
         internal ToolStripMenuItem scopeResistMenuItem;
         internal ToolStripMenuItem scopeVceIcMenuItem;
-        internal int mouseMode = MODE_SELECT;
-        internal int tempMouseMode = MODE_SELECT;
+        internal int mouseMode;
+        internal int tempMouseMode;
         internal string mouseModeStr = "Select";
         internal const double pi = 3.14159265358979323846;
-        internal const int MODE_ADD_ELM = 0;
-        internal const int MODE_DRAG_ALL = 1;
-        internal const int MODE_DRAG_ROW = 2;
-        internal const int MODE_DRAG_COLUMN = 3;
-        internal const int MODE_DRAG_SELECTED = 4;
-        internal const int MODE_DRAG_POST = 5;
-        internal const int MODE_SELECT = 6;
+        internal readonly int MODE_ADD_ELM = 0;
+        internal readonly int MODE_DRAG_ALL = 1;
+        internal readonly int MODE_DRAG_ROW = 2;
+        internal readonly int MODE_DRAG_COLUMN = 3;
+        internal readonly int MODE_DRAG_SELECTED = 4;
+        internal readonly int MODE_DRAG_POST = 5;
+        internal readonly int MODE_SELECT = 6;
         internal const int infoWidth = 120;
         internal int dragX, dragY, initDragX, initDragY;
         internal Rectangle selectedArea;
@@ -124,6 +121,8 @@ namespace JavaToSharp
 
         public virtual void init()
         {
+            mouseMode = MODE_SELECT;
+            tempMouseMode = MODE_SELECT;
             CircuitElm.initClass(this);
             baseURL = Application.StartupPath;
             dumpTypes = new Type[300];
@@ -152,67 +151,7 @@ namespace JavaToSharp
 
             random = new Random();
         }
-
-        #region UI Form
-
-        internal virtual ToolStripMenuItem getMenuItem(string s, string ac)
-        {
-            ToolStripMenuItem mi = new ToolStripMenuItem(s);
-            //mi.ActionCommand = ac;
-            //mi.addActionListener(this);
-            return mi;
-        }
-
-        internal virtual ToolStripMenuItem getClassCheckItem(string s, string t)
-        {
-            try
-            {
-                Type c = Type.GetType(t);
-                CircuitElm elm = constructElement(c, 0, 0);
-                register(c, elm);
-                if (elm.needsShortcut() && elm.DumpClass == c)
-                {
-                    int dt = elm.DumpType;
-                    s += " (" + (char)dt + ")";
-                }
-                elm.delete();
-            }
-            catch (Exception ee)
-            {
-                UserMessageView.Instance.ShowError(ee.StackTrace);
-            }
-            return getCheckItem(s, t);
-        }
-
-        internal virtual ToolStripMenuItem getCheckItem(string s, string t)
-        {
-            ToolStripMenuItem mi = new ToolStripMenuItem(s);
-            //mi.addItemListener(this);
-            //mi.ActionCommand = t;
-            return mi;
-        }
-
-        #endregion
-
-        internal virtual void register(Type c, CircuitElm elm)
-        {
-            int t = elm.DumpType;
-            if (t == 0)
-            {
-                Console.WriteLine("no dump type: " + c);
-                return;
-            }
-            Type dclass = elm.DumpClass;
-            if (dumpTypes[t] == dclass)
-                return;
-            if (dumpTypes[t] != null)
-            {
-                Console.WriteLine("dump type conflict: " + c + " " + dumpTypes[t]);
-                return;
-            }
-            dumpTypes[t] = dclass;
-        }
-
+        
         internal virtual void handleResize()
         {
             winSize = cv.Size;
@@ -1910,41 +1849,6 @@ namespace JavaToSharp
         }
         */
         
-        protected virtual CircuitElm constructElement(Type c, int x0, int y0)
-        {
-            // find element class
-            var carr = new Type[2];
-            //carr[0] = getClass();
-            carr[0] = carr[1] = typeof(int);
-            ConstructorInfo cstr;
-            try
-            {
-                cstr = c.GetConstructor(carr);
-            }
-            catch (Exception ex)
-            {
-                UserMessageView.Instance.ShowError(ex.StackTrace);
-                return null;
-            }
-            if (cstr == null)
-            {
-                return null;
-            }
-            // invoke constructor with starting coordinates
-            var oarr = new object[2];
-            oarr[0] = x0;
-            oarr[1] = y0;
-            try
-            {
-                return (CircuitElm) cstr.Invoke(oarr);
-            }
-            catch (Exception ex)
-            {
-                UserMessageView.Instance.ShowError(ex.StackTrace);
-            }
-            return null;
-        }
-
         //todo: обработать события выбора меню в соответствующих контролах
         /*protected virtual void doPopupMenu(MouseEventArgs e)
         {
@@ -2222,49 +2126,6 @@ namespace JavaToSharp
                 CircuitElm ce = getElm(i);
                 ce.selected = true;
             }
-        }
-
-        public virtual void keyTyped(KeyPressEventArgs e)
-        {
-            if (e.KeyChar > ' ' && e.KeyChar < 127)
-            {
-                Type c = dumpTypes[e.KeyChar];
-                if (c == null || c == typeof(Scope))
-                    return;
-                CircuitElm elm = null;
-                elm = constructElement(c, 0, 0);
-                if (elm == null || !(elm.needsShortcut() && elm.DumpClass == c))
-                    return;
-                mouseMode = MODE_ADD_ELM;
-                mouseModeStr = c.Name;
-                addingClass = c;
-            }
-            if (e.KeyChar == ' ')
-            {
-                mouseMode = MODE_SELECT;
-                mouseModeStr = "Select";
-            }
-            tempMouseMode = mouseMode;
-        }
-    }
-    
-//----------------------------------------------------------------------------------------
-//	Copyright © 2008 - 2010 Tangible Software Solutions Inc.
-//	This class can be used by anyone provided that the copyright notice remains intact.
-//
-//	This class provides the logic to simulate Java rectangular arrays, which are jagged
-//	arrays with inner arrays of the same length.
-//----------------------------------------------------------------------------------------
-    internal static class RectangularArrays
-    {
-        internal static double[][] ReturnRectangularDoubleArray(int Size1, int Size2)
-        {
-            double[][] Array = new double[Size1][];
-            for (int Array1 = 0; Array1 < Size1; Array1++)
-            {
-                Array[Array1] = new double[Size2];
-            }
-            return Array;
         }
     }
 }

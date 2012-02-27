@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace JavaToSharp.Views
+namespace JavaToSharp
 {
     public partial class FormImport : Form
     {

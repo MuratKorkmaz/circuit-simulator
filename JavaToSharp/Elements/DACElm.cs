@@ -1,4 +1,4 @@
-namespace JavaToSharp.Elements
+namespace JavaToSharp
 {
     internal class DACElm : ChipElm
     {

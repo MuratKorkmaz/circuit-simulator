@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 
-namespace JavaToSharp.Elements
+namespace JavaToSharp
 {
     internal abstract class GateElm : CircuitElm
     {

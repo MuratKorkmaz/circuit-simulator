@@ -80,11 +80,15 @@
     <Compile Include="EditOptions.cs" />
     <Compile Include="FindPathInfo.cs" />
     <Compile Include="MatrixCalculator.cs" />
+    <Compile Include="RectangularArrays.cs" />
     <Compile Include="Views\FormImport.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\FormImport.Designer.cs">
       <DependentUpon>FormImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormMain.CircuitElms.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\FormMain.cs">
       <SubType>Form</SubType>

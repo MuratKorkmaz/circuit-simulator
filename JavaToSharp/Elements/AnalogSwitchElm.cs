@@ -10,13 +10,13 @@ namespace JavaToSharp
         private double resistance;
         internal double r_on, r_off;
 
-        protected AnalogSwitchElm(int xx, int yy) : base(xx, yy)
+        internal AnalogSwitchElm(int xx, int yy) : base(xx, yy)
         {
             r_on = 20;
             r_off = 1e10;
         }
 
-        protected AnalogSwitchElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
+        internal AnalogSwitchElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
         {
             r_on = 20;
             r_off = 1e10;

@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace JavaToSharp.Elements
+namespace JavaToSharp
 { // 0 = switch
 // 1 = switch end 1
 // 2 = switch end 2
@@ -383,28 +383,6 @@ namespace JavaToSharp.Elements
         internal override bool getConnection(int n1, int n2)
         {
             return (n1 / 3 == n2 / 3);
-        }
-    }
-
-
-
-//----------------------------------------------------------------------------------------
-//	Copyright © 2008 - 2010 Tangible Software Solutions Inc.
-//	This class can be used by anyone provided that the copyright notice remains intact.
-//
-//	This class provides the logic to simulate Java rectangular arrays, which are jagged
-//	arrays with inner arrays of the same length.
-//----------------------------------------------------------------------------------------
-    internal static partial class RectangularArrays
-    {
-        internal static Point[][] ReturnRectangularPointArray(int Size1, int Size2)
-        {
-            Point[][] Array = new Point[Size1][];
-            for (int Array1 = 0; Array1 < Size1; Array1++)
-            {
-                Array[Array1] = new Point[Size2];
-            }
-            return Array;
         }
     }
 }

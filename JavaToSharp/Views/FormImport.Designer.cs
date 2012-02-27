@@ -1,4 +1,4 @@
-﻿namespace JavaToSharp.Views
+﻿namespace JavaToSharp
 {
     partial class FormImport
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+
 namespace JavaToSharp
 {
     internal class VoltageElm : CircuitElm

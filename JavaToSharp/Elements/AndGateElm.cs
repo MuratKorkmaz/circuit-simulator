@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using JavaToSharp.Elements;
 
 namespace JavaToSharp
 {

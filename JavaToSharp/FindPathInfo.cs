@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using JavaToSharp.Elements;
 
 namespace JavaToSharp
 {

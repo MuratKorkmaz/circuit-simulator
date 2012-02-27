@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace JavaToSharp.Elements
+namespace JavaToSharp
 {
     internal class JfetElm : MosfetElm
     {
