@@ -16,6 +16,7 @@ namespace JavaToSharp
             _simController = new CirSim();
             _simController.init();
             _ucSimulationParameters.Initialize(this);
+            InitializeCircuitElms();
             InitializeSchemes();
         }
 
@@ -121,5 +122,6 @@ namespace JavaToSharp
                 UserMessageView.Instance.ShowError(ex.StackTrace);
             }
         }
+
     }
 }

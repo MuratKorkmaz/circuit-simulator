@@ -186,6 +186,7 @@ namespace JavaToSharp
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Circuit Simulator v0.99";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FormMain_KeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tlpMain.ResumeLayout(false);
