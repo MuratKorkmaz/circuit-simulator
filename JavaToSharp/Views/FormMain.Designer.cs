@@ -44,6 +44,7 @@ namespace JavaToSharp
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.pbFooter = new System.Windows.Forms.PictureBox();
             this.pbCircuit = new System.Windows.Forms.PictureBox();
+            this._ucSimulationParameters = new JavaToSharp.ucSimulationParameters();
             this.menuStrip1.SuspendLayout();
             this.tlpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).BeginInit();
@@ -143,6 +144,7 @@ namespace JavaToSharp
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tlpMain.Controls.Add(this.pbFooter, 0, 0);
             this.tlpMain.Controls.Add(this.pbCircuit, 0, 1);
+            this.tlpMain.Controls.Add(this._ucSimulationParameters, 1, 1);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(0, 24);
             this.tlpMain.Name = "tlpMain";
@@ -175,6 +177,18 @@ namespace JavaToSharp
             this.pbCircuit.Size = new System.Drawing.Size(544, 275);
             this.pbCircuit.TabIndex = 1;
             this.pbCircuit.TabStop = false;
+            // 
+            // _ucSimulationParameters
+            // 
+            this._ucSimulationParameters.CurrentSpeed = 50;
+            this._ucSimulationParameters.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._ucSimulationParameters.IsStopped = false;
+            this._ucSimulationParameters.Location = new System.Drawing.Point(553, 103);
+            this._ucSimulationParameters.Name = "_ucSimulationParameters";
+            this._ucSimulationParameters.PowerLight = 50;
+            this._ucSimulationParameters.SimulationSpeed = 3;
+            this._ucSimulationParameters.Size = new System.Drawing.Size(144, 275);
+            this._ucSimulationParameters.TabIndex = 2;
             // 
             // FormMain
             // 
@@ -213,6 +227,7 @@ namespace JavaToSharp
         private System.Windows.Forms.TableLayoutPanel tlpMain;
         private System.Windows.Forms.PictureBox pbFooter;
         private System.Windows.Forms.PictureBox pbCircuit;
+        private ucSimulationParameters _ucSimulationParameters;
     }
 }
 

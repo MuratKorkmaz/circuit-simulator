@@ -44,6 +44,7 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.btReset);
             this.flowLayoutPanel1.Controls.Add(this.chbStop);
             this.flowLayoutPanel1.Controls.Add(this.label1);
@@ -54,19 +55,17 @@
             this.flowLayoutPanel1.Controls.Add(this.sbPowerLight);
             this.flowLayoutPanel1.Controls.Add(this.lbCopyright);
             this.flowLayoutPanel1.Controls.Add(this.lbCurrentScheme);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(154, 272);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(142, 272);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btReset
             // 
-            this.btReset.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btReset.Location = new System.Drawing.Point(3, 3);
             this.btReset.Name = "btReset";
-            this.btReset.Size = new System.Drawing.Size(113, 23);
+            this.btReset.Size = new System.Drawing.Size(135, 23);
             this.btReset.TabIndex = 0;
             this.btReset.Text = "Сброс";
             this.btReset.UseVisualStyleBackColor = true;
@@ -99,7 +98,7 @@
             this.sbSimulationSpeed.Location = new System.Drawing.Point(0, 65);
             this.sbSimulationSpeed.Maximum = 260;
             this.sbSimulationSpeed.Name = "sbSimulationSpeed";
-            this.sbSimulationSpeed.Size = new System.Drawing.Size(119, 17);
+            this.sbSimulationSpeed.Size = new System.Drawing.Size(141, 17);
             this.sbSimulationSpeed.TabIndex = 3;
             this.sbSimulationSpeed.Value = 3;
             this.sbSimulationSpeed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbSimulationSpeed_Scroll);
@@ -119,7 +118,7 @@
             this.sbCurrentSpeed.Location = new System.Drawing.Point(0, 95);
             this.sbCurrentSpeed.Minimum = 1;
             this.sbCurrentSpeed.Name = "sbCurrentSpeed";
-            this.sbCurrentSpeed.Size = new System.Drawing.Size(119, 17);
+            this.sbCurrentSpeed.Size = new System.Drawing.Size(141, 17);
             this.sbCurrentSpeed.TabIndex = 5;
             this.sbCurrentSpeed.Value = 50;
             this.sbCurrentSpeed.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbCurrentSpeed_Scroll);
@@ -140,7 +139,7 @@
             this.sbPowerLight.Location = new System.Drawing.Point(0, 125);
             this.sbPowerLight.Minimum = 1;
             this.sbPowerLight.Name = "sbPowerLight";
-            this.sbPowerLight.Size = new System.Drawing.Size(119, 17);
+            this.sbPowerLight.Size = new System.Drawing.Size(141, 17);
             this.sbPowerLight.TabIndex = 7;
             this.sbPowerLight.Value = 50;
             this.sbPowerLight.Scroll += new System.Windows.Forms.ScrollEventHandler(this.sbPowerLight_Scroll);
@@ -167,12 +166,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ucSimulationParameters";
-            this.Size = new System.Drawing.Size(154, 272);
+            this.Size = new System.Drawing.Size(145, 275);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

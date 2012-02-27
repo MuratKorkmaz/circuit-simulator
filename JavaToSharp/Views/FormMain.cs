@@ -7,12 +7,10 @@ namespace JavaToSharp
     public partial class FormMain : Form, ISimulationView
     {
         private readonly CirSim _simController;
-        private readonly ucSimulationParameters _ucSimulationParameters;
 
         public FormMain()
         {
             InitializeComponent();
-            _ucSimulationParameters = new ucSimulationParameters();
             _simController = new CirSim();
             _simController.init();
             _ucSimulationParameters.Initialize(this);
