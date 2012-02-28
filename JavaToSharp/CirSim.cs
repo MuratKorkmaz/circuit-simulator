@@ -202,8 +202,6 @@ namespace JavaToSharp
 
         public virtual void updateCircuit(Graphics realg)
         {
-            if (winSize.Width == 0)
-                return;
             if (analyzeFlag)
             {
                 analyzeCircuit();

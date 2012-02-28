@@ -180,6 +180,7 @@ namespace JavaToSharp
             // 
             // _ucSimulationParameters
             // 
+            this._ucSimulationParameters.AutoSize = true;
             this._ucSimulationParameters.CurrentSpeed = 50;
             this._ucSimulationParameters.Dock = System.Windows.Forms.DockStyle.Fill;
             this._ucSimulationParameters.IsStopped = false;
@@ -200,10 +201,12 @@ namespace JavaToSharp
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Circuit Simulator v0.99";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FormMain_KeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tlpMain.ResumeLayout(false);
+            this.tlpMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCircuit)).EndInit();
             this.ResumeLayout(false);
