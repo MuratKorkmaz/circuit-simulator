@@ -178,8 +178,7 @@ namespace JavaToSharp
                 {
                     UserMessageView.Instance.ShowError(ex.StackTrace);
                     break;
-                }
-                break;
+                }                
             }
         }
 

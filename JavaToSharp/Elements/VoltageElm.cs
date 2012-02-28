@@ -24,9 +24,6 @@ namespace JavaToSharp
         private double dutyCycle;
         internal VoltageElm(int xx, int yy, int wf) : base(xx, yy)
         {
-            
-            
-            
             waveform = wf;
             maxVoltage = 5;
             frequency = 40;
@@ -34,56 +31,55 @@ namespace JavaToSharp
             reset();
         }
 
-        protected VoltageElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
+        public VoltageElm(int xa, int ya, int xb, int yb, int f, StringTokenizer st) : base(xa, ya, xb, yb, f)
         {
             maxVoltage = 5;
             frequency = 40;
             waveform = WF_DC;
             dutyCycle =.5;
-            try
-            {
-         
-                string sWaweform = st.nextToken();
-                bool isParsedWaweform = int.TryParse(sWaweform, out waveform);
-                if (!isParsedWaweform)
-                {
-                    throw new Exception("Не удалось привести к int");
-                }
 
-                string sFrequency = st.nextToken();
-                bool isParsedFrequency = double.TryParse(sFrequency, out  frequency);
-                if (!isParsedFrequency)
-                {
-                    throw new Exception("Не удалось привести к double");
-                }
-                string sMaxVoltage = st.nextToken();
-                bool isParsedMaxVoltage = double.TryParse(sMaxVoltage, out  maxVoltage);
-                 if (!isParsedMaxVoltage)
-                {
-                    throw new Exception("Не удалось привести к double");
-                }
-                string sBias =st.nextToken();
-                bool isParsedBias = double.TryParse(sBias, out bias);
-                if (!isParsedBias)
-                {
-                    throw new Exception("Не удалось привести к double");
-                }
-                string sPhaseShift = st.nextToken();
-                bool isPhaseShift = double.TryParse(sPhaseShift, out phaseShift);
-                if(!isPhaseShift)
-                {
-                    throw new Exception("Не удалось привести к double");
-                }
-                string sDutyCycle = st.nextToken();
-                bool isDutyCycle = double.TryParse(sDutyCycle, out dutyCycle);
-                if(!isDutyCycle)
-                {
-                    throw new Exception("Не удалось привести к double");
-                }
-            }
-            catch (Exception e)
+            string sWaweform = st.nextToken();
+            bool isParsedWaweform = int.TryParse(sWaweform, out waveform);
+            if (!isParsedWaweform)
             {
+                throw new Exception("Не удалось привести к int");
             }
+
+            string sFrequency = st.nextToken();
+            bool isParsedFrequency = double.TryParse(sFrequency, out  frequency);
+            if (!isParsedFrequency)
+            {
+                throw new Exception("Не удалось привести к double");
+            }
+
+            string sMaxVoltage = st.nextToken();
+            bool isParsedMaxVoltage = double.TryParse(sMaxVoltage, out  maxVoltage);
+            if (!isParsedMaxVoltage)
+            {
+                throw new Exception("Не удалось привести к double");
+            }
+
+            string sBias =st.nextToken();
+            bool isParsedBias = double.TryParse(sBias, out bias);
+            if (!isParsedBias)
+            {
+                throw new Exception("Не удалось привести к double");
+            }
+
+            //string sPhaseShift = st.nextToken();
+            //bool isPhaseShift = double.TryParse(sPhaseShift, out phaseShift);
+            //if(!isPhaseShift)
+            //{
+            //    throw new Exception("Не удалось привести к double");
+            //}
+
+            //string sDutyCycle = st.nextToken();
+            //bool isDutyCycle = double.TryParse(sDutyCycle, out dutyCycle);
+            //if(!isDutyCycle)
+            //{
+            //    throw new Exception("Не удалось привести к double");
+            //}
+            
             if ((flags & FLAG_COS) != 0)
             {
                 flags &= ~FLAG_COS;
