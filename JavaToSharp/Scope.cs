@@ -656,37 +656,37 @@ namespace JavaToSharp
                 minMaxI = 1;
             text = null;
             yElm = null;
-            try
-            {
-                string sPosition = (st.nextToken());
-                bool isParsedPosition = int.TryParse(sPosition,out position);
-                if(!isParsedPosition)
-                {
-                     throw new Exception("Не удалось привести к типу int");
-                }
-                int ye = -1;
-                if ((flags & FLAG_YELM) != 0)
-                {
-                    string sYe = st.nextToken();
-                    bool isYe = int.TryParse(sYe, out ye);
-                    if(!isYe)
-                    {
-                        throw new Exception("Не удалось привести к типу int");
-                    }
-                    if (ye != -1)
-                        yElm = sim.getElm(ye);
-                }
-                while (st.hasMoreTokens())
-                {
-                    if (text == null)
-                        text = st.nextToken();
-                    else
-                        text += " " + st.nextToken();
-                }
-            }
-            catch (Exception ee)
-            {
-            }
+            //try
+            //{
+            //    string sPosition = (st.nextToken());
+            //    bool isParsedPosition = int.TryParse(sPosition,out position);
+            //    if(!isParsedPosition)
+            //    {
+            //         throw new Exception("Не удалось привести к типу int");
+            //    }
+            //    int ye = -1;
+            //    if ((flags & FLAG_YELM) != 0)
+            //    {
+            //        string sYe = st.nextToken();
+            //        bool isYe = int.TryParse(sYe, out ye);
+            //        if(!isYe)
+            //        {
+            //            throw new Exception("Не удалось привести к типу int");
+            //        }
+            //        if (ye != -1)
+            //            yElm = sim.getElm(ye);
+            //    }
+            //    while (st.hasMoreTokens())
+            //    {
+            //        if (text == null)
+            //            text = st.nextToken();
+            //        else
+            //            text += " " + st.nextToken();
+            //    }
+            //}
+            //catch (Exception ee)
+            //{
+            //}
             showI = (flags & 1) != 0;
             showV = (flags & 2) != 0;
             BshowMax = (flags & 4) == 0;

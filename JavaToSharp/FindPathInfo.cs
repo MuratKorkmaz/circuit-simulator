@@ -23,11 +23,10 @@ namespace JavaToSharp
         public void TryFindPath(CircuitElm[] elms)
         {
             elmList = elms;
-            int size = _simController.nodeList.Count;
-            used = new bool[size];
-            
             for (int i = 0; i != elmList.Length; i++)
             {
+                int size = _simController.nodeList.Count;
+                used = new bool[size];
                 CircuitElm ce = elms[i];
                 dest = ce.getNode(1);
                 firstElm = ce;
@@ -37,17 +36,17 @@ namespace JavaToSharp
                 }
                 if (ce is CurrentElm)
                 {
-                    if (TryFindCurrentSourcesPath(ce)) return;
+                    if (!TryFindCurrentSourcesPath(ce)) return;
                 }
                 // look for voltage source loops
                 if ((ce is VoltageElm && ce.PostCount == 2) || ce is WireElm)
                 {
-                    if (TryFindVoltagePath(ce)) return;
+                    if (!TryFindVoltagePath(ce)) return;
                 }
                 // look for shorted caps, or caps w/ voltage but no R
                 if (ce is CapacitorElm)
                 {
-                    if (TryFindShortOrCapsVPath(ce)) return;
+                    if (!TryFindShortOrCapsVPath(ce)) return;
                 }
             }
         }
@@ -55,30 +54,30 @@ namespace JavaToSharp
         private bool TryFindShortOrCapsVPath(CircuitElm ce)
         {
             type = SHORT;
-            if (findPath(ce.getNode(0)))
+            if (!findPath(ce.getNode(0)))
             {
                 Console.WriteLine(ce + " shorted");
                 ce.reset();
             }
             else
             {
-                if (findPath(ce.getNode(0)))
+                if (!findPath(ce.getNode(0)))
                 {
                     _simController.stop("Короткое замыкание конденсатора!", ce);
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
 
         private bool TryFindVoltagePath(CircuitElm ce)
         {
-            if (findPath(ce.getNode(0)))
+            if (!findPath(ce.getNode(0)))
             {
                 _simController.stop("Короткое замыкание источника напряжения!", ce);
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         private bool TryFindCurrentSourcesPath(CircuitElm ce)
@@ -86,9 +85,9 @@ namespace JavaToSharp
             if (!findPath(ce.getNode(0)))
             {
                 _simController.stop("Нет пути для источника тока!", ce);
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         private void FindInductPath(CircuitElm ce)
@@ -145,7 +144,6 @@ namespace JavaToSharp
                 {
                     // look for posts which have a ground connection;
                     // our path can go through ground
-
                     for (int l = 0; l != ce.PostCount; l++)
                     {
                         if (ce.hasGroundConnection(l) && findPath(ce.getNode(l), depth))

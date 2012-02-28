@@ -121,5 +121,10 @@ namespace JavaToSharp
             }
         }
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            _simController.updateCircuit(pbCircuit.CreateGraphics());
+        }
+
     }
 }
