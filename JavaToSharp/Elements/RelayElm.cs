@@ -136,10 +136,10 @@ namespace JavaToSharp
             for (i = 0; i != poleCount; i++)
             {
                 if (i == 0)
-                    interpPoint(point1, point2, lines[i*2],.5, openhs*2+5*dsign-i*openhs*3);
+                    lines[i*2] = interpPoint(point1, point2, 0.5, openhs*2+5*dsign-i*openhs*3);
                 else
-                    interpPoint(point1, point2, lines[i*2],.5, (int)(openhs*(-i*3+3-.5+d_position))+5*dsign);
-                interpPoint(point1, point2, lines[i*2+1],.5, (int)(openhs*(-i*3-.5+d_position))-5*dsign);
+                    lines[i*2] = interpPoint(point1, point2, 0.5, (int)(openhs*(-i*3+3-.5+d_position))+5*dsign);
+                lines[i*2+1] = interpPoint(point1, point2, 0.5, (int)(openhs*(-i*3-.5+d_position))-5*dsign);
                 g.DrawLine(myPen,lines[i*2].X, lines[i*2].Y, lines[i*2+1].X, lines[i*2+1].Y);
             }
 
@@ -154,7 +154,7 @@ namespace JavaToSharp
                     drawThickLine(g, myPen ,swposts[p][i], swpoles[p][i]);
                 }
 
-                interpPoint(swpoles[p][1], swpoles[p][2], ptSwitch[p], d_position);
+                ptSwitch[p] = interpPoint(swpoles[p][1], swpoles[p][2], d_position);
                 //setVoltageColor(g, volts[nSwitch0]);
                 g.GetNearestColor(Color.LightGray);
                 drawThickLine(g, myPen,swpoles[p][0], ptSwitch[p]);
@@ -197,8 +197,8 @@ namespace JavaToSharp
                     swposts[i][j] = new Point();
                     swpoles[i][j] = new Point();
                 }
-                interpPoint(lead1, lead2, swpoles[i][0], 0, -openhs*3*i);
-                interpPoint(lead1, lead2, swpoles[i][1], 1, -openhs*3*i-openhs);
+                swpoles[i][0] = interpPoint(lead1, lead2, 0, -openhs*3*i);
+                swpoles[i][1] = interpPoint(lead1, lead2, 1, -openhs*3*i-openhs);
                 interpPoint(lead1, lead2, swpoles[i][2], 1, -openhs*3*i+openhs);
                 interpPoint(point1, point2, swposts[i][0], 0, -openhs*3*i);
                 interpPoint(point1, point2, swposts[i][1], 1, -openhs*3*i-openhs);

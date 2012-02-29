@@ -91,8 +91,8 @@ namespace JavaToSharp
             {
                 double v = volts[1]+(volts[2]-volts[1])*i/segments;
                 voltageColor =	setVoltageColor(g, v);
-                interpPoint(src[1], drn[1], ps1, i*segf);
-                interpPoint(src[1], drn[1], ps2, (i+1)*segf);
+                ps1 = interpPoint(src[1], drn[1], i*segf);
+                ps2 = interpPoint(src[1], drn[1], (i+1)*segf);
                 myPen = new Pen(voltageColor);
                 drawThickLine(g, myPen,ps1, ps2);
             }
@@ -174,13 +174,13 @@ namespace JavaToSharp
             int hs2 = hs*dsign;
             src = newPointArray(3);
             drn = newPointArray(3);
-            interpPoint2(point1, point2, src[0], drn[0], 1, -hs2);
-            interpPoint2(point1, point2, src[1], drn[1], 1-22/dn, -hs2);
-            interpPoint2(point1, point2, src[2], drn[2], 1-22/dn, -hs2*4/3);
+            interpPoint2(point1, point2, out src[0], out drn[0], 1, -hs2);
+            interpPoint2(point1, point2, out src[1], out drn[1], 1-22/dn, -hs2);
+            interpPoint2(point1, point2, out src[2], out drn[2], 1-22/dn, -hs2*4.0/3.0);
 
             gate = newPointArray(3);
-            interpPoint2(point1, point2, gate[0], gate[2], 1-28/dn, hs2/2); // was 1-20/dn
-            interpPoint(gate[0], gate[2], gate[1],.5);
+            interpPoint2(point1, point2, out gate[0], out gate[2], 1-28/dn, hs2/2.0); // was 1-20/dn
+            gate[1] = interpPoint(gate[0], gate[2], 0.5);
 
             if (!drawDigital())
             {
@@ -191,7 +191,7 @@ namespace JavaToSharp
             }
             else if (pnp == -1)
             {
-                interpPoint(point1, point2, gate[1], 1-36/dn);
+                gate[1] = interpPoint(point1, point2, 1-36/dn);
                 int dist = (dsign < 0) ? 32 : 31;
                 pcircle = interpPoint(point1, point2, 1-dist/dn);
                 pcircler = 3;

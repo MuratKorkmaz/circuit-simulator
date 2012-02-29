@@ -74,8 +74,8 @@ namespace JavaToSharp
             calcLeads(16);
             cathode = newPointArray(2);
             Point[] pa = newPointArray(2);
-            interpPoint2(lead1, lead2, pa[0], pa[1], 0, hs);
-            interpPoint2(lead1, lead2, cathode[0], cathode[1], 1, hs);
+            interpPoint2(lead1, lead2, out pa[0], out pa[1], 0, hs);
+            interpPoint2(lead1, lead2, out cathode[0], out cathode[1], 1, hs);
             poly = createPolygon(pa[0], pa[1], lead2);
         }
 

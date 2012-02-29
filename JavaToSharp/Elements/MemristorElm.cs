@@ -86,13 +86,13 @@ namespace JavaToSharp
                     nx = 0;
                 double v = v1+(v2-v1)*i/segments;
                 voltageColor=	setVoltageColor(g, v);
-                interpPoint(lead1, lead2, ps1, i*segf, hs*ox);
-                interpPoint(lead1, lead2, ps2, i*segf, hs*nx);
+                ps1 = interpPoint(lead1, lead2, i*segf, hs*ox);
+                ps2 = interpPoint(lead1, lead2, i*segf, hs*nx);
                 myPen = new Pen(voltageColor);
                 drawThickLine(g,myPen, ps1, ps2);
                 if (i == segments)
                     break;
-                interpPoint(lead1, lead2, ps1, (i+1)*segf, hs*nx);
+                ps1 = interpPoint(lead1, lead2, (i+1)*segf, hs*nx);
                 drawThickLine(g, myPen,ps1, ps2);
                 ox = nx;
             }

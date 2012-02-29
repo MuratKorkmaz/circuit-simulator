@@ -199,42 +199,38 @@ namespace JavaToSharp
 
         internal Point interpPoint(Point a, Point b, double f)
         {
-            var p = new Point();
-            interpPoint(a, b, p, f);
-            return p;
-        }
-
-        internal void interpPoint(Point a, Point b, Point c, double f)
-        {
-            c.X = (int) Math.Floor(a.X*(1 - f) + b.X*f + .48);
-            c.Y = (int) Math.Floor(a.Y*(1 - f) + b.Y*f + .48);
-        }
-
-        internal void interpPoint(Point a, Point b, Point c, double f, double g)
-        {
-            int gx = b.Y - a.Y;
-            int gy = a.X - b.X;
-            g /= Math.Sqrt(gx*gx + gy*gy);
-            c.X = (int) Math.Floor(a.X*(1 - f) + b.X*f + g*gx + .48);
-            c.Y = (int) Math.Floor(a.Y*(1 - f) + b.Y*f + g*gy + .48);
+            var c = new Point();
+            c.X = (int)Math.Floor(a.X * (1 - f) + b.X * f + .48);
+            c.Y = (int)Math.Floor(a.Y * (1 - f) + b.Y * f + .48);
+            return c;
         }
 
         internal Point interpPoint(Point a, Point b, double f, double g)
         {
-            var p = new Point();
-            interpPoint(a, b, p, f, g);
-            return p;
+            var c = new Point();
+            int gx = b.Y - a.Y;
+            int gy = a.X - b.X;
+            g /= Math.Sqrt(gx * gx + gy * gy);
+            c.X = (int)Math.Floor(a.X * (1 - f) + b.X * f + g * gx + .48);
+            c.Y = (int)Math.Floor(a.Y * (1 - f) + b.Y * f + g * gy + .48);
+            return c;
         }
 
-        internal void interpPoint2(Point a, Point b, Point c, Point d, double f, double g)
+        internal void interpPoint2(Point a, Point b, out Point c, out Point d, double f, double g)
         {
             int gx = b.Y - a.Y;
             int gy = a.X - b.X;
             g /= Math.Sqrt(gx*gx + gy*gy);
-            c.X = (int) Math.Floor(a.X*(1 - f) + b.X*f + g*gx + .48);
-            c.Y = (int) Math.Floor(a.Y*(1 - f) + b.Y*f + g*gy + .48);
-            d.X = (int) Math.Floor(a.X*(1 - f) + b.X*f - g*gx + .48);
-            d.Y = (int) Math.Floor(a.Y*(1 - f) + b.Y*f - g*gy + .48);
+            c = new Point
+                    {
+                        X = (int) Math.Floor(a.X*(1 - f) + b.X*f + g*gx + .48),
+                        Y = (int) Math.Floor(a.Y*(1 - f) + b.Y*f + g*gy + .48)
+                    };
+            d = new Point
+                    {
+                        X = (int) Math.Floor(a.X*(1 - f) + b.X*f - g*gx + .48),
+                        Y = (int) Math.Floor(a.Y*(1 - f) + b.Y*f - g*gy + .48)
+                    };
         }
 
         internal void draw2Leads(Graphics g)
@@ -287,7 +283,7 @@ namespace JavaToSharp
             int ady = b.Y - a.Y;
             double l = Math.Sqrt(adx*adx + ady*ady);
             poly.addPoint(b.X, b.Y);
-            interpPoint2(a, b, p1, p2, 1 - al/l, aw);
+            interpPoint2(a, b, out p1, out p2, 1 - al/l, aw);
             poly.addPoint(p1.X, p1.Y);
             poly.addPoint(p2.X, p2.Y);
             return poly;
@@ -590,7 +586,7 @@ namespace JavaToSharp
                 double hsx = Math.Sqrt(1 - cx*cx);
                 if (hsx < 0)
                     hsx = -hsx;
-                interpPoint(p1, p2, ps2, i*segf, hsx*hs);
+                ps2 = interpPoint(p1, p2, i*segf, hsx*hs);
                 double v = v1 + (v2 - v1)*i/segments;
                 voltageColor= setVoltageColor(g, v);
                 myPen = new Pen(voltageColor);

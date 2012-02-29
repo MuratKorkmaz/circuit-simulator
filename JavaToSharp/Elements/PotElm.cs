@@ -134,7 +134,7 @@ namespace JavaToSharp
             arrow1 = new Point();
             arrow2 = new Point();
             double clen = abs(offset)-8;
-            interpPoint2(corner2, arrowPoint, arrow1, arrow2, (clen-8)/clen, 8);
+            interpPoint2(corner2, arrowPoint, out arrow1, out arrow2, (clen-8)/clen, 8);
             ps3 = new Point();
             ps4 = new Point();
         }

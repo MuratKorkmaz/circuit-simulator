@@ -124,11 +124,11 @@ namespace JavaToSharp
             in1p = newPointArray(2);
             in2p = newPointArray(2);
             textp = newPointArray(2);
-            interpPoint2(point1, point2, in1p[0], in2p[0], 0, hs);
-            interpPoint2(lead1, lead2, in1p[1], in2p[1], 0, hs);
-            interpPoint2(lead1, lead2, textp[0], textp[1],.2, hs);
+            interpPoint2(point1, point2, out in1p[0], out in2p[0], 0, hs);
+            interpPoint2(lead1, lead2, out in1p[1], out in2p[1], 0, hs);
+            interpPoint2(lead1, lead2, out textp[0], out textp[1],.2, hs);
             Point[] tris = newPointArray(2);
-            interpPoint2(lead1, lead2, tris[0], tris[1], 0, hs*2);
+            interpPoint2(lead1, lead2, out tris[0], out tris[1], 0, hs*2);
             triangle = createPolygon(tris[0], tris[1], lead2);
             plusFont = new Font("SansSerif", opsize == 2 ? 14 : 10,FontStyle.Bold );
         }

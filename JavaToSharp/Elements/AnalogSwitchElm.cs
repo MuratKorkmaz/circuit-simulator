@@ -78,7 +78,7 @@ namespace JavaToSharp
 
 
             myPen = new Pen(lightGrayColor);
-            interpPoint(lead1, lead2, ps, 1, hs);
+            ps = interpPoint(lead1, lead2, 1, hs);
             drawThickLine(g, myPen,lead1, ps);
 
             voltageColor = setVoltageColor(g, volts[2]);

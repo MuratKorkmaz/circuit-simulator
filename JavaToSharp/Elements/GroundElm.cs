@@ -34,11 +34,11 @@ namespace JavaToSharp
             {
                 int a = 10-i*4;
                 int b = i*5; // -10;
-                interpPoint2(point1, point2, ps1, ps2, 1+b/dn, a);
+                interpPoint2(point1, point2, out ps1, out ps2, 1+b/dn, a);
                 drawThickLine(g, myPen,ps1, ps2);
             }
             doDots(g);
-            interpPoint(point1, point2, ps2, 1+11.0/dn);
+            ps2 = interpPoint(point1, point2, 1+11.0/dn);
             setBbox(point1, ps2, 11);
             drawPost(g, x, y, nodes[0]);
         }

@@ -47,7 +47,7 @@ namespace JavaToSharp
                 s = "X";
             if (this == sim.plotYElm)
                 s = "Y";
-            interpPoint(point1, point2, lead1, 1-(w/2+8)/dn);
+            lead1 = interpPoint(point1, point2, 1-(w/2+8)/dn);
             setBbox(point1, lead1, 0);
             drawCenteredText(g, font,s, x2, y2, true);
             voltageColor=	setVoltageColor(g, volts[0]);

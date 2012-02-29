@@ -68,8 +68,8 @@ namespace JavaToSharp
             // calc plates
             plate1 = newPointArray(2);
             plate2 = newPointArray(2);
-            interpPoint2(point1, point2, plate1[0], plate1[1], f, 12);
-            interpPoint2(point1, point2, plate2[0], plate2[1], 1-f, 12);
+            interpPoint2(point1, point2, out plate1[0], out plate1[1], f, 12);
+            interpPoint2(point1, point2, out plate2[0], out plate2[1], 1-f, 12);
         }
 
         internal override void draw(Graphics g)

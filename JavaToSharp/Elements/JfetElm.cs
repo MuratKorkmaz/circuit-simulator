@@ -53,15 +53,15 @@ namespace JavaToSharp
             int hs2 = hs*dsign;
             src = newPointArray(3);
             drn = newPointArray(3);
-            interpPoint2(point1, point2, src[0], drn[0], 1, hs2);
-            interpPoint2(point1, point2, src[1], drn[1], 1, hs2/2);
-            interpPoint2(point1, point2, src[2], drn[2], 1-10/dn, hs2/2);
+            interpPoint2(point1, point2, out src[0], out drn[0], 1, hs2);
+            interpPoint2(point1, point2, out src[1], out drn[1], 1, hs2/2.0);
+            interpPoint2(point1, point2, out src[2], out drn[2], 1-10/dn, hs2/2.0);
 
             gatePt = interpPoint(point1, point2, 1-14/dn);
 
             Point[] ra = newPointArray(4);
-            interpPoint2(point1, point2, ra[0], ra[1], 1-13/dn, hs);
-            interpPoint2(point1, point2, ra[2], ra[3], 1-10/dn, hs);
+            interpPoint2(point1, point2, out ra[0], out ra[1], 1-13/dn, hs);
+            interpPoint2(point1, point2, out ra[2], out ra[3], 1-10/dn, hs);
             gatePoly = createPolygon(ra[0], ra[1], ra[3], ra[2]);
             if (pnp == -1)
             {

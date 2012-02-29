@@ -210,7 +210,7 @@ namespace JavaToSharp
             //var realg = Graphics.FromImage(dbimage);
             CircuitElm.selectColor = Color.Cyan;
             var backBrush = new SolidBrush(Color.Black);
-            realg.FillRectangle(backBrush, 0, 0, winSize.Width, winSize.Height);
+            realg.FillRectangle(backBrush, 0, 0, _view.Image.Width, _view.Image.Height);
             if (!View.Parameters.IsStopped)
             {
                 try
