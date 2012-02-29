@@ -580,7 +580,7 @@ public abstract class CircuitElm : Editable
 	{
 		System.Drawing.Font fm = SupportClass.GraphicsManager.manager.GetFont(g);
 		//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
-		int w = fm.StringWidth(s);
+        int w = (int)g.MeasureString(s, fm).Width;
 		if (cx)
 			x -= w / 2;
 		//UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
@@ -598,7 +598,7 @@ public abstract class CircuitElm : Editable
 		SupportClass.GraphicsManager.manager.SetFont(g, unitsFont);
 		System.Drawing.Font fm = SupportClass.GraphicsManager.manager.GetFont(g);
 		//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
-		int w = fm.stringWidth(s);
+        int w = (int)g.MeasureString(s, fm).Width;
 		SupportClass.GraphicsManager.manager.SetColor(g, whiteColor);
 		//UPGRADE_TODO: The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
 		int ya = SupportClass.GetAscent(fm) / 2;

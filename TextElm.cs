@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 class TextElm:CircuitElm
 {
@@ -27,7 +28,7 @@ class TextElm:CircuitElm
 		
 	}
 	internal System.String text;
-	internal System.Collections.ArrayList lines;
+    private List<string> lines;
 	internal int size;
 	//UPGRADE_NOTE: Final was removed from the declaration of 'FLAG_CENTER '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
 	internal int FLAG_CENTER = 1;
@@ -36,7 +37,7 @@ class TextElm:CircuitElm
 	public TextElm(int xx, int yy):base(xx, yy)
 	{
 		text = "hello";
-		lines = System.Collections.ArrayList.Synchronized(new System.Collections.ArrayList(10));
+        lines = new List<string>();
 		lines.Add(text);
 		size = 24;
 	}
@@ -51,7 +52,7 @@ class TextElm:CircuitElm
 	internal virtual void  split()
 	{
 		int i;
-		lines = System.Collections.ArrayList.Synchronized(new System.Collections.ArrayList(10));
+        lines = new List<string>();
 		System.Text.StringBuilder sb = new System.Text.StringBuilder(text);
 		for (i = 0; i < sb.Length; i++)
 		{
@@ -94,7 +95,8 @@ class TextElm:CircuitElm
 		for (i = 0; i != lines.Count; i++)
 		{
 			//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
-			int w = fm.stringWidth((System.String) (lines[i]));
+			
+            int w = (int)g.MeasureString(lines[i], f).Width;
 			if (w > maxw)
 				maxw = w;
 		}
@@ -102,11 +104,15 @@ class TextElm:CircuitElm
 		setBbox(x, y, x, y);
 		for (i = 0; i != lines.Count; i++)
 		{
-			System.String s = (System.String) (lines[i]);
+            string s = (string)(lines[i]);
+            int w = (int)g.MeasureString(lines[i], f).Width;
 			if ((flags & FLAG_CENTER) != 0)
 			{
 				//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
-				x = (sim.winSize.Width - fm.stringWidth(s)) / 2;
+				
+
+                x = (sim.winSize.Width - w) / 2;
+                
 			}
 			//UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
 			g.DrawString(s, SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, cury - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
@@ -115,12 +121,12 @@ class TextElm:CircuitElm
 				//UPGRADE_TODO: The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
 				int by = cury - SupportClass.GetAscent(fm);
 				//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
-				g.DrawLine(SupportClass.GraphicsManager.manager.GetPen(g), x, by, x + fm.stringWidth(s) - 1, by);
+				g.DrawLine(SupportClass.GraphicsManager.manager.GetPen(g), x, by, x + w - 1, by);
 			}
 			//UPGRADE_TODO: The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
 			//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
 			//UPGRADE_TODO: The equivalent in .NET for method 'java.awt.FontMetrics.getDescent' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-			adjustBbox(x, cury - SupportClass.GetAscent(fm), x + fm.stringWidth(s), cury + SupportClass.GetDescent(fm));
+			adjustBbox(x, cury - SupportClass.GetAscent(fm), x + w, cury + SupportClass.GetDescent(fm));
 			//UPGRADE_TODO: The equivalent in .NET for method 'java.awt.FontMetrics.getHeight' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
 			cury += (int) fm.GetHeight();
 		}

@@ -52,9 +52,10 @@ class OutputElm:CircuitElm
 			s = "X";
 		if (this == sim.plotYElm)
 			s = "Y";
+        int w = (int)g.MeasureString(s, f).Width;
 		//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
 		//UPGRADE_NOTE: ref keyword was added to struct-type parameters. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1303'"
-		interpPoint(ref point1, ref point2, ref lead1, 1 - (fm.stringWidth(s) / 2 + 8) / dn);
+		interpPoint(ref point1, ref point2, ref lead1, 1 - (w / 2 + 8) / dn);
 		//UPGRADE_NOTE: ref keyword was added to struct-type parameters. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1303'"
 		setBbox(ref point1, ref lead1, 0);
 		drawCenteredText(g, s, x2, y2, true);

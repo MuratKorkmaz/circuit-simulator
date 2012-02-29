@@ -93,7 +93,7 @@ abstract class ChipElm:CircuitElm
 			}
 			SupportClass.GraphicsManager.manager.SetColor(g, whiteColor);
 			//UPGRADE_ISSUE: Method 'java.awt.FontMetrics.stringWidth' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtFontMetricsstringWidth_javalangString'"
-			int sw = fm.stringWidth(p.text);
+            int sw = (int)g.MeasureString(p.text, f).Width;
 			//UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
 			//UPGRADE_TODO: The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
 			g.DrawString(p.text, SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), p.textloc.X - sw / 2, p.textloc.Y + SupportClass.GetAscent(fm) / 2 - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
