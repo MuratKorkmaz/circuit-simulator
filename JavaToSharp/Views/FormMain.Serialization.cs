@@ -106,79 +106,83 @@ namespace JavaToSharp
 
         private void readSetup(string[] lines)
         {
-            StringTokenizer st = new StringTokenizer(lines);
-            while (st.hasMoreTokens())
+            
+            for (int i = 0; i < lines.Length; i++)
             {
-                string type = st.nextToken();
-                int tint = type[0];
-                try
+                StringTokenizer st = new StringTokenizer(lines[i]);
+                while (st.hasMoreTokens())
                 {
-                    if (tint == 'o')
+                    string type = st.nextToken();
+                    int tint = type[0];
+                    try
                     {
-                        Scope sc = new Scope(_simController);
-                        sc.position = _simController.scopeCount;
-                        sc.undump(st);
-                        _simController.scopes[_simController.scopeCount++] = sc;
-                        continue;
+                        if (tint == 'o')
+                        {
+                            Scope sc = new Scope(_simController);
+                            sc.position = _simController.scopeCount;
+                            sc.undump(st);
+                            _simController.scopes[_simController.scopeCount++] = sc;
+                            continue;
+                        }
+                        if (tint == 'h')
+                        {
+                            readHint(st);
+                            continue;
+                        }
+                        if (tint == '$')
+                        {
+                            readOptions(st);
+                            continue;
+                        }
+                        if (tint == '%' || tint == '?' || tint == 'B')
+                        {
+                            // ignore afilter-specific stuff
+                            continue;
+                        }
+                        if (tint >= '0' && tint <= '9')
+                            tint = int.Parse(type);
+                        int x1 = int.Parse(st.nextToken());
+                        int y1 = int.Parse(st.nextToken());
+                        int x2 = int.Parse(st.nextToken());
+                        int y2 = int.Parse(st.nextToken());
+                        int f = int.Parse(st.nextToken());
+                        Type cls = _simController.dumpTypes[tint];
+                        if (cls == null)
+                        {
+                            Console.WriteLine("unrecognized dump type: " + type);
+                            break;
+                        }
+                        // find element class
+                        var carr = new Type[6];
+                        //carr[0] = getClass();
+                        carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof (int);
+                        carr[5] = typeof (StringTokenizer);
+                        ConstructorInfo cstr = cls.GetConstructor(carr);
+
+                        // invoke constructor with starting coordinates
+                        var oarr = new object[6];
+                        //oarr[0] = this;
+                        oarr[0] = x1;
+                        oarr[1] = y1;
+                        oarr[2] = x2;
+                        oarr[3] = y2;
+                        oarr[4] = f;
+                        oarr[5] = st;
+                        var ce = (CircuitElm) cstr.Invoke(oarr);
+                        ce.setPoints();
+                        _simController.elmList.Add(ce);
                     }
-                    if (tint == 'h')
+                    catch (ReflectionTypeLoadException ex)
                     {
-                        readHint(st);
-                        continue;
-                    }
-                    if (tint == '$')
-                    {
-                        readOptions(st);
-                        continue;
-                    }
-                    if (tint == '%' || tint == '?' || tint == 'B')
-                    {
-                        // ignore afilter-specific stuff
-                        continue;
-                    }
-                    if (tint >= '0' && tint <= '9')
-                        tint = int.Parse(type);
-                    int x1 = int.Parse(st.nextToken());
-                    int y1 = int.Parse(st.nextToken());
-                    int x2 = int.Parse(st.nextToken());
-                    int y2 = int.Parse(st.nextToken());
-                    int f = int.Parse(st.nextToken());
-                    Type cls = _simController.dumpTypes[tint];
-                    if (cls == null)
-                    {
-                        Console.WriteLine("unrecognized dump type: " + type);
+                        UserMessageView.Instance.ShowError(ex.InnerException.StackTrace);
                         break;
                     }
-                    // find element class
-                    var carr = new Type[6];
-                    //carr[0] = getClass();
-                    carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof(int);
-                    carr[5] = typeof(StringTokenizer);
-                    ConstructorInfo cstr = cls.GetConstructor(carr);
-
-                    // invoke constructor with starting coordinates
-                    var oarr = new object[6];
-                    //oarr[0] = this;
-                    oarr[0] = x1;
-                    oarr[1] = y1;
-                    oarr[2] = x2;
-                    oarr[3] = y2;
-                    oarr[4] = f;
-                    oarr[5] = st;
-                    var ce = (CircuitElm)cstr.Invoke(oarr);
-                    ce.setPoints();
-                    _simController.elmList.Add(ce);
+                    catch (Exception ex)
+                    {
+                        UserMessageView.Instance.ShowError(ex.StackTrace);
+                        break;
+                    }
                 }
-                catch (ReflectionTypeLoadException ex)
-                {
-                    UserMessageView.Instance.ShowError(ex.InnerException.StackTrace);
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    UserMessageView.Instance.ShowError(ex.StackTrace);
-                    break;
-                }                
             }
         }
 
