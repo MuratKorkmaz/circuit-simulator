@@ -19,11 +19,11 @@ namespace JavaToSharp
         }
         public virtual void Update(Graphics g)
         {
-            pg.updateCircuit(g);
+            //pg.updateCircuit(g);
         }
         public virtual void Paint(Graphics g)
         {
-            pg.updateCircuit(g);
+            //pg.updateCircuit(g);
         }
     }
 }

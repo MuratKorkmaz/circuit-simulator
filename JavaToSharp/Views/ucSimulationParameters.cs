@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace JavaToSharp
 {
-    public partial class ucSimulationParameters : UserControl
+    public partial class ucSimulationParameters : UserControl, IParametersView
     {
         public int SimulationSpeed
         {

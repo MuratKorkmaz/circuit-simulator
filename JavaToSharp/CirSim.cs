@@ -17,17 +17,11 @@ namespace JavaToSharp
     public class CirSim
     {
         internal Size winSize;
-        private Image dbimage;
         private readonly MatrixCalculator _calculator;
+        private readonly ISimulationView _view;
         private readonly FindPathInfo _pathFinder;
         private Random random;
         internal Type addingClass;
-        internal static PictureBox main;
-        internal CheckBox stoppedCheck;
-        internal HScrollBar speedBar;
-        internal HScrollBar currentBar;
-        internal Label powerLabel;
-        internal HScrollBar powerBar;
         internal ToolStripMenuItem scopeVMenuItem;
         internal ToolStripMenuItem scopeIMenuItem;
         internal ToolStripMenuItem scopeMaxMenuItem;
@@ -110,10 +104,11 @@ namespace JavaToSharp
         }
         internal CircuitCanvas cv;
 
-        internal CirSim() 
+        internal CirSim(ISimulationView view) 
         {
             _calculator = new MatrixCalculator();
             _pathFinder = new FindPathInfo(this);
+            _view = view;
         }
 
         internal string startCircuitText;
@@ -157,7 +152,6 @@ namespace JavaToSharp
             winSize = cv.Size;
             if (winSize.Width == 0)
                 return;
-            dbimage = main.Image;
             int h = winSize.Height / 5;
 //	if (h < 128 && winSize.height > 300)
 //	  h = 128;
@@ -213,11 +207,11 @@ namespace JavaToSharp
             if (mouseElm == null)
                 mouseElm = stopElm;
             setupScopes();
-            var g = Graphics.FromImage(dbimage);
+            //var realg = Graphics.FromImage(dbimage);
             CircuitElm.selectColor = Color.Cyan;
             var backBrush = new SolidBrush(Color.Black);
-            g.FillRectangle(backBrush, 0, 0, winSize.Width, winSize.Height);
-            if (!stoppedCheck.Checked)
+            realg.FillRectangle(backBrush, 0, 0, winSize.Width, winSize.Height);
+            if (!View.Parameters.IsStopped)
             {
                 try
                 {
@@ -227,17 +221,17 @@ namespace JavaToSharp
                 {
                     UserMessageView.Instance.ShowError(e.StackTrace);
                     analyzeFlag = true;
-                    cv.Refresh();
+                    _view.UpdateCanvas();
                     return;
                 }
             }
-            if (!stoppedCheck.Checked)
+            if (!View.Parameters.IsStopped)
             {
                 long sysTime = DateTime.Now.Millisecond;
                 if (lastTime != 0)
                 {
                     int inc = (int)(sysTime-lastTime);
-                    double c = currentBar.Value;
+                    double c = View.Parameters.CurrentSpeed;
                     c = Math.Exp(c/3.5-14.2);
                     CircuitElm.currentMult = 1.7 * inc * c;
                 }
@@ -253,20 +247,20 @@ namespace JavaToSharp
             }
             else
                 lastTime = 0;
-            CircuitElm.powerMult = Math.Exp(powerBar.Value/4.762-7);
+            CircuitElm.powerMult = Math.Exp(View.Parameters.PowerLight/4.762-7);
 
             int i;
             Font oldfont = SystemFonts.DefaultFont;
             for (i = 0; i != elmList.Count; i++)
             {
-                getElm(i).draw(g);
+                getElm(i).draw(realg);
             }
             if (tempMouseMode == MODE_DRAG_ROW || tempMouseMode == MODE_DRAG_COLUMN || tempMouseMode == MODE_DRAG_POST || tempMouseMode == MODE_DRAG_SELECTED)
                 for (i = 0; i != elmList.Count; i++)
                 {
                     CircuitElm ce = getElm(i);
-                    ce.drawPost(g, ce.x, ce.y);
-                    ce.drawPost(g, ce.x2, ce.y2);
+                    ce.drawPost(realg, ce.x, ce.y);
+                    ce.drawPost(realg, ce.x2, ce.y2);
                 }
             int badnodes = 0;
             // find bad connections, nodes not connected to other elements which
@@ -283,7 +277,7 @@ namespace JavaToSharp
                             bb++;
                     if (bb > 0)
                     {
-                        g.FillEllipse(Brushes.Red, cn.x-3, cn.y-3, 7, 7);
+                        realg.FillEllipse(Brushes.Red, cn.x-3, cn.y-3, 7, 7);
                         badnodes++;
                     }
                 }
@@ -293,16 +287,16 @@ namespace JavaToSharp
 //	    g.drawString("+", mouseElm.x+10, mouseElm.y);
 //	    }
             if (dragElm != null && (dragElm.x != dragElm.x2 || dragElm.y != dragElm.y2))
-                dragElm.draw(g);
+                dragElm.draw(realg);
             int ct = scopeCount;
             if (stopMessage != null)
                 ct = 0;
             for (i = 0; i != ct; i++)
-                scopes[i].draw(g);
+                scopes[i].draw(realg);
             var brush = new SolidBrush(CircuitElm.whiteColor);
             if (stopMessage != null)
             {
-                g.DrawString(stopMessage, oldfont, brush, 10, circuitArea.Height);
+                realg.DrawString(stopMessage, oldfont, brush, 10, circuitArea.Height);
             }
             else
             {
@@ -325,9 +319,7 @@ namespace JavaToSharp
                 }
                 else
                 {
-                    CircuitElm.showFormat.NumberDecimalDigits = 2;
                     info[0] = "t = " + CircuitElm.getUnitText2(t, "ŒÏ");
-                    CircuitElm.showFormat.NumberDecimalDigits = 0;
                 }
                 if (hintType != -1)
                 {
@@ -358,12 +350,12 @@ namespace JavaToSharp
                 ybase = max(ybase, circuitBottom);
                 
                 for (i = 0; info[i] != null; i++)
-                    g.DrawString(info[i], oldfont, brush, x, ybase+15*(i+1));
+                    realg.DrawString(info[i], oldfont, brush, x, ybase+15*(i+1));
             }
             if (selectedArea != Rectangle.Empty)
             {
                 var pen = new Pen(CircuitElm.selectColor);
-                g.DrawRectangle(pen, selectedArea.X, selectedArea.Y, selectedArea.Width, selectedArea.Height);
+                realg.DrawRectangle(pen, selectedArea.X, selectedArea.Y, selectedArea.Width, selectedArea.Height);
             }
             mouseElm = realMouseElm;
             frames++;
@@ -375,8 +367,8 @@ namespace JavaToSharp
 //	g.drawString("iterc: " + (getIterCount()),  10, 70);
 //	
 
-            realg.DrawImage(dbimage, 0, 0);
-            if (!stoppedCheck.Checked && circuitMatrix != null)
+            //realg.DrawImage(dbimage, 0, 0);
+            if (!View.Parameters.IsStopped && circuitMatrix != null)
             {
                 // Limit to 50 fps (thanks to J—årgen Kl—Ützer for this)
                 int delay = (int)(1000/50 - (DateTime.Now.Millisecond - lastFrameTime));
@@ -391,7 +383,7 @@ namespace JavaToSharp
                     {
                     }
                 }
-                cv.Refresh();
+                _view.UpdateCanvas();
             }
             lastFrameTime = lastTime;
         }
@@ -540,7 +532,7 @@ namespace JavaToSharp
                     {
                         ((SwitchElm) ce).toggle();
                         analyzeFlag = true;
-                        cv.Refresh();
+                        _view.UpdateCanvas();
                         return;
                     }
                 }
@@ -550,7 +542,7 @@ namespace JavaToSharp
         internal virtual void needAnalyze()
         {
             analyzeFlag = true;
-            cv.Refresh();
+            
         }
 
         internal ArrayList nodeList;
@@ -766,7 +758,7 @@ namespace JavaToSharp
                     }
             }
 
-            _pathFinder.TryFindPath(elmList.ToArray());
+            //_pathFinder.TryFindPath(elmList.ToArray());
 
             // simplify the matrix; this speeds things up quite a bit
             for (i = 0; i != matrixSize; i++)
@@ -980,9 +972,9 @@ namespace JavaToSharp
             stopMessage = s;
             circuitMatrix = null;
             stopElm = ce;
-            stoppedCheck.Checked = true;
+            View.Parameters.IsStopped = true;
             analyzeFlag = false;
-            cv.Refresh();
+            _view.UpdateCanvas();
         }
 
         // control voltage source vs with voltage from n1 to n2 (must
@@ -1131,10 +1123,10 @@ namespace JavaToSharp
         {
             get
             {
-                if (speedBar.Value == 0)
+                if (View.Parameters.CurrentSpeed == 0)
                     return 0;
                 //return (Math.exp((speedBar.getValue()-1)/24.) + .5);
-                return.1*Math.Exp((speedBar.Value-61)/24.0);
+                return.1*Math.Exp((View.Parameters.CurrentSpeed-61)/24.0);
             }
         }
 
@@ -1413,7 +1405,8 @@ namespace JavaToSharp
         {
             int i;
             // 32 = linear scale in afilter
-            string dump = "$ " +  " " + timeStep + " " + IterCount + " " + currentBar.Value + " " + CircuitElm.voltageRange + " " + powerBar.Value + "\n";
+            string dump = "$ " + " " + timeStep + " " + IterCount + " " + View.Parameters.CurrentSpeed + " " +
+                          CircuitElm.voltageRange + " " + View.Parameters.PowerLight + "\n";
             for (i = 0; i != elmList.Count; i++)
                 dump += getElm(i).dump() + "\n";
             for (i = 0; i != scopeCount; i++)
@@ -1660,6 +1653,11 @@ namespace JavaToSharp
                 }
                 mouseElm = value;
             }
+        }
+
+        public ISimulationView View
+        {
+            get { return _view; }
         }
 
         protected virtual void removeZeroLengthElements()
@@ -1929,20 +1927,15 @@ namespace JavaToSharp
 
         protected virtual void enableItems()
         {
-            powerBar.Enabled = true;
-            powerLabel.Enabled = true;
-           
+            //powerBar.Enabled = true;
+            //powerLabel.Enabled = true;
         }
 
         public virtual void itemStateChanged(ToolStripItemEventArgs e)
         {
             //cv.repaint(pause);
             object mi = e.Item;
-            if (mi == stoppedCheck)
-                return;
-           
-           
-           
+            
             if (menuScope != -1)
             {
                 Scope sc = scopes[menuScope];

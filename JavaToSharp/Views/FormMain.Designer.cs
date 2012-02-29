@@ -59,7 +59,7 @@ namespace JavaToSharp
             this.схемыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(700, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "enuStrip";
             // 
@@ -152,7 +152,7 @@ namespace JavaToSharp
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tlpMain.Size = new System.Drawing.Size(700, 481);
+            this.tlpMain.Size = new System.Drawing.Size(784, 538);
             this.tlpMain.TabIndex = 1;
             // 
             // pbFooter
@@ -163,7 +163,7 @@ namespace JavaToSharp
             this.pbFooter.Image = global::JavaToSharp.Properties.Resources.footer;
             this.pbFooter.Location = new System.Drawing.Point(3, 3);
             this.pbFooter.Name = "pbFooter";
-            this.pbFooter.Size = new System.Drawing.Size(694, 94);
+            this.pbFooter.Size = new System.Drawing.Size(778, 94);
             this.pbFooter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbFooter.TabIndex = 0;
             this.pbFooter.TabStop = false;
@@ -174,7 +174,7 @@ namespace JavaToSharp
             this.pbCircuit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbCircuit.Location = new System.Drawing.Point(3, 103);
             this.pbCircuit.Name = "pbCircuit";
-            this.pbCircuit.Size = new System.Drawing.Size(544, 275);
+            this.pbCircuit.Size = new System.Drawing.Size(628, 332);
             this.pbCircuit.TabIndex = 1;
             this.pbCircuit.TabStop = false;
             // 
@@ -184,18 +184,18 @@ namespace JavaToSharp
             this._ucSimulationParameters.CurrentSpeed = 50;
             this._ucSimulationParameters.Dock = System.Windows.Forms.DockStyle.Fill;
             this._ucSimulationParameters.IsStopped = false;
-            this._ucSimulationParameters.Location = new System.Drawing.Point(553, 103);
+            this._ucSimulationParameters.Location = new System.Drawing.Point(637, 103);
             this._ucSimulationParameters.Name = "_ucSimulationParameters";
             this._ucSimulationParameters.PowerLight = 50;
             this._ucSimulationParameters.SimulationSpeed = 3;
-            this._ucSimulationParameters.Size = new System.Drawing.Size(144, 275);
+            this._ucSimulationParameters.Size = new System.Drawing.Size(144, 332);
             this._ucSimulationParameters.TabIndex = 2;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 505);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.tlpMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

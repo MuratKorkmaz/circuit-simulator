@@ -12,7 +12,10 @@ namespace JavaToSharp
         internal static double currentMult, powerMult;
         internal static Point ps1, ps2;
         internal static CirSim sim;
-        internal static Color whiteColor, selectColor, lightGrayColor, voltageColor;
+        internal static Color whiteColor = Color.White;
+        internal static Color selectColor;
+        internal static Color lightGrayColor = Color.LightGray;
+        internal static Color voltageColor;
         internal static Font unitsFont;
         internal SolidBrush myBrush;
         public static NumberFormatInfo showFormat;
@@ -257,7 +260,7 @@ namespace JavaToSharp
 
         internal void drawDots(Graphics g, Point pa, Point pb, double pos)
         {
-            if (sim.stoppedCheck.Checked || Math.Abs(pos - 0) < double.Epsilon)
+            if (sim.View.Parameters.IsStopped || Math.Abs(pos - 0) < double.Epsilon)
                 return;
             int dxp = pb.X - pa.X;
             int dyp = pb.Y - pa.Y;
@@ -813,7 +816,7 @@ namespace JavaToSharp
 
         internal virtual double updateDotCount(double cur, double cc)
         {
-            if (sim.stoppedCheck.Checked)
+            if (sim.View.Parameters.IsStopped)
                 return cc;
             double cadd = cur*currentMult;
             //	if (cur != 0 && cadd <= .05 && cadd >= -.05)

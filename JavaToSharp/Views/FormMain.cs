@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,16 +7,42 @@ namespace JavaToSharp
 {
     public partial class FormMain : Form, ISimulationView
     {
+        public IParametersView Parameters
+        {
+            get { return _ucSimulationParameters; }
+        }
+
+        public Image Image
+        {
+            get { return pbCircuit.Image; }
+        }
+
         private readonly CirSim _simController;
+        private readonly BackgroundWorker _backgroundWorker;
 
         public FormMain()
         {
             InitializeComponent();
-            _simController = new CirSim();
+            InitializeGraphics();
+            _simController = new CirSim(this);
             _simController.init();
             _ucSimulationParameters.Initialize(this);
+            _backgroundWorker = new BackgroundWorker();
+            _backgroundWorker.DoWork += BackgroundWorker_DoWork;
             InitializeCircuitElms();
             InitializeSchemes();
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var image = (Image) e.Argument;
+            _simController.updateCircuit(Graphics.FromImage(image));
+        }
+
+        private void InitializeGraphics()
+        {
+            var canvas = new Bitmap(pbCircuit.Width, pbCircuit.Height);
+            pbCircuit.Image = canvas;
         }
 
         private void InitializeSchemes()
@@ -27,12 +54,7 @@ namespace JavaToSharp
                 SerializeScheme(_startSircuitPath);
             }
         }
-
-        public Image Image
-        {
-            get { return pbCircuit.Image; }
-        }
-
+        
         public void ResetSimulation()
         {
             for (int i = 0; i < _simController.elmList.Count; i++)
@@ -43,6 +65,19 @@ namespace JavaToSharp
             _simController.t = 0;
             _ucSimulationParameters.IsStopped = false;
             pbCircuit.Invalidate();
+        }
+
+        public void UpdateCanvas()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(UpdateCanvas));
+            }
+            else
+            {
+                pbCircuit.Refresh();
+                pbCircuit.Update(); 
+            }
         }
 
         private void stackAll()
@@ -123,8 +158,7 @@ namespace JavaToSharp
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            _simController.updateCircuit(pbCircuit.CreateGraphics());
+            _backgroundWorker.RunWorkerAsync(pbCircuit.Image);
         }
-
     }
 }

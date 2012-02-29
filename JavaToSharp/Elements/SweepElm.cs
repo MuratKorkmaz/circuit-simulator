@@ -97,7 +97,7 @@ namespace JavaToSharp
             if (tm > 1000)
                 tm = 2000-tm;
             double w = 1+tm*.002;
-            if (!sim.stoppedCheck.Checked)
+            if (!sim.View.Parameters.IsStopped)
                 w = 1+2*(frequency-minF)/(maxF-minF);
             for (i = -xl; i <= xl; i++)
             {

@@ -2,9 +2,11 @@
 
 namespace JavaToSharp
 {
-    interface ISimulationView
+    public interface ISimulationView
     {
         Image Image { get; }
+        IParametersView Parameters { get; }
         void ResetSimulation();
+        void UpdateCanvas();
     }
 }
