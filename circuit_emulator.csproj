@@ -176,7 +176,6 @@
     <Compile Include="OrGateElm.cs" />
     <Compile Include="OutputElm.cs" />
     <Compile Include="PhaseCompElm.cs" />
-    <Compile Include="PhotoResistorElm.cs" />
     <Compile Include="PMosfetElm.cs" />
     <Compile Include="PotElm.cs" />
     <Compile Include="ProbeElm.cs" />
@@ -197,7 +196,6 @@
     <Compile Include="SwitchElm.cs" />
     <Compile Include="TappedTransformerElm.cs" />
     <Compile Include="TextElm.cs" />
-    <Compile Include="ThermistorElm.cs" />
     <Compile Include="TimerElm.cs" />
     <Compile Include="TransformerElm.cs" />
     <Compile Include="TransistorElm.cs" />

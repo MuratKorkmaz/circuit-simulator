@@ -1,18 +1,13 @@
 using System;
 
 //UPGRADE_ISSUE: Interface 'java.awt.LayoutManager' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtLayoutManager'"
-class EditDialogLayout : LayoutManager
+class EditDialogLayout
 {
 	public EditDialogLayout()
 	{
 	}
-	public virtual void  addLayoutComponent(System.String name, System.Windows.Forms.Control c)
-	{
-	}
-	public virtual void  removeLayoutComponent(System.Windows.Forms.Control c)
-	{
-	}
-	public virtual System.Drawing.Size preferredLayoutSize(System.Windows.Forms.Control target)
+
+    public virtual System.Drawing.Size preferredLayoutSize(System.Windows.Forms.Control target)
 	{
 		return new System.Drawing.Size(500, 500);
 	}
