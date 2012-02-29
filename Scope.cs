@@ -1,5 +1,8 @@
 using System;
-
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Reflection;
+using System.Windows.Forms;
 class Scope
 {
 	virtual internal bool LockScale
@@ -101,9 +104,11 @@ class Scope
 	internal bool showI, showV, showMax_Renamed_Field, showMin_Renamed_Field, showFreq_Renamed_Field, lockScale, plot2d, plotXY;
 	internal CircuitElm elm, xElm, yElm;
 	//UPGRADE_ISSUE: Class 'java.awt.image.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
-	internal MemoryImageSource imageSource;
+	internal Bitmap imageSource;
 	internal System.Drawing.Image image;
 	internal int[] pixels;
+
+    
 	internal int draw_ox, draw_oy;
 	internal float[] dpixels;
 	internal CirSim sim;
@@ -329,7 +334,7 @@ class Scope
 		if (pixels == null)
 			return ;
 		int i;
-		int col = (sim.printableCheckItem.Checked)?0xFFFFFFFF:0;
+		int col = (int)((sim.printableCheckItem.Checked)?0xFFFFFFFF:0);
 		for (i = 0; i != pixels.Length; i++)
 			pixels[i] = col;
 		int x = 0;
@@ -344,7 +349,7 @@ class Scope
 		double realMinV = 1e8;
 		double realMinI = 1e8;
 		int curColor = unchecked((int) 0xFFFFFF00);
-		int voltColor = (value_Renamed > 0)?0xFFFFFFFF:0xFF00FF00;
+		int voltColor = (int)((value_Renamed > 0)?0xFFFFFFFF:0xFF00FF00);
 		if (sim.scopeSelected == - 1 && elm == sim.mouseElm)
 			curColor = voltColor = unchecked((int) 0xFF00FFFF);
 		int ipa = ptr + scopePointCount - rect.Width;
@@ -380,7 +385,7 @@ class Scope
 			int yl = maxy - (int) (maxy * ll * gridStep / gridMax);
 			if (yl < 0 || yl >= rect.Height - 1)
 				continue;
-			col = ll == 0?0xFF909090:0xFF404040;
+			col = (int)(ll == 0?0xFF909090:0xFF404040);
 			if (ll % 10 != 0)
 			{
 				col = unchecked((int) 0xFF101010);
@@ -725,10 +730,10 @@ class Scope
 				System.Type rasclass = System.Type.GetType("java.awt.image.Raster");
 				System.Reflection.ConstructorInfo cstr = biclass.GetConstructor(new System.Type[]{typeof(int), typeof(int), typeof(int)});
 				image = (System.Drawing.Image) cstr.Invoke(new System.Object[]{(System.Int32) w, (System.Int32) h, (System.Int32) System.Drawing.Imaging.PixelFormat.Format32bppRgb});
-				System.Reflection.MethodInfo m = biclass.getMethod("getRaster");
-				System.Object ras = m.invoke(image);
-				System.Object db = rasclass.getMethod("getDataBuffer").invoke(ras);
-				pixels = (int[]) dbiclass.getMethod("getData").invoke(db);
+				System.Reflection.MethodInfo m = biclass.GetMethod("getRaster");
+				System.Object ras = m.Invoke(image, new object[0]);
+				System.Object db = rasclass.GetMethod("getDataBuffer").Invoke(ras,new object[0]);
+                pixels = (int[])dbiclass.GetMethod("getData").Invoke(db,new object[0]);
 			}
 			catch (System.Exception ee)
 			{
@@ -738,14 +743,15 @@ class Scope
 		}
 		if (pixels == null)
 		{
-			pixels = new int[w * h];
+		pixels = new int[w * h];
 			int i;
 			for (i = 0; i != w * h; i++)
 				pixels[i] = unchecked((int) 0xFF000000);
 			//UPGRADE_ISSUE: Constructor 'java.awt.image.MemoryImageSource.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
-			imageSource = new MemoryImageSource(w, h, pixels, 0, w);
+            imageSource = new Bitmap(w, h); // 0 - смещение ,pixels, w
 			//UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setAnimated' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
 			imageSource.setAnimated(true);
+           // ImageAnimator.Animate(imageSource, null); // null 
 			//UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setFullBufferUpdates' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
 			imageSource.setFullBufferUpdates(true);
 			//UPGRADE_ISSUE: Method 'java.awt.Component.createImage' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponentcreateImage_javaawtimageImageProducer'"
@@ -754,7 +760,10 @@ class Scope
 		dpixels = new float[w * h];
 		draw_ox = draw_oy = - 1;
 	}
-	
+
+    
+
+
 	internal virtual void  handleMenu(System.Object event_sender, System.EventArgs e, System.Object mi)
 	{
 		if (mi == sim.scopeVMenuItem)
