@@ -10,7 +10,7 @@ namespace circuit_emulator
 	
 	//UPGRADE_TODO: Class 'java.applet.Applet' was converted to 'System.Windows.Forms.UserControl' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaappletApplet'"
 	[Serializable]
-	public class Circuit:System.Windows.Forms.UserControl
+	public class Circuit:UserControl
 	{
 
 		public Circuit()

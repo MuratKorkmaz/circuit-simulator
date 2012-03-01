@@ -5,6 +5,7 @@
 //Russian translation v1.0 by Spiritus, licrym@gmail.com http://licrym.org Please mail me for updates.
 //codepage UTF-8
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -12,14 +13,14 @@ using System.Windows.Forms;
 namespace circuit_emulator
 {
     [Serializable]
-    public class CirSim:System.Windows.Forms.Form
+    public class CirSim:Form
     {
-        static private System.Int32 state4;
-        private static void  keyDown(System.Object event_sender, System.Windows.Forms.KeyEventArgs e)
+        static private Int32 state4;
+        private static void  keyDown(Object event_sender, KeyEventArgs e)
         {
-            state4 = ((int) System.Windows.Forms.Control.MouseButtons  | (int) System.Windows.Forms.Control.ModifierKeys);
+            state4 = ((int) MouseButtons  | (int) ModifierKeys);
         }
-        private static void  mouseDown(System.Object event_sender, System.Windows.Forms.MouseEventArgs e)
+        private static void  mouseDown(System.Object event_sender, MouseEventArgs e)
         {
             state4 = ((int) e.Button | (int) System.Windows.Forms.Control.ModifierKeys);
         }
@@ -316,7 +317,7 @@ namespace circuit_emulator
         internal circuit_emulator.Circuit applet;
 	
         //UPGRADE_TODO: Class 'java.awt.Frame' was converted to 'System.Windows.Forms.Form' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtFrame'"
-        internal CirSim(circuit_emulator.Circuit a):base()
+        internal CirSim(Circuit a):base()
         {
             this.Text = "Circuit Simulator v1.5n";
             applet = a;
@@ -326,10 +327,10 @@ namespace circuit_emulator
             
         }
 	
-        internal System.String startCircuit = null;
-        internal System.String startLabel = null;
-        internal System.String startCircuitText = null;
-        internal System.String baseURL = "http://www.falstad.com/circuit/";
+        internal String startCircuit = null;
+        internal String startLabel = null;
+        internal String startCircuitText = null;
+        internal String baseURL = "http://www.falstad.com/circuit/";
 	
         public virtual void  init()
         {
@@ -932,7 +933,8 @@ namespace circuit_emulator
 	
         internal virtual void  handleResize()
         {
-            winSize = cv.Size;
+            //todo edit: winSize = cv.Size;
+            winSize = Size;
             if (winSize.Width == 0)
                 return ;
             dbimage = new System.Drawing.Bitmap(winSize.Width, winSize.Height);
@@ -997,9 +999,7 @@ namespace circuit_emulator
 	
         protected override void  OnPaint(System.Windows.Forms.PaintEventArgs g_EventArg)
         {
-            System.Drawing.Graphics g = null;
-            if (g_EventArg != null)
-                g = g_EventArg.Graphics;
+            Graphics g = g_EventArg.Graphics;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
             cv.Refresh();
         }
