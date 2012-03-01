@@ -666,23 +666,20 @@ namespace circuit_emulator
 		
             // was max of 140
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            System.Windows.Forms.Control temp_Control3;
-            temp_Control3 = null;
-            temp_Control3 = "Скорость симуляции";
+            Control temp_Control3 = new Label();
+            temp_Control3.Text = "Скорость симуляции";
             main.Controls.Add(temp_Control3);
             //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
             speedBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.adjustmentValueChanged);
-		
-            System.Windows.Forms.Label temp_Label4;
+
             //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            temp_Label4 = new System.Windows.Forms.Label();
+            Label temp_Label4 = new System.Windows.Forms.Label();
             temp_Label4.Text = "Скорость тока";
             temp_Label4.TextAlign = (System.Drawing.ContentAlignment) System.Drawing.ContentAlignment.MiddleCenter;
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            System.Windows.Forms.Control temp_Control4;
-            temp_Control4 = temp_Label4;
+            Control temp_Control4 = temp_Label4;
             main.Controls.Add(temp_Control4);
-            currentBar = new System.Windows.Forms.HScrollBar();
+            currentBar = new HScrollBar();
             currentBar.Value = 50;
             currentBar.Minimum = 1;
             currentBar.Maximum = 100;
@@ -690,27 +687,23 @@ namespace circuit_emulator
             currentBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.adjustmentValueChanged);
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
             main.Controls.Add(currentBar);
-		
-            System.Windows.Forms.Label temp_Label6;
+
             //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            temp_Label6 = new System.Windows.Forms.Label();
+            Label temp_Label6 = new System.Windows.Forms.Label();
             temp_Label6.Text = "Яркость мощности";
             temp_Label6.TextAlign = (System.Drawing.ContentAlignment) System.Drawing.ContentAlignment.MiddleCenter;
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            System.Windows.Forms.Control temp_Control5;
-            temp_Control5 = powerLabel = temp_Label6;
+            Control temp_Control5 = powerLabel = temp_Label6;
             main.Controls.Add(temp_Control5);
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            System.Windows.Forms.Control temp_Control6;
-            temp_Control6 = null;
+            Control temp_Control6 = null;
             main.Controls.Add(temp_Control6);
             //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
             powerBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.adjustmentValueChanged);
             powerBar.Enabled = false;
             powerLabel.Enabled = false;
-		
-            System.Windows.Forms.Label temp_Label8;
-            temp_Label8 = new System.Windows.Forms.Label();
+
+            Label temp_Label8 = new System.Windows.Forms.Label();
             temp_Label8.Text = "www.falstad.com";
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
             System.Windows.Forms.Control temp_Control7;
@@ -720,14 +713,12 @@ namespace circuit_emulator
             temp_Label10 = new System.Windows.Forms.Label();
             temp_Label10.Text = "Перевод licrym.org";
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            System.Windows.Forms.Control temp_Control8;
-            temp_Control8 = temp_Label10;
+            Control temp_Control8 = temp_Label10;
             main.Controls.Add(temp_Control8); //"translated into russian by licrym.org"
 		
             if (useFrame)
             {
-                System.Windows.Forms.Label temp_Label12;
-                temp_Label12 = new System.Windows.Forms.Label();
+                Label temp_Label12 = new System.Windows.Forms.Label();
                 temp_Label12.Text = "";
                 //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
                 System.Windows.Forms.Control temp_Control9;
@@ -737,13 +728,11 @@ namespace circuit_emulator
             //UPGRADE_NOTE: If the given Font Name does not exist, a default Font instance is created. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1075'"
             System.Drawing.Font f = new System.Drawing.Font("SansSerif", 10, System.Drawing.FontStyle.Regular);
             System.Windows.Forms.Label l;
-            System.Windows.Forms.Label temp_Label13;
-            temp_Label13 = new System.Windows.Forms.Label();
+            Label temp_Label13 = new System.Windows.Forms.Label();
             temp_Label13.Text = "Текущая схема:";
             l = temp_Label13;
             l.Font = f;
-            System.Windows.Forms.Label temp_Label14;
-            temp_Label14 = new System.Windows.Forms.Label();
+            Label temp_Label14 = new System.Windows.Forms.Label();
             temp_Label14.Text = "Метка";
             titleLabel = temp_Label14;
             titleLabel.Font = f;

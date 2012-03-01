@@ -4,3 +4,6 @@ E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.exe
 E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.pdb
 E:\Projects\StartUp\CircuitSimulator\circuit_emulator.exe
 E:\Projects\StartUp\CircuitSimulator\circuit_emulator.pdb
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.Circuit.resources
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\ResGen.read.1.tlog
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\ResGen.write.1.tlog
