@@ -1,4 +1,5 @@
 using System;
+using circuit_emulator;
 
 abstract class ChipElm:CircuitElm
 {

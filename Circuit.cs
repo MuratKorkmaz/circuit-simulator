@@ -12,6 +12,7 @@ namespace circuit_emulator
 	[Serializable]
 	public class Circuit:System.Windows.Forms.UserControl
 	{
+
 		public Circuit()
 		{
 			InitBlock();
@@ -181,15 +182,18 @@ namespace circuit_emulator
 		#region Windows Form Designer generated code
 		private void  InitializeComponent()
 		{
-			this.SuspendLayout();
-			this.BackColor = Color.LightGray;
-			//UPGRADE_WARNING: Extra logic should be included into componentHidden to know if the Component is hidden. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1144'"
-			VisibleChanged += new System.EventHandler(this.Circuit_VisibleChanged);
-			Move += new System.EventHandler(this.Circuit_Move);
-			Resize += new System.EventHandler(this.Circuit_Resize);
-			//UPGRADE_WARNING: Extra logic should be included into componentShown to know if the Component is visible. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1145'"
-			VisibleChanged += new System.EventHandler(this.Circuit_VisibleChanged2);
-			this.ResumeLayout(false);
+            this.SuspendLayout();
+            // 
+            // Circuit
+            // 
+            this.BackColor = System.Drawing.Color.LightGray;
+            this.Name = "Circuit";
+            this.Size = new System.Drawing.Size(157, 156);
+            this.VisibleChanged += new System.EventHandler(this.Circuit_VisibleChanged2);
+            this.Move += new System.EventHandler(this.Circuit_Move);
+            this.Resize += new System.EventHandler(this.Circuit_Resize);
+            this.ResumeLayout(false);
+
 		}
 		#endregion
 		private Circuit Circuit_GeneratedVar;

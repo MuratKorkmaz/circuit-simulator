@@ -1,15 +1,17 @@
-using System;
-class NMosfetElm:MosfetElm
+namespace circuit_emulator
 {
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(MosfetElm);
-		}
+    class NMosfetElm:MosfetElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(MosfetElm);
+            }
 		
-	}
-	public NMosfetElm(int xx, int yy):base(xx, yy, false)
-	{
-	}
+        }
+        public NMosfetElm(int xx, int yy):base(xx, yy, false)
+        {
+        }
+    }
 }

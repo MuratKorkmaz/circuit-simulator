@@ -1,30 +1,34 @@
 using System;
-class NJfetElm:JfetElm
-{
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(JfetElm);
-		}
-		
-	}
-	public NJfetElm(int xx, int yy):base(xx, yy, false)
-	{
-	}
-}
 
-class PJfetElm:JfetElm
+namespace circuit_emulator
 {
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(JfetElm);
-		}
+    class NJfetElm:JfetElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(JfetElm);
+            }
 		
-	}
-	public PJfetElm(int xx, int yy):base(xx, yy, true)
-	{
-	}
+        }
+        public NJfetElm(int xx, int yy):base(xx, yy, false)
+        {
+        }
+    }
+
+    class PJfetElm:JfetElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(JfetElm);
+            }
+		
+        }
+        public PJfetElm(int xx, int yy):base(xx, yy, true)
+        {
+        }
+    }
 }

@@ -1,15 +1,17 @@
-using System;
-class ACRailElm:RailElm
+namespace circuit_emulator
 {
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(RailElm);
-		}
+    class ACRailElm:RailElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(RailElm);
+            }
 		
-	}
-	public ACRailElm(int xx, int yy):base(xx, yy, WF_AC)
-	{
-	}
+        }
+        public ACRailElm(int xx, int yy):base(xx, yy, WF_AC)
+        {
+        }
+    }
 }

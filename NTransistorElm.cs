@@ -1,15 +1,17 @@
-using System;
-class NTransistorElm:TransistorElm
+namespace circuit_emulator
 {
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(TransistorElm);
-		}
+    class NTransistorElm:TransistorElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(TransistorElm);
+            }
 		
-	}
-	public NTransistorElm(int xx, int yy):base(xx, yy, false)
-	{
-	}
+        }
+        public NTransistorElm(int xx, int yy):base(xx, yy, false)
+        {
+        }
+    }
 }

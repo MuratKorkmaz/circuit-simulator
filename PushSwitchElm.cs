@@ -1,15 +1,17 @@
-using System;
-class PushSwitchElm:SwitchElm
+namespace circuit_emulator
 {
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(SwitchElm);
-		}
+    class PushSwitchElm:SwitchElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(SwitchElm);
+            }
 		
-	}
-	public PushSwitchElm(int xx, int yy):base(xx, yy, true)
-	{
-	}
+        }
+        public PushSwitchElm(int xx, int yy):base(xx, yy, true)
+        {
+        }
+    }
 }

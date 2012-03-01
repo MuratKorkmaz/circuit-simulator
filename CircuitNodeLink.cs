@@ -1,6 +1,8 @@
-using System;
-class CircuitNodeLink
+namespace circuit_emulator
 {
-	internal int num;
-	internal CircuitElm elm;
+    class CircuitNodeLink
+    {
+        internal int num;
+        internal CircuitElm elm;
+    }
 }

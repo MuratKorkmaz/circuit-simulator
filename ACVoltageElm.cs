@@ -1,15 +1,17 @@
-using System;
-class ACVoltageElm:VoltageElm
+namespace circuit_emulator
 {
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(VoltageElm);
-		}
+    class ACVoltageElm:VoltageElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(VoltageElm);
+            }
 		
-	}
-	public ACVoltageElm(int xx, int yy):base(xx, yy, WF_AC)
-	{
-	}
+        }
+        public ACVoltageElm(int xx, int yy):base(xx, yy, WF_AC)
+        {
+        }
+    }
 }

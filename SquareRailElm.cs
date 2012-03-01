@@ -1,15 +1,17 @@
-using System;
-class SquareRailElm:RailElm
+namespace circuit_emulator
 {
-	override internal System.Type DumpClass
-	{
-		get
-		{
-			return typeof(RailElm);
-		}
+    class SquareRailElm:RailElm
+    {
+        override internal System.Type DumpClass
+        {
+            get
+            {
+                return typeof(RailElm);
+            }
 		
-	}
-	public SquareRailElm(int xx, int yy):base(xx, yy, WF_SQUARE)
-	{
-	}
+        }
+        public SquareRailElm(int xx, int yy):base(xx, yy, WF_SQUARE)
+        {
+        }
+    }
 }
