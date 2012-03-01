@@ -754,15 +754,6 @@ namespace circuit_emulator
                 // ImageAnimator.Animate(imageSource, null); // null 
                 //UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setFullBufferUpdates' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
                // imageSource.setFullBufferUpdates(true);
-
-
-                using (Graphics g = Graphics.FromImage(imageSource))
-              imageSource.
-                
-
-
-
-
                 //UPGRADE_ISSUE: Method 'java.awt.Component.createImage' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponentcreateImage_javaawtimageImageProducer'"
                // image = sim.cv.createImage(imageSource);
             }
