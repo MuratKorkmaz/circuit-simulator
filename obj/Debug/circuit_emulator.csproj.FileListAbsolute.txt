@@ -1,1 +1,6 @@
 C:\Users\MVD\Desktop\circuit emulator.NET\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.exe
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.pdb
+E:\Projects\StartUp\CircuitSimulator\circuit_emulator.exe
+E:\Projects\StartUp\CircuitSimulator\circuit_emulator.pdb

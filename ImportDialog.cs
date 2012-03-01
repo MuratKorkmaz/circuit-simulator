@@ -17,7 +17,7 @@ namespace circuit_emulator
             isURL = url;
             cframe = f;
             //UPGRADE_ISSUE: Method 'java.awt.Container.setLayout' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtContainersetLayout_javaawtLayoutManager'"
-            setLayout(new ImportDialogLayout());
+            //todo setLayout(new ImportDialogLayout());
             System.Windows.Forms.TextBox temp_TextBox2;
             //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.TextArea.SCROLLBARS_BOTH' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'";;
             temp_TextBox2 = new System.Windows.Forms.TextBox();
@@ -84,11 +84,11 @@ namespace circuit_emulator
 	
         //UPGRADE_NOTE: The equivalent of method 'java.awt.Component.handleEvent' is not an override method. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1143'"
         //UPGRADE_ISSUE: Class 'java.awt.Event' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-        public bool handleEvent(Event ev)
+        public bool handleEvent(EventArgs ev)
         {
             //UPGRADE_ISSUE: Field 'java.awt.Event.id' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
             //UPGRADE_ISSUE: Field 'java.awt.Event.WINDOW_DESTROY' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-            if (ev.id == Event.WINDOW_DESTROY)
+            //todo if (ev.id == Event.WINDOW_DESTROY)
             {
                 CirSim.main.Focus();
                 //UPGRADE_TODO: Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentsetVisible_boolean'"
@@ -98,7 +98,7 @@ namespace circuit_emulator
                 return true;
             }
             //UPGRADE_ISSUE: Method 'java.awt.Component.handleEvent' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponenthandleEvent_javaawtEvent'"
-            return base.handleEvent(ev);
+            return true; // base.handleEvent(ev);
         }
     }
 }

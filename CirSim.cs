@@ -5,6 +5,8 @@
 //Russian translation v1.0 by Spiritus, licrym@gmail.com http://licrym.org Please mail me for updates.
 //codepage UTF-8
 using System;
+using System.IO;
+using System.Windows.Forms;
 
 //UPGRADE_TODO: Class 'java.awt.Frame' was converted to 'System.Windows.Forms.Form' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtFrame'"
 namespace circuit_emulator
@@ -319,6 +321,9 @@ namespace circuit_emulator
             this.Text = "Circuit Simulator v1.5n";
             applet = a;
             useFrame = false;
+            speedBar = new HScrollBar();
+            powerBar = new HScrollBar();
+            
         }
 	
         internal System.String startCircuit = null;
@@ -392,15 +397,15 @@ namespace circuit_emulator
             isMac = (os.IndexOf("Mac ") == 0);
             ctrlMetaKey = (isMac)?"\u2318":"Ctrl";
             //UPGRADE_ISSUE: Method 'java.lang.System.getProperty' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javalangSystem'"
-            System.String jv = System_Renamed.getProperty("java.class.version");
+            //System.String jv = System_Renamed.getProperty("java.class.version");
             //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-            double jvf = System.Double.Parse(jv);
-            if (jvf >= 48)
-            {
-                muString = "РјРє";
-                ohmString = "\u03a9";
-                useBufferedImage = true;
-            }
+            //double jvf = System.Double.Parse(jv);
+            //if (jvf >= 48)
+            //{
+            //    muString = "РјРє";
+            //    ohmString = "\u03a9";
+            //    useBufferedImage = true;
+            //}
 		
             dumpTypes = new System.Type[300];
             // these characters are reserved
@@ -412,7 +417,7 @@ namespace circuit_emulator
             dumpTypes[(int) 'B'] = typeof(Scope);
 		
             //UPGRADE_ISSUE: Method 'java.awt.Container.setLayout' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtContainersetLayout_javaawtLayoutManager'"
-            main.setLayout(new CircuitLayout());
+            //todo revert comment: main.setLayout(new CircuitLayout());
             cv = new CircuitCanvas(this);
             //UPGRADE_WARNING: Extra logic should be included into componentHidden to know if the Component is hidden. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1144'"
             cv.VisibleChanged += new System.EventHandler(this.componentHidden);
@@ -661,7 +666,7 @@ namespace circuit_emulator
             // was max of 140
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
             System.Windows.Forms.Control temp_Control3;
-            temp_Control3 = ;
+            temp_Control3 = null;
             main.Controls.Add(temp_Control3);
             //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
             speedBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.adjustmentValueChanged);
@@ -695,7 +700,7 @@ namespace circuit_emulator
             main.Controls.Add(temp_Control5);
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
             System.Windows.Forms.Control temp_Control6;
-            temp_Control6 = ;
+            temp_Control6 = null;
             main.Controls.Add(temp_Control6);
             //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
             powerBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.adjustmentValueChanged);
@@ -784,7 +789,7 @@ namespace circuit_emulator
             if (useFrame)
             {
                 //UPGRADE_ISSUE: Method 'java.awt.Window.getToolkit' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtWindowgetToolkit'"
-                getToolkit();
+                //todo remove comment: getToolkit();
                 System.Drawing.Size screen = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
                 Size = new System.Drawing.Size(860, 640);
                 handleResize();
@@ -986,17 +991,17 @@ namespace circuit_emulator
 	
         //UPGRADE_NOTE: The equivalent of method 'java.awt.Component.handleEvent' is not an override method. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1143'"
         //UPGRADE_ISSUE: Class 'java.awt.Event' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-        public bool handleEvent(Event ev)
-        {
+        public bool handleEvent(EventArgs ev)
+        {//todo revert window destroy event
             //UPGRADE_ISSUE: Field 'java.awt.Event.id' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
             //UPGRADE_ISSUE: Field 'java.awt.Event.WINDOW_DESTROY' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-            if (ev.id == Event.WINDOW_DESTROY)
+            //if (ev.id == Event.WINDOW_DESTROY)
             {
                 destroyFrame();
                 return true;
             }
             //UPGRADE_ISSUE: Method 'java.awt.Component.handleEvent' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponenthandleEvent_javaawtEvent'"
-            return base.handleEvent(ev);
+            //return base.handleEvent(ev);
         }
 	
         protected override void  OnPaint(System.Windows.Forms.PaintEventArgs g_EventArg)
@@ -2553,11 +2558,12 @@ namespace circuit_emulator
             System.Console.Out.Write(((System.Windows.Forms.ScrollBar) event_sender).Value + "\n");
         }
 	
-        internal virtual System.IO.MemoryStream readUrlData(System.Uri url)
+        internal virtual System.IO.MemoryStream readUrlData(string url)
         {
             //UPGRADE_ISSUE: Method 'java.net.URL.getContent' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javanetURLgetContent'"
-            System.Object o = url.getContent();
-            System.IO.BinaryReader fis = (System.IO.BinaryReader) o;
+            //System.Object o = url.GetContent();
+            //System.IO.BinaryReader fis = (System.IO.BinaryReader) o;
+            BinaryReader fis = new BinaryReader(new FileStream(url, FileMode.Open));
             long available;
             available = fis.BaseStream.Length - fis.BaseStream.Position;
             System.IO.MemoryStream ba = new System.IO.MemoryStream((int) available);
@@ -2581,7 +2587,7 @@ namespace circuit_emulator
             try
             {
                 //UPGRADE_TODO: Class 'java.net.URL' was converted to a 'System.Uri' which does not throw an exception if a URL specifies an unknown protocol. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1132'"
-                System.Uri url = new System.Uri(CodeBase + "setuplist.txt");
+                string url = (CodeBase.LocalPath + "setuplist.txt");
                 System.IO.MemoryStream ba = readUrlData(url);
                 sbyte[] b = SupportClass.ToSByteArray(ba.ToArray());
                 long len = ba.Length;
@@ -2657,14 +2663,14 @@ namespace circuit_emulator
             titleLabel.Text = "untitled";
         }
 	
-        internal virtual void  readSetupFile(System.String str, System.String title)
+        internal virtual void  readSetupFile(String str, String title)
         {
             t = 0;
-            System.Console.Out.WriteLine(str);
+            Console.Out.WriteLine(str);
             try
             {
                 //UPGRADE_TODO: Class 'java.net.URL' was converted to a 'System.Uri' which does not throw an exception if a URL specifies an unknown protocol. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1132'"
-                System.Uri url = new System.Uri(CodeBase + "circuits/" + str);
+                string url = CodeBase.LocalPath + "circuits/" + str;
                 System.IO.MemoryStream ba = readUrlData(url);
                 readSetup(SupportClass.ToSByteArray(ba.ToArray()), (int)ba.Length, false);
             }
@@ -2873,7 +2879,7 @@ namespace circuit_emulator
                     return i;
             return - 1;
         }
-	
+	/*
         public virtual void  mouseDragged(System.Object event_sender, System.Windows.Forms.MouseEventArgs e)
         {
             // ignore right mouse button with no modifiers (needed on PC)
@@ -2938,7 +2944,7 @@ namespace circuit_emulator
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
             cv.Refresh();
         }
-	
+	*/
         internal virtual void  dragAll(int x, int y)
         {
             int dx = x - dragX;
@@ -3071,7 +3077,7 @@ namespace circuit_emulator
             {
                 CircuitElm ce = getElm(i);
                 //UPGRADE_NOTE: ref keyword was added to struct-type parameters. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1303'"
-                ce.selectRect(ref selectedArea);
+                //todo ce.selectRect(ref selectedArea);
             }
         }
 	
@@ -3219,9 +3225,9 @@ namespace circuit_emulator
         {
             //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
             System.Console.Out.WriteLine(state4);
-            int ex = e.getModifiersEx();
+            //todo int ex = e.getModifiersEx();
             //UPGRADE_TODO: Method 'java.awt.event.MouseEvent.isPopupTrigger' was converted to 'System.Windows.Forms.MouseButtons.Right' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawteventMouseEventisPopupTrigger'"
-            if ((ex & (MouseEvent.META_DOWN_MASK | MouseEvent.SHIFT_DOWN_MASK)) == 0 && e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 doPopupMenu(event_sender, e);
                 return ;
@@ -3231,16 +3237,17 @@ namespace circuit_emulator
             {
                 // left mouse
                 tempMouseMode = mouseMode;
-                if ((ex & MouseEvent.ALT_DOWN_MASK) != 0 && (ex & MouseEvent.META_DOWN_MASK) != 0)
-                    tempMouseMode = MODE_DRAG_COLUMN;
-                else if ((ex & MouseEvent.ALT_DOWN_MASK) != 0 && (ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
-                    tempMouseMode = MODE_DRAG_ROW;
-                else if ((ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
-                    tempMouseMode = MODE_SELECT;
-                else if ((ex & MouseEvent.ALT_DOWN_MASK) != 0)
-                    tempMouseMode = MODE_DRAG_ALL;
-                else if ((ex & (MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) != 0)
-                    tempMouseMode = MODE_DRAG_POST;
+                //todo uncomment after refactoring
+                //if ((ex & MouseEvent.ALT_DOWN_MASK) != 0 && (ex & MouseEvent.META_DOWN_MASK) != 0)
+                //    tempMouseMode = MODE_DRAG_COLUMN;
+                //else if ((ex & MouseEvent.ALT_DOWN_MASK) != 0 && (ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
+                //    tempMouseMode = MODE_DRAG_ROW;
+                //else if ((ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
+                //    tempMouseMode = MODE_SELECT;
+                //else if ((ex & MouseEvent.ALT_DOWN_MASK) != 0)
+                //    tempMouseMode = MODE_DRAG_ALL;
+                //else if ((ex & (MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) != 0)
+                //    tempMouseMode = MODE_DRAG_POST;
             }
             else
             {
@@ -3248,12 +3255,13 @@ namespace circuit_emulator
                 if ((state4 & (int) System.Windows.Forms.MouseButtons.Right) != 0)
                 {
                     // right mouse
-                    if ((ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
-                        tempMouseMode = MODE_DRAG_ROW;
-                    else if ((ex & (MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) != 0)
-                        tempMouseMode = MODE_DRAG_COLUMN;
-                    else
-                        return ;
+                    //todo uncomment after refactoring
+                    //if ((ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
+                    //    tempMouseMode = MODE_DRAG_ROW;
+                    //else if ((ex & (MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) != 0)
+                    //    tempMouseMode = MODE_DRAG_COLUMN;
+                    //else
+                    //    return ;
                 }
             }
 		
@@ -3336,7 +3344,7 @@ namespace circuit_emulator
             }
             else
             {
-                doMainMenuChecks(mainMenu);
+                //todo doMainMenuChecks(mainMenu);
                 //UPGRADE_TODO: Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPopupMenushow_javaawtComponent_int_int'"
                 mainMenu.Show(((System.Windows.Forms.Control) event_sender), new System.Drawing.Point(e.X, e.Y));
             }
@@ -3362,13 +3370,14 @@ namespace circuit_emulator
 	
         public virtual void  mouseReleased(System.Object event_sender, System.Windows.Forms.MouseEventArgs e)
         {
-            int ex = e.getModifiersEx();
+            //todo int ex = e.getModifiersEx();
             //UPGRADE_TODO: Method 'java.awt.event.MouseEvent.isPopupTrigger' was converted to 'System.Windows.Forms.MouseButtons.Right' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawteventMouseEventisPopupTrigger'"
-            if ((ex & (MouseEvent.SHIFT_DOWN_MASK | MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) == 0 && e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                doPopupMenu(event_sender, e);
-                return ;
-            }
+            //todo
+            //if ((ex & (MouseEvent.SHIFT_DOWN_MASK | MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) == 0 && e.Button == System.Windows.Forms.MouseButtons.Right)
+            //{
+            //    doPopupMenu(event_sender, e);
+            //    return ;
+            //}
             tempMouseMode = mouseMode;
             selectedArea = System.Drawing.Rectangle.Empty;
             dragging = false;
