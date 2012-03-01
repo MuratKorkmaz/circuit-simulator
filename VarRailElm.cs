@@ -56,7 +56,7 @@ namespace circuit_emulator
             int value_Renamed = (int) ((frequency - bias) * 100 / (maxVoltage - bias));
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
             System.Windows.Forms.Control temp_Control2;
-            temp_Control2 = ;
+            temp_Control2 = null;
             CirSim.main.Controls.Add(temp_Control2);
             CirSim.main.Invalidate();
         }

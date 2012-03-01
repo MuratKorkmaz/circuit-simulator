@@ -37,7 +37,7 @@ namespace circuit_emulator
             cframe = f;
             elm = ce;
             //UPGRADE_ISSUE: Method 'java.awt.Container.setLayout' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtContainersetLayout_javaawtLayoutManager'"
-            setLayout(new EditDialogLayout());
+            //todo setLayout(new EditDialogLayout());
             einfos = new EditInfo[10];
             noCommaFormat = SupportClass.TextNumberFormat.getTextNumberInstance();
             noCommaFormat.setMaximumFractionDigits(10);
@@ -86,7 +86,7 @@ namespace circuit_emulator
                     {
                         //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
                         System.Windows.Forms.Control temp_Control3;
-                        temp_Control3 = ;
+                        temp_Control3 = null;
                         Controls.Add(temp_Control3);
                         Bar = ei;
                         //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
@@ -182,7 +182,8 @@ namespace circuit_emulator
             if (Math.Abs(mult - 1) > double.Epsilon)
                 s = s.Substring(0, (len - 1) - (0)).Trim();
             //UPGRADE_ISSUE: Method 'java.text.NumberFormat.parse' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javatextNumberFormatparse_javalangString'"
-            return System.Convert.ToDouble(noCommaFormat.parse(s)) * mult;
+            //todo return System.Convert.ToDouble(noCommaFormat.Parse(s)) * mult;
+            return Convert.ToDouble(s)*mult;
         }
 	
         internal virtual void  apply()
@@ -311,11 +312,11 @@ namespace circuit_emulator
 	
         //UPGRADE_NOTE: The equivalent of method 'java.awt.Component.handleEvent' is not an override method. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1143'"
         //UPGRADE_ISSUE: Class 'java.awt.Event' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-        public bool handleEvent(Event ev)
+        public bool handleEvent(EventArgs ev)
         {
             //UPGRADE_ISSUE: Field 'java.awt.Event.id' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
             //UPGRADE_ISSUE: Field 'java.awt.Event.WINDOW_DESTROY' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-            if (ev.id == Event.WINDOW_DESTROY)
+           //todo if (ev.id == Event.WINDOW_DESTROY)
             {
                 CirSim.main.Focus();
                 //UPGRADE_TODO: Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentsetVisible_boolean'"
@@ -325,7 +326,7 @@ namespace circuit_emulator
                 return true;
             }
             //UPGRADE_ISSUE: Method 'java.awt.Component.handleEvent' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponenthandleEvent_javaawtEvent'"
-            return base.handleEvent(ev);
+            return true;// base.handleEvent(ev);
         }
     }
 }

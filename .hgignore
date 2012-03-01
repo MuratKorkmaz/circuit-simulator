@@ -8,3 +8,7 @@ JavaToSharp.suo.orig
 JavaToSharp.5.0.ReSharper.user
 _ReSharper.circuit_emulator/*
 circuit_emulator.sln.DotSettings.user
+obj/*
+circuit_emulator.exe
+circuit_emulator.suo
+circuit_emulator.pdb

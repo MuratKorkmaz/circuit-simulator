@@ -749,9 +749,11 @@ namespace circuit_emulator
                 //UPGRADE_ISSUE: Constructor 'java.awt.image.MemoryImageSource.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
                 imageSource = new Bitmap(w, h); // 0 - смещение ,pixels, w
                 //UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setAnimated' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
-               imageSource.setAnimated(true);
+                //todo animation
+                //imageSource.setAnimated(true);
+                // ImageAnimator.Animate(imageSource, null); // null 
                 //UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setFullBufferUpdates' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
-                imageSource.setFullBufferUpdates(true);
+               // imageSource.setFullBufferUpdates(true);
 
 
                 using (Graphics g = Graphics.FromImage(imageSource))
@@ -762,7 +764,7 @@ namespace circuit_emulator
 
 
                 //UPGRADE_ISSUE: Method 'java.awt.Component.createImage' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponentcreateImage_javaawtimageImageProducer'"
-               image = sim.cv.createImage(imageSource);
+               // image = sim.cv.createImage(imageSource);
             }
             dpixels = new float[w * h];
             draw_ox = draw_oy = - 1;
