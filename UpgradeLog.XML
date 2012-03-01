@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="circuit_emulator">
+</Property><Property Name="Solution File" Value="C:\Users\MVD\Desktop\circuit emulator.NET\circuit_emulator.sln">
+</Property><Property Name="User Options File" Value="C:\Users\MVD\Desktop\circuit emulator.NET\circuit_emulator.suo">
+</Property><Property Name="Date" Value="29 февраля 2012 г.">
+</Property><Property Name="Time" Value="19:20">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="circuit_emulator.sln" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\circuit_emulator.sln">
+</Event><Event ErrorLevel="0" Project="" Source="circuit_emulator.suo" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\circuit_emulator.suo">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="circuit_emulator.csproj" Description="Project file successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\circuit_emulator.csproj">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ACRailElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ACRailElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ACVoltageElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ACVoltageElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ADCElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ADCElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="AnalogSwitch2Elm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\AnalogSwitch2Elm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="AnalogSwitchElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\AnalogSwitchElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="AndGateElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\AndGateElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="AntennaElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\AntennaElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="AssemblyInfo.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CapacitorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CapacitorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CC2Elm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CC2Elm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ChipElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ChipElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="Circuit.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\Circuit.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CircuitCanvas.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CircuitCanvas.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CircuitElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CircuitElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CircuitLayout.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CircuitLayout.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CircuitNode.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CircuitNode.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CircuitNodeLink.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CircuitNodeLink.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CirSim.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CirSim.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ClockElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ClockElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CounterElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CounterElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="CurrentElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\CurrentElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="DACElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\DACElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="DCVoltageElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\DCVoltageElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="DecadeElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\DecadeElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="DFlipFlopElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\DFlipFlopElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="DiacElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\DiacElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="Diode.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\Diode.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="DiodeElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\DiodeElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="EditDialog.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\EditDialog.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="EditDialogLayout.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\EditDialogLayout.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="EditInfo.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\EditInfo.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="EditOptions.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\EditOptions.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="GateElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\GateElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="GroundElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\GroundElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ImportDialog.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ImportDialog.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ImportDialogLayout.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ImportDialogLayout.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="Inductor.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\Inductor.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="InductorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\InductorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="InverterElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\InverterElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="JfetElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\JfetElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="JKFlipFlopElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\JKFlipFlopElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="LampElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\LampElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="LatchElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\LatchElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="LEDElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\LEDElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="LogicInputElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\LogicInputElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="LogicOutputElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\LogicOutputElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="MemristorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\MemristorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="MosfetElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\MosfetElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="NandGateElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\NandGateElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="NJfetElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\NJfetElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="NMosfetElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\NMosfetElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="NorGateElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\NorGateElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="NTransistorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\NTransistorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="OpAmpElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\OpAmpElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="OpAmpSwapElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\OpAmpSwapElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="OrGateElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\OrGateElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="OutputElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\OutputElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="PhaseCompElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\PhaseCompElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="PhotoResistorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\PhotoResistorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="PMosfetElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\PMosfetElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="PotElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\PotElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ProbeElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ProbeElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="PTransistorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\PTransistorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="PushSwitchElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\PushSwitchElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="RailElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\RailElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="RelayElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\RelayElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ResistorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ResistorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="RowInfo.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\RowInfo.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="Scope.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\Scope.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="SCRElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\SCRElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="SevenSegElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\SevenSegElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="SparkGapElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\SparkGapElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="SquareRailElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\SquareRailElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="SupportClass.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\SupportClass.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="SweepElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\SweepElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="Switch2Elm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\Switch2Elm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="SwitchElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\SwitchElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TappedTransformerElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TappedTransformerElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TextElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TextElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ThermistorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ThermistorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TimerElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TimerElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TransformerElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TransformerElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TransistorElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TransistorElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TransLineElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TransLineElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TriacElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TriacElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TriodeElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TriodeElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="TunnelDiodeElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\TunnelDiodeElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="VarRailElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\VarRailElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="VCOElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\VCOElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="VoltageElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\VoltageElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="WireElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\WireElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="XorGateElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\XorGateElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="ZenerElm.cs" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\ZenerElm.cs">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="_ConversionReport.htm" Description="File successfully backed up as C:\Users\MVD\Desktop\circuit emulator2.NET\Backup\_ConversionReport.htm">
+</Event><Event ErrorLevel="1" Project="circuit_emulator" Source="circuit_emulator.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="circuit_emulator.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="circuit_emulator" Source="circuit_emulator.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="circuit_emulator.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="circuit_emulator.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="circuit_emulator" Source="circuit_emulator.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

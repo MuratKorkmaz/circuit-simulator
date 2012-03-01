@@ -1,0 +1,3110 @@
+﻿<ConversionLog>
+    <Settings>
+        <Setting
+            Name = "LogFile"
+            Value = "circuit emulator.xml"
+        />
+        <Setting
+            Name = "ProjectName"
+            Value = "circuit_emulator"
+        />
+        <Setting
+            Name = "StartTime"
+            Value = "Wednesday, February 29, 2012 16:01:21"
+        />
+        <Setting
+            Name = "OutputDir"
+            Value = "X:\src\circuit emulator.NET"
+        />
+        <Setting
+            Name = "ProjectPath"
+            Value = "X:\src"
+        />
+    </Settings>
+    <Root>
+        <File
+            OldPath = "X:\SRC\ACRailElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ACRailElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\ACVoltageElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ACVoltageElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\ADCElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ADCElm.cs"
+        >
+            <Class Name = "ADCElm" >
+                <Section Name = "execute()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\AnalogSwitch2Elm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\AnalogSwitch2Elm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\AnalogSwitchElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\AnalogSwitchElm.cs"
+        >
+            <Class Name = "AnalogSwitchElm" >
+                <Section Name = "AnalogSwitchElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\AndGateElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\AndGateElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\AntennaElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\AntennaElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\CapacitorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CapacitorElm.cs"
+        >
+            <Class Name = "CapacitorElm" >
+                <Section Name = "CapacitorElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\CC2Elm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CC2Elm.cs"
+        >
+            <Class Name = "CC2Elm" >
+                <Section Name = "CC2Elm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\ChipElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ChipElm.cs"
+        >
+            <Class Name = "ChipElm" >
+                <Section Name = "ChipElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "drawChip(java.awt.Graphics)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                </Section>
+                <Section Name = "setVoltageSource(int,int)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.lang.Object.toString' may return a different value.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\Circuit.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\Circuit.cs"
+        >
+            <Class Name = "Circuit" >
+                <Section Name = "destroyFrame()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "init()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1144"
+                        Severity = "2"
+                    >Extra logic should be included into componentHidden to know if the Component is hidden.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1145"
+                        Severity = "2"
+                    >Extra logic should be included into componentShown to know if the Component is visible.</Issue>
+                </Section>
+                <Section Name = "showFrame()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "paint(java.awt.Graphics)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "destroy()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1228"
+                        Severity = "3"
+                    >Commented code was moved to the 'InitializeComponent' method.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1178"
+                        Severity = "2"
+                    >The equivalent of the 'java.applet.Applet.destroy' method needs to be modified in order to work properly.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaappletApplet"
+                        Severity = "2"
+                    >Class 'java.applet.Applet' was converted to 'System.Windows.Forms.UserControl' which has a different behavior.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\CircuitCanvas.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CircuitCanvas.cs"
+        />
+        <File
+            OldPath = "X:\SRC\CircuitElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CircuitElm.cs"
+        >
+            <Class Name = "CircuitElm" >
+                <Section Name = "initClass(CirSim)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "interpPoint(java.awt.Point,java.awt.Point,java.awt.Point,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "interpPoint(java.awt.Point,java.awt.Point,java.awt.Point,double,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "interpPoint2(java.awt.Point,java.awt.Point,java.awt.Point,java.awt.Point,double,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "drawDots(java.awt.Graphics,java.awt.Point,java.awt.Point,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "calcArrow(java.awt.Point,java.awt.Point,double,double)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "createPolygon(java.awt.Point,java.awt.Point,java.awt.Point)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "createPolygon(java.awt.Point,java.awt.Point,java.awt.Point,java.awt.Point)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "createPolygon(java.awt.Point[])" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPolygonaddPoint_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "setBbox(java.awt.Point,java.awt.Point,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "drawCenteredText(java.awt.Graphics,java.lang.String,int,int,boolean)" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getDescent' may return a different value.</Issue>
+                </Section>
+                <Section Name = "drawValues(java.awt.Graphics,java.lang.String,double)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "drawThickCircle(java.awt.Graphics,int,int,int)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "setVoltageColor(java.awt.Graphics,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "setPowerColor(java.awt.Graphics,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "setConductanceColor(java.awt.Graphics,double)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\CircuitLayout.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CircuitLayout.cs"
+        >
+            <Class Name = "CircuitLayout" >
+                <Section Name = "layoutContainer(java.awt.Container)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Component.getPreferredSize' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtChoice"
+                        Severity = "2"
+                    >Class 'java.awt.Choice' was converted to 'System.Windows.Forms.ComboBox' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentmove_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.move' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentisVisible"
+                        Severity = "2"
+                    >Method 'java.awt.Component.isVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentmove_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.move' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtLayoutManager"
+                        Severity = "1"
+                    >Interface 'java.awt.LayoutManager' was not converted.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\CircuitNode.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CircuitNode.cs"
+        />
+        <File
+            OldPath = "X:\SRC\CircuitNodeLink.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CircuitNodeLink.cs"
+        />
+        <File
+            OldPath = "X:\SRC\CirSim.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CirSim.cs"
+        >
+            <Class Name = "CirSim" >
+                <Section Name = "getrand(int)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        Severity = "2"
+                    >Method 'java.util.Random.nextInt' was converted to 'System.Random.Next' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "CirSim(Circuit)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtFrame"
+                        Severity = "2"
+                    >Class 'java.awt.Frame' was converted to 'System.Windows.Forms.Form' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "init()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaappletAppletgetDocumentBase"
+                        Severity = "2"
+                    >Method 'java.applet.Applet.getDocumentBase' was converted to 'DocumentBase' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaappletAppletgetDocumentBase"
+                        Severity = "2"
+                    >Method 'java.applet.Applet.getDocumentBase' was converted to 'DocumentBase' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtWindowgetToolkit"
+                        Severity = "1"
+                    >Method 'java.awt.Window.getToolkit' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetLocation_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setLocation' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javalangSystemgetProperty_javalangString"
+                        Severity = "2"
+                    >Method 'java.lang.System.getProperty' was converted to 'System.Environment.GetEnvironmentVariable' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javalangSystem"
+                        Severity = "1"
+                    >Method 'java.lang.System.getProperty' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtContainersetLayout_javaawtLayoutManager"
+                        Severity = "1"
+                    >Method 'java.awt.Container.setLayout' was not converted.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1144"
+                        Severity = "2"
+                    >Extra logic should be included into componentHidden to know if the Component is hidden.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1145"
+                        Severity = "2"
+                    >Extra logic should be included into componentShown to know if the Component is visible.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener"
+                        Severity = "2"
+                    >Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener"
+                        Severity = "2"
+                    >Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener"
+                        Severity = "2"
+                    >Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "triggerShow()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                </Section>
+                <Section Name = "getClassCheckItem(java.lang.String,java.lang.String)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "handleEvent(java.awt.Event)" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Field 'java.awt.Event.id' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Field 'java.awt.Event.WINDOW_DESTROY' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtComponenthandleEvent_javaawtEvent"
+                        Severity = "1"
+                    >Method 'java.awt.Component.handleEvent' was not converted.</Issue>
+                </Section>
+                <Section Name = "paint(java.awt.Graphics)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "updateCircuit(java.awt.Graphics)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javalangThreadsleep_long"
+                        Severity = "2"
+                    >Method 'java.lang.Thread.sleep' was converted to 'System.Threading.Thread.Sleep' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint_long"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Graphics.getFont' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Graphics.drawImage' may return a different value.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1101"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception.</Issue>
+                </Section>
+                <Section Name = "toggleSwitch(int)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "needAnalyze()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "analyzeCircuit()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.lang.Object.toString' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.lang.Object.toString' may return a different value.</Issue>
+                </Section>
+            </Class>
+            <Class Name = "CirSim.FindPathInfo" >
+                <Section Name = "stop(java.lang.String,CircuitElm)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "runCircuit()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "editFuncPoint(int,int)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint_long"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "componentShown(java.awt.event.ComponentEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "componentResized(java.awt.event.ComponentEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint_long"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "actionPerformed(java.awt.event.ActionEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "doEdit(Editable)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtDialogshow"
+                        Severity = "2"
+                    >Method 'java.awt.Dialog.show' was converted to 'System.Windows.Forms.Form.ShowDialog' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "doImport(boolean,boolean)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtDialogshow"
+                        Severity = "2"
+                    >Method 'java.awt.Dialog.show' was converted to 'System.Windows.Forms.Form.ShowDialog' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "adjustmentValueChanged(java.awt.event.AdjustmentEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                </Section>
+                <Section Name = "readUrlData(java.net.URL)" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javanetURLgetContent"
+                        Severity = "1"
+                    >Method 'java.net.URL.getContent' was not converted.</Issue>
+                </Section>
+                <Section Name = "getCodeBase()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.applet.Applet.getCodeBase' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1132"
+                        Severity = "2"
+                    >Class 'java.net.URL' was converted to a 'System.Uri' which does not throw an exception if a URL specifies an unknown protocol.</Issue>
+                </Section>
+                <Section Name = "getSetupList(java.awt.Menu,boolean)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the Format  of parameters for constructor 'java.lang.String.String'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1132"
+                        Severity = "2"
+                    >Class 'java.net.URL' was converted to a 'System.Uri' which does not throw an exception if a URL specifies an unknown protocol.</Issue>
+                </Section>
+                <Section Name = "readSetupFile(java.lang.String,java.lang.String)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1132"
+                        Severity = "2"
+                    >Class 'java.net.URL' was converted to a 'System.Uri' which does not throw an exception if a URL specifies an unknown protocol.</Issue>
+                </Section>
+                <Section Name = "readSetup(byte[],int,boolean)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the Format  of parameters for constructor 'java.lang.String.String'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "readOptions(java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "mouseDragged(java.awt.event.MouseEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint_long"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "mouseMoved(java.awt.event.MouseEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "mouseExited(java.awt.event.MouseEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "mousePressed(java.awt.event.MouseEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawteventMouseEventisPopupTrigger"
+                        Severity = "2"
+                    >Method 'java.awt.event.MouseEvent.isPopupTrigger' was converted to 'System.Windows.Forms.MouseButtons.Right' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "doPopupMenu(java.awt.event.MouseEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPopupMenushow_javaawtComponent_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPopupMenushow_javaawtComponent_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtPopupMenushow_javaawtComponent_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "mouseReleased(java.awt.event.MouseEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawteventMouseEventisPopupTrigger"
+                        Severity = "2"
+                    >Method 'java.awt.event.MouseEvent.isPopupTrigger' was converted to 'System.Windows.Forms.MouseButtons.Right' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "itemStateChanged(java.awt.event.ItemEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentrepaint_long"
+                        Severity = "2"
+                    >Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "keyTyped(java.awt.event.KeyEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.event.KeyEvent.getKeyChar' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.lang.Class.getName' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.event.KeyEvent.getKeyChar' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.event.KeyEvent.getKeyChar' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.event.KeyEvent.getKeyChar' may return a different value.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Class 'java.awt.Event' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtFrame"
+                        Severity = "2"
+                    >Class 'java.awt.Frame' was converted to 'System.Windows.Forms.Form' which has a different behavior.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\ClockElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ClockElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\CounterElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CounterElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\CurrentElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\CurrentElm.cs"
+        >
+            <Class Name = "CurrentElm" >
+                <Section Name = "CurrentElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\DACElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\DACElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\DCVoltageElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\DCVoltageElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\DecadeElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\DecadeElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\DFlipFlopElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\DFlipFlopElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\DiacElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\DiacElm.cs"
+        >
+            <Class Name = "DiacElm" >
+                <Section Name = "DiacElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\Diode.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\Diode.cs"
+        />
+        <File
+            OldPath = "X:\SRC\DiodeElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\DiodeElm.cs"
+        >
+            <Class Name = "DiodeElm" >
+                <Section Name = "DiodeElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\EditDialog.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\EditDialog.cs"
+        >
+            <Class Name = "EditDialog" >
+                <Section Name = "EditDialog(Editable,CirSim)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener"
+                        Severity = "2"
+                    >Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtTextFieldTextField_javalangString_int"
+                        Severity = "2"
+                    >Constructor 'java.awt.TextField.TextField' was converted to 'System.Windows.Forms.TextBox' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtTextFieldaddActionListener_javaawteventActionListener"
+                        Severity = "2"
+                    >Method 'java.awt.TextField.addActionListener' was converted to 'System.Windows.Forms.TextBox.KeyPress' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtDialogDialog_javaawtFrame_javalangString_boolean"
+                        Severity = "2"
+                    >Constructor 'java.awt.Dialog.Dialog' was converted to 'SupportClass.DialogSupport.SetDialog' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtContainersetLayout_javaawtLayoutManager"
+                        Severity = "1"
+                    >Method 'java.awt.Container.setLayout' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetLocation_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setLocation' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "parseUnits(EditInfo)" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javatextNumberFormatparse_javalangString"
+                        Severity = "1"
+                    >Method 'java.text.NumberFormat.parse' was not converted.</Issue>
+                </Section>
+                <Section Name = "actionPerformed(java.awt.event.ActionEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                </Section>
+                <Section Name = "adjustmentValueChanged(java.awt.event.AdjustmentEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javalangMathround_double"
+                        Severity = "2"
+                    >Method 'java.lang.Math.round' was converted to 'System.Math.Round' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "itemStateChanged(java.awt.event.ItemEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtDialogshow"
+                        Severity = "2"
+                    >Method 'java.awt.Dialog.show' was converted to 'System.Windows.Forms.Form.ShowDialog' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "handleEvent(java.awt.Event)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Field 'java.awt.Event.id' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Field 'java.awt.Event.WINDOW_DESTROY' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtComponenthandleEvent_javaawtEvent"
+                        Severity = "1"
+                    >Method 'java.awt.Component.handleEvent' was not converted.</Issue>
+                </Section>
+                <Section Name = "setBar(EditInfo)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Class 'java.awt.Event' was not converted.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\EditDialogLayout.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\EditDialogLayout.cs"
+        >
+            <Class Name = "EditDialogLayout" >
+                <Section Name = "layoutContainer(java.awt.Container)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Component.getPreferredSize' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Component.getPreferredSize' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtChoice"
+                        Severity = "2"
+                    >Class 'java.awt.Choice' was converted to 'System.Windows.Forms.ComboBox' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentmove_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.move' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentisVisible"
+                        Severity = "2"
+                    >Method 'java.awt.Component.isVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtLayoutManager"
+                        Severity = "1"
+                    >Interface 'java.awt.LayoutManager' was not converted.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\EditInfo.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\EditInfo.cs"
+        >
+            <Class Name = "EditInfo" >
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtChoice"
+                        Severity = "2"
+                    >Class 'java.awt.Choice' was converted to 'System.Windows.Forms.ComboBox' which has a different behavior.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\EditOptions.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\EditOptions.cs"
+        />
+        <File
+            OldPath = "X:\SRC\GateElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\GateElm.cs"
+        >
+            <Class Name = "GateElm" >
+                <Section Name = "GateElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "setPoints()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "setEditValue(int,EditInfo)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\GroundElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\GroundElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\ImportDialog.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ImportDialog.cs"
+        >
+            <Class Name = "ImportDialog" >
+                <Section Name = "ImportDialog(CirSim,java.lang.String,boolean)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtDialogDialog_javaawtFrame_javalangString_boolean"
+                        Severity = "2"
+                    >Constructor 'java.awt.Dialog.Dialog' was converted to 'SupportClass.DialogSupport.SetDialog' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtContainersetLayout_javaawtLayoutManager"
+                        Severity = "1"
+                    >Method 'java.awt.Container.setLayout' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.TextArea.SCROLLBARS_BOTH' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetLocation_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setLocation' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtDialogshow"
+                        Severity = "2"
+                    >Method 'java.awt.Dialog.show' was converted to 'System.Windows.Forms.Form.ShowDialog' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "actionPerformed(java.awt.event.ActionEvent)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                </Section>
+                <Section Name = "handleEvent(java.awt.Event)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentsetVisible_boolean"
+                        Severity = "2"
+                    >Method 'java.awt.Component.setVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1135"
+                        Severity = "2"
+                    >'System.Windows.Forms.Application.Run' must be called to start a main form.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Field 'java.awt.Event.id' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Field 'java.awt.Event.WINDOW_DESTROY' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtComponenthandleEvent_javaawtEvent"
+                        Severity = "1"
+                    >Method 'java.awt.Component.handleEvent' was not converted.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtEvent"
+                        Severity = "1"
+                    >Class 'java.awt.Event' was not converted.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\ImportDialogLayout.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ImportDialogLayout.cs"
+        >
+            <Class Name = "ImportDialogLayout" >
+                <Section Name = "layoutContainer(java.awt.Container)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Component.getPreferredSize' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentmove_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.move' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentisVisible"
+                        Severity = "2"
+                    >Method 'java.awt.Component.isVisible' was converted to 'System.Windows.Forms.Control.Visible' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Component.getPreferredSize' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtComponentmove_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Component.move' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtLayoutManager"
+                        Severity = "1"
+                    >Interface 'java.awt.LayoutManager' was not converted.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\Inductor.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\Inductor.cs"
+        />
+        <File
+            OldPath = "X:\SRC\InductorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\InductorElm.cs"
+        >
+            <Class Name = "InductorElm" >
+                <Section Name = "InductorElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\InverterElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\InverterElm.cs"
+        >
+            <Class Name = "InverterElm" >
+                <Section Name = "InverterElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "setPoints()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\JfetElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\JfetElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\JKFlipFlopElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\JKFlipFlopElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\LampElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\LampElm.cs"
+        >
+            <Class Name = "LampElm" >
+                <Section Name = "LampElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "getTempColor()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "getInfo(java.lang.String[])" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\LatchElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\LatchElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\LEDElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\LEDElm.cs"
+        >
+            <Class Name = "LEDElm" >
+                <Section Name = "LEDElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\LogicInputElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\LogicInputElm.cs"
+        >
+            <Class Name = "LogicInputElm" >
+                <Section Name = "LogicInputElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\LogicOutputElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\LogicOutputElm.cs"
+        >
+            <Class Name = "LogicOutputElm" >
+                <Section Name = "LogicOutputElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\MemristorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\MemristorElm.cs"
+        >
+            <Class Name = "MemristorElm" >
+                <Section Name = "MemristorElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\MosfetElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\MosfetElm.cs"
+        >
+            <Class Name = "MosfetElm" >
+                <Section Name = "MosfetElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\NandGateElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\NandGateElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\NJfetElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\NJfetElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\NMosfetElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\NMosfetElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\NorGateElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\NorGateElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\NTransistorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\NTransistorElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\OpAmpElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\OpAmpElm.cs"
+        >
+            <Class Name = "OpAmpElm" >
+                <Section Name = "OpAmpElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "setPoints()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\OpAmpSwapElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\OpAmpSwapElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\OrGateElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\OrGateElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\OutputElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\OutputElm.cs"
+        >
+            <Class Name = "OutputElm" >
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\PhaseCompElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\PhaseCompElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\PhotoResistorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\PhotoResistorElm.cs"
+        >
+            <Class Name = "PhotoResistorElm" >
+                <Section Name = "PhotoResistorElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "createSlider()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\PMosfetElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\PMosfetElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\PotElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\PotElm.cs"
+        >
+            <Class Name = "PotElm" >
+                <Section Name = "PotElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "createSlider()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener"
+                        Severity = "2"
+                    >Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "setPoints()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\ProbeElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ProbeElm.cs"
+        >
+            <Class Name = "ProbeElm" >
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\PTransistorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\PTransistorElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\PushSwitchElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\PushSwitchElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\RailElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\RailElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\RelayElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\RelayElm.cs"
+        >
+            <Class Name = "RelayElm" >
+                <Section Name = "RelayElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "setEditValue(int,EditInfo)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\ResistorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ResistorElm.cs"
+        >
+            <Class Name = "ResistorElm" >
+                <Section Name = "ResistorElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\RowInfo.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\RowInfo.cs"
+        />
+        <File
+            OldPath = "X:\SRC\Scope.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\Scope.cs"
+        >
+            <Class Name = "Scope" >
+                <Section Name = "timeStep()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "draw2d(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Graphics.drawImage' may return a different value.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1101"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception.</Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.Graphics.drawImage' may return a different value.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1101"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception.</Issue>
+                </Section>
+                <Section Name = "undump(java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "allocImage()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtimageMemoryImageSource"
+                        Severity = "1"
+                    >Constructor 'java.awt.image.MemoryImageSource.MemoryImageSource' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtimageMemoryImageSource"
+                        Severity = "1"
+                    >Method 'java.awt.image.MemoryImageSource.setAnimated' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtimageMemoryImageSource"
+                        Severity = "1"
+                    >Method 'java.awt.image.MemoryImageSource.setFullBufferUpdates' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtComponentcreateImage_javaawtimageImageProducer"
+                        Severity = "1"
+                    >Method 'java.awt.Component.createImage' was not converted.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtimageMemoryImageSource"
+                        Severity = "1"
+                    >Class 'java.awt.image.MemoryImageSource' was not converted.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\SCRElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\SCRElm.cs"
+        >
+            <Class Name = "SCRElm" >
+                <Section Name = "SCRElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\SevenSegElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\SevenSegElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\SparkGapElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\SparkGapElm.cs"
+        >
+            <Class Name = "SparkGapElm" >
+                <Section Name = "SparkGapElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\SquareRailElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\SquareRailElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\SweepElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\SweepElm.cs"
+        >
+            <Class Name = "SweepElm" >
+                <Section Name = "SweepElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\Switch2Elm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\Switch2Elm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\SwitchElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\SwitchElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\TappedTransformerElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TappedTransformerElm.cs"
+        >
+            <Class Name = "TappedTransformerElm" >
+                <Section Name = "TappedTransformerElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\TextElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TextElm.cs"
+        >
+            <Class Name = "TextElm" >
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getAscent' may return a different value.</Issue>
+                    <Issue
+                        Type = "Compile"
+                        Number = "1000"
+                        LinkKeywordParam = "_javaawtFontMetricsstringWidth_javalangString"
+                        Severity = "1"
+                    >Method 'java.awt.FontMetrics.stringWidth' was not converted.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getDescent' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for method 'java.awt.FontMetrics.getHeight' may return a different value.</Issue>
+                </Section>
+                <Section Name = "setEditValue(int,EditInfo)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\ThermistorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ThermistorElm.cs"
+        >
+            <Class Name = "ThermistorElm" >
+                <Section Name = "ThermistorElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "createSlider()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\TimerElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TimerElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\TransformerElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TransformerElm.cs"
+        >
+            <Class Name = "TransformerElm" >
+                <Section Name = "TransformerElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\TransistorElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TransistorElm.cs"
+        >
+            <Class Name = "TransistorElm" >
+                <Section Name = "TransistorElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtGraphicsdrawString_javalangString_int_int"
+                        Severity = "2"
+                    >Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\TransLineElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TransLineElm.cs"
+        >
+            <Class Name = "TransLineElm" >
+                <Section Name = "TransLineElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "reset()" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "draw(java.awt.Graphics)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\TriacElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TriacElm.cs"
+        >
+            <Class Name = "TriacElm" >
+                <Section Name = "TriacElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\TriodeElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TriodeElm.cs"
+        >
+            <Class Name = "TriodeElm" >
+                <Section Name = "TriodeElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\TunnelDiodeElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\TunnelDiodeElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\VarRailElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\VarRailElm.cs"
+        >
+            <Class Name = "VarRailElm" >
+                <Section Name = "createSlider()" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1043"
+                        Severity = "2"
+                    >The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtContaineradd_javaawtComponent"
+                        Severity = "2"
+                    >Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior.</Issue>
+                </Section>
+                <Section Name = "Declarations" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1146"
+                        Severity = "2"
+                    >The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\VCOElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\VCOElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\VoltageElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\VoltageElm.cs"
+        >
+            <Class Name = "VoltageElm" >
+                <Section Name = "VoltageElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+                <Section Name = "drawWaveform(java.awt.Graphics,java.awt.Point)" >
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                    <Issue
+                        Type = "Runtime"
+                        Number = "1042"
+                        Severity = "2"
+                    >Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions.</Issue>
+                </Section>
+                <Section Name = "setEditValue(int,EditInfo)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1073"
+                        LinkKeywordParam = "_javaawtChoicegetSelectedIndex"
+                        Severity = "2"
+                    >Method 'java.awt.Choice.getSelectedIndex' was converted to 'System.Windows.Forms.ComboBox.SelectedIndex' which has a different behavior.</Issue>
+                </Section>
+            </Class>
+        </File>
+        <File
+            OldPath = "X:\SRC\WireElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\WireElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\XorGateElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\XorGateElm.cs"
+        />
+        <File
+            OldPath = "X:\SRC\ZenerElm.java"
+            NewPath = "X:\SRC\CIRCUIT EMULATOR.NET\ZenerElm.cs"
+        >
+            <Class Name = "ZenerElm" >
+                <Section Name = "ZenerElm(int,int,int,int,int,java.util.StringTokenizer)" >
+                    <Issue
+                        Type = "ToDo"
+                        Number = "1092"
+                        Severity = "2"
+                    >The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors. </Issue>
+                </Section>
+            </Class>
+        </File>
+        <Issue
+            Type = "Global Warning"
+            Number = "1274"
+            Severity = "2"
+        >Interaction between members of a class may differ because their execution sequence is different. </Issue>
+        <Issue
+            Type = "Global Warning"
+            Number = "1223"
+            Severity = "3"
+        >Output of bidirectional languages will not display as expected.</Issue>
+        <Issue
+            Type = "Global Warning"
+            Number = "1264"
+            Severity = "2"
+        >Events behave differently in the .NET Framework.</Issue>
+        <Issue
+            Type = "Global Warning"
+            Number = "1225"
+            Severity = "2"
+        >Type castings between primitive types may have different behavior.</Issue>
+        <Issue
+            Type = "Global Warning"
+            Number = "1133"
+            Severity = "2"
+        >The equivalent of java.lang.Object.equals in Visual C# can return a different value if the two comparison methods differ.</Issue>
+    </Root>
+</ConversionLog>
+
