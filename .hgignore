@@ -12,3 +12,5 @@ obj/*
 circuit_emulator.exe
 circuit_emulator.suo
 circuit_emulator.pdb
+circuits/*
+setuplist.txt
