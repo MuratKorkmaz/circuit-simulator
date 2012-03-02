@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -15,11 +13,10 @@ namespace circuit_emulator
 {
     public partial class CirSim : Form
     {
-
         #region Consts
 
         public const int sourceRadius = 7;
-        public const double freqMult = 3.14159265 * 2 * 4;
+        public const double freqMult = 3.14159265*2*4;
 
         internal const double pi = 3.14159265358979323846;
         internal const int MODE_ADD_ELM = 0;
@@ -217,10 +214,10 @@ namespace circuit_emulator
                         return null;
                     if (!(c2 is CapacitorElm))
                         return null;
-                    var ie = (InductorElm)c1;
-                    var ce = (CapacitorElm)c2;
+                    var ie = (InductorElm) c1;
+                    var ce = (CapacitorElm) c2;
                     return "res.f = " +
-                           CircuitElm.getUnitText(1 / (2 * pi * Math.Sqrt(ie.inductance * ce.capacitance)), "Р“С†");
+                           CircuitElm.getUnitText(1/(2*pi*Math.Sqrt(ie.inductance*ce.capacitance)), "Р“С†");
                 }
                 if (hintType == HINT_RC)
                 {
@@ -228,9 +225,9 @@ namespace circuit_emulator
                         return null;
                     if (!(c2 is CapacitorElm))
                         return null;
-                    var re = (ResistorElm)c1;
-                    var ce = (CapacitorElm)c2;
-                    return "RC = " + CircuitElm.getUnitText(re.resistance * ce.capacitance, "СЃ");
+                    var re = (ResistorElm) c1;
+                    var ce = (CapacitorElm) c2;
+                    return "RC = " + CircuitElm.getUnitText(re.resistance*ce.capacitance, "СЃ");
                 }
                 if (hintType == HINT_3DB_C)
                 {
@@ -238,9 +235,9 @@ namespace circuit_emulator
                         return null;
                     if (!(c2 is CapacitorElm))
                         return null;
-                    var re = (ResistorElm)c1;
-                    var ce = (CapacitorElm)c2;
-                    return "f.3db = " + CircuitElm.getUnitText(1 / (2 * pi * re.resistance * ce.capacitance), "Р“С†");
+                    var re = (ResistorElm) c1;
+                    var ce = (CapacitorElm) c2;
+                    return "f.3db = " + CircuitElm.getUnitText(1/(2*pi*re.resistance*ce.capacitance), "Р“С†");
                 }
                 if (hintType == HINT_3DB_L)
                 {
@@ -248,9 +245,9 @@ namespace circuit_emulator
                         return null;
                     if (!(c2 is InductorElm))
                         return null;
-                    var re = (ResistorElm)c1;
-                    var ie = (InductorElm)c2;
-                    return "f.3db = " + CircuitElm.getUnitText(re.resistance / (2 * pi * ie.inductance), "Р“С†");
+                    var re = (ResistorElm) c1;
+                    var ie = (InductorElm) c2;
+                    return "f.3db = " + CircuitElm.getUnitText(re.resistance/(2*pi*ie.inductance), "Р“С†");
                 }
                 if (hintType == HINT_TWINT)
                 {
@@ -258,9 +255,9 @@ namespace circuit_emulator
                         return null;
                     if (!(c2 is CapacitorElm))
                         return null;
-                    var re = (ResistorElm)c1;
-                    var ce = (CapacitorElm)c2;
-                    return "fc = " + CircuitElm.getUnitText(1 / (2 * pi * re.resistance * ce.capacitance), "Р“С†");
+                    var re = (ResistorElm) c1;
+                    var ce = (CapacitorElm) c2;
+                    return "fc = " + CircuitElm.getUnitText(1/(2*pi*re.resistance*ce.capacitance), "Р“С†");
                 }
                 return null;
             }
@@ -273,7 +270,7 @@ namespace circuit_emulator
                 if (speedBar.Value == 0)
                     return 0;
                 //return (Math.exp((speedBar.getValue()-1)/24.) + .5);
-                return .1 * Math.Exp((speedBar.Value - 61) / 24.0);
+                return .1*Math.Exp((speedBar.Value - 61)/24.0);
             }
         }
 
@@ -337,12 +334,12 @@ namespace circuit_emulator
 
         private static void keyDown(Object event_sender, KeyEventArgs e)
         {
-            state4 = ((int)MouseButtons | (int)ModifierKeys);
+            state4 = ((int) MouseButtons | (int) ModifierKeys);
         }
 
         private static void mouseDown(Object event_sender, MouseEventArgs e)
         {
-            state4 = ((int)e.Button | (int)ModifierKeys);
+            state4 = ((int) e.Button | (int) ModifierKeys);
         }
 
         internal virtual int getrand(int x)
@@ -351,7 +348,7 @@ namespace circuit_emulator
             int q = random.Next();
             if (q < 0)
                 q = -q;
-            return q % x;
+            return q%x;
         }
 
         public virtual void init()
@@ -432,12 +429,12 @@ namespace circuit_emulator
 
             dumpTypes = new Type[300];
             // these characters are reserved
-            dumpTypes['o'] = typeof(Scope);
-            dumpTypes['h'] = typeof(Scope);
-            dumpTypes['$'] = typeof(Scope);
-            dumpTypes['%'] = typeof(Scope);
-            dumpTypes['?'] = typeof(Scope);
-            dumpTypes['B'] = typeof(Scope);
+            dumpTypes['o'] = typeof (Scope);
+            dumpTypes['h'] = typeof (Scope);
+            dumpTypes['$'] = typeof (Scope);
+            dumpTypes['%'] = typeof (Scope);
+            dumpTypes['?'] = typeof (Scope);
+            dumpTypes['B'] = typeof (Scope);
 
             //UPGRADE_ISSUE: Method 'java.awt.Container.setLayout' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtContainersetLayout_javaawtLayoutManager'"
             //todo revert comment: main.setLayout(new CircuitLayout());
@@ -483,39 +480,39 @@ namespace circuit_emulator
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             Shortcut temp_Shortcut;
             temp_Shortcut = new Shortcut();
-            temp_Shortcut = (Shortcut)((int)Keys.Z + 131072);
+            temp_Shortcut = (Shortcut) ((int) Keys.Z + 131072);
             undoItem.Shortcut = temp_Shortcut;
             m.MenuItems.Add(redoItem = getMenuItem("Повторить"));
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             Shortcut temp_Shortcut2;
             temp_Shortcut2 = new Shortcut();
-            temp_Shortcut2 = (Shortcut)((int)Keys.Z + 196608);
+            temp_Shortcut2 = (Shortcut) ((int) Keys.Z + 196608);
             redoItem.Shortcut = temp_Shortcut2;
             m.MenuItems.Add(new MenuItem("-"));
             m.MenuItems.Add(cutItem = getMenuItem("Вырезать"));
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             Shortcut temp_Shortcut3;
             temp_Shortcut3 = new Shortcut();
-            temp_Shortcut3 = (Shortcut)((int)Keys.X + 131072);
+            temp_Shortcut3 = (Shortcut) ((int) Keys.X + 131072);
             cutItem.Shortcut = temp_Shortcut3;
             m.MenuItems.Add(copyItem = getMenuItem("Копировать"));
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             Shortcut temp_Shortcut4;
             temp_Shortcut4 = new Shortcut();
-            temp_Shortcut4 = (Shortcut)((int)Keys.C + 131072);
+            temp_Shortcut4 = (Shortcut) ((int) Keys.C + 131072);
             copyItem.Shortcut = temp_Shortcut4;
             m.MenuItems.Add(pasteItem = getMenuItem("Вставить"));
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             Shortcut temp_Shortcut5;
             temp_Shortcut5 = new Shortcut();
-            temp_Shortcut5 = (Shortcut)((int)Keys.V + 131072);
+            temp_Shortcut5 = (Shortcut) ((int) Keys.V + 131072);
             pasteItem.Shortcut = temp_Shortcut5;
             pasteItem.Enabled = false;
             m.MenuItems.Add(selectAllItem = getMenuItem("Выбрать всё"));
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             Shortcut temp_Shortcut6;
             temp_Shortcut6 = new Shortcut();
-            temp_Shortcut6 = (Shortcut)((int)Keys.A + 131072);
+            temp_Shortcut6 = (Shortcut) ((int) Keys.A + 131072);
             selectAllItem.Shortcut = temp_Shortcut6;
             if (useFrame)
                 mb.MenuItems.Add(m);
@@ -812,7 +809,7 @@ namespace circuit_emulator
                 handleResize();
                 Size x = Size;
                 //UPGRADE_TODO: Method 'java.awt.Component.setLocation' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentsetLocation_int_int'"
-                Location = new Point((screen.Width - x.Width) / 2, (screen.Height - x.Height) / 2);
+                Location = new Point((screen.Width - x.Width)/2, (screen.Height - x.Height)/2);
                 //UPGRADE_TODO: 'System.Windows.Forms.Application.Run' must be called to start a main form. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1135'"
                 Show();
                 //Application.Run(this);
@@ -917,7 +914,7 @@ namespace circuit_emulator
                 if (elm.needsShortcut() && elm.DumpClass == c)
                 {
                     dt = elm.DumpType;
-                    s += (" (" + (char)dt + ")");
+                    s += (" (" + (char) dt + ")");
                 }
                 elm.delete();
             }
@@ -962,7 +959,7 @@ namespace circuit_emulator
             if (winSize.Width == 0)
                 return;
             dbimage = new Bitmap(winSize.Width, winSize.Height);
-            int h = winSize.Height / 5;
+            int h = winSize.Height/5;
             /*if (h < 128 && winSize.height > 300)
 		h = 128;*/
             circuitArea = new Rectangle(0, 0, winSize.Width, winSize.Height - h);
@@ -982,8 +979,8 @@ namespace circuit_emulator
                 maxy = max(ce.y, max(ce.y2, maxy));
             }
             // center circuit; we don't use snapGrid() because that rounds
-            int dx = gridMask & ((circuitArea.Width - (maxx - minx)) / 2 - minx);
-            int dy = gridMask & ((circuitArea.Height - (maxy - miny)) / 2 - miny);
+            int dx = gridMask & ((circuitArea.Width - (maxx - minx))/2 - minx);
+            int dy = gridMask & ((circuitArea.Height - (maxy - miny))/2 - miny);
             if (dx + minx < 0)
                 dx = gridMask & (-minx);
             if (dy + miny < 0)
@@ -1042,7 +1039,7 @@ namespace circuit_emulator
                 analyzeFlag = false;
             }
             if (editDialog != null && editDialog.elm is CircuitElm)
-                mouseElm = (CircuitElm)(editDialog.elm);
+                mouseElm = (CircuitElm) (editDialog.elm);
             realMouseElm = mouseElm;
             if (mouseElm == null)
                 mouseElm = stopElm;
@@ -1080,13 +1077,13 @@ namespace circuit_emulator
             }
             if (!stoppedCheck.Checked)
             {
-                long sysTime = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+                long sysTime = (DateTime.Now.Ticks - 621355968000000000)/10000;
                 if (lastTime != 0)
                 {
-                    var inc = (int)(sysTime - lastTime);
+                    var inc = (int) (sysTime - lastTime);
                     double c = currentBar.Value;
-                    c = Math.Exp(c / 3.5 - 14.2);
-                    CircuitElm.currentMult = 1.7 * inc * c;
+                    c = Math.Exp(c/3.5 - 14.2);
+                    CircuitElm.currentMult = 1.7*inc*c;
                     if (!conventionCheckItem.Checked)
                         CircuitElm.currentMult = -CircuitElm.currentMult;
                 }
@@ -1102,7 +1099,7 @@ namespace circuit_emulator
             }
             else
                 lastTime = 0;
-            CircuitElm.powerMult = Math.Exp(powerBar.Value / 4.762 - 7);
+            CircuitElm.powerMult = Math.Exp(powerBar.Value/4.762 - 7);
 
             int i;
             //UPGRADE_TODO: The equivalent in .NET for method 'java.awt.Graphics.getFont' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
@@ -1132,7 +1129,7 @@ namespace circuit_emulator
                 if (!cn.internal_Renamed && cn.links.Count == 1)
                 {
                     int bb = 0, j;
-                    var cnl = (CircuitNodeLink)cn.links[0];
+                    var cnl = (CircuitNodeLink) cn.links[0];
                     for (j = 0; j != elmList.Count; j++)
                         if (cnl.elm != getElm(j) && getElm(j).boundingBox.Contains(cn.x, cn.y))
                             bb++;
@@ -1201,7 +1198,7 @@ namespace circuit_emulator
                 int x = 0;
                 if (ct != 0)
                     x = scopes[ct - 1].rightEdge() + 20;
-                x = max(x, winSize.Width * 2 / 3);
+                x = max(x, winSize.Width*2/3);
 
                 // count lines of data
                 for (i = 0; info[i] != null; i++)
@@ -1210,7 +1207,7 @@ namespace circuit_emulator
                     info[i++] = badnodes + ((badnodes == 1) ? " плохое соединение" : " плохие соединения");
 
                 // find where to show data; below circuit, not too high unless we need it
-                int ybase = winSize.Height - 15 * i - 5;
+                int ybase = winSize.Height - 15*i - 5;
                 ybase = min(ybase, circuitArea.Height);
                 ybase = max(ybase, circuitBottom);
                 for (i = 0; info[i] != null; i++)
@@ -1218,7 +1215,7 @@ namespace circuit_emulator
                     //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                     g.DrawString(info[i], SupportClass.GraphicsManager.manager.GetFont(g),
                                  SupportClass.GraphicsManager.manager.GetBrush(g), x,
-                                 ybase + 15 * (i + 1) - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                                 ybase + 15*(i + 1) - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
             }
             if (!selectedArea.IsEmpty)
@@ -1242,14 +1239,14 @@ namespace circuit_emulator
             if (!stoppedCheck.Checked && circuitMatrix != null)
             {
                 // Limit to 50 fps (thanks to JСЊrgen KlС†tzer for this)
-                long delay = 1000 / 50 - ((DateTime.Now.Ticks - 621355968000000000) / 10000 - lastFrameTime);
+                long delay = 1000/50 - ((DateTime.Now.Ticks - 621355968000000000)/10000 - lastFrameTime);
                 //realg.drawString("delay: " + delay,  10, 90);
                 if (delay > 0)
                 {
                     try
                     {
                         //UPGRADE_TODO: Method 'java.lang.Thread.sleep' was converted to 'System.Threading.Thread.Sleep' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javalangThreadsleep_long'"
-                        Thread.Sleep(new TimeSpan(10000 * delay));
+                        Thread.Sleep(new TimeSpan(10000*delay));
                     }
                     catch (ThreadInterruptedException e)
                     {
@@ -1300,11 +1297,11 @@ namespace circuit_emulator
             int colct = pos + 1;
             int iw = infoWidth;
             if (colct <= 2)
-                iw = iw * 3 / 2;
-            int w = (winSize.Width - iw) / colct;
+                iw = iw*3/2;
+            int w = (winSize.Width - iw)/colct;
             int marg = 10;
-            if (w < marg * 2)
-                w = marg * 2;
+            if (w < marg*2)
+                w = marg*2;
             pos = -1;
             int colh = 0;
             int row = 0;
@@ -1315,7 +1312,7 @@ namespace circuit_emulator
                 if (s.position > pos)
                 {
                     pos = s.position;
-                    colh = h / scopeColCount[pos];
+                    colh = h/scopeColCount[pos];
                     row = 0;
                     speed = s.speed;
                 }
@@ -1324,7 +1321,7 @@ namespace circuit_emulator
                     s.speed = speed;
                     s.resetGraph();
                 }
-                var r = new Rectangle(pos * w, winSize.Height - h + colh * row, w - marg,
+                var r = new Rectangle(pos*w, winSize.Height - h + colh*row, w - marg,
                                       colh);
                 row++;
                 if (!r.Equals(s.rect))
@@ -1343,7 +1340,7 @@ namespace circuit_emulator
                     n--;
                     if (n == 0)
                     {
-                        ((SwitchElm)ce).toggle();
+                        ((SwitchElm) ce).toggle();
                         analyzeFlag = true;
                         //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
                         cv.Refresh();
@@ -1364,14 +1361,14 @@ namespace circuit_emulator
         {
             if (n >= nodeList.Count)
                 return null;
-            return (CircuitNode)nodeList[n];
+            return (CircuitNode) nodeList[n];
         }
 
         public virtual CircuitElm getElm(int n)
         {
             if (n >= elmList.Count)
                 return null;
-            return (CircuitElm)elmList[n];
+            return (CircuitElm) elmList[n];
         }
 
         internal virtual void analyzeCircuit()
@@ -1587,7 +1584,7 @@ namespace circuit_emulator
                 // look for inductors with no current path
                 if (ce is InductorElm)
                 {
-                    var fpi = new CirSim.FindPathInfo(this, CirSim.FindPathInfo.INDUCT, ce, ce.getNode(1));
+                    var fpi = new FindPathInfo(this, FindPathInfo.INDUCT, ce, ce.getNode(1));
                     // first try findPath with maximum depth of 5, to avoid slowdowns
                     if (!fpi.findPath(ce.getNode(0), 5) && !fpi.findPath(ce.getNode(0)))
                     {
@@ -1599,7 +1596,7 @@ namespace circuit_emulator
                 // look for current sources with no current path
                 if (ce is CurrentElm)
                 {
-                    var fpi = new CirSim.FindPathInfo(this, CirSim.FindPathInfo.INDUCT, ce, ce.getNode(1));
+                    var fpi = new FindPathInfo(this, FindPathInfo.INDUCT, ce, ce.getNode(1));
                     if (!fpi.findPath(ce.getNode(0)))
                     {
                         stop("Короткое замыкание источника напряжения!", ce);
@@ -1609,7 +1606,7 @@ namespace circuit_emulator
                 // look for voltage source loops
                 if ((ce is VoltageElm && ce.PostCount == 2) || ce is WireElm)
                 {
-                    var fpi = new CirSim.FindPathInfo(this, CirSim.FindPathInfo.VOLTAGE, ce, ce.getNode(1));
+                    var fpi = new FindPathInfo(this, FindPathInfo.VOLTAGE, ce, ce.getNode(1));
                     if (fpi.findPath(ce.getNode(0)))
                     {
                         stop("Короткое замыкание источника напряжения!", ce);
@@ -1619,7 +1616,7 @@ namespace circuit_emulator
                 // look for shorted caps, or caps w/ voltage but no R
                 if (ce is CapacitorElm)
                 {
-                    var fpi = new CirSim.FindPathInfo(this, CirSim.FindPathInfo.SHORT, ce, ce.getNode(1));
+                    var fpi = new FindPathInfo(this, FindPathInfo.SHORT, ce, ce.getNode(1));
                     if (fpi.findPath(ce.getNode(0)))
                     {
                         //UPGRADE_TODO: The equivalent in .NET for method 'java.lang.Object.toString' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
@@ -1628,7 +1625,7 @@ namespace circuit_emulator
                     }
                     else
                     {
-                        fpi = new CirSim.FindPathInfo(this, CirSim.FindPathInfo.CAP_V, ce, ce.getNode(1));
+                        fpi = new FindPathInfo(this, FindPathInfo.CAP_V, ce, ce.getNode(1));
                         if (fpi.findPath(ce.getNode(0)))
                         {
                             stop("Короткое замыкание конденсатора!", ce);
@@ -1659,7 +1656,7 @@ namespace circuit_emulator
                     {
                         // keep a running total of const values that have been
                         // removed already
-                        rsadd -= circuitRowInfo[j].value_Renamed * q;
+                        rsadd -= circuitRowInfo[j].value_Renamed*q;
                         continue;
                     }
                     if (Math.Abs(q - 0) < double.Epsilon)
@@ -1720,7 +1717,7 @@ namespace circuit_emulator
                             continue;
                         }
                         elt.type = RowInfo.ROW_CONST;
-                        elt.value_Renamed = (circuitRightSide[i] + rsadd) / qv;
+                        elt.value_Renamed = (circuitRightSide[i] + rsadd)/qv;
                         circuitRowInfo[i].dropRow = true;
                         //System.out.println(qp + " * " + qv + " = const " + elt.value);
                         i = -1; // start over from scratch
@@ -1840,7 +1837,7 @@ namespace circuit_emulator
                 {
                     RowInfo ri = circuitRowInfo[j];
                     if (ri.type == RowInfo.ROW_CONST)
-                        newrs[ii] -= ri.value_Renamed * circuitMatrix[i][j];
+                        newrs[ii] -= ri.value_Renamed*circuitMatrix[i][j];
                     else
                         newmatx[ii][ri.mapCol] += circuitMatrix[i][j];
                 }
@@ -1943,7 +1940,7 @@ namespace circuit_emulator
 
         internal virtual void stampResistor(int n1, int n2, double r)
         {
-            double r0 = 1 / r;
+            double r0 = 1/r;
             if (Double.IsNaN(r0) || Double.IsInfinity(r0))
             {
                 Console.Out.Write("плохое сопротивление " + r + " " + r0 + "\n");
@@ -2001,7 +1998,7 @@ namespace circuit_emulator
                     if (ri.type == RowInfo.ROW_CONST)
                     {
                         //System.out.println("Stamping constant " + i + " " + j + " " + x);
-                        circuitRightSide[i] -= x * ri.value_Renamed;
+                        circuitRightSide[i] -= x*ri.value_Renamed;
                         return;
                     }
                     j = ri.mapCol;
@@ -2060,12 +2057,12 @@ namespace circuit_emulator
             bool debugprint = dumpMatrix;
             dumpMatrix = false;
             //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-            var steprate = (long)(160 * IterCount);
-            long tm = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+            var steprate = (long) (160*IterCount);
+            long tm = (DateTime.Now.Ticks - 621355968000000000)/10000;
             long lit = lastIterTime;
-            if (1000 >= steprate * (tm - lastIterTime))
+            if (1000 >= steprate*(tm - lastIterTime))
                 return;
-            for (iter = 1; ; iter++)
+            for (iter = 1;; iter++)
             {
                 int i, j, k, subiter;
                 for (i = 0; i != elmList.Count; i++)
@@ -2152,7 +2149,7 @@ namespace circuit_emulator
                             CircuitNode cn = getCircuitNode(j + 1);
                             for (k = 0; k != cn.links.Count; k++)
                             {
-                                var cnl = (CircuitNodeLink)cn.links[k];
+                                var cnl = (CircuitNodeLink) cn.links[k];
                                 cnl.elm.setNodeVoltage(cnl.num, res);
                             }
                         }
@@ -2176,9 +2173,9 @@ namespace circuit_emulator
                 t += timeStep;
                 for (i = 0; i != scopeCount; i++)
                     scopes[i].timeStep();
-                tm = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+                tm = (DateTime.Now.Ticks - 621355968000000000)/10000;
                 lit = tm;
-                if (iter * 1000 >= steprate * (tm - lastIterTime) || (tm - lastFrameTime > 500))
+                if (iter*1000 >= steprate*(tm - lastIterTime) || (tm - lastFrameTime > 500))
                     break;
             }
             lastIterTime = lit;
@@ -2334,7 +2331,7 @@ namespace circuit_emulator
             if (ac.IndexOf("setup ") == 0)
             {
                 pushUndo();
-                readSetupFile(ac.Substring(6), ((MenuItem)event_sender).Text);
+                readSetupFile(ac.Substring(6), ((MenuItem) event_sender).Text);
             }
         }
 
@@ -2450,7 +2447,7 @@ namespace circuit_emulator
         public virtual void adjustmentValueChanged(Object event_sender, ScrollEventArgs e)
         {
             //UPGRADE_TODO: The equivalent of class 'java.awt.Scrollbar' may be 'System.Windows.Forms.HScrollBar or System.Windows.Forms.VScrollBar' depending on constructor parameters. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1146'"
-            Console.Out.Write(((ScrollBar)event_sender).Value + "\n");
+            Console.Out.Write(((ScrollBar) event_sender).Value + "\n");
         }
 
         private string[] readUrlDataAsString(string url)
@@ -2597,8 +2594,8 @@ namespace circuit_emulator
                         // find element class
                         var carr = new Type[6];
                         //carr[0] = getClass();
-                        carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof(int);
-                        carr[5] = typeof(SupportClass.Tokenizer);
+                        carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof (int);
+                        carr[5] = typeof (SupportClass.Tokenizer);
                         ConstructorInfo cstr = cls.GetConstructor(carr);
 
                         // invoke constructor with starting coordinates
@@ -2610,7 +2607,7 @@ namespace circuit_emulator
                         oarr[3] = y2;
                         oarr[4] = f;
                         oarr[5] = st;
-                        var ce = (CircuitElm)cstr.Invoke(oarr);
+                        var ce = (CircuitElm) cstr.Invoke(oarr);
                         ce.setPoints();
                         elmList.Add(ce);
                     }
@@ -2656,7 +2653,7 @@ namespace circuit_emulator
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
             cv.Refresh();
             int p;
-            for (p = 0; p < len; )
+            for (p = 0; p < len;)
             {
                 int l;
                 int linelen = 0;
@@ -2727,8 +2724,8 @@ namespace circuit_emulator
                         // find element class
                         var carr = new Type[6];
                         //carr[0] = getClass();
-                        carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof(int);
-                        carr[5] = typeof(SupportClass.Tokenizer);
+                        carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof (int);
+                        carr[5] = typeof (SupportClass.Tokenizer);
                         ConstructorInfo cstr = null;
                         cstr = cls.GetConstructor(carr);
 
@@ -2741,7 +2738,7 @@ namespace circuit_emulator
                         oarr[3] = y2;
                         oarr[4] = f;
                         oarr[5] = st;
-                        ce = (CircuitElm)cstr.Invoke(oarr);
+                        ce = (CircuitElm) cstr.Invoke(oarr);
                         ce.setPoints();
                         elmList.Add(ce);
                     }
@@ -2785,7 +2782,7 @@ namespace circuit_emulator
             //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
             double sp = Double.Parse(st.NextToken());
             //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-            var sp2 = (int)(Math.Log(10 * sp) * 24 + 61.5);
+            var sp2 = (int) (Math.Log(10*sp)*24 + 61.5);
             //int sp2 = (int) (Math.log(sp)*24+1.5);
             speedBar.Value = sp2;
             currentBar.Value = Int32.Parse(st.NextToken());
@@ -2810,7 +2807,7 @@ namespace circuit_emulator
         {
             if (mouseElm == null || !(mouseElm is SwitchElm))
                 return false;
-            var se = (SwitchElm)mouseElm;
+            var se = (SwitchElm) mouseElm;
             se.toggle();
             if (se.momentary)
                 heldSwitchElm = se;
@@ -3052,7 +3049,7 @@ namespace circuit_emulator
         public virtual void mouseMoved(Object event_sender, MouseEventArgs e)
         {
             //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
-            if ((state4 & (int)MouseButtons.Left) != 0)
+            if ((state4 & (int) MouseButtons.Left) != 0)
                 return;
             int x = e.X;
             int y = e.Y;
@@ -3072,7 +3069,7 @@ namespace circuit_emulator
                 if (ce.boundingBox.Contains(x, y))
                 {
                     int j;
-                    int area = ce.boundingBox.Width * ce.boundingBox.Height;
+                    int area = ce.boundingBox.Width*ce.boundingBox.Height;
                     int jn = ce.PostCount;
                     if (jn > 2)
                         jn = 2;
@@ -3150,13 +3147,13 @@ namespace circuit_emulator
         {
             x2 -= x1;
             y2 -= y1;
-            return x2 * x2 + y2 * y2;
+            return x2*x2 + y2*y2;
         }
 
         public virtual void mouseClicked(Object event_sender, EventArgs e)
         {
             //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
-            if ((state4 & (int)MouseButtons.Left) != 0)
+            if ((state4 & (int) MouseButtons.Left) != 0)
             {
                 if (mouseMode == MODE_SELECT || mouseMode == MODE_DRAG_SELECTED)
                     clearSelection();
@@ -3187,7 +3184,7 @@ namespace circuit_emulator
                 return;
             }
             //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
-            if ((state4 & (int)MouseButtons.Left) != 0)
+            if ((state4 & (int) MouseButtons.Left) != 0)
             {
                 // left mouse
                 tempMouseMode = mouseMode;
@@ -3206,7 +3203,7 @@ namespace circuit_emulator
             else
             {
                 //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
-                if ((state4 & (int)MouseButtons.Right) != 0)
+                if ((state4 & (int) MouseButtons.Right) != 0)
                 {
                     // right mouse
                     //todo uncomment after refactoring
@@ -3243,7 +3240,7 @@ namespace circuit_emulator
             // find element class
             var carr = new Type[2];
             //carr[0] = getClass();
-            carr[0] = carr[1] = typeof(int);
+            carr[0] = carr[1] = typeof (int);
             ConstructorInfo cstr = null;
             try
             {
@@ -3266,7 +3263,7 @@ namespace circuit_emulator
             oarr[1] = y0;
             try
             {
-                return (CircuitElm)cstr.Invoke(oarr);
+                return (CircuitElm) cstr.Invoke(oarr);
             }
             catch (Exception ee)
             {
@@ -3286,7 +3283,7 @@ namespace circuit_emulator
                 if (m != null)
                 {
                     //UPGRADE_TODO: Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPopupMenushow_javaawtComponent_int_int'"
-                    m.Show(((Control)event_sender), new Point(e.X, e.Y));
+                    m.Show(((Control) event_sender), new Point(e.X, e.Y));
                 }
             }
             else if (mouseElm != null)
@@ -3294,13 +3291,13 @@ namespace circuit_emulator
                 elmEditMenuItem.Enabled = mouseElm.getEditInfo(0) != null;
                 elmScopeMenuItem.Enabled = mouseElm.canViewInScope();
                 //UPGRADE_TODO: Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPopupMenushow_javaawtComponent_int_int'"
-                elmMenu.Show(((Control)event_sender), new Point(e.X, e.Y));
+                elmMenu.Show(((Control) event_sender), new Point(e.X, e.Y));
             }
             else
             {
                 //todo doMainMenuChecks(mainMenu);
                 //UPGRADE_TODO: Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPopupMenushow_javaawtComponent_int_int'"
-                mainMenu.Show(((Control)event_sender), new Point(e.X, e.Y));
+                mainMenu.Show(((Control) event_sender), new Point(e.X, e.Y));
             }
         }
 
@@ -3381,8 +3378,8 @@ namespace circuit_emulator
         public virtual void itemStateChanged(Object event_sender, EventArgs e)
         {
             if (event_sender is MenuItem)
-                ((MenuItem)event_sender).Checked =
-                    !((MenuItem)event_sender).Checked;
+                ((MenuItem) event_sender).Checked =
+                    !((MenuItem) event_sender).Checked;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
             cv.Refresh();
             Object mi = event_sender;
@@ -3407,7 +3404,7 @@ namespace circuit_emulator
             }
             if (mi is MenuItem)
             {
-                var mmi = (MenuItem)mi;
+                var mmi = (MenuItem) mi;
                 mouseMode = MODE_ADD_ELM;
                 String s = SupportClass.CommandManager.GetCommand(mmi);
                 if (s.Length > 0)
@@ -3444,14 +3441,14 @@ namespace circuit_emulator
         {
             gridSize = (smallGridCheckItem.Checked) ? 8 : 16;
             gridMask = ~(gridSize - 1);
-            gridRound = gridSize / 2 - 1;
+            gridRound = gridSize/2 - 1;
         }
 
         internal virtual void pushUndo()
         {
             redoStack.Clear();
             String s = dumpCircuit();
-            if (undoStack.Count > 0 && String.CompareOrdinal(s, (String)(undoStack[undoStack.Count - 1])) == 0)
+            if (undoStack.Count > 0 && String.CompareOrdinal(s, (String) (undoStack[undoStack.Count - 1])) == 0)
                 return;
             undoStack.Add(s);
             enableUndoRedo();
@@ -3465,7 +3462,7 @@ namespace circuit_emulator
             Object tempObject;
             tempObject = undoStack[undoStack.Count - 1];
             undoStack.RemoveAt(undoStack.Count - 1);
-            var s = (String)(tempObject);
+            var s = (String) (tempObject);
             readSetup(s);
             enableUndoRedo();
         }
@@ -3478,7 +3475,7 @@ namespace circuit_emulator
             Object tempObject;
             tempObject = redoStack[redoStack.Count - 1];
             redoStack.RemoveAt(redoStack.Count - 1);
-            var s = (String)(tempObject);
+            var s = (String) (tempObject);
             readSetup(s);
             enableUndoRedo();
         }
@@ -3642,7 +3639,7 @@ namespace circuit_emulator
             {
                 //UPGRADE_TODO: The equivalent in .NET for method 'java.awt.event.KeyEvent.getKeyChar' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
                 Type c = dumpTypes[e.KeyChar];
-                if (c == null || c == typeof(Scope))
+                if (c == null || c == typeof (Scope))
                     return;
                 CircuitElm elm = null;
                 elm = constructElement(c, 0, 0);
@@ -3687,7 +3684,7 @@ namespace circuit_emulator
                 // if all zeros, it's a singular matrix
                 if (largest == 0)
                     return false;
-                scaleFactors[i] = 1.0 / largest;
+                scaleFactors[i] = 1.0/largest;
             }
 
             // use Crout's method; loop through the columns
@@ -3698,7 +3695,7 @@ namespace circuit_emulator
                 {
                     double q = a[i][j];
                     for (k = 0; k != i; k++)
-                        q -= a[i][k] * a[k][j];
+                        q -= a[i][k]*a[k][j];
                     a[i][j] = q;
                 }
 
@@ -3709,7 +3706,7 @@ namespace circuit_emulator
                 {
                     double q = a[i][j];
                     for (k = 0; k != j; k++)
-                        q -= a[i][k] * a[k][j];
+                        q -= a[i][k]*a[k][j];
                     a[i][j] = q;
                     double x = Math.Abs(q);
                     if (x >= largest)
@@ -3744,7 +3741,7 @@ namespace circuit_emulator
 
                 if (j != n - 1)
                 {
-                    double mult = 1.0 / a[j][j];
+                    double mult = 1.0/a[j][j];
                     for (i = j + 1; i != n; i++)
                         a[i][j] *= mult;
                 }
@@ -3781,7 +3778,7 @@ namespace circuit_emulator
                 b[row] = b[i];
                 // forward substitution using the lower triangular matrix
                 for (j = bi; j < i; j++)
-                    tot -= a[i][j] * b[j];
+                    tot -= a[i][j]*b[j];
                 b[i] = tot;
             }
             for (i = n - 1; i >= 0; i--)
@@ -3791,8 +3788,8 @@ namespace circuit_emulator
                 // back-substitution using the upper triangular matrix
                 int j;
                 for (j = i + 1; j != n; j++)
-                    tot -= a[i][j] * b[j];
-                b[i] = tot / a[i][i];
+                    tot -= a[i][j]*b[j];
+                b[i] = tot/a[i][i];
             }
         }
 
