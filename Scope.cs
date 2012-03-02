@@ -58,9 +58,9 @@ namespace circuit_emulator
 
         internal Scope(CirSim s)
         {
-            rect = new Rectangle();
-            reset();
             sim = s;
+            rect = new Rectangle(0, 0, s.Width, s.Height);
+            reset();
         }
 
         internal virtual bool LockScale
@@ -812,7 +812,8 @@ namespace circuit_emulator
                 //UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setFullBufferUpdates' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
                 // imageSource.setFullBufferUpdates(true);
                 //UPGRADE_ISSUE: Method 'java.awt.Component.createImage' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponentcreateImage_javaawtimageImageProducer'"
-                // image = sim.cv.createImage(imageSource);
+                 //image = sim.cv.createImage(imageSource);
+                image = new Bitmap(imageSource);
             }
             dpixels = new float[w*h];
             draw_ox = draw_oy = - 1;

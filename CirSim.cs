@@ -23,6 +23,8 @@ namespace circuit_emulator
     [Serializable]
     public class CirSim : Form
     {
+        #region Consts
+
         public const int sourceRadius = 7;
         public const double freqMult = 3.14159265*2*4;
 
@@ -41,6 +43,11 @@ namespace circuit_emulator
         internal const int HINT_TWINT = 4;
         internal const int HINT_3DB_L = 5;
         internal const int resct = 6;
+
+        #endregion
+
+        #region Fields
+
         private static Int32 state4;
         internal static Control main;
         internal static EditDialog editDialog;
@@ -69,7 +76,8 @@ namespace circuit_emulator
         internal String ctrlMetaKey;
         internal ScrollBar currentBar;
         internal MenuItem cutItem;
-        internal CircuitCanvas cv;
+        //internal CircuitCanvas cv;
+        internal PictureBox cv;
         internal Image dbimage;
         internal MenuItem dotsCheckItem;
         internal CircuitElm dragElm;
@@ -184,6 +192,8 @@ namespace circuit_emulator
         internal CircuitElm[] voltageSources;
         internal MenuItem voltsCheckItem;
         internal Size winSize_Renamed;
+
+        #endregion
 
         internal CirSim(Circuit a)
         {
@@ -315,7 +325,7 @@ namespace circuit_emulator
         {
             get { return winSize_Renamed; }
 
-            set { winSize_Renamed = value; }
+            private set { winSize_Renamed = value; }
         }
 
         internal Rectangle selectedArea
@@ -357,7 +367,6 @@ namespace circuit_emulator
             String useFrameStr = null;
             bool printable = false;
             bool convention = true;
-
             CircuitElm.initClass(this);
 
             try
@@ -439,7 +448,8 @@ namespace circuit_emulator
 
             //UPGRADE_ISSUE: Method 'java.awt.Container.setLayout' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtContainersetLayout_javaawtLayoutManager'"
             //todo revert comment: main.setLayout(new CircuitLayout());
-            cv = new CircuitCanvas(this);
+            cv = new PictureBox();
+            cv.Anchor = AnchorStyles.Top | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             //UPGRADE_WARNING: Extra logic should be included into componentHidden to know if the Component is hidden. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1144'"
             cv.VisibleChanged += componentHidden;
             cv.Move += componentMoved;
@@ -811,7 +821,8 @@ namespace circuit_emulator
                 //UPGRADE_TODO: Method 'java.awt.Component.setLocation' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentsetLocation_int_int'"
                 Location = new Point((screen.Width - x.Width)/2, (screen.Height - x.Height)/2);
                 //UPGRADE_TODO: 'System.Windows.Forms.Application.Run' must be called to start a main form. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1135'"
-                Show();
+                //Show();
+                Application.Run(this);
             }
             else
             {
@@ -827,7 +838,7 @@ namespace circuit_emulator
             }
             //main.Focus();
         }
-
+        
         public virtual void triggerShow()
         {
             if (!shown)
@@ -1020,9 +1031,11 @@ namespace circuit_emulator
 
         protected override void OnPaint(PaintEventArgs g_EventArg)
         {
-            Graphics g = g_EventArg.Graphics;
+            //Graphics g = g_EventArg.Graphics;
+            Graphics g = cv.CreateGraphics();
+            updateCircuit(g);
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            cv.Refresh();
+            //cv.Update();
         }
 
         public virtual void updateCircuit(Graphics realg)
@@ -2227,7 +2240,7 @@ namespace circuit_emulator
                 // on IE, drawImage() stops working inexplicably every once in
                 // a while.  Recreating it fixes the problem, so we do that here.
                 dbimage = new Bitmap(winSize.Width, winSize.Height);
-
+                cv.Image = dbimage;
                 for (i = 0; i != elmList.Count; i++)
                     getElm(i).reset();
                 for (i = 0; i != scopeCount; i++)
@@ -2447,27 +2460,6 @@ namespace circuit_emulator
             Console.Out.Write(((ScrollBar) event_sender).Value + "\n");
         }
 
-        internal virtual MemoryStream readUrlData(string url)
-        {
-            //UPGRADE_ISSUE: Method 'java.net.URL.getContent' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javanetURLgetContent'"
-            //System.Object o = url.GetContent();
-            //System.IO.BinaryReader fis = (System.IO.BinaryReader) o;
-            var fis = new BinaryReader(new FileStream(url, FileMode.Open));
-            long available;
-            available = fis.BaseStream.Length - fis.BaseStream.Position;
-            var ba = new MemoryStream((int) available);
-            int blen = 1024;
-            var b = new sbyte[blen];
-            while (true)
-            {
-                int len = SupportClass.ReadInput(fis.BaseStream, b, 0, b.Length);
-                if (len <= 0)
-                    break;
-                ba.Write(SupportClass.ToByteArray(b), 0, len);
-            }
-            return ba;
-        }
-
         private string[] readUrlDataAsString(string url)
         {
             return File.ReadAllLines(url);
@@ -2642,8 +2634,7 @@ namespace circuit_emulator
                 }
             }
         }
-
-
+        
         internal virtual void readSetup(sbyte[] b, int len, bool retain)
         {
             int i;
