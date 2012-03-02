@@ -98,9 +98,9 @@ namespace circuit_emulator
                 //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
                 bias = System.Double.Parse(st.NextToken());
                 //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                phaseShift = System.Double.Parse(st.NextToken());
+                //todo bad parse phaseShift = System.Double.Parse(st.NextToken());
                 //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                dutyCycle = System.Double.Parse(st.NextToken());
+                //todo bad parse dutyCycle = System.Double.Parse(st.NextToken());
             }
             catch (System.Exception e)
             {

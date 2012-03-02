@@ -5,8 +5,10 @@
 //Russian translation v1.0 by Spiritus, licrym@gmail.com http://licrym.org Please mail me for updates.
 //codepage UTF-8
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 //UPGRADE_TODO: Class 'java.awt.Frame' was converted to 'System.Windows.Forms.Form' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtFrame'"
@@ -323,6 +325,7 @@ namespace circuit_emulator
             applet = a;
             useFrame = false;
             speedBar = new HScrollBar();
+            speedBar.Maximum = 200;
             powerBar = new HScrollBar();
             
         }
@@ -530,7 +533,7 @@ namespace circuit_emulator
             conventionCheckItem.Checked = convention;
             m.MenuItems.Add(optionsItem = getMenuItem("Другие настройки..."));
 		
-            System.Windows.Forms.MenuItem circuitsMenu = new System.Windows.Forms.MenuItem("Схемы");
+            MenuItem circuitsMenu = new MenuItem("Схемы");
             if (useFrame)
                 mb.MenuItems.Add(circuitsMenu);
             else
@@ -770,7 +773,7 @@ namespace circuit_emulator
             scopeMenu = buildScopeMenu(false);
             transScopeMenu = buildScopeMenu(true);
 		
-            getSetupList(circuitsMenu, false);
+            getSetupList(circuitsMenu);
             if (useFrame)
                 Menu = mb;
             if (startCircuitText != null)
@@ -886,7 +889,7 @@ namespace circuit_emulator
             try
             {
                 //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                System.Type c = System.Type.GetType(t);
+                System.Type c = System.Type.GetType("circuit_emulator." + t);
                 CircuitElm elm = constructElement(c, 0, 0);
                 register(c, elm);
                 int dt = 0;
@@ -2557,7 +2560,7 @@ namespace circuit_emulator
             BinaryReader fis = new BinaryReader(new FileStream(url, FileMode.Open));
             long available;
             available = fis.BaseStream.Length - fis.BaseStream.Position;
-            System.IO.MemoryStream ba = new System.IO.MemoryStream((int) available);
+            MemoryStream ba = new MemoryStream((int) available);
             int blen = 1024;
             sbyte[] b = new sbyte[blen];
             while (true)
@@ -2569,78 +2572,69 @@ namespace circuit_emulator
             }
             return ba;
         }
-	
-        internal virtual void  getSetupList(System.Windows.Forms.MenuItem menu, bool retry)
+
+        private string[] readUrlDataAsString(string url)
         {
-            System.Windows.Forms.MenuItem[] stack = new System.Windows.Forms.MenuItem[6];
-            int stackptr = 0;
-            stack[stackptr++] = menu;
+            return File.ReadAllLines(url);
+        }
+	
+        internal virtual int getSetupList(MenuItem menu, List<string> lines = null)
+        {
+            var menuItems = new List<MenuItem>();
+            int counter = 0;
+            bool isNeedLoad = lines == null;
             try
             {
                 //UPGRADE_TODO: Class 'java.net.URL' was converted to a 'System.Uri' which does not throw an exception if a URL specifies an unknown protocol. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1132'"
-                string url = (CodeBase.LocalPath + "setuplist.txt");
-                System.IO.MemoryStream ba = readUrlData(url);
-                sbyte[] b = SupportClass.ToSByteArray(ba.ToArray());
-                long len = ba.Length;
-                int p;
-                if (len == 0 || b[0] != '#')
+                if (isNeedLoad)
                 {
-                    // got a redirect, try again
-                    getSetupList(menu, true);
-                    return ;
+                    string url = (CodeBase.LocalPath + "setuplist.txt");
+                    var sa = readUrlDataAsString(url);
+                    lines = new List<string>(sa);
                 }
-                for (p = 0; p < len; )
+
+                int len = lines.Count;
+                for (int i = 0; i < len; i++)
                 {
-                    int l;
-                    for (l = 0; l != len - p; l++)
-                        if (b[l + p] == '\n')
-                        {
-                            l++;
-                            break;
-                        }
-                    System.String tempStr;
-                    //UPGRADE_TODO: The differences in the Format  of parameters for constructor 'java.lang.String.String'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                    tempStr = System.Text.Encoding.GetEncoding("UTF-8").GetString(SupportClass.ToByteArray(b));
-                    System.String line = new System.String(tempStr.ToCharArray(), p, l - 1);
+                    string line = lines[i];
                     if (line[0] == '#')
+                        continue;
+                    if (line[0] == '+')
                     {
-                    }
-                    else if (line[0] == '+')
-                    {
-                        System.Windows.Forms.MenuItem n = new System.Windows.Forms.MenuItem(line.Substring(1));
-                        menu.MenuItems.Add(n);
-                        menu = stack[stackptr++] = n;
+                        var subMenuItem = new MenuItem(line.Substring(1));
+                        var submenuData = lines.GetRange(i + 1, len - i - 1);
+                        i = i + 1 + getSetupList(subMenuItem, submenuData);
+                        menuItems.Add(subMenuItem);
                     }
                     else if (line[0] == '-')
                     {
-                        menu = stack[--stackptr - 1];
+                        counter = i;
+                        break;
                     }
                     else
                     {
-                        int i = line.IndexOf(' ');
-                        if (i > 0)
+                        bool isFirst = (line[0] == '>');
+                        int start = isFirst ? 1 : 0;
+                        int firstSpaceIndex = line.IndexOf(' ');
+                        string filePath = line.Substring(start, firstSpaceIndex);
+                        string title = line.Substring(firstSpaceIndex + 1);
+                        var item = new MenuItem(title);
+                        item.Click += actionPerformed;
+                        menuItems.Add(item);
+                        if (isFirst)
                         {
-                            System.String title = line.Substring(i + 1);
-                            bool first = false;
-                            if (line[0] == '>')
-                                first = true;
-                            System.String file = line.Substring(first?1:0, (i) - (first?1:0));
-                            menu.MenuItems.Add(getMenuItem(title, "setup " + file));
-                            if (first && startCircuit == null)
-                            {
-                                startCircuit = file;
-                                startLabel = title;
-                            }
+                            startCircuit = filePath;
                         }
                     }
-                    p += l;
                 }
+                menu.MenuItems.AddRange(menuItems.ToArray());
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 SupportClass.WriteStackTrace(e, Console.Error);
                 stop("Can't read setuplist.txt!", null);
             }
+            return counter;
         }
 	
         internal virtual void  readSetup(System.String text)
@@ -2662,8 +2656,8 @@ namespace circuit_emulator
             {
                 //UPGRADE_TODO: Class 'java.net.URL' was converted to a 'System.Uri' which does not throw an exception if a URL specifies an unknown protocol. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1132'"
                 string url = CodeBase.LocalPath + "circuits/" + str;
-                System.IO.MemoryStream ba = readUrlData(url);
-                readSetup(SupportClass.ToSByteArray(ba.ToArray()), (int)ba.Length, false);
+                var ba = readUrlDataAsString(url);
+                readSetup(ba);
             }
             catch (System.Exception e)
             {
@@ -2672,6 +2666,88 @@ namespace circuit_emulator
             }
             titleLabel.Text = title;
         }
+
+        private void readSetup(string[] lines)
+        {
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var st = new SupportClass.Tokenizer(lines[i]);
+                while (st.HasMoreTokens())
+                {
+                    string type = st.NextToken();
+                    int tint = type[0];
+                    try
+                    {
+                        if (tint == 'o')
+                        {
+                            Scope sc = new Scope(this);
+                            sc.position = scopeCount;
+                            sc.undump(st);
+                            scopes[scopeCount++] = sc;
+                            continue;
+                        }
+                        if (tint == 'h')
+                        {
+                            readHint(st);
+                            continue;
+                        }
+                        if (tint == '$')
+                        {
+                            readOptions(st);
+                            continue;
+                        }
+                        if (tint == '%' || tint == '?' || tint == 'B')
+                        {
+                            // ignore afilter-specific stuff
+                            continue;
+                        }
+                        if (tint >= '0' && tint <= '9')
+                            tint = int.Parse(type);
+                        int x1 = int.Parse(st.NextToken());
+                        int y1 = int.Parse(st.NextToken());
+                        int x2 = int.Parse(st.NextToken());
+                        int y2 = int.Parse(st.NextToken());
+                        int f = int.Parse(st.NextToken());
+                        Type cls = dumpTypes[tint];
+                        if (cls == null)
+                        {
+                            Console.WriteLine("unrecognized dump type: " + type);
+                            break;
+                        }
+                        // find element class
+                        var carr = new Type[6];
+                        //carr[0] = getClass();
+                        carr[0] = carr[1] = carr[2] = carr[3] = carr[4] = typeof(int);
+                        carr[5] = typeof(SupportClass.Tokenizer);
+                        ConstructorInfo cstr = cls.GetConstructor(carr);
+
+                        // invoke constructor with starting coordinates
+                        var oarr = new object[6];
+                        //oarr[0] = this;
+                        oarr[0] = x1;
+                        oarr[1] = y1;
+                        oarr[2] = x2;
+                        oarr[3] = y2;
+                        oarr[4] = f;
+                        oarr[5] = st;
+                        var ce = (CircuitElm)cstr.Invoke(oarr);
+                        ce.setPoints();
+                        elmList.Add(ce);
+                    }
+                    catch (ReflectionTypeLoadException ex)
+                    {
+                        stop(ex.InnerException.StackTrace, null);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        stop(ex.StackTrace, null);
+                        break;
+                    }
+                }
+            }
+        }
+
 	
         internal virtual void  readSetup(sbyte[] b, int len, bool retain)
         {

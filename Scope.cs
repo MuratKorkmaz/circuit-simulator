@@ -674,21 +674,22 @@ namespace circuit_emulator
             yElm = null;
             try
             {
-                position = System.Int32.Parse(st.NextToken());
-                int ye = - 1;
-                if ((flags & FLAG_YELM) != 0)
-                {
-                    ye = System.Int32.Parse(st.NextToken());
-                    if (ye != - 1)
-                        yElm = sim.getElm(ye);
-                }
-                while (st.HasMoreTokens())
-                {
-                    if (text == null)
-                        text = st.NextToken();
-                    else
-                        text += (" " + st.NextToken());
-                }
+                //todo bad parse
+                //position = System.Int32.Parse(st.NextToken());
+                //int ye = - 1;
+                //if ((flags & FLAG_YELM) != 0)
+                //{
+                //    ye = System.Int32.Parse(st.NextToken());
+                //    if (ye != - 1)
+                //        yElm = sim.getElm(ye);
+                //}
+                //while (st.HasMoreTokens())
+                //{
+                //    if (text == null)
+                //        text = st.NextToken();
+                //    else
+                //        text += (" " + st.NextToken());
+                //}
             }
             catch (System.Exception ee)
             {

@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Globalization;
 using System.Windows.Forms;
 namespace circuit_emulator
 {
@@ -51,6 +52,7 @@ namespace circuit_emulator
 		[STAThread]
 		public static void  Main()
 		{
+		    Application.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 			ogf = new CirSim(null);
 			ogf.init();
 		}
