@@ -1,44 +1,97 @@
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace circuit_emulator
 {
-    class Scope
+    internal class Scope
     {
-        virtual internal bool LockScale
+        internal const int VAL_POWER = 1;
+        internal const int VAL_IB = 1;
+        internal const int VAL_IC = 2;
+        internal const int VAL_IE = 3;
+        internal const int VAL_VBE = 4;
+        internal const int VAL_VBC = 5;
+        internal const int VAL_VCE = 6;
+        internal const int VAL_R = 2;
+        internal int FLAG_YELM = 32;
+        internal int ctr;
+        internal float[] dpixels;
+        internal int draw_ox, draw_oy;
+        internal CircuitElm elm;
+        internal Image image;
+        internal Bitmap imageSource;
+        internal int ivalue;
+        internal bool lockScale;
+        internal double[] maxI;
+        internal double[] maxV;
+        internal double[] minI;
+        internal double minMaxI;
+        internal double minMaxV;
+        internal double[] minV;
+        internal int[] pixels;
+
+        internal bool plot2d,
+                      plotXY;
+
+        internal int position;
+        internal int ptr;
+        internal Rectangle rect;
+        internal int scopePointCount = 128;
+        internal bool showFreq_Renamed_Field;
+
+        internal bool showI;
+
+        internal bool showMax_Renamed_Field,
+                      showMin_Renamed_Field;
+
+        internal bool showV;
+        internal CirSim sim;
+        internal int speed;
+        internal String text;
+        internal int value_Renamed;
+
+        internal CircuitElm xElm, yElm;
+        //UPGRADE_ISSUE: Class 'java.awt.image.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
+
+        internal Scope(CirSim s)
         {
-            set
-            {
-                lockScale = value;
-            }
-		
+            rect = new Rectangle();
+            reset();
+            sim = s;
         }
-        virtual internal System.Drawing.Rectangle Rect
+
+        internal virtual bool LockScale
+        {
+            set { lockScale = value; }
+        }
+
+        internal virtual Rectangle Rect
         {
             set
             {
                 rect = value;
                 resetGraph();
             }
-		
         }
-        virtual internal int Width
+
+        internal virtual int Width
         {
-            get
-            {
-                return rect.Width;
-            }
-		
+            get { return rect.Width; }
         }
-        virtual internal CircuitElm Elm
+
+        internal virtual CircuitElm Elm
         {
             set
             {
                 elm = value;
                 reset();
             }
-		
         }
-        virtual internal System.Windows.Forms.ContextMenu Menu
+
+        internal virtual ContextMenu Menu
         {
             get
             {
@@ -71,73 +124,45 @@ namespace circuit_emulator
                     return sim.scopeMenu;
                 }
             }
-		
         }
-        virtual internal int Value
+
+        internal virtual int Value
         {
             set
             {
-                reset(); value_Renamed = value;
+                reset();
+                value_Renamed = value;
             }
-		
         }
-        //UPGRADE_NOTE: Final was removed from the declaration of 'FLAG_YELM '. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1003'"
-        internal int FLAG_YELM = 32;
-        internal const int VAL_POWER = 1;
-        internal const int VAL_IB = 1;
-        internal const int VAL_IC = 2;
-        internal const int VAL_IE = 3;
-        internal const int VAL_VBE = 4;
-        internal const int VAL_VBC = 5;
-        internal const int VAL_VCE = 6;
-        internal const int VAL_R = 2;
-        internal double[] minV, maxV;
-        internal double minMaxV;
-        internal double[] minI, maxI;
-        internal double minMaxI;
-        internal int scopePointCount = 128;
-        internal int ptr, ctr, speed, position;
-        internal int value_Renamed, ivalue;
-        internal System.String text;
-        internal System.Drawing.Rectangle rect;
-        internal bool showI, showV, showMax_Renamed_Field, showMin_Renamed_Field, showFreq_Renamed_Field, lockScale, plot2d, plotXY;
-        internal CircuitElm elm, xElm, yElm;
-        //UPGRADE_ISSUE: Class 'java.awt.image.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
-        internal Bitmap imageSource;
-        internal System.Drawing.Image image;
-        internal int[] pixels;
 
-    
-        internal int draw_ox, draw_oy;
-        internal float[] dpixels;
-        internal CirSim sim;
-        internal Scope(CirSim s)
+        internal virtual void showCurrent(bool b)
         {
-            rect = new System.Drawing.Rectangle();
-            reset();
-            sim = s;
+            showI = b;
+            value_Renamed = ivalue = 0;
         }
-        internal virtual void  showCurrent(bool b)
+
+        internal virtual void showVoltage(bool b)
         {
-            showI = b; value_Renamed = ivalue = 0;
+            showV = b;
+            value_Renamed = ivalue = 0;
         }
-        internal virtual void  showVoltage(bool b)
-        {
-            showV = b; value_Renamed = ivalue = 0;
-        }
-        internal virtual void  showMax(bool b)
+
+        internal virtual void showMax(bool b)
         {
             showMax_Renamed_Field = b;
         }
-        internal virtual void  showMin(bool b)
+
+        internal virtual void showMin(bool b)
         {
             showMin_Renamed_Field = b;
         }
-        internal virtual void  showFreq(bool b)
+
+        internal virtual void showFreq(bool b)
         {
             showFreq_Renamed_Field = b;
         }
-        internal virtual void  resetGraph()
+
+        internal virtual void resetGraph()
         {
             scopePointCount = 1;
             while (scopePointCount <= rect.Width)
@@ -149,11 +174,13 @@ namespace circuit_emulator
             ptr = ctr = 0;
             allocImage();
         }
+
         internal virtual bool active()
         {
             return elm != null;
         }
-        internal virtual void  reset()
+
+        internal virtual void reset()
         {
             resetGraph();
             minMaxV = 5;
@@ -169,15 +196,16 @@ namespace circuit_emulator
             if (elm is TransistorElm)
                 value_Renamed = VAL_VCE;
         }
+
         internal virtual int rightEdge()
         {
             return rect.X + rect.Width;
         }
-	
-        internal virtual void  timeStep()
+
+        internal virtual void timeStep()
         {
             if (elm == null)
-                return ;
+                return;
             double v = elm.getScopeValue(value_Renamed);
             if (v < minV[ptr])
                 minV[ptr] = v;
@@ -186,13 +214,13 @@ namespace circuit_emulator
             double i = 0;
             if (value_Renamed == 0 || ivalue != 0)
             {
-                i = (ivalue == 0)?elm.getCurrent():elm.getScopeValue(ivalue);
+                i = (ivalue == 0) ? elm.getCurrent() : elm.getScopeValue(ivalue);
                 if (i < minI[ptr])
                     minI[ptr] = i;
                 if (i > maxI[ptr])
                     maxI[ptr] = i;
             }
-		
+
             if (plot2d && dpixels != null)
             {
                 bool newscale = false;
@@ -203,7 +231,7 @@ namespace circuit_emulator
                 }
                 double yval = i;
                 if (plotXY)
-                    yval = (yElm == null)?0:yElm.VoltageDiff;
+                    yval = (yElm == null) ? 0 : yElm.VoltageDiff;
                 while (yval > minMaxI || yval < - minMaxI)
                 {
                     minMaxI *= 2;
@@ -211,12 +239,12 @@ namespace circuit_emulator
                 }
                 if (newscale)
                     clear2dView();
-                double xa = v / minMaxV;
-                double ya = yval / minMaxI;
+                double xa = v/minMaxV;
+                double ya = yval/minMaxI;
                 //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                int x = (int) (rect.Width * (1 + xa) * .499);
+                var x = (int) (rect.Width*(1 + xa)*.499);
                 //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                int y = (int) (rect.Height * (1 - ya) * .499);
+                var y = (int) (rect.Height*(1 - ya)*.499);
                 drawTo(x, y);
             }
             else
@@ -231,8 +259,8 @@ namespace circuit_emulator
                 }
             }
         }
-	
-        internal virtual void  drawTo(int x2, int y2)
+
+        internal virtual void drawTo(int x2, int y2)
         {
             if (draw_ox == - 1)
             {
@@ -242,7 +270,7 @@ namespace circuit_emulator
             // need to draw a line from x1,y1 to x2,y2
             if (draw_ox == x2 && draw_oy == y2)
             {
-                dpixels[x2 + rect.Width * y2] = 1;
+                dpixels[x2 + rect.Width*y2] = 1;
             }
             else if (CircuitElm.abs(y2 - draw_oy) > CircuitElm.abs(x2 - draw_ox))
             {
@@ -252,8 +280,8 @@ namespace circuit_emulator
                 int x, y;
                 for (y = draw_oy; y != y2 + sgn; y = (int) (y + sgn))
                 {
-                    x = draw_ox + (x2 - draw_ox) * (y - draw_oy) / (y2 - draw_oy);
-                    dpixels[x + rect.Width * y] = 1;
+                    x = draw_ox + (x2 - draw_ox)*(y - draw_oy)/(y2 - draw_oy);
+                    dpixels[x + rect.Width*y] = 1;
                 }
             }
             else
@@ -264,82 +292,85 @@ namespace circuit_emulator
                 int x, y;
                 for (x = draw_ox; x != x2 + sgn; x = (int) (x + sgn))
                 {
-                    y = draw_oy + (y2 - draw_oy) * (x - draw_ox) / (x2 - draw_ox);
-                    dpixels[x + rect.Width * y] = 1;
+                    y = draw_oy + (y2 - draw_oy)*(x - draw_ox)/(x2 - draw_ox);
+                    dpixels[x + rect.Width*y] = 1;
                 }
             }
             draw_ox = x2;
             draw_oy = y2;
         }
-	
-        internal virtual void  clear2dView()
+
+        internal virtual void clear2dView()
         {
             int i;
             for (i = 0; i != dpixels.Length; i++)
                 dpixels[i] = 0;
             draw_ox = draw_oy = - 1;
         }
-	
-        internal virtual void  adjustScale(double x)
+
+        internal virtual void adjustScale(double x)
         {
             minMaxV *= x;
             minMaxI *= x;
         }
-	
-        internal virtual void  draw2d(System.Drawing.Graphics g)
+
+        internal virtual void draw2d(Graphics g)
         {
             int i;
             if (pixels == null || dpixels == null)
-                return ;
-            int col = (int)((sim.printableCheckItem.Checked)?0xFFFFFFFF:0);
+                return;
+            var col = (int) ((sim.printableCheckItem.Checked) ? 0xFFFFFFFF : 0);
             for (i = 0; i != pixels.Length; i++)
                 pixels[i] = col;
             for (i = 0; i != rect.Width; i++)
-                pixels[i + rect.Width * (rect.Height / 2)] = unchecked((int) 0xFF00FF00);
-            int ycol = (int)((plotXY)?0xFF00FF00:0xFFFFFF00);
+                pixels[i + rect.Width*(rect.Height/2)] = unchecked((int) 0xFF00FF00);
+            var ycol = (int) ((plotXY) ? 0xFF00FF00 : 0xFFFFFF00);
             for (i = 0; i != rect.Height; i++)
-                pixels[rect.Width / 2 + rect.Width * i] = ycol;
+                pixels[rect.Width/2 + rect.Width*i] = ycol;
             for (i = 0; i != pixels.Length; i++)
             {
                 //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                int q = (int) (255 * dpixels[i]);
+                var q = (int) (255*dpixels[i]);
                 if (q > 0)
-                    pixels[i] = unchecked((int) 0xFF000000) | (0x10101 * q);
-                dpixels[i] = (float) (dpixels[i] * .997);
+                    pixels[i] = unchecked((int) 0xFF000000) | (0x10101*q);
+                dpixels[i] = (float) (dpixels[i]*.997);
             }
             //UPGRADE_WARNING: Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1101'"
             g.DrawImage(image, rect.X, rect.Y);
             SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
-            g.FillEllipse(SupportClass.GraphicsManager.manager.GetPaint(g), rect.X + draw_ox - 2, rect.Y + draw_oy - 2, 5, 5);
+            g.FillEllipse(SupportClass.GraphicsManager.manager.GetPaint(g), rect.X + draw_ox - 2, rect.Y + draw_oy - 2,
+                          5, 5);
             int yt = rect.Y + 10;
             int x = rect.X;
             if (text != null && rect.Y + rect.Height > yt + 5)
             {
                 //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                g.DrawString(text, SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                g.DrawString(text, SupportClass.GraphicsManager.manager.GetFont(g),
+                             SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                             yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 yt += 15;
             }
         }
-	
-        internal virtual void  draw(System.Drawing.Graphics g)
+
+        internal virtual void draw(Graphics g)
         {
             if (elm == null)
-                return ;
+                return;
             if (plot2d)
             {
                 draw2d(g);
-                return ;
+                return;
             }
             if (pixels == null)
-                return ;
+                return;
             int i;
-            int col = (int)((sim.printableCheckItem.Checked)?0xFFFFFFFF:0);
+            var col = (int) ((sim.printableCheckItem.Checked) ? 0xFFFFFFFF : 0);
             for (i = 0; i != pixels.Length; i++)
                 pixels[i] = col;
             int x = 0;
-            int maxy = (rect.Height - 1) / 2;
+            int maxy = (rect.Height - 1)/2;
             int y = maxy;
-		
+
             bool gotI = false;
             bool gotV = false;
             int minRange = 4;
@@ -347,8 +378,8 @@ namespace circuit_emulator
             double realMaxI = - 1e8;
             double realMinV = 1e8;
             double realMinI = 1e8;
-            int curColor = unchecked((int) 0xFFFFFF00);
-            int voltColor = (int)((value_Renamed > 0)?0xFFFFFFFF:0xFF00FF00);
+            var curColor = unchecked((int) 0xFFFFFF00);
+            var voltColor = (int) ((value_Renamed > 0) ? 0xFFFFFFFF : 0xFF00FF00);
             if (sim.scopeSelected == - 1 && elm == sim.mouseElm)
                 curColor = voltColor = unchecked((int) 0xFF00FFFF);
             int ipa = ptr + scopePointCount - rect.Width;
@@ -364,16 +395,16 @@ namespace circuit_emulator
                 while (minI[ip] < - minMaxI)
                     minMaxI *= 2;
             }
-		
+
             double gridStep = 1e-8;
-            double gridMax = (showI?minMaxI:minMaxV);
-            while (gridStep * 100 < gridMax)
+            double gridMax = (showI ? minMaxI : minMaxV);
+            while (gridStep*100 < gridMax)
                 gridStep *= 10;
-            if (maxy * gridStep / gridMax < .3)
+            if (maxy*gridStep/gridMax < .3)
                 gridStep = 0;
-		
+
             int ll;
-            bool sublines = (maxy * gridStep / gridMax > 3);
+            bool sublines = (maxy*gridStep/gridMax > 3);
             for (ll = - 100; ll <= 100; ll++)
             {
                 // don't show gridlines if plotting multiple values,
@@ -381,32 +412,32 @@ namespace circuit_emulator
                 if (ll != 0 && ((showI && showV) || gridStep == 0))
                     continue;
                 //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                int yl = maxy - (int) (maxy * ll * gridStep / gridMax);
+                int yl = maxy - (int) (maxy*ll*gridStep/gridMax);
                 if (yl < 0 || yl >= rect.Height - 1)
                     continue;
-                col = (int)(ll == 0?0xFF909090:0xFF404040);
-                if (ll % 10 != 0)
+                col = (int) (ll == 0 ? 0xFF909090 : 0xFF404040);
+                if (ll%10 != 0)
                 {
                     col = unchecked((int) 0xFF101010);
                     if (!sublines)
                         continue;
                 }
                 for (i = 0; i != rect.Width; i++)
-                    pixels[i + yl * rect.Width] = col;
+                    pixels[i + yl*rect.Width] = col;
             }
-		
+
             gridStep = 1e-15;
-            double ts = sim.timeStep * speed;
-            while (gridStep < ts * 5)
+            double ts = sim.timeStep*speed;
+            while (gridStep < ts*5)
                 gridStep *= 10;
-            double tstart = sim.t - sim.timeStep * speed * rect.Width;
-            double tx = sim.t - (sim.t % gridStep);
+            double tstart = sim.t - sim.timeStep*speed*rect.Width;
+            double tx = sim.t - (sim.t%gridStep);
             int first = 1;
-            for (ll = 0; ; ll++)
+            for (ll = 0;; ll++)
             {
-                double tl = tx - gridStep * ll;
+                double tl = tx - gridStep*ll;
                 //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                int gx = (int) ((tl - tstart) / ts);
+                var gx = (int) ((tl - tstart)/ts);
                 if (gx < 0)
                     break;
                 if (gx >= rect.Width)
@@ -415,16 +446,16 @@ namespace circuit_emulator
                     continue;
                 col = unchecked((int) 0xFF202020);
                 first = 0;
-                if (((tl + gridStep / 4) % (gridStep * 10)) < gridStep)
+                if (((tl + gridStep/4)%(gridStep*10)) < gridStep)
                 {
                     col = unchecked((int) 0xFF909090);
-                    if (((tl + gridStep / 4) % (gridStep * 100)) < gridStep)
+                    if (((tl + gridStep/4)%(gridStep*100)) < gridStep)
                         col = unchecked((int) 0xFF4040D0);
                 }
                 for (i = 0; i < pixels.Length; i += rect.Width)
                     pixels[i + gx] = col;
             }
-		
+
             // these two loops are pretty much the same, and should be
             // combined!
             if (value_Renamed == 0 && showI)
@@ -435,9 +466,9 @@ namespace circuit_emulator
                 {
                     int ip = (i + ipa) & (scopePointCount - 1);
                     //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                    int miniy = (int) ((maxy / minMaxI) * minI[ip]);
+                    var miniy = (int) ((maxy/minMaxI)*minI[ip]);
                     //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                    int maxiy = (int) ((maxy / minMaxI) * maxI[ip]);
+                    var maxiy = (int) ((maxy/minMaxI)*maxI[ip]);
                     if (maxI[ip] > realMaxI)
                         realMaxI = maxI[ip];
                     if (minI[ip] < realMinI)
@@ -451,7 +482,7 @@ namespace circuit_emulator
                             if (miniy == oy && maxiy == oy)
                                 continue;
                             for (j = ox; j != x + i; j++)
-                                pixels[j + rect.Width * (y - oy)] = curColor;
+                                pixels[j + rect.Width*(y - oy)] = curColor;
                             ox = oy = - 1;
                         }
                         if (miniy == maxiy)
@@ -461,12 +492,12 @@ namespace circuit_emulator
                             continue;
                         }
                         for (j = miniy; j <= maxiy; j++)
-                            pixels[x + i + rect.Width * (y - j)] = curColor;
+                            pixels[x + i + rect.Width*(y - j)] = curColor;
                     }
                 }
                 if (ox != - 1)
                     for (j = ox; j != x + i; j++)
-                        pixels[j + rect.Width * (y - oy)] = curColor;
+                        pixels[j + rect.Width*(y - oy)] = curColor;
             }
             if (value_Renamed != 0 || showV)
             {
@@ -475,9 +506,9 @@ namespace circuit_emulator
                 {
                     int ip = (i + ipa) & (scopePointCount - 1);
                     //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                    int minvy = (int) ((maxy / minMaxV) * minV[ip]);
+                    var minvy = (int) ((maxy/minMaxV)*minV[ip]);
                     //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-                    int maxvy = (int) ((maxy / minMaxV) * maxV[ip]);
+                    var maxvy = (int) ((maxy/minMaxV)*maxV[ip]);
                     if (maxV[ip] > realMaxV)
                         realMaxV = maxV[ip];
                     if (minV[ip] < realMinV)
@@ -491,7 +522,7 @@ namespace circuit_emulator
                             if (minvy == oy && maxvy == oy)
                                 continue;
                             for (j = ox; j != x + i; j++)
-                                pixels[j + rect.Width * (y - oy)] = voltColor;
+                                pixels[j + rect.Width*(y - oy)] = voltColor;
                             ox = oy = - 1;
                         }
                         if (minvy == maxvy)
@@ -501,12 +532,12 @@ namespace circuit_emulator
                             continue;
                         }
                         for (j = minvy; j <= maxvy; j++)
-                            pixels[x + i + rect.Width * (y - j)] = voltColor;
+                            pixels[x + i + rect.Width*(y - j)] = voltColor;
                     }
                 }
                 if (ox != - 1)
                     for (j = ox; j != x + i; j++)
-                        pixels[j + rect.Width * (y - oy)] = voltColor;
+                        pixels[j + rect.Width*(y - oy)] = voltColor;
             }
             double freq = 0;
             if (showFreq_Renamed_Field)
@@ -519,9 +550,9 @@ namespace circuit_emulator
                     int ip = (i + ipa) & (scopePointCount - 1);
                     avg += minV[ip] + maxV[ip];
                 }
-                avg /= i * 2;
+                avg /= i*2;
                 int state = 0;
-                double thresh = avg * .05;
+                double thresh = avg*.05;
                 int oi = 0;
                 double avperiod = 0;
                 int periodct = - 1;
@@ -547,15 +578,15 @@ namespace circuit_emulator
                         if (periodct >= 0)
                         {
                             avperiod += pd;
-                            avperiod2 += pd * pd;
+                            avperiod2 += pd*pd;
                         }
                         periodct++;
                     }
                 }
                 avperiod /= periodct;
                 avperiod2 /= periodct;
-                double periodstd = System.Math.Sqrt(avperiod2 - avperiod * avperiod);
-                freq = 1 / (avperiod * sim.timeStep * speed);
+                double periodstd = Math.Sqrt(avperiod2 - avperiod*avperiod);
+                freq = 1/(avperiod*sim.timeStep*speed);
                 // don't show freq if standard deviation is too great
                 if (periodct < 1 || periodstd > 2)
                     freq = 0;
@@ -571,17 +602,24 @@ namespace circuit_emulator
                 if (value_Renamed != 0)
                 {
                     //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                    g.DrawString(CircuitElm.getUnitText(realMaxV, elm.getScopeUnits(value_Renamed)), SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                    g.DrawString(CircuitElm.getUnitText(realMaxV, elm.getScopeUnits(value_Renamed)),
+                                 SupportClass.GraphicsManager.manager.GetFont(g),
+                                 SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                                 yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
                 else if (showV)
                 {
                     //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                    g.DrawString(CircuitElm.getVoltageText(realMaxV), SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                    g.DrawString(CircuitElm.getVoltageText(realMaxV), SupportClass.GraphicsManager.manager.GetFont(g),
+                                 SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                                 yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
                 else if (showI)
                 {
                     //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                    g.DrawString(CircuitElm.getCurrentText(realMaxI), SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                    g.DrawString(CircuitElm.getCurrentText(realMaxI), SupportClass.GraphicsManager.manager.GetFont(g),
+                                 SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                                 yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
                 yt += 15;
             }
@@ -591,29 +629,40 @@ namespace circuit_emulator
                 if (value_Renamed != 0)
                 {
                     //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                    g.DrawString(CircuitElm.getUnitText(realMinV, elm.getScopeUnits(value_Renamed)), SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                    g.DrawString(CircuitElm.getUnitText(realMinV, elm.getScopeUnits(value_Renamed)),
+                                 SupportClass.GraphicsManager.manager.GetFont(g),
+                                 SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                                 ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
                 else if (showV)
                 {
                     //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                    g.DrawString(CircuitElm.getVoltageText(realMinV), SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                    g.DrawString(CircuitElm.getVoltageText(realMinV), SupportClass.GraphicsManager.manager.GetFont(g),
+                                 SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                                 ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
                 else if (showI)
                 {
                     //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                    g.DrawString(CircuitElm.getCurrentText(realMinI), SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                    g.DrawString(CircuitElm.getCurrentText(realMinI), SupportClass.GraphicsManager.manager.GetFont(g),
+                                 SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                                 ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
             }
             if (text != null && rect.Y + rect.Height > yt + 5)
             {
                 //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                g.DrawString(text, SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                g.DrawString(text, SupportClass.GraphicsManager.manager.GetFont(g),
+                             SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                             yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 yt += 15;
             }
             if (showFreq_Renamed_Field && freq != 0 && rect.Y + rect.Height > yt + 5)
             {
                 //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                g.DrawString(CircuitElm.getUnitText(freq, "Гц"), SupportClass.GraphicsManager.manager.GetFont(g), SupportClass.GraphicsManager.manager.GetBrush(g), x, yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                g.DrawString(CircuitElm.getUnitText(freq, "Гц"), SupportClass.GraphicsManager.manager.GetFont(g),
+                             SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                             yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
             }
             if (ptr > 5 && !lockScale)
             {
@@ -623,8 +672,8 @@ namespace circuit_emulator
                     minMaxV /= 2;
             }
         }
-	
-        internal virtual void  speedUp()
+
+        internal virtual void speedUp()
         {
             if (speed > 1)
             {
@@ -632,40 +681,46 @@ namespace circuit_emulator
                 resetGraph();
             }
         }
-        internal virtual void  slowDown()
+
+        internal virtual void slowDown()
         {
             speed *= 2;
             resetGraph();
         }
-        internal virtual System.String dump()
+
+        internal virtual String dump()
         {
             if (elm == null)
                 return null;
-            int flags = (showI?1:0) | (showV?2:0) | (showMax_Renamed_Field?0:4) | (showFreq_Renamed_Field?8:0) | (lockScale?16:0) | (plot2d?64:0) | (plotXY?128:0) | (showMin_Renamed_Field?256:0);
+            int flags = (showI ? 1 : 0) | (showV ? 2 : 0) | (showMax_Renamed_Field ? 0 : 4) |
+                        (showFreq_Renamed_Field ? 8 : 0) | (lockScale ? 16 : 0) | (plot2d ? 64 : 0) | (plotXY ? 128 : 0) |
+                        (showMin_Renamed_Field ? 256 : 0);
             flags |= FLAG_YELM; // yelm present
             int eno = sim.locateElm(elm);
             if (eno < 0)
                 return null;
-            int yno = yElm == null?- 1:sim.locateElm(yElm);
-            System.String x = "o " + eno + " " + speed + " " + value_Renamed + " " + flags + " " + minMaxV + " " + minMaxI + " " + position + " " + yno;
+            int yno = yElm == null ? - 1 : sim.locateElm(yElm);
+            String x = "o " + eno + " " + speed + " " + value_Renamed + " " + flags + " " + minMaxV + " " + minMaxI +
+                       " " + position + " " + yno;
             if (text != null)
                 x += (" " + text);
             return x;
         }
-        internal virtual void  undump(SupportClass.Tokenizer st)
+
+        internal virtual void undump(SupportClass.Tokenizer st)
         {
             reset();
-            int e = System.Int32.Parse(st.NextToken());
+            int e = Int32.Parse(st.NextToken());
             if (e == - 1)
-                return ;
+                return;
             elm = sim.getElm(e);
-            speed = System.Int32.Parse(st.NextToken());
-            value_Renamed = System.Int32.Parse(st.NextToken());
-            int flags = System.Int32.Parse(st.NextToken());
+            speed = Int32.Parse(st.NextToken());
+            value_Renamed = Int32.Parse(st.NextToken());
+            int flags = Int32.Parse(st.NextToken());
             //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-            minMaxV = System.Double.Parse(st.NextToken());
+            minMaxV = Double.Parse(st.NextToken());
             //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-            minMaxI = System.Double.Parse(st.NextToken());
+            minMaxI = Double.Parse(st.NextToken());
             if (minMaxV == 0)
                 minMaxV = .5;
             if (minMaxI == 0)
@@ -691,7 +746,7 @@ namespace circuit_emulator
                 //        text += (" " + st.NextToken());
                 //}
             }
-            catch (System.Exception ee)
+            catch (Exception ee)
             {
             }
             showI = (flags & 1) != 0;
@@ -703,13 +758,14 @@ namespace circuit_emulator
             plotXY = (flags & 128) != 0;
             showMin_Renamed_Field = (flags & 256) != 0;
         }
-        internal virtual void  allocImage()
+
+        internal virtual void allocImage()
         {
             pixels = null;
             int w = rect.Width;
             int h = rect.Height;
             if (w == 0 || h == 0)
-                return ;
+                return;
             if (sim.useBufferedImage)
             {
                 try
@@ -723,29 +779,29 @@ namespace circuit_emulator
 				pixels = dbi.getData();
 				*/
                     //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                    System.Type biclass = System.Type.GetType("java.awt.image.BufferedImage");
+                    Type biclass = Type.GetType("java.awt.image.BufferedImage");
                     //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                    System.Type dbiclass = System.Type.GetType("java.awt.image.DataBufferInt");
+                    Type dbiclass = Type.GetType("java.awt.image.DataBufferInt");
                     //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                    System.Type rasclass = System.Type.GetType("java.awt.image.Raster");
-                    System.Reflection.ConstructorInfo cstr = biclass.GetConstructor(new System.Type[]{typeof(int), typeof(int), typeof(int)});
-                    image = (System.Drawing.Image) cstr.Invoke(new System.Object[]{(System.Int32) w, (System.Int32) h, (System.Int32) System.Drawing.Imaging.PixelFormat.Format32bppRgb});
-                    System.Reflection.MethodInfo m = biclass.GetMethod("getRaster");
-                    System.Object ras = m.Invoke(image, new object[0]);
-                    System.Object db = rasclass.GetMethod("getDataBuffer").Invoke(ras,new object[0]);
-                    pixels = (int[])dbiclass.GetMethod("getData").Invoke(db,new object[0]);
+                    Type rasclass = Type.GetType("java.awt.image.Raster");
+                    ConstructorInfo cstr = biclass.GetConstructor(new[] {typeof (int), typeof (int), typeof (int)});
+                    image = (Image) cstr.Invoke(new Object[] {w, h, (Int32) PixelFormat.Format32bppRgb});
+                    MethodInfo m = biclass.GetMethod("getRaster");
+                    Object ras = m.Invoke(image, new object[0]);
+                    Object db = rasclass.GetMethod("getDataBuffer").Invoke(ras, new object[0]);
+                    pixels = (int[]) dbiclass.GetMethod("getData").Invoke(db, new object[0]);
                 }
-                catch (System.Exception ee)
+                catch (Exception ee)
                 {
                     // ee.printStackTrace();
-                    System.Console.Out.WriteLine("BufferedImage failed");
+                    Console.Out.WriteLine("BufferedImage failed");
                 }
             }
             if (pixels == null)
             {
-                pixels = new int[w * h];
+                pixels = new int[w*h];
                 int i;
-                for (i = 0; i != w * h; i++)
+                for (i = 0; i != w*h; i++)
                     pixels[i] = unchecked((int) 0xFF000000);
                 //UPGRADE_ISSUE: Constructor 'java.awt.image.MemoryImageSource.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
                 imageSource = new Bitmap(w, h); // 0 - смещение ,pixels, w
@@ -754,18 +810,16 @@ namespace circuit_emulator
                 //imageSource.setAnimated(true);
                 // ImageAnimator.Animate(imageSource, null); // null 
                 //UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setFullBufferUpdates' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
-               // imageSource.setFullBufferUpdates(true);
+                // imageSource.setFullBufferUpdates(true);
                 //UPGRADE_ISSUE: Method 'java.awt.Component.createImage' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponentcreateImage_javaawtimageImageProducer'"
-               // image = sim.cv.createImage(imageSource);
+                // image = sim.cv.createImage(imageSource);
             }
-            dpixels = new float[w * h];
+            dpixels = new float[w*h];
             draw_ox = draw_oy = - 1;
         }
 
-    
 
-
-        internal virtual void  handleMenu(System.Object event_sender, System.EventArgs e, System.Object mi)
+        internal virtual void handleMenu(Object event_sender, EventArgs e, Object mi)
         {
             if (mi == sim.scopeVMenuItem)
                 showVoltage(sim.scopeVMenuItem.Checked);
@@ -799,7 +853,7 @@ namespace circuit_emulator
                 ivalue = VAL_IC;
                 resetGraph();
             }
-		
+
             if (mi == sim.scopeVIMenuItem)
             {
                 plot2d = sim.scopeVIMenuItem.Checked;
@@ -816,8 +870,8 @@ namespace circuit_emulator
             if (mi == sim.scopeResistMenuItem)
                 Value = VAL_R;
         }
-	
-        internal virtual void  select()
+
+        internal virtual void select()
         {
             sim.mouseElm = elm;
             if (plotXY)
@@ -826,10 +880,10 @@ namespace circuit_emulator
                 sim.plotYElm = yElm;
             }
         }
-	
-        internal virtual void  selectY()
+
+        internal virtual void selectY()
         {
-            int e = yElm == null?- 1:sim.locateElm(yElm);
+            int e = yElm == null ? - 1 : sim.locateElm(yElm);
             int firstE = e;
             while (true)
             {
@@ -839,11 +893,11 @@ namespace circuit_emulator
                     if ((ce is OutputElm || ce is ProbeElm) && ce != elm)
                     {
                         yElm = ce;
-                        return ;
+                        return;
                     }
                 }
                 if (firstE == - 1)
-                    return ;
+                    return;
                 e = firstE = - 1;
             }
         }

@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace circuit_emulator
 {
     class PotElm:CircuitElm
@@ -57,6 +59,7 @@ namespace circuit_emulator
         }
         internal virtual void  createSlider()
         {
+            slider = new HScrollBar();
             System.Windows.Forms.Label temp_Label2;
             //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             temp_Label2 = new System.Windows.Forms.Label();
