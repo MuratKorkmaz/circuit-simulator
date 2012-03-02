@@ -53,8 +53,7 @@ namespace circuit_emulator
 		public static void  Main()
 		{
 		    Application.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-			ogf = new CirSim(null);
-			ogf.init();
+			Application.Run(new CirSim(null));
 		}
 		
 		internal virtual void  showFrame()

@@ -132,6 +132,9 @@
     <Compile Include="CirSim.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CirSim.Designer.cs">
+      <DependentUpon>CirSim.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClockElm.cs" />
     <Compile Include="CounterElm.cs" />
     <Compile Include="CurrentElm.cs" />
@@ -179,6 +182,11 @@
     <Compile Include="PMosfetElm.cs" />
     <Compile Include="PotElm.cs" />
     <Compile Include="ProbeElm.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PTransistorElm.cs" />
     <Compile Include="PushSwitchElm.cs" />
     <Compile Include="RailElm.cs" />
@@ -217,6 +225,16 @@
     <EmbeddedResource Include="Circuit.resx">
       <DependentUpon>Circuit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CirSim.resx">
+      <DependentUpon>CirSim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\footer.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
