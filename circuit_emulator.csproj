@@ -248,6 +248,9 @@
     <EmbeddedResource Include="CirSim.resx">
       <DependentUpon>CirSim.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditDialog.resx">
+      <DependentUpon>EditDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImportDialog.resx">
       <DependentUpon>ImportDialog.cs</DependentUpon>
     </EmbeddedResource>
