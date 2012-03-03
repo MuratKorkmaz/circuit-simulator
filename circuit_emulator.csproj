@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <SchemaVersion>2.0</SchemaVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>circuit_emulator</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>circuit_emulator</RootNamespace>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <ProjectGuid>{AC10202B-DE0E-4E8F-9625-41CF9BC92D32}</ProjectGuid>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <Name>mscorlib</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Management">
+      <Name>System.Management</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.Xml</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ACRailElm.cs" />
+    <Compile Include="ACVoltageElm.cs" />
+    <Compile Include="ADCElm.cs" />
+    <Compile Include="AnalogSwitch2Elm.cs" />
+    <Compile Include="AnalogSwitchElm.cs" />
+    <Compile Include="AndGateElm.cs" />
+    <Compile Include="AntennaElm.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="CapacitorElm.cs" />
+    <Compile Include="CC2Elm.cs" />
+    <Compile Include="ChipElm.cs" />
+    <Compile Include="Circuit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CircuitCanvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CircuitElm.cs" />
+    <Compile Include="CircuitLayout.cs" />
+    <Compile Include="CircuitNode.cs" />
+    <Compile Include="CircuitNodeLink.cs" />
+    <Compile Include="CirSim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CirSim.Designer.cs">
+      <DependentUpon>CirSim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClockElm.cs" />
+    <Compile Include="CounterElm.cs" />
+    <Compile Include="CurrentElm.cs" />
+    <Compile Include="DACElm.cs" />
+    <Compile Include="DCVoltageElm.cs" />
+    <Compile Include="DecadeElm.cs" />
+    <Compile Include="DFlipFlopElm.cs" />
+    <Compile Include="DiacElm.cs" />
+    <Compile Include="Diode.cs" />
+    <Compile Include="DiodeElm.cs" />
+    <Compile Include="EditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditDialogLayout.cs" />
+    <Compile Include="EditInfo.cs" />
+    <Compile Include="EditOptions.cs" />
+    <Compile Include="GateElm.cs" />
+    <Compile Include="GroundElm.cs" />
+    <Compile Include="ImportDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportDialog.Designer.cs">
+      <DependentUpon>ImportDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportDialogLayout.cs" />
+    <Compile Include="Inductor.cs" />
+    <Compile Include="InductorElm.cs" />
+    <Compile Include="InverterElm.cs" />
+    <Compile Include="JfetElm.cs" />
+    <Compile Include="JKFlipFlopElm.cs" />
+    <Compile Include="LampElm.cs" />
+    <Compile Include="LatchElm.cs" />
+    <Compile Include="LEDElm.cs" />
+    <Compile Include="LogicInputElm.cs" />
+    <Compile Include="LogicOutputElm.cs" />
+    <Compile Include="MemristorElm.cs" />
+    <Compile Include="MosfetElm.cs" />
+    <Compile Include="NandGateElm.cs" />
+    <Compile Include="NJfetElm.cs" />
+    <Compile Include="NMosfetElm.cs" />
+    <Compile Include="NorGateElm.cs" />
+    <Compile Include="NTransistorElm.cs" />
+    <Compile Include="OpAmpElm.cs" />
+    <Compile Include="OpAmpSwapElm.cs" />
+    <Compile Include="OrGateElm.cs" />
+    <Compile Include="OutputElm.cs" />
+    <Compile Include="PhaseCompElm.cs" />
+    <Compile Include="PMosfetElm.cs" />
+    <Compile Include="PotElm.cs" />
+    <Compile Include="ProbeElm.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PTransistorElm.cs" />
+    <Compile Include="PushSwitchElm.cs" />
+    <Compile Include="RailElm.cs" />
+    <Compile Include="RelayElm.cs" />
+    <Compile Include="ResistorElm.cs" />
+    <Compile Include="RowInfo.cs" />
+    <Compile Include="Scope.cs" />
+    <Compile Include="SCRElm.cs" />
+    <Compile Include="SevenSegElm.cs" />
+    <Compile Include="SparkGapElm.cs" />
+    <Compile Include="SquareRailElm.cs" />
+    <Compile Include="SupportClass.cs" />
+    <Compile Include="SweepElm.cs" />
+    <Compile Include="Switch2Elm.cs" />
+    <Compile Include="SwitchElm.cs" />
+    <Compile Include="TappedTransformerElm.cs" />
+    <Compile Include="TextElm.cs" />
+    <Compile Include="TimerElm.cs" />
+    <Compile Include="TransformerElm.cs" />
+    <Compile Include="TransistorElm.cs" />
+    <Compile Include="TransLineElm.cs" />
+    <Compile Include="TriacElm.cs" />
+    <Compile Include="TriodeElm.cs" />
+    <Compile Include="TunnelDiodeElm.cs" />
+    <Compile Include="VarRailElm.cs" />
+    <Compile Include="VCOElm.cs" />
+    <Compile Include="VoltageElm.cs" />
+    <Compile Include="WireElm.cs" />
+    <Compile Include="XorGateElm.cs" />
+    <Compile Include="ZenerElm.cs" />
+    <None Include="app.config" />
+    <None Include="_ConversionReport.htm">
+      <SubType>Preview</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Circuit.resx">
+      <DependentUpon>Circuit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CirSim.resx">
+      <DependentUpon>CirSim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportDialog.resx">
+      <DependentUpon>ImportDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\footer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
