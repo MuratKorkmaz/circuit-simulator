@@ -64,7 +64,6 @@ namespace circuit_emulator
         internal bool converged;
         internal MenuItem copyItem;
         internal String ctrlMetaKey;
-        internal ScrollBar currentBar;
         internal MenuItem cutItem;
         //internal CircuitCanvas cv;
         internal Image dbimage;
@@ -119,14 +118,11 @@ namespace circuit_emulator
         internal MenuItem pasteItem;
         internal int pause = 10;
         internal CircuitElm plotXElm, plotYElm;
-        internal ScrollBar powerBar;
         internal MenuItem powerCheckItem;
-        internal Label powerLabel;
         internal MenuItem printableCheckItem;
         internal Random random;
         internal MenuItem redoItem;
         internal ArrayList redoStack;
-        internal Button resetButton;
         internal int[] scopeColCount;
         internal int scopeCount;
         internal MenuItem scopeFreqMenuItem;
@@ -157,7 +153,6 @@ namespace circuit_emulator
         internal MenuItem showValuesCheckItem;
         internal bool shown;
         internal MenuItem smallGridCheckItem;
-        internal ScrollBar speedBar;
 
         internal String startCircuit;
         internal String startCircuitText;
@@ -166,7 +161,6 @@ namespace circuit_emulator
         internal int steps;
         internal CircuitElm stopElm;
         internal String stopMessage;
-        internal CheckBox stoppedCheck;
         internal int subIterations;
         internal double t;
         internal int tempMouseMode = MODE_SELECT;
@@ -186,12 +180,11 @@ namespace circuit_emulator
 
         internal CirSim(Circuit a)
         {
-            Text = "Circuit Simulator v1.5n";
+            InitializeComponent();
+            Text = string.Format("Circuit Emulator v{0}", Application.ProductVersion);
             applet = a;
             useFrame = false;
-            speedBar = new HScrollBar();
             speedBar.Maximum = 200;
-            powerBar = new HScrollBar();
             init();
         }
 
@@ -436,15 +429,10 @@ namespace circuit_emulator
             dumpTypes['?'] = typeof (Scope);
             dumpTypes['B'] = typeof (Scope);
 
-            //UPGRADE_ISSUE: Method 'java.awt.Container.setLayout' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtContainersetLayout_javaawtLayoutManager'"
             //todo revert comment: main.setLayout(new CircuitLayout());
-            cv = new PictureBox();
-            cv.Anchor = AnchorStyles.Top | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            //UPGRADE_WARNING: Extra logic should be included into componentHidden to know if the Component is hidden. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1144'"
             cv.VisibleChanged += componentHidden;
             cv.Move += componentMoved;
             cv.Resize += componentResized;
-            //UPGRADE_WARNING: Extra logic should be included into componentShown to know if the Component is visible. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1145'"
             cv.VisibleChanged += componentShown;
             cv.MouseMove += mouseMoved;
             cv.MouseDown += mouseDown;
@@ -457,9 +445,7 @@ namespace circuit_emulator
             cv.KeyDown += keyPressed;
             cv.KeyUp += keyReleased;
             cv.KeyPress += keyTyped;
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            main.Controls.Add(cv);
-
+           
             mainMenu = new ContextMenu();
             MainMenu mb = null;
             if (useFrame)
@@ -655,14 +641,6 @@ namespace circuit_emulator
 
             mainMenu.MenuItems.Add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
             main.ContextMenu = mainMenu;
-
-            Button temp_Button2;
-            temp_Button2 = new Button();
-            temp_Button2.Text = "Сброс";
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control;
-            temp_Control = resetButton = temp_Button2;
-            main.Controls.Add(temp_Control);
             resetButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(resetButton);
             Button temp_Button3;
@@ -672,56 +650,18 @@ namespace circuit_emulator
             //main.add(dumpMatrixButton);
             dumpMatrixButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(dumpMatrixButton);
-            stoppedCheck = SupportClass.CheckBoxSupport.CreateCheckBox("Остановлено");
             stoppedCheck.Click += itemStateChanged;
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            main.Controls.Add(stoppedCheck);
-
-            Label temp_Label2;
-            //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            temp_Label2 = new Label();
-            temp_Label2.Text = "";
-            temp_Label2.TextAlign = ContentAlignment.MiddleCenter;
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control2;
-            temp_Control2 = temp_Label2;
-            main.Controls.Add(temp_Control2);
-
-            // was max of 140
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control3 = new Label();
-            temp_Control3.Text = "Скорость симуляции";
-            main.Controls.Add(temp_Control3);
-            //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
+            
+            lbSimSpeed.Text = "Скорость симуляции";
             speedBar.Scroll += adjustmentValueChanged;
 
-            //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            var temp_Label4 = new Label();
-            temp_Label4.Text = "Скорость тока";
-            temp_Label4.TextAlign = ContentAlignment.MiddleCenter;
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control4 = temp_Label4;
-            main.Controls.Add(temp_Control4);
-            currentBar = new HScrollBar();
+            lbCurrentSpeed.Text = "Скорость тока";
             currentBar.Value = 50;
             currentBar.Minimum = 1;
             currentBar.Maximum = 100;
-            //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
             currentBar.Scroll += adjustmentValueChanged;
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            main.Controls.Add(currentBar);
-
-            //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            var temp_Label6 = new Label();
-            temp_Label6.Text = "Яркость мощности";
-            temp_Label6.TextAlign = ContentAlignment.MiddleCenter;
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control5 = powerLabel = temp_Label6;
-            main.Controls.Add(temp_Control5);
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control6 = null;
-            main.Controls.Add(temp_Control6);
-            //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
+            
+            powerLabel.Text = "Яркость мощности";
             powerBar.Scroll += adjustmentValueChanged;
             powerBar.Enabled = false;
             powerLabel.Enabled = false;
@@ -805,11 +745,11 @@ namespace circuit_emulator
                 //UPGRADE_ISSUE: Method 'java.awt.Window.getToolkit' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtWindowgetToolkit'"
                 //todo remove comment: getToolkit();
                 Size screen = Screen.PrimaryScreen.Bounds.Size;
-                Size = new Size(860, 640);
+                Size = new Size(860, 720);
                 handleResize();
                 Size x = Size;
                 //UPGRADE_TODO: Method 'java.awt.Component.setLocation' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentsetLocation_int_int'"
-                Location = new Point((screen.Width - x.Width)/2, (screen.Height - x.Height)/2);
+                //Location = new Point((screen.Width - x.Width)/2, (screen.Height - x.Height)/2);
                 //UPGRADE_TODO: 'System.Windows.Forms.Application.Run' must be called to start a main form. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1135'"
                 Show();
                 //Application.Run(this);
