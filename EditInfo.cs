@@ -6,6 +6,8 @@ namespace circuit_emulator
         internal EditInfo(System.String n, double val, double mn, double mx)
         {
              bar = new HScrollBar();
+            bar.Minimum = 0;
+            bar.Maximum = 1000;
             name = n;
             value_Renamed = val;
             if (mn == 0 && mx == 0 && val > 0)
