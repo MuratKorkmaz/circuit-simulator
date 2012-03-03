@@ -9,11 +9,11 @@ namespace circuit_emulator
 
         public virtual System.Drawing.Size preferredLayoutSize(System.Windows.Forms.Control target)
         {
-            return new System.Drawing.Size(500, 500);
+            return new System.Drawing.Size(900, 500);
         }
         public virtual System.Drawing.Size minimumLayoutSize(System.Windows.Forms.Control target)
         {
-            return new System.Drawing.Size(100, 100);
+            return new System.Drawing.Size(400, 400);
         }
         public virtual void  layoutContainer(System.Windows.Forms.Control target)
         {
