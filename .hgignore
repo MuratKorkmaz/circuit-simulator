@@ -14,3 +14,4 @@ circuit_emulator.suo
 circuit_emulator.pdb
 circuits/*
 setuplist.txt
+circuit_emulator.vshost.*
