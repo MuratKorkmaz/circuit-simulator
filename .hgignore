@@ -1,0 +1,18 @@
+syntax: glob
+_ReSharper.JavaToSharp/*
+JavaToSharp.sln.DotSettings.user
+JavaToSharp/obj/*
+JavaToSharp/bin/*
+JavaToSharp.suo
+JavaToSharp.suo.orig
+JavaToSharp.5.0.ReSharper.user
+_ReSharper.circuit_emulator/*
+circuit_emulator.sln.DotSettings.user
+obj/*
+circuit_emulator.exe
+circuit_emulator.suo
+circuit_emulator.pdb
+circuits/*
+setuplist.txt
+circuit_emulator.vshost.*
+circuit_emulator.ex*
