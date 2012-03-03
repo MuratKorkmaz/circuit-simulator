@@ -25,7 +25,7 @@ namespace circuit_emulator
 
         internal EditDialog(Editable ce, CirSim f)
         {
-            flowLayoutPanel = new FlowLayoutPanel();
+            InitializeComponent();
             SupportClass.DialogSupport.SetDialog(this, f, "Редактировать компонент");
             cframe = f;
             elm = ce;
@@ -45,6 +45,7 @@ namespace circuit_emulator
                 temp_Label2.Text = ei.name;
                 Control temp_Control;
                 temp_Control = temp_Label2;
+                temp_Control.Dock = DockStyle.Fill;
                 flowLayoutPanel.Controls.Add(temp_Control);
                 if (ei.choice != null)
                 {
@@ -63,6 +64,7 @@ namespace circuit_emulator
                     temp_TextBox2.Text = unitString(ei);
                     Control temp_Control2;
                     temp_Control2 = ei.textf = temp_TextBox2;
+                    temp_Control2.Dock = DockStyle.Fill;
                     flowLayoutPanel.Controls.Add(temp_Control2);
                     if (ei.text != null)
                         ei.textf.Text = ei.text;
@@ -81,6 +83,7 @@ namespace circuit_emulator
             temp_Button2.Text = "Применить";
             Control temp_Control4;
             temp_Control4 = applyButton = temp_Button2;
+            temp_Control4.Dock = DockStyle.Fill;
             flowLayoutPanel.Controls.Add(temp_Control4);
             applyButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(applyButton);
@@ -89,6 +92,7 @@ namespace circuit_emulator
             temp_Button4.Text = "OK";
             Control temp_Control5;
             temp_Control5 = okButton = temp_Button4;
+            temp_Control5.Dock = DockStyle.Fill;
             flowLayoutPanel.Controls.Add(temp_Control5);
             okButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(okButton);
@@ -302,26 +306,24 @@ namespace circuit_emulator
 
         private void InitializeComponent()
         {
-            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.SuspendLayout();
+            flowLayoutPanel = new FlowLayoutPanel();
+            SuspendLayout();
             // 
             // flowLayoutPanel
             // 
-            this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(492, 373);
-            this.flowLayoutPanel.TabIndex = 0;
+            flowLayoutPanel.Dock = DockStyle.Fill;
+            flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel.Location = new Point(0, 0);
+            flowLayoutPanel.Name = "flowLayoutPanel";
+            flowLayoutPanel.Size = new Size(265, 188);
+            flowLayoutPanel.TabIndex = 0;
             // 
             // EditDialog
             // 
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(492, 373);
-            this.Controls.Add(this.flowLayoutPanel);
-            this.Name = "EditDialog";
-            this.ResumeLayout(false);
-
+            ClientSize = new Size(265, 188);
+            Controls.Add(flowLayoutPanel);
+            Name = "EditDialog";
+            ResumeLayout(false);
         }
     }
 }
