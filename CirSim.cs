@@ -430,22 +430,7 @@ namespace circuit_emulator
             dumpTypes['B'] = typeof (Scope);
 
             //todo revert comment: main.setLayout(new CircuitLayout());
-            cv.VisibleChanged += componentHidden;
-            cv.Move += componentMoved;
-            cv.Resize += componentResized;
-            cv.VisibleChanged += componentShown;
-            cv.MouseMove += mouseMoved;
-            cv.MouseDown += mouseDown;
-            cv.Click += mouseClicked;
-            cv.MouseEnter += mouseEntered;
-            cv.MouseLeave += mouseExited;
-            cv.MouseDown += mousePressed;
-            cv.MouseUp += mouseReleased;
-            cv.KeyDown += keyDown;
-            cv.KeyDown += keyPressed;
-            cv.KeyUp += keyReleased;
-            cv.KeyPress += keyTyped;
-           
+
             mainMenu = new ContextMenu();
             MainMenu mb = null;
             if (useFrame)
@@ -641,28 +626,21 @@ namespace circuit_emulator
 
             mainMenu.MenuItems.Add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
             main.ContextMenu = mainMenu;
-            resetButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(resetButton);
             Button temp_Button3;
             temp_Button3 = new Button();
             temp_Button3.Text = "Dump Matrix";
             dumpMatrixButton = temp_Button3;
             //main.add(dumpMatrixButton);
-            dumpMatrixButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(dumpMatrixButton);
-            stoppedCheck.Click += itemStateChanged;
-            
-            lbSimSpeed.Text = "Скорость симуляции";
-            speedBar.Scroll += adjustmentValueChanged;
 
+            lbSimSpeed.Text = "Скорость симуляции";
             lbCurrentSpeed.Text = "Скорость тока";
             currentBar.Value = 50;
             currentBar.Minimum = 1;
             currentBar.Maximum = 100;
-            currentBar.Scroll += adjustmentValueChanged;
-            
+
             powerLabel.Text = "Яркость мощности";
-            powerBar.Scroll += adjustmentValueChanged;
             powerBar.Enabled = false;
             powerLabel.Enabled = false;
 
@@ -766,7 +744,7 @@ namespace circuit_emulator
                 handleResize();
                 applet.Invalidate();
             }
-            //main.Focus();
+            SubscribeOnEvents();
         }
 
         public virtual void triggerShow()
@@ -962,15 +940,25 @@ namespace circuit_emulator
         protected override void OnPaint(PaintEventArgs g_EventArg)
         {
             //Graphics g = g_EventArg.Graphics;
-            Graphics g = cv.CreateGraphics();
-            updateCircuit(g);
+            UpdateCircuitAsync();
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
             //cv.Update();
         }
 
+        private void UpdateCircuitAsync()
+        {
+            Thread analizeThread = new Thread(delegate()
+            {
+                while (true)
+                {
+                    updateCircuit(cv.CreateGraphics());
+                }
+            });
+            analizeThread.Start();
+        }
+
         public virtual void updateCircuit(Graphics realg)
         {
-            CircuitElm realMouseElm;
             if (winSize.IsEmpty || winSize.Width == 0)
                 return;
             if (analyzeFlag)
@@ -980,12 +968,11 @@ namespace circuit_emulator
             }
             if (editDialog != null && editDialog.elm is CircuitElm)
                 mouseElm = (CircuitElm) (editDialog.elm);
-            realMouseElm = mouseElm;
+            CircuitElm realMouseElm = mouseElm;
             if (mouseElm == null)
                 mouseElm = stopElm;
             setupScopes();
-            Graphics g = null;
-            g = Graphics.FromImage(dbimage);
+            Graphics g = Graphics.FromImage(dbimage);
             CircuitElm.selectColor = Color.Cyan;
             if (printableCheckItem.Checked)
             {
@@ -1194,9 +1181,10 @@ namespace circuit_emulator
                 }
 
                 //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
-                cv.Refresh();
+                //cv.Refresh();
             }
             lastFrameTime = lastTime;
+            needAnalyze();
         }
 
         internal virtual void setupScopes()
@@ -1290,11 +1278,18 @@ namespace circuit_emulator
             }
         }
 
-        internal virtual void needAnalyze()
+        internal void needAnalyze()
         {
-            analyzeFlag = true;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            cv.Refresh();
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(needAnalyze));
+            }
+            else
+            {
+                analyzeFlag = true;
+                cv.Refresh();
+            }
         }
 
         public virtual CircuitNode getCircuitNode(int n)
@@ -2700,6 +2695,35 @@ namespace circuit_emulator
             if (!retain)
                 handleResize(); // for scopes
             needAnalyze();
+        }
+
+        private void SubscribeOnEvents()
+        {
+            cv.VisibleChanged += componentHidden;
+            cv.Move += componentMoved;
+            cv.Resize += componentResized;
+            cv.VisibleChanged += componentShown;
+            cv.MouseMove += mouseMoved;
+            cv.MouseDown += mouseDown;
+            cv.Click += mouseClicked;
+            cv.MouseEnter += mouseEntered;
+            cv.MouseLeave += mouseExited;
+            cv.MouseDown += mousePressed;
+            cv.MouseUp += mouseReleased;
+            cv.KeyDown += keyDown;
+            cv.KeyDown += keyPressed;
+            cv.KeyUp += keyReleased;
+            cv.KeyPress += keyTyped;
+
+            resetButton.Click += actionPerformed;
+
+            dumpMatrixButton.Click += actionPerformed;
+
+            stoppedCheck.Click += itemStateChanged;
+
+            speedBar.Scroll += adjustmentValueChanged;
+            currentBar.Scroll += adjustmentValueChanged;
+            powerBar.Scroll += adjustmentValueChanged;
         }
 
         internal virtual void readHint(SupportClass.Tokenizer st)
