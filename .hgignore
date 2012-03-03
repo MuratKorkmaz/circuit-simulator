@@ -15,3 +15,4 @@ circuit_emulator.pdb
 circuits/*
 setuplist.txt
 circuit_emulator.vshost.*
+circuit_emulator.ex*
