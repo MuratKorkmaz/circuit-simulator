@@ -54,7 +54,6 @@ namespace circuit_emulator
         internal int value_Renamed;
 
         internal CircuitElm xElm, yElm;
-        //UPGRADE_ISSUE: Class 'java.awt.image.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
 
         internal Scope(CirSim s)
         {
@@ -241,9 +240,7 @@ namespace circuit_emulator
                     clear2dView();
                 double xa = v/minMaxV;
                 double ya = yval/minMaxI;
-                //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                 var x = (int) (rect.Width*(1 + xa)*.499);
-                //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                 var y = (int) (rect.Height*(1 - ya)*.499);
                 drawTo(x, y);
             }
@@ -329,13 +326,11 @@ namespace circuit_emulator
                 pixels[rect.Width/2 + rect.Width*i] = ycol;
             for (i = 0; i != pixels.Length; i++)
             {
-                //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                 var q = (int) (255*dpixels[i]);
                 if (q > 0)
                     pixels[i] = unchecked((int) 0xFF000000) | (0x10101*q);
                 dpixels[i] = (float) (dpixels[i]*.997);
             }
-            //UPGRADE_WARNING: Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1101'"
             g.DrawImage(image, rect.X, rect.Y);
             SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
             g.FillEllipse(SupportClass.GraphicsManager.manager.GetPaint(g), rect.X + draw_ox - 2, rect.Y + draw_oy - 2,
@@ -344,7 +339,6 @@ namespace circuit_emulator
             int x = rect.X;
             if (text != null && rect.Y + rect.Height > yt + 5)
             {
-                //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                 g.DrawString(text, SupportClass.GraphicsManager.manager.GetFont(g),
                              SupportClass.GraphicsManager.manager.GetBrush(g), x,
                              yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
@@ -411,7 +405,6 @@ namespace circuit_emulator
                 // or if lines are too close together (except for center line)
                 if (ll != 0 && ((showI && showV) || gridStep == 0))
                     continue;
-                //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                 int yl = maxy - (int) (maxy*ll*gridStep/gridMax);
                 if (yl < 0 || yl >= rect.Height - 1)
                     continue;
@@ -436,7 +429,6 @@ namespace circuit_emulator
             for (ll = 0;; ll++)
             {
                 double tl = tx - gridStep*ll;
-                //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                 var gx = (int) ((tl - tstart)/ts);
                 if (gx < 0)
                     break;
@@ -465,9 +457,7 @@ namespace circuit_emulator
                 for (i = 0; i != rect.Width; i++)
                 {
                     int ip = (i + ipa) & (scopePointCount - 1);
-                    //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                     var miniy = (int) ((maxy/minMaxI)*minI[ip]);
-                    //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                     var maxiy = (int) ((maxy/minMaxI)*maxI[ip]);
                     if (maxI[ip] > realMaxI)
                         realMaxI = maxI[ip];
@@ -505,9 +495,7 @@ namespace circuit_emulator
                 for (i = 0; i != rect.Width; i++)
                 {
                     int ip = (i + ipa) & (scopePointCount - 1);
-                    //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                     var minvy = (int) ((maxy/minMaxV)*minV[ip]);
-                    //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
                     var maxvy = (int) ((maxy/minMaxV)*maxV[ip]);
                     if (maxV[ip] > realMaxV)
                         realMaxV = maxV[ip];
@@ -592,7 +580,6 @@ namespace circuit_emulator
                     freq = 0;
                 // System.out.println(freq + " " + periodstd + " " + periodct);
             }
-            //UPGRADE_WARNING: Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1101'"
             g.DrawImage(image, rect.X, rect.Y);
             SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
             int yt = rect.Y + 10;
@@ -601,7 +588,6 @@ namespace circuit_emulator
             {
                 if (value_Renamed != 0)
                 {
-                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                     g.DrawString(CircuitElm.getUnitText(realMaxV, elm.getScopeUnits(value_Renamed)),
                                  SupportClass.GraphicsManager.manager.GetFont(g),
                                  SupportClass.GraphicsManager.manager.GetBrush(g), x,
@@ -609,14 +595,12 @@ namespace circuit_emulator
                 }
                 else if (showV)
                 {
-                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                     g.DrawString(CircuitElm.getVoltageText(realMaxV), SupportClass.GraphicsManager.manager.GetFont(g),
                                  SupportClass.GraphicsManager.manager.GetBrush(g), x,
                                  yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
                 else if (showI)
                 {
-                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                     g.DrawString(CircuitElm.getCurrentText(realMaxI), SupportClass.GraphicsManager.manager.GetFont(g),
                                  SupportClass.GraphicsManager.manager.GetBrush(g), x,
                                  yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
@@ -628,7 +612,6 @@ namespace circuit_emulator
                 int ym = rect.Y + rect.Height - 5;
                 if (value_Renamed != 0)
                 {
-                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                     g.DrawString(CircuitElm.getUnitText(realMinV, elm.getScopeUnits(value_Renamed)),
                                  SupportClass.GraphicsManager.manager.GetFont(g),
                                  SupportClass.GraphicsManager.manager.GetBrush(g), x,
@@ -636,14 +619,12 @@ namespace circuit_emulator
                 }
                 else if (showV)
                 {
-                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                     g.DrawString(CircuitElm.getVoltageText(realMinV), SupportClass.GraphicsManager.manager.GetFont(g),
                                  SupportClass.GraphicsManager.manager.GetBrush(g), x,
                                  ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                 }
                 else if (showI)
                 {
-                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                     g.DrawString(CircuitElm.getCurrentText(realMinI), SupportClass.GraphicsManager.manager.GetFont(g),
                                  SupportClass.GraphicsManager.manager.GetBrush(g), x,
                                  ym - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
@@ -651,7 +632,6 @@ namespace circuit_emulator
             }
             if (text != null && rect.Y + rect.Height > yt + 5)
             {
-                //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                 g.DrawString(text, SupportClass.GraphicsManager.manager.GetFont(g),
                              SupportClass.GraphicsManager.manager.GetBrush(g), x,
                              yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
@@ -659,7 +639,6 @@ namespace circuit_emulator
             }
             if (showFreq_Renamed_Field && freq != 0 && rect.Y + rect.Height > yt + 5)
             {
-                //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                 g.DrawString(CircuitElm.getUnitText(freq, "Гц"), SupportClass.GraphicsManager.manager.GetFont(g),
                              SupportClass.GraphicsManager.manager.GetBrush(g), x,
                              yt - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
@@ -717,9 +696,7 @@ namespace circuit_emulator
             speed = Int32.Parse(st.NextToken());
             value_Renamed = Int32.Parse(st.NextToken());
             int flags = Int32.Parse(st.NextToken());
-            //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
             minMaxV = Double.Parse(st.NextToken());
-            //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
             minMaxI = Double.Parse(st.NextToken());
             if (minMaxV == 0)
                 minMaxV = .5;
@@ -778,11 +755,8 @@ namespace circuit_emulator
 				DataBufferInt dbi = (DataBufferInt) db;
 				pixels = dbi.getData();
 				*/
-                    //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
                     Type biclass = Type.GetType("java.awt.image.BufferedImage");
-                    //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
                     Type dbiclass = Type.GetType("java.awt.image.DataBufferInt");
-                    //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
                     Type rasclass = Type.GetType("java.awt.image.Raster");
                     ConstructorInfo cstr = biclass.GetConstructor(new[] {typeof (int), typeof (int), typeof (int)});
                     image = (Image) cstr.Invoke(new Object[] {w, h, (Int32) PixelFormat.Format32bppRgb});
@@ -803,16 +777,12 @@ namespace circuit_emulator
                 int i;
                 for (i = 0; i != w*h; i++)
                     pixels[i] = unchecked((int) 0xFF000000);
-                //UPGRADE_ISSUE: Constructor 'java.awt.image.MemoryImageSource.MemoryImageSource' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
                 imageSource = new Bitmap(w, h); // 0 - смещение ,pixels, w
-                //UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setAnimated' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
                 //todo animation
                 //imageSource.setAnimated(true);
                 // ImageAnimator.Animate(imageSource, null); // null 
-                //UPGRADE_ISSUE: Method 'java.awt.image.MemoryImageSource.setFullBufferUpdates' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtimageMemoryImageSource'"
                 // imageSource.setFullBufferUpdates(true);
-                //UPGRADE_ISSUE: Method 'java.awt.Component.createImage' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponentcreateImage_javaawtimageImageProducer'"
-                 //image = sim.cv.createImage(imageSource);
+                //image = sim.cv.createImage(imageSource);
                 image = new Bitmap(imageSource);
             }
             dpixels = new float[w*h];
