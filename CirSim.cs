@@ -38,17 +38,14 @@ namespace circuit_emulator
 
         #region Fields
 
-        private BufferedGraphicsContext context;
-        private BufferedGraphics grafx;
-
-        private bool _isSimulate;
-
         private static Int32 state4;
         internal static Control main;
         internal static EditDialog editDialog;
         internal static ImportDialog impDialog;
         internal static String muString = "мк";
         internal static String ohmString = "Ом";
+        private readonly object _lockGraphics;
+        private bool _isSimulate;
         internal Type addingClass;
         internal bool analyzeFlag;
         internal Circuit applet;
@@ -63,8 +60,10 @@ namespace circuit_emulator
         internal int[] circuitPermute;
         internal double[] circuitRightSide;
         internal RowInfo[] circuitRowInfo;
+        private Thread circuitThread;
         internal String clipboard;
         internal MenuItem conductanceCheckItem;
+        private BufferedGraphicsContext context;
         internal MenuItem conventionCheckItem;
         internal bool converged;
         internal MenuItem copyItem;
@@ -96,6 +95,7 @@ namespace circuit_emulator
 
         internal int framerate;
         internal int frames;
+        private BufferedGraphics grafx;
         internal int gridMask, gridRound;
         internal int gridSize;
         internal SwitchElm heldSwitchElm;
@@ -186,6 +186,7 @@ namespace circuit_emulator
         internal CirSim(Circuit a)
         {
             InitializeComponent();
+            _lockGraphics = new object();
             Text = string.Format("Circuit Emulator v{0}", Application.ProductVersion);
             applet = a;
             useFrame = false;
@@ -958,18 +959,37 @@ namespace circuit_emulator
             //cv.Update();
         }
 
+        private void UpdateGraphics()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(UpdateGraphics));
+            }
+            else
+            {
+                lock (_lockGraphics)
+                {
+                    grafx.Render();
+                }
+            }
+        }
+
         private void UpdateCircuitAsync()
         {
             _isSimulate = true;
-            Thread analizeThread = new Thread(delegate()
+            if (circuitThread != null && circuitThread.IsAlive)
             {
-                while (_isSimulate)
-                {
-                    updateCircuit(grafx.Graphics);
-                    grafx.Render();
-                }
-            });
-            analizeThread.Start();
+                return;
+            }
+            circuitThread = new Thread(delegate()
+                                           {
+                                               while (_isSimulate)
+                                               {
+                                                   updateCircuit(grafx.Graphics);
+                                                   UpdateGraphics();
+                                               }
+                                           });
+            circuitThread.Start();
         }
 
         public virtual void updateCircuit(Graphics realg)
@@ -1013,7 +1033,7 @@ namespace circuit_emulator
                     SupportClass.WriteStackTrace(e, Console.Error);
                     analyzeFlag = true;
                     //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-                    grafx.Render();
+                    UpdateGraphics();
                     return;
                 }
             }
@@ -1177,7 +1197,10 @@ namespace circuit_emulator
 		*/
 
             //UPGRADE_WARNING: Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1101'"
-            realg.DrawImage(dbimage, 0, 0);
+            lock (_lockGraphics)
+            {
+                realg.DrawImage(dbimage, 0, 0);
+            }
             if (!stoppedCheck.Checked && circuitMatrix != null)
             {
                 // Limit to 50 fps (thanks to JСЊrgen KlС†tzer for this)
@@ -1283,7 +1306,7 @@ namespace circuit_emulator
                         ((SwitchElm) ce).toggle();
                         analyzeFlag = true;
                         _isSimulate = true;
-                        grafx.Render();
+                        UpdateGraphics();
                         return;
                     }
                 }
@@ -1844,7 +1867,7 @@ namespace circuit_emulator
             analyzeFlag = false;
             _isSimulate = false;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            grafx.Render();
+            UpdateGraphics();
         }
 
         // control voltage source vs with voltage from n1 to n2 (must
@@ -2142,7 +2165,7 @@ namespace circuit_emulator
         {
             // XXX
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
-            grafx.Render();
+            UpdateGraphics();
         }
 
         public virtual void componentHidden(Object event_sender, EventArgs e)
@@ -2156,14 +2179,14 @@ namespace circuit_emulator
         public virtual void componentShown(Object event_sender, EventArgs e)
         {
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            grafx.Render();
+            UpdateGraphics();
         }
 
         public virtual void componentResized(Object event_sender, EventArgs e)
         {
             handleResize();
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
-            grafx.Render();
+            UpdateGraphics();
         }
 
         public virtual void actionPerformed(Object event_sender, EventArgs e)
@@ -2173,8 +2196,6 @@ namespace circuit_emulator
             {
                 int i;
 
-                // on IE, drawImage() stops working inexplicably every once in
-                // a while.  Recreating it fixes the problem, so we do that here.
                 dbimage = new Bitmap(winSize.Width, winSize.Height);
                 cv.Image = dbimage;
                 for (i = 0; i != elmList.Count; i++)
@@ -2185,7 +2206,7 @@ namespace circuit_emulator
                 t = 0;
                 stoppedCheck.Checked = false;
                 //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-                grafx.Render();
+                UpdateGraphics();
             }
             if (event_sender == dumpMatrixButton)
                 dumpMatrix = true;
@@ -2272,7 +2293,7 @@ namespace circuit_emulator
                 if (String.CompareOrdinal(ac, "reset") == 0)
                     scopes[menuScope].resetGraph();
                 //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-                grafx.Render();
+                UpdateGraphics();
             }
             if (ac.IndexOf("setup ") == 0)
             {
@@ -2493,6 +2514,26 @@ namespace circuit_emulator
 
         private void readSetup(string[] lines)
         {
+            for (int i = 0; i != elmList.Count; i++)
+            {
+                CircuitElm ce = getElm(i);
+                ce.delete();
+            }
+            elmList.Clear();
+            hintType = -1;
+            timeStep = 5e-6;
+            dotsCheckItem.Checked = true;
+            smallGridCheckItem.Checked = false;
+            powerCheckItem.Checked = false;
+            voltsCheckItem.Checked = true;
+            showValuesCheckItem.Checked = true;
+            setGrid();
+            speedBar.Value = 117; // 57
+            currentBar.Value = 50;
+            powerBar.Value = 50;
+            CircuitElm.voltageRange = 5;
+            scopeCount = 0;
+
             for (int i = 0; i < lines.Length; i++)
             {
                 var st = new SupportClass.Tokenizer(lines[i]);
@@ -2598,7 +2639,7 @@ namespace circuit_emulator
                 scopeCount = 0;
             }
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            grafx.Render();
+            UpdateGraphics();
             int p;
             for (p = 0; p < len;)
             {
@@ -2870,7 +2911,7 @@ namespace circuit_emulator
                 }
             }
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
-            grafx.Render();
+            UpdateGraphics();
         }
 	*/
 
@@ -3122,7 +3163,7 @@ namespace circuit_emulator
             if (mouseElm != origMouse)
             {
                 //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-                //grafx.Render();
+                //UpdateGraphics();
             }
         }
 
@@ -3152,7 +3193,7 @@ namespace circuit_emulator
             scopeSelected = -1;
             mouseElm = plotXElm = plotYElm = null;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            grafx.Render();
+            UpdateGraphics();
         }
 
         public virtual void mousePressed(Object event_sender, MouseEventArgs e)
@@ -3340,7 +3381,7 @@ namespace circuit_emulator
                 dragElm.delete();
             dragElm = null;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            grafx.Render();
+            UpdateGraphics();
         }
 
         internal virtual void enableItems()
@@ -3364,7 +3405,7 @@ namespace circuit_emulator
                 ((MenuItem) event_sender).Checked =
                     !((MenuItem) event_sender).Checked;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
-            grafx.Render();
+            UpdateGraphics();
             Object mi = event_sender;
             if (mi == stoppedCheck)
                 return;
