@@ -969,7 +969,10 @@ namespace circuit_emulator
             {
                 lock (_lockGraphics)
                 {
-                    grafx.Render();
+                    if (_isSimulate)
+                    {
+                        grafx.Render();
+                    }
                 }
             }
         }
