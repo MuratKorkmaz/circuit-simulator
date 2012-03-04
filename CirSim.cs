@@ -394,7 +394,7 @@ namespace circuit_emulator
                 if (x2 != null && x2.ToUpper().Equals("true".ToUpper()))
                     convention = false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
 
@@ -407,7 +407,7 @@ namespace circuit_emulator
 
             //UPGRADE_TODO: Method 'java.lang.System.getProperty' was converted to 'System.Environment.GetEnvironmentVariable' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javalangSystemgetProperty_javalangString'"
             String os = Environment.GetEnvironmentVariable("OS");
-            isMac = (os.IndexOf("Mac ") == 0);
+            isMac = (os.IndexOf("Mac ", StringComparison.Ordinal) == 0);
             ctrlMetaKey = (isMac) ? "\u2318" : "Ctrl";
             //UPGRADE_ISSUE: Method 'java.lang.System.getProperty' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javalangSystem'"
             //System.String jv = System_Renamed.getProperty("java.class.version");
@@ -450,9 +450,7 @@ namespace circuit_emulator
             m = new MenuItem("Правка");
             m.MenuItems.Add(undoItem = getMenuItem("Отменить"));
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Shortcut temp_Shortcut;
-            temp_Shortcut = new Shortcut();
-            temp_Shortcut = (Shortcut) ((int) Keys.Z + 131072);
+            Shortcut temp_Shortcut = (Shortcut) ((int) Keys.Z + 131072);
             undoItem.Shortcut = temp_Shortcut;
             m.MenuItems.Add(redoItem = getMenuItem("Повторить"));
             //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
@@ -579,13 +577,8 @@ namespace circuit_emulator
             activeMenu.MenuItems.Add(getClassCheckItem("Добавить Аналоговый выключатель", "AnalogSwitchElm"));
             activeMenu.MenuItems.Add(getClassCheckItem("Добавить Аналоговый переключатель", "AnalogSwitch2Elm"));
             activeMenu.MenuItems.Add(getClassCheckItem("Добавить Тиристор", "SCRElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Варикап", "VaractorElm"));
             activeMenu.MenuItems.Add(getClassCheckItem("Добавить Туннельный диод", "TunnelDiodeElm"));
             activeMenu.MenuItems.Add(getClassCheckItem("Добавить Триод", "TriodeElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Динистор", "DiacElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Симистор", "TriacElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Фоторезистор", "PhotoResistorElm"));
-            //activeMenu.add(getClassCheckItem("Добавить Термистор", "ThermistorElm"));
             activeMenu.MenuItems.Add(getClassCheckItem("Добавить CCII+", "CC2Elm"));
             activeMenu.MenuItems.Add(getClassCheckItem("Добавить CCII-", "CC2NegElm"));
 
@@ -968,6 +961,14 @@ namespace circuit_emulator
                                                }
                                            });
             circuitThread.Start();
+        }
+
+        private void StopCircuitThread()
+        {
+            if (circuitThread != null && circuitThread.IsAlive)
+            {
+                circuitThread.Abort();
+            }
         }
 
         public virtual void updateCircuit(Graphics realg)
@@ -1832,8 +1833,6 @@ namespace circuit_emulator
             }
         }
 
-        //UPGRADE_NOTE: Field 'EnclosingInstance' was added to class 'FindPathInfo' to access its enclosing instance. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1019'"
-
         internal virtual void stop(String s, CircuitElm ce)
         {
             stopMessage = s;
@@ -2171,7 +2170,6 @@ namespace circuit_emulator
             if (event_sender == resetButton)
             {
                 int i;
-
                 dbimage = new Bitmap(winSize.Width, winSize.Height);
                 cv.Image = dbimage;
                 for (i = 0; i != elmList.Count; i++)
@@ -2274,7 +2272,7 @@ namespace circuit_emulator
             if (ac.IndexOf("setup ") == 0)
             {
                 pushUndo();
-                _isSimulate = false;
+                StopCircuitThread();
                 readSetupFile(ac.Substring(6), ((MenuItem) event_sender).Text);
                 UpdateCircuitAsync();
             }
@@ -2826,43 +2824,43 @@ namespace circuit_emulator
             return -1;
         }
 
-        /*
-        public virtual void  mouseDragged(System.Object event_sender, System.Windows.Forms.MouseEventArgs e)
+        public virtual void mouseDragged(Object event_sender, MouseEventArgs e)
         {
             // ignore right mouse button with no modifiers (needed on PC)
             //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
-            if ((state4 & (int) System.Windows.Forms.MouseButtons.Right) != 0)
-            {
-                int ex = e.getModifiersEx();
-                if ((ex & (MouseEvent.META_DOWN_MASK | MouseEvent.SHIFT_DOWN_MASK | MouseEvent.CTRL_DOWN_MASK | MouseEvent.ALT_DOWN_MASK)) == 0)
-                    return ;
-            }
+            //if ((state4 & (int) MouseButtons.Right) != 0)
+            //{
+            //    int ex = e.getModifiersEx();
+            //    if ((ex &
+            //         (MouseEvent.META_DOWN_MASK | MouseEvent.SHIFT_DOWN_MASK | MouseEvent.CTRL_DOWN_MASK |
+            //          MouseEvent.ALT_DOWN_MASK)) == 0)
+            //        return;
+            //}
             if (!circuitArea.Contains(e.X, e.Y))
-                return ;
+                return;
             if (dragElm != null)
                 dragElm.drag(e.X, e.Y);
             bool success = true;
             switch (tempMouseMode)
             {
-			
-                case MODE_DRAG_ALL: 
+                case MODE_DRAG_ALL:
                     dragAll(snapGrid(e.X), snapGrid(e.Y));
                     break;
-			
-                case MODE_DRAG_ROW: 
+
+                case MODE_DRAG_ROW:
                     dragRow(snapGrid(e.X), snapGrid(e.Y));
                     break;
-			
-                case MODE_DRAG_COLUMN: 
+
+                case MODE_DRAG_COLUMN:
                     dragColumn(snapGrid(e.X), snapGrid(e.Y));
                     break;
-			
-                case MODE_DRAG_POST: 
+
+                case MODE_DRAG_POST:
                     if (mouseElm != null)
                         dragPost(snapGrid(e.X), snapGrid(e.Y));
                     break;
-			
-                case MODE_SELECT: 
+
+                case MODE_SELECT:
                     if (mouseElm == null)
                         selectArea(e.X, e.Y);
                     else
@@ -2871,8 +2869,8 @@ namespace circuit_emulator
                         success = dragSelected(e.X, e.Y);
                     }
                     break;
-			
-                case MODE_DRAG_SELECTED: 
+
+                case MODE_DRAG_SELECTED:
                     success = dragSelected(e.X, e.Y);
                     break;
             }
@@ -2881,17 +2879,17 @@ namespace circuit_emulator
             {
                 if (tempMouseMode == MODE_DRAG_SELECTED && mouseElm is TextElm)
                 {
-                    dragX = e.X; dragY = e.Y;
+                    dragX = e.X;
+                    dragY = e.Y;
                 }
                 else
                 {
-                    dragX = snapGrid(e.X); dragY = snapGrid(e.Y);
+                    dragX = snapGrid(e.X);
+                    dragY = snapGrid(e.Y);
                 }
             }
-            //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
             UpdateGraphics();
         }
-	*/
 
         internal virtual void dragAll(int x, int y)
         {
@@ -3154,7 +3152,6 @@ namespace circuit_emulator
 
         public virtual void mouseClicked(Object event_sender, EventArgs e)
         {
-            //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
             if ((state4 & (int) MouseButtons.Left) != 0)
             {
                 if (mouseMode == MODE_SELECT || mouseMode == MODE_DRAG_SELECTED)
