@@ -194,11 +194,6 @@ namespace circuit_emulator
             init();
         }
 
-        public virtual String AppletInfo
-        {
-            get { return "Circuit by Paul Falstad"; }
-        }
-
         internal virtual String Hint
         {
             get
@@ -886,8 +881,7 @@ namespace circuit_emulator
 
         internal virtual void handleResize()
         {
-            //todo edit: winSize = cv.Size;
-            winSize = Size;
+            winSize = cv.Size;
             if (winSize.Width == 0)
                 return;
             dbimage = new Bitmap(winSize.Width, winSize.Height);
@@ -927,7 +921,7 @@ namespace circuit_emulator
             circuitBottom = 0;
         }
 
-        internal virtual void destroyFrame()
+        protected virtual void destroyFrame()
         {
             if (applet == null)
                 Dispose();
@@ -935,28 +929,9 @@ namespace circuit_emulator
                 applet.destroyFrame();
         }
 
-        //UPGRADE_NOTE: The equivalent of method 'java.awt.Component.handleEvent' is not an override method. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1143'"
-        //UPGRADE_ISSUE: Class 'java.awt.Event' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-        public bool handleEvent(EventArgs ev)
-        {
-            //todo revert window destroy event
-            //UPGRADE_ISSUE: Field 'java.awt.Event.id' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-            //UPGRADE_ISSUE: Field 'java.awt.Event.WINDOW_DESTROY' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtEvent'"
-            //if (ev.id == Event.WINDOW_DESTROY)
-            {
-                destroyFrame();
-                return true;
-            }
-            //UPGRADE_ISSUE: Method 'java.awt.Component.handleEvent' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtComponenthandleEvent_javaawtEvent'"
-            //return base.handleEvent(ev);
-        }
-
         protected override void OnPaint(PaintEventArgs g_EventArg)
         {
-            //Graphics g = g_EventArg.Graphics;
             UpdateCircuitAsync();
-            //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-            //cv.Update();
         }
 
         private void UpdateGraphics()
@@ -1035,7 +1010,6 @@ namespace circuit_emulator
                 {
                     SupportClass.WriteStackTrace(e, Console.Error);
                     analyzeFlag = true;
-                    //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
                     UpdateGraphics();
                     return;
                 }
@@ -1067,7 +1041,6 @@ namespace circuit_emulator
             CircuitElm.powerMult = Math.Exp(powerBar.Value/4.762 - 7);
 
             int i;
-            //UPGRADE_TODO: The equivalent in .NET for method 'java.awt.Graphics.getFont' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
             Font oldfont = SupportClass.GraphicsManager.manager.GetFont(g);
             for (i = 0; i != elmList.Count; i++)
             {
@@ -2301,7 +2274,9 @@ namespace circuit_emulator
             if (ac.IndexOf("setup ") == 0)
             {
                 pushUndo();
+                _isSimulate = false;
                 readSetupFile(ac.Substring(6), ((MenuItem) event_sender).Text);
+                UpdateCircuitAsync();
             }
         }
 
@@ -3166,7 +3141,7 @@ namespace circuit_emulator
             if (mouseElm != origMouse)
             {
                 //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
-                //UpdateGraphics();
+                UpdateGraphics();
             }
         }
 

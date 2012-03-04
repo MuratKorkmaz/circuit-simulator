@@ -250,7 +250,6 @@
     <Compile Include="XorGateElm.cs" />
     <Compile Include="ZenerElm.cs" />
     <None Include="app.config" />
-    <None Include="circuit_emulator_TemporaryKey.pfx" />
     <None Include="_ConversionReport.htm">
       <SubType>Preview</SubType>
     </None>

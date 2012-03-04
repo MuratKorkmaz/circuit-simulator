@@ -82,7 +82,8 @@
             this.cv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cv.Location = new System.Drawing.Point(3, 78);
             this.cv.Name = "cv";
-            this.cv.Size = new System.Drawing.Size(128, 175);
+            this.tableLayoutPanel1.SetRowSpan(this.cv, 2);
+            this.cv.Size = new System.Drawing.Size(128, 275);
             this.cv.TabIndex = 1;
             this.cv.TabStop = false;
             // 
