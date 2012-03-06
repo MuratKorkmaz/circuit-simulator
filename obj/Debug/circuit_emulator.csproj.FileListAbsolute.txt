@@ -1,0 +1,30 @@
+C:\Users\MVD\Desktop\circuit emulator.NET\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.exe
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.pdb
+E:\Projects\StartUp\CircuitSimulator\circuit_emulator.exe
+E:\Projects\StartUp\CircuitSimulator\circuit_emulator.pdb
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.Circuit.resources
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\ResGen.read.1.tlog
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\ResGen.write.1.tlog
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.CirSim.resources
+E:\Projects\StartUp\CircuitSimulator\obj\Debug\circuit_emulator.Properties.Resources.resources
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.Circuit.resources
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.CirSim.resources
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.EditDialog.resources
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.ImportDialog.resources
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.Properties.Resources.resources
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\circuit_emulator.exe.config
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.exe
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.pdb
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\circuit_emulator.exe
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\circuit_emulator.pdb
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.exe.manifest
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\obj\Debug\circuit_emulator.application
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\circuit_emulator.exe.manifest
+C:\Users\MVD\Documents\Projects dik\CircuitSimulator\circuit-simulator\circuit_emulator.application
