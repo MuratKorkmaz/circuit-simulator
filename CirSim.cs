@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -973,230 +974,238 @@ namespace circuit_emulator
 
         public virtual void updateCircuit(Graphics realg)
         {
-            if (winSize.IsEmpty || winSize.Width == 0)
-                return;
-            if (analyzeFlag)
+            try
             {
-                analyzeCircuit();
-                analyzeFlag = false;
-            }
-            if (editDialog != null && editDialog.elm is CircuitElm)
-                mouseElm = (CircuitElm) (editDialog.elm);
-            CircuitElm realMouseElm = mouseElm;
-            if (mouseElm == null)
-                mouseElm = stopElm;
-            setupScopes();
-            Graphics g = Graphics.FromImage(dbimage);
-            CircuitElm.selectColor = Color.Cyan;
-            if (printableCheckItem.Checked)
-            {
-                CircuitElm.whiteColor = Color.Black;
-                CircuitElm.lightGrayColor = Color.Black;
-                SupportClass.GraphicsManager.manager.SetColor(g, Color.White);
-            }
-            else
-            {
-                CircuitElm.whiteColor = Color.White;
-                CircuitElm.lightGrayColor = Color.LightGray;
-                SupportClass.GraphicsManager.manager.SetColor(g, Color.Black);
-            }
-            g.FillRectangle(SupportClass.GraphicsManager.manager.GetPaint(g), 0, 0, winSize.Width, winSize.Height);
-            if (!stoppedCheck.Checked)
-            {
-                try
-                {
-                    runCircuit();
-                }
-                catch (Exception e)
-                {
-                    SupportClass.WriteStackTrace(e, Console.Error);
-                    analyzeFlag = true;
-                    UpdateGraphics();
+                if (winSize.IsEmpty || winSize.Width == 0)
                     return;
-                }
-            }
-            if (!stoppedCheck.Checked)
-            {
-                long sysTime = (DateTime.Now.Ticks - 621355968000000000)/10000;
-                if (lastTime != 0)
+                if (analyzeFlag)
                 {
-                    var inc = (int) (sysTime - lastTime);
-                    double c = currentBar.Value;
-                    c = Math.Exp(c/3.5 - 14.2);
-                    CircuitElm.currentMult = 1.7*inc*c;
-                    if (!conventionCheckItem.Checked)
-                        CircuitElm.currentMult = -CircuitElm.currentMult;
+                    analyzeCircuit();
+                    analyzeFlag = false;
                 }
-                if (sysTime - secTime >= 1000)
-                {
-                    framerate = frames;
-                    steprate = steps;
-                    frames = 0;
-                    steps = 0;
-                    secTime = sysTime;
-                }
-                lastTime = sysTime;
-            }
-            else
-                lastTime = 0;
-            CircuitElm.powerMult = Math.Exp(powerBar.Value/4.762 - 7);
+                if (editDialog != null && editDialog.elm is CircuitElm)
+                    mouseElm = (CircuitElm)(editDialog.elm);
+                CircuitElm realMouseElm = mouseElm;
+                if (mouseElm == null)
+                    mouseElm = stopElm;
+                setupScopes();
+                Graphics g = Graphics.FromImage(dbimage);
 
-            int i;
-            Font oldfont = SupportClass.GraphicsManager.manager.GetFont(g);
-            for (i = 0; i != elmList.Count; i++)
-            {
-                if (powerCheckItem.Checked)
-                    SupportClass.GraphicsManager.manager.SetColor(g, Color.Gray);
-                /*else if (conductanceCheckItem.getState())
-			g.setColor(Color.white);*/
-                getElm(i).draw(g);
-            }
-            if (tempMouseMode == MODE_DRAG_ROW || tempMouseMode == MODE_DRAG_COLUMN || tempMouseMode == MODE_DRAG_POST ||
-                tempMouseMode == MODE_DRAG_SELECTED)
-                for (i = 0; i != elmList.Count; i++)
+                CircuitElm.selectColor = Color.Cyan;
+                if (printableCheckItem.Checked)
                 {
-                    CircuitElm ce = getElm(i);
-                    ce.drawPost(g, ce.x, ce.y);
-                    ce.drawPost(g, ce.x2, ce.y2);
-                }
-            int badnodes = 0;
-            // find bad connections, nodes not connected to other elements which
-            // intersect other elements' bounding boxes
-            for (i = 0; i != nodeList.Count; i++)
-            {
-                CircuitNode cn = getCircuitNode(i);
-                if (!cn.internal_Renamed && cn.links.Count == 1)
-                {
-                    int bb = 0, j;
-                    var cnl = (CircuitNodeLink) cn.links[0];
-                    for (j = 0; j != elmList.Count; j++)
-                        if (cnl.elm != getElm(j) && getElm(j).boundingBox.Contains(cn.x, cn.y))
-                            bb++;
-                    if (bb > 0)
-                    {
-                        SupportClass.GraphicsManager.manager.SetColor(g, Color.Red);
-                        g.FillEllipse(SupportClass.GraphicsManager.manager.GetPaint(g), cn.x - 3, cn.y - 3, 7, 7);
-                        badnodes++;
-                    }
-                }
-            }
-            /*if (mouseElm != null) {
-		g.setFont(oldfont);
-		g.drawString("+", mouseElm.x+10, mouseElm.y);
-		}*/
-            if (dragElm != null && (dragElm.x != dragElm.x2 || dragElm.y != dragElm.y2))
-                dragElm.draw(g);
-            SupportClass.GraphicsManager.manager.SetFont(g, oldfont);
-            int ct = scopeCount;
-            if (stopMessage != null)
-                ct = 0;
-            for (i = 0; i != ct; i++)
-                scopes[i].draw(g);
-            SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
-            if (stopMessage != null)
-            {
-                //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                g.DrawString(stopMessage, SupportClass.GraphicsManager.manager.GetFont(g),
-                             SupportClass.GraphicsManager.manager.GetBrush(g), 10,
-                             circuitArea.Height - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
-            }
-            else
-            {
-                if (circuitBottom == 0)
-                    calcCircuitBottom();
-                var info = new String[10];
-                if (mouseElm != null)
-                {
-                    if (mousePost == -1)
-                        mouseElm.getInfo(info);
-                    else
-                        info[0] = "V = " + CircuitElm.getUnitText(mouseElm.getPostVoltage(mousePost), "V");
-                    /* //shownodes
-				for (i = 0; i != mouseElm.getPostCount(); i++)
-				info[0] += " " + mouseElm.nodes[i];
-				if (mouseElm.getVoltageSourceCount() > 0)
-				info[0] += ";" + (mouseElm.getVoltageSource()+nodeList.size());
-				*/
+                    CircuitElm.whiteColor = Color.Black;
+                    CircuitElm.lightGrayColor = Color.Black;
+                    SupportClass.GraphicsManager.manager.SetColor(g, Color.White);
                 }
                 else
                 {
-                    CircuitElm.showFormat.setMinimumFractionDigits(2);
-                    info[0] = "t = " + CircuitElm.getUnitText(t, "СЃ");
-                    CircuitElm.showFormat.setMinimumFractionDigits(0);
+                    CircuitElm.whiteColor = Color.White;
+                    CircuitElm.lightGrayColor = Color.LightGray;
+                    SupportClass.GraphicsManager.manager.SetColor(g, Color.Black);
                 }
-                if (hintType != -1)
-                {
-                    for (i = 0; info[i] != null; i++)
-                        ;
-                    String s = Hint;
-                    if (s == null)
-                        hintType = -1;
-                    else
-                        info[i] = s;
-                }
-                int x = 0;
-                if (ct != 0)
-                    x = scopes[ct - 1].rightEdge() + 20;
-                x = max(x, winSize.Width*2/3);
-
-                // count lines of data
-                for (i = 0; info[i] != null; i++)
-                    ;
-                if (badnodes > 0)
-                    info[i++] = badnodes + ((badnodes == 1) ? " плохое соединение" : " плохие соединения");
-
-                // find where to show data; below circuit, not too high unless we need it
-                int ybase = winSize.Height - 15*i - 5;
-                ybase = min(ybase, circuitArea.Height);
-                ybase = max(ybase, circuitBottom);
-                for (i = 0; info[i] != null; i++)
-                {
-                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
-                    g.DrawString(info[i], SupportClass.GraphicsManager.manager.GetFont(g),
-                                 SupportClass.GraphicsManager.manager.GetBrush(g), x,
-                                 ybase + 15*(i + 1) - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
-                }
-            }
-            if (!selectedArea.IsEmpty)
-            {
-                SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.selectColor);
-                g.DrawRectangle(SupportClass.GraphicsManager.manager.GetPen(g), selectedArea.X, selectedArea.Y,
-                                selectedArea.Width, selectedArea.Height);
-            }
-            mouseElm = realMouseElm;
-            frames++;
-            /*
-		g.setColor(Color.white);
-		g.drawString("Framerate: " + framerate, 10, 10);
-		g.drawString("Steprate: " + steprate,  10, 30);
-		g.drawString("Steprate/iter: " + (steprate/getIterCount()),  10, 50);
-		g.drawString("iterc: " + (getIterCount()),  10, 70);
-		*/
-
-            //UPGRADE_WARNING: Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1101'"
-            lock (_lockGraphics)
-            {
-                realg.DrawImage(dbimage, 0, 0);
-            }
-            if (!stoppedCheck.Checked && circuitMatrix != null)
-            {
-                // Limit to 50 fps (thanks to JСЊrgen KlС†tzer for this)
-                long delay = 1000/50 - ((DateTime.Now.Ticks - 621355968000000000)/10000 - lastFrameTime);
-                //realg.drawString("delay: " + delay,  10, 90);
-                if (delay > 0)
+                g.FillRectangle(SupportClass.GraphicsManager.manager.GetPaint(g), 0, 0, winSize.Width, winSize.Height);
+                if (!stoppedCheck.Checked)
                 {
                     try
                     {
-                        //UPGRADE_TODO: Method 'java.lang.Thread.sleep' was converted to 'System.Threading.Thread.Sleep' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javalangThreadsleep_long'"
-                        Thread.Sleep(new TimeSpan(10000*delay));
+                        runCircuit();
                     }
-                    catch (ThreadInterruptedException e)
+                    catch (Exception e)
                     {
+                        SupportClass.WriteStackTrace(e, Console.Error);
+                        analyzeFlag = true;
+                        UpdateGraphics();
+                        return;
                     }
                 }
+                if (!stoppedCheck.Checked)
+                {
+                    long sysTime = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+                    if (lastTime != 0)
+                    {
+                        var inc = (int)(sysTime - lastTime);
+                        double c = currentBar.Value;
+                        c = Math.Exp(c / 3.5 - 14.2);
+                        CircuitElm.currentMult = 1.7 * inc * c;
+                        if (!conventionCheckItem.Checked)
+                            CircuitElm.currentMult = -CircuitElm.currentMult;
+                    }
+                    if (sysTime - secTime >= 1000)
+                    {
+                        framerate = frames;
+                        steprate = steps;
+                        frames = 0;
+                        steps = 0;
+                        secTime = sysTime;
+                    }
+                    lastTime = sysTime;
+                }
+                else
+                    lastTime = 0;
+                CircuitElm.powerMult = Math.Exp(powerBar.Value / 4.762 - 7);
+
+                int i;
+                Font oldfont = SupportClass.GraphicsManager.manager.GetFont(g);
+                for (i = 0; i != elmList.Count; i++)
+                {
+                    if (powerCheckItem.Checked)
+                        SupportClass.GraphicsManager.manager.SetColor(g, Color.Gray);
+                    /*else if (conductanceCheckItem.getState())
+                g.setColor(Color.white);*/
+                    getElm(i).draw(g);
+                }
+                if (tempMouseMode == MODE_DRAG_ROW || tempMouseMode == MODE_DRAG_COLUMN || tempMouseMode == MODE_DRAG_POST ||
+                    tempMouseMode == MODE_DRAG_SELECTED)
+                    for (i = 0; i != elmList.Count; i++)
+                    {
+                        CircuitElm ce = getElm(i);
+                        ce.drawPost(g, ce.x, ce.y);
+                        ce.drawPost(g, ce.x2, ce.y2);
+                    }
+                int badnodes = 0;
+                // find bad connections, nodes not connected to other elements which
+                // intersect other elements' bounding boxes
+                for (i = 0; i != nodeList.Count; i++)
+                {
+                    CircuitNode cn = getCircuitNode(i);
+                    if (!cn.internal_Renamed && cn.links.Count == 1)
+                    {
+                        int bb = 0, j;
+                        var cnl = (CircuitNodeLink)cn.links[0];
+                        for (j = 0; j != elmList.Count; j++)
+                            if (cnl.elm != getElm(j) && getElm(j).boundingBox.Contains(cn.x, cn.y))
+                                bb++;
+                        if (bb > 0)
+                        {
+                            SupportClass.GraphicsManager.manager.SetColor(g, Color.Red);
+                            g.FillEllipse(SupportClass.GraphicsManager.manager.GetPaint(g), cn.x - 3, cn.y - 3, 7, 7);
+                            badnodes++;
+                        }
+                    }
+                }
+                /*if (mouseElm != null) {
+            g.setFont(oldfont);
+            g.drawString("+", mouseElm.x+10, mouseElm.y);
+            }*/
+                if (dragElm != null && (dragElm.x != dragElm.x2 || dragElm.y != dragElm.y2))
+                    dragElm.draw(g);
+                SupportClass.GraphicsManager.manager.SetFont(g, oldfont);
+                int ct = scopeCount;
+                if (stopMessage != null)
+                    ct = 0;
+                for (i = 0; i != ct; i++)
+                    scopes[i].draw(g);
+                SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
+                if (stopMessage != null)
+                {
+                    //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
+                    g.DrawString(stopMessage, SupportClass.GraphicsManager.manager.GetFont(g),
+                                 SupportClass.GraphicsManager.manager.GetBrush(g), 10,
+                                 circuitArea.Height - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                }
+                else
+                {
+                    if (circuitBottom == 0)
+                        calcCircuitBottom();
+                    var info = new String[10];
+                    if (mouseElm != null)
+                    {
+                        if (mousePost == -1)
+                            mouseElm.getInfo(info);
+                        else
+                            info[0] = "V = " + CircuitElm.getUnitText(mouseElm.getPostVoltage(mousePost), "V");
+                        /* //shownodes
+                    for (i = 0; i != mouseElm.getPostCount(); i++)
+                    info[0] += " " + mouseElm.nodes[i];
+                    if (mouseElm.getVoltageSourceCount() > 0)
+                    info[0] += ";" + (mouseElm.getVoltageSource()+nodeList.size());
+                    */
+                    }
+                    else
+                    {
+                        CircuitElm.showFormat.setMinimumFractionDigits(2);
+                        info[0] = "t = " + CircuitElm.getUnitText(t, "СЃ");
+                        CircuitElm.showFormat.setMinimumFractionDigits(0);
+                    }
+                    if (hintType != -1)
+                    {
+                        for (i = 0; info[i] != null; i++)
+                            ;
+                        String s = Hint;
+                        if (s == null)
+                            hintType = -1;
+                        else
+                            info[i] = s;
+                    }
+                    int x = 0;
+                    if (ct != 0)
+                        x = scopes[ct - 1].rightEdge() + 20;
+                    x = max(x, winSize.Width * 2 / 3);
+
+                    // count lines of data
+                    for (i = 0; info[i] != null; i++)
+                        ;
+                    if (badnodes > 0)
+                        info[i++] = badnodes + ((badnodes == 1) ? " плохое соединение" : " плохие соединения");
+
+                    // find where to show data; below circuit, not too high unless we need it
+                    int ybase = winSize.Height - 15 * i - 5;
+                    ybase = min(ybase, circuitArea.Height);
+                    ybase = max(ybase, circuitBottom);
+                    for (i = 0; info[i] != null; i++)
+                    {
+                        //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
+                        g.DrawString(info[i], SupportClass.GraphicsManager.manager.GetFont(g),
+                                     SupportClass.GraphicsManager.manager.GetBrush(g), x,
+                                     ybase + 15 * (i + 1) - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                    }
+                }
+                if (!selectedArea.IsEmpty)
+                {
+                    SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.selectColor);
+                    g.DrawRectangle(SupportClass.GraphicsManager.manager.GetPen(g), selectedArea.X, selectedArea.Y,
+                                    selectedArea.Width, selectedArea.Height);
+                }
+                mouseElm = realMouseElm;
+                frames++;
+                /*
+            g.setColor(Color.white);
+            g.drawString("Framerate: " + framerate, 10, 10);
+            g.drawString("Steprate: " + steprate,  10, 30);
+            g.drawString("Steprate/iter: " + (steprate/getIterCount()),  10, 50);
+            g.drawString("iterc: " + (getIterCount()),  10, 70);
+            */
+
+                //UPGRADE_WARNING: Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1101'"
+                lock (_lockGraphics)
+                {
+                    realg.DrawImage(dbimage, 0, 0);
+                }
+                if (!stoppedCheck.Checked && circuitMatrix != null)
+                {
+                    // Limit to 50 fps (thanks to JСЊrgen KlС†tzer for this)
+                    long delay = 1000 / 50 - ((DateTime.Now.Ticks - 621355968000000000) / 10000 - lastFrameTime);
+                    //realg.drawString("delay: " + delay,  10, 90);
+                    if (delay > 0)
+                    {
+                        try
+                        {
+                            //UPGRADE_TODO: Method 'java.lang.Thread.sleep' was converted to 'System.Threading.Thread.Sleep' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javalangThreadsleep_long'"
+                            Thread.Sleep(new TimeSpan(10000 * delay));
+                        }
+                        catch (ThreadInterruptedException e)
+                        {
+                        }
+                    }
+                }
+                lastFrameTime = lastTime;
+                needAnalyze();
             }
-            lastFrameTime = lastTime;
-            needAnalyze();
+            catch (InvalidOperationException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         internal virtual void setupScopes()
@@ -2169,13 +2178,16 @@ namespace circuit_emulator
             String ac = SupportClass.CommandManager.GetCommand(event_sender);
             if (event_sender == resetButton)
             {
-                int i;
-                dbimage = new Bitmap(winSize.Width, winSize.Height);
-                cv.Image = dbimage;
-                for (i = 0; i != elmList.Count; i++)
-                    getElm(i).reset();
-                for (i = 0; i != scopeCount; i++)
-                    scopes[i].resetGraph();
+                lock(_lockGraphics)
+                {
+                    dbimage = new Bitmap(winSize.Width, winSize.Height);
+                    cv.Image = dbimage;
+                    for (int i = 0; i != elmList.Count; i++)
+                        getElm(i).reset();
+                    for (int i = 0; i != scopeCount; i++)
+                        scopes[i].resetGraph();
+                    
+                }
                 analyzeFlag = true;
                 t = 0;
                 stoppedCheck.Checked = false;

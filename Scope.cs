@@ -275,7 +275,7 @@ namespace circuit_emulator
                 // from min to max y and calculate x for each step
                 double sgn = CircuitElm.sign(y2 - draw_oy);
                 int x, y;
-                for (y = draw_oy; y != y2 + sgn; y = (int) (y + sgn))
+                for (y = draw_oy; Math.Abs(y - (y2 + sgn)) > double.Epsilon; y = (int) (y + sgn))
                 {
                     x = draw_ox + (x2 - draw_ox)*(y - draw_oy)/(y2 - draw_oy);
                     dpixels[x + rect.Width*y] = 1;
@@ -287,7 +287,7 @@ namespace circuit_emulator
                 // from min to max x and calculate y for each step
                 double sgn = CircuitElm.sign(x2 - draw_ox);
                 int x, y;
-                for (x = draw_ox; x != x2 + sgn; x = (int) (x + sgn))
+                for (x = draw_ox; Math.Abs(x - (x2 + sgn)) > double.Epsilon; x = (int) (x + sgn))
                 {
                     y = draw_oy + (y2 - draw_oy)*(x - draw_ox)/(x2 - draw_ox);
                     dpixels[x + rect.Width*y] = 1;
@@ -367,7 +367,7 @@ namespace circuit_emulator
 
             bool gotI = false;
             bool gotV = false;
-            int minRange = 4;
+            const int minRange = 4;
             double realMaxV = - 1e8;
             double realMaxI = - 1e8;
             double realMinV = 1e8;
@@ -403,7 +403,7 @@ namespace circuit_emulator
             {
                 // don't show gridlines if plotting multiple values,
                 // or if lines are too close together (except for center line)
-                if (ll != 0 && ((showI && showV) || gridStep == 0))
+                if (ll != 0 && ((showI && showV) || Math.Abs(gridStep - 0) < double.Epsilon))
                     continue;
                 int yl = maxy - (int) (maxy*ll*gridStep/gridMax);
                 if (yl < 0 || yl >= rect.Height - 1)
