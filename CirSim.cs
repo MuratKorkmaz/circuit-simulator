@@ -1095,7 +1095,7 @@ namespace circuit_emulator
                 if (stopMessage != null)
                     ct = 0;
                 for (i = 0; i != ct; i++)
-                    scopes[i].draw(g);
+                    scopes[i].draw(g, pbFooter.Location);
                 SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
                 if (stopMessage != null)
                 {

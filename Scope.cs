@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Reflection;
@@ -31,7 +32,6 @@ namespace circuit_emulator
         internal double minMaxI;
         internal double minMaxV;
         internal double[] minV;
-        internal Color[] pixels;
         internal bool plot2d,
                       plotXY;
 
@@ -51,6 +51,7 @@ namespace circuit_emulator
         internal int speed;
         internal String text;
         internal int value_Renamed;
+        private Point _dLoc;
 
         internal CircuitElm xElm, yElm;
 
@@ -58,6 +59,7 @@ namespace circuit_emulator
         {
             sim = s;
             rect = new Rectangle(0, 0, s.Width, s.Height);
+            _dLoc = rect.Location;
             reset();
         }
 
@@ -315,34 +317,29 @@ namespace circuit_emulator
         internal virtual void draw2d(Graphics g)
         {
             
-            if (pixels == null || dpixels == null)
+            if (dpixels == null)
                 return;
             Color col =  ((sim.printableCheckItem.Checked) ? Color.White : Color.Transparent);
-            for (int i = 0; i != pixels.Length; i++)
-                pixels[i] = col;
+            //todo for (int i = 0; i != pixels.Length; i++)
+            //    pixels[i] = col;
             for (int i = 0; i != rect.Width; i++)
             {
-                pixels[i + rect.Width * (rect.Height / 2)] = Color.Green;
                imageSource.SetPixel(i, rect.Height / 2, Color.Green );
             }
                 
             Color ycol =  ((plotXY) ? Color.Green : Color.Yellow );
             for (int i = 0; i != rect.Height; i++)
             {
-                pixels[rect.Width / 2 + rect.Width * i] = ycol;
-             
                 imageSource.SetPixel(rect.Width/2,i,ycol);
             }
-               
 
-
-            for (int k = 0; k != pixels.Length; k++)
-            {
-                var q = (int) (255*dpixels[k]);
-                if (q > 0)
-                    pixels[k] =Color.Pink;
-                dpixels[k] = (float) (dpixels[k]*.997);
-            }
+            //for (int k = 0; k != pixels.Length; k++)
+            //{
+            //    var q = (int) (255*dpixels[k]);
+            //    if (q > 0)
+            //        pixels[k] =Color.Pink;
+            //    dpixels[k] = (float) (dpixels[k]*.997);
+            //}
             g.DrawImage(image, rect.X, rect.Y);
             SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
             g.FillEllipse(SupportClass.GraphicsManager.manager.GetPaint(g), rect.X + draw_ox - 2, rect.Y + draw_oy - 2,
@@ -358,9 +355,9 @@ namespace circuit_emulator
             }
         }
 
-        public virtual void draw(Graphics g)
+        public virtual void draw(Graphics g, Point step)
         {
-           
+            _dLoc = step;
             if (elm == null)
                 return;
             if (plot2d)
@@ -368,13 +365,10 @@ namespace circuit_emulator
                 draw2d(g);
                 return;
             }
-            if (pixels == null)
-                return;
             int i;
             Color col = ((sim.printableCheckItem.Checked) ? Color.White : Color.Transparent);
-            for (i = 0; i != pixels.Length; i++)
-                
-                pixels[i] = col;
+            g.DrawRectangle(new Pen(col), rect);
+
             int x = 0;
             int maxy = (rect.Height - 1)/2;
             int y = maxy;
@@ -437,25 +431,16 @@ namespace circuit_emulator
                 //int xg, yg;
                // xg = 0;
                // yg = 0;
-                 
-                
                 for (i = 1; i != rect.Width; i++)
                 {
-                    pixels[i + yl * rect.Width] = col;
+                    g.FillRectangle(new SolidBrush(col), i + _dLoc.X, yl + _dLoc.Y, 1, 1);
                     for (int k = 0; k != rect.Height; k++)
                     {
-
                         //imageSource.SetPixel(rect.Width-i, k,Color.Red);
                         //imageSource.SetPixel(rect.Width - i, k, Color.Black);
                     }
-                   
                 }
-
-                
-               
-               
             }
-
 
             gridStep = 1e-15;
             double ts = sim.timeStep*speed;
@@ -482,10 +467,12 @@ namespace circuit_emulator
                     if (((tl + gridStep/4)%(gridStep*100)) < gridStep)
                         col = Color.Orange;
                 }
-                for (i = 0; i < pixels.Length; i += rect.Width)
+                for (i = 0; i < rect.Width; i += gx)
                 {
-                    pixels[i + gx] = col;
-                    
+                    int x1 = rect.Location.X + i;
+                    int y1 = rect.Location.Y;
+                    int y2 = y1 + rect.Height;
+                    g.DrawLine(new Pen(col), x1, y1, x1, y2);
                 }
             }
 
@@ -514,10 +501,8 @@ namespace circuit_emulator
                                 continue;
                             for (j = ox; j != x + i; j++)
                             {
-                                pixels[j + rect.Width * (y - oy)] = curColor;
-
+                                g.FillRectangle(new SolidBrush(curColor), j + _dLoc.X, y - oy + _dLoc.Y, 1, 1);
                             }
-                           
                             ox = oy = - 1;
                         }
                         if (miniy == maxiy)
@@ -528,19 +513,17 @@ namespace circuit_emulator
                         }
                         for (j = miniy; j <= maxiy; j++)
                         {
-                            pixels[x + i + rect.Width * (y - j)] = curColor;
-                            
+                            g.FillRectangle(new SolidBrush(curColor), x + i + _dLoc.X, y - j + _dLoc.Y, 1, 1);
                         }
-                            
                     }
                 }
                 if (ox != - 1)
+                {
                     for (j = ox; j != x + i; j++)
                     {
-                        pixels[j + rect.Width * (y - oy)] = curColor;
-                        
+                        g.FillRectangle(new SolidBrush(curColor), j + _dLoc.X, y - oy + _dLoc.Y, 1, 1);
                     }
-                        
+                }
             }
             if (value_Renamed != 0 || showV)
             {
@@ -564,12 +547,9 @@ namespace circuit_emulator
                                 continue;
                             for (j = ox; j != x + i; j++)
                             {
-                                pixels[j + rect.Width * (y - oy)] = voltColor;
-                                //imageSource.SetPixel(minvy , j, Color.Red);
-                                    
+                                g.FillRectangle(new SolidBrush(voltColor), j + _dLoc.X, y - oy + _dLoc.Y, 1, 1);
                             }
                             ox = oy = -1;
-                            
                         }
                         if (minvy == maxvy)
                         {
@@ -579,16 +559,18 @@ namespace circuit_emulator
                         }
                         for (j = minvy; j <= maxvy; j++)
                         {
-                            pixels[x + i + rect.Width * (y - j)] = voltColor;
-                           // imageSource.SetPixel(x, j, Color.Red);
+                            g.FillRectangle(new SolidBrush(voltColor), x + i + _dLoc.X, y - j + _dLoc.Y, 1, 1);
                         }
-                          
                     }
                  //   imageSource.SetPixel(i, oy, Color.Red);
                 }
                 if (ox != - 1)
+                {
                     for (j = ox; j != x + i; j++)
-                        pixels[j + rect.Width*(y - oy)] = voltColor;
+                    {
+                        g.FillRectangle(new SolidBrush(voltColor), j + _dLoc.X, y - oy + _dLoc.Y, 1, 1);
+                    }
+                }
             }
             double freq = 0;
             if (showFreq_Renamed_Field)
@@ -801,8 +783,6 @@ namespace circuit_emulator
 
         internal virtual void allocImage()
         {
-            pixels = null;
-
             int w = rect.Width;
             int h = rect.Height;
             if (w == 0 || h == 0)
@@ -827,7 +807,6 @@ namespace circuit_emulator
                     MethodInfo m = biclass.GetMethod("getRaster");
                     Object ras = m.Invoke(image, new object[0]);
                     Object db = rasclass.GetMethod("getDataBuffer").Invoke(ras, new object[0]);
-                    pixels =  (Color[])dbiclass.GetMethod("getData").Invoke(db, new object[0]);
                 }
                 catch (Exception ee)
                 {
@@ -835,13 +814,8 @@ namespace circuit_emulator
                     Console.Out.WriteLine("BufferedImage failed");
                 }
             }
-            if (pixels == null)
-            {
-                pixels = new Color[w*h];
-                int i;
-                for (i = 0; i != w*h; i++)
-                    pixels[i] = Color.Black;
-                imageSource = new Bitmap(w, h); // 0 - смещение ,pixels, w
+            
+            imageSource = new Bitmap(w, h); // 0 - смещение ,pixels, w
                
                 
                 //todo animation
@@ -853,14 +827,11 @@ namespace circuit_emulator
                 // imageSource.setFullBufferUpdates(true);
                 //image = sim.cv.createImage(imageSource);
                // image = new Bitmap(imageSource);
-            }
+            
             dpixels = new float[w*h];
             draw_ox = draw_oy = - 1;
         }
-
         
-
-
         internal virtual void handleMenu(Object event_sender, EventArgs e, Object mi)
         {
             if (mi == sim.scopeVMenuItem)
