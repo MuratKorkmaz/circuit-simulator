@@ -31,7 +31,7 @@ namespace circuit_emulator
         internal double minMaxI;
         internal double minMaxV;
         internal double[] minV;
-        internal int[] pixels;
+        internal Color[] pixels;
         internal bool plot2d,
                       plotXY;
 
@@ -277,6 +277,7 @@ namespace circuit_emulator
                 for (y = draw_oy; y != y2 + sgn; y = (int) (y + sgn))
                 {
                     x = draw_ox + (x2 - draw_ox)*(y - draw_oy)/(y2 - draw_oy);
+                    imageSource.SetPixel(x, y, Color.Pink);
                     dpixels[x + rect.Width*y] = 1;
                 }
             }
@@ -289,6 +290,7 @@ namespace circuit_emulator
                 for (x = draw_ox; x != x2 + sgn; x = (int) (x + sgn))
                 {
                     y = draw_oy + (y2 - draw_oy)*(x - draw_ox)/(x2 - draw_ox);
+                    imageSource.SetPixel(x, y, Color.Red);
                     dpixels[x + rect.Width*y] = 1;
                 }
             }
@@ -312,23 +314,34 @@ namespace circuit_emulator
 
         internal virtual void draw2d(Graphics g)
         {
-            int i;
+            
             if (pixels == null || dpixels == null)
                 return;
-            var col = (int) ((sim.printableCheckItem.Checked) ? 0xFFFFFFFF : 0);
-            for (i = 0; i != pixels.Length; i++)
+            Color col =  ((sim.printableCheckItem.Checked) ? Color.White : Color.Transparent);
+            for (int i = 0; i != pixels.Length; i++)
                 pixels[i] = col;
-            for (i = 0; i != rect.Width; i++)
-                pixels[i + rect.Width*(rect.Height/2)] = unchecked((int) 0xFF00FF00);
-            var ycol = (int) ((plotXY) ? 0xFF00FF00 : 0xFFFFFF00);
-            for (i = 0; i != rect.Height; i++)
-                pixels[rect.Width/2 + rect.Width*i] = ycol;
-            for (i = 0; i != pixels.Length; i++)
+            for (int i = 0; i != rect.Width; i++)
             {
-                var q = (int) (255*dpixels[i]);
+                pixels[i + rect.Width * (rect.Height / 2)] = Color.Green;
+               imageSource.SetPixel(i, rect.Height / 2, Color.Green );
+            }
+                
+            Color ycol =  ((plotXY) ? Color.Green : Color.Yellow );
+            for (int i = 0; i != rect.Height; i++)
+            {
+                pixels[rect.Width / 2 + rect.Width * i] = ycol;
+             
+                imageSource.SetPixel(rect.Width/2,i,ycol);
+            }
+               
+
+
+            for (int k = 0; k != pixels.Length; k++)
+            {
+                var q = (int) (255*dpixels[k]);
                 if (q > 0)
-                    pixels[i] = unchecked((int) 0xFF000000) | (0x10101*q);
-                dpixels[i] = (float) (dpixels[i]*.997);
+                    pixels[k] =Color.Pink;
+                dpixels[k] = (float) (dpixels[k]*.997);
             }
             g.DrawImage(image, rect.X, rect.Y);
             SupportClass.GraphicsManager.manager.SetColor(g, CircuitElm.whiteColor);
@@ -345,7 +358,7 @@ namespace circuit_emulator
             }
         }
 
-        internal virtual void draw(Graphics g)
+        public virtual void draw(Graphics g)
         {
            
             if (elm == null)
@@ -358,7 +371,7 @@ namespace circuit_emulator
             if (pixels == null)
                 return;
             int i;
-            var col = (int) ((sim.printableCheckItem.Checked) ? 0xFFFFFFFF : 0);
+            Color col = ((sim.printableCheckItem.Checked) ? Color.White : Color.Transparent);
             for (i = 0; i != pixels.Length; i++)
                 
                 pixels[i] = col;
@@ -373,10 +386,10 @@ namespace circuit_emulator
             double realMaxI = - 1e8;
             double realMinV = 1e8;
             double realMinI = 1e8;
-            var curColor = unchecked((int) 0xFFFFFF00);
-            var voltColor = (int) ((value_Renamed > 0) ? 0xFFFFFFFF : 0xFF00FF00);
+            Color curColor = Color.Yellow;
+            Color voltColor =  ((value_Renamed > 0) ? Color.White :Color.Green);
             if (sim.scopeSelected == - 1 && elm == sim.mouseElm)
-                curColor = voltColor = unchecked((int) 0xFF00FFFF);
+                curColor = voltColor = Color.Cyan;
             int ipa = ptr + scopePointCount - rect.Width;
             for (i = 0; i != rect.Width; i++)
             {
@@ -389,12 +402,17 @@ namespace circuit_emulator
                     minMaxI *= 2;
                 while (minI[ip] < - minMaxI)
                     minMaxI *= 2;
+              //  imageSource.SetPixel(i, rect.Height / 2, Color.Red);
             }
 
             double gridStep = 1e-8;
             double gridMax = (showI ? minMaxI : minMaxV);
             while (gridStep*100 < gridMax)
+            {
                 gridStep *= 10;
+               // imageSource.SetPixel((int)gridStep, 0,Color.LightGray );
+            }
+                
             if (maxy*gridStep/gridMax < .3)
                 gridStep = 0;
            
@@ -404,21 +422,41 @@ namespace circuit_emulator
             {
                 // don't show gridlines if plotting multiple values,
                 // or if lines are too close together (except for center line)
+                
                 if (ll != 0 && ((showI && showV) || gridStep == 0))
                     continue;
                 int yl = maxy - (int) (maxy*ll*gridStep/gridMax);
                 if (yl < 0 || yl >= rect.Height - 1)
                     continue;
-                col = (int) (ll == 0 ? 0xFF909090 : 0xFF404040);
+                col =  (ll == 0 ? Color.LightGray : Color.DarkGray);
                 if (ll%10 != 0)
                 {
-                    col = unchecked((int) 0xFF101010);
+                    col = Color.Red;
                     if (!sublines)
                         continue;
                 }
-                for (i = 0; i != rect.Width; i++)
-                    pixels[i + yl*rect.Width] = col;
+                //int xg, yg;
+               // xg = 0;
+               // yg = 0;
+                 
+                
+                for (i = 1; i != rect.Width; i++)
+                {
+                    pixels[i + yl * rect.Width] = col;
+                    for (int k = 0; k != rect.Height; k++)
+                    {
+
+                        //imageSource.SetPixel(rect.Width-i, k,Color.Red);
+                        //imageSource.SetPixel(rect.Width - i, k, Color.Black);
+                    }
+                   
+                }
+
+                
+               
+               
             }
+
 
             gridStep = 1e-15;
             double ts = sim.timeStep*speed;
@@ -437,16 +475,19 @@ namespace circuit_emulator
                     continue;
                 if (tl < 0)
                     continue;
-                col = unchecked((int) 0xFF202020);
+                col = Color.Red;
                 first = 0;
                 if (((tl + gridStep/4)%(gridStep*10)) < gridStep)
                 {
-                    col = unchecked((int) 0xFF909090);
+                    col = Color.DarkViolet;
                     if (((tl + gridStep/4)%(gridStep*100)) < gridStep)
-                        col = unchecked((int) 0xFF4040D0);
+                        col = Color.Orange;
                 }
                 for (i = 0; i < pixels.Length; i += rect.Width)
+                {
                     pixels[i + gx] = col;
+                    
+                }
             }
 
             // these two loops are pretty much the same, and should be
@@ -473,7 +514,11 @@ namespace circuit_emulator
                             if (miniy == oy && maxiy == oy)
                                 continue;
                             for (j = ox; j != x + i; j++)
-                                pixels[j + rect.Width*(y - oy)] = curColor;
+                            {
+                                pixels[j + rect.Width * (y - oy)] = curColor;
+
+                            }
+                           
                             ox = oy = - 1;
                         }
                         if (miniy == maxiy)
@@ -483,12 +528,20 @@ namespace circuit_emulator
                             continue;
                         }
                         for (j = miniy; j <= maxiy; j++)
-                            pixels[x + i + rect.Width*(y - j)] = curColor;
+                        {
+                            pixels[x + i + rect.Width * (y - j)] = curColor;
+                            
+                        }
+                            
                     }
                 }
                 if (ox != - 1)
                     for (j = ox; j != x + i; j++)
-                        pixels[j + rect.Width*(y - oy)] = curColor;
+                    {
+                        pixels[j + rect.Width * (y - oy)] = curColor;
+                        
+                    }
+                        
             }
             if (value_Renamed != 0 || showV)
             {
@@ -511,8 +564,13 @@ namespace circuit_emulator
                             if (minvy == oy && maxvy == oy)
                                 continue;
                             for (j = ox; j != x + i; j++)
-                                pixels[j + rect.Width*(y - oy)] = voltColor;
-                            ox = oy = - 1;
+                            {
+                                pixels[j + rect.Width * (y - oy)] = voltColor;
+                                //imageSource.SetPixel(minvy , j, Color.Red);
+                                    
+                            }
+                            ox = oy = -1;
+                            
                         }
                         if (minvy == maxvy)
                         {
@@ -521,8 +579,13 @@ namespace circuit_emulator
                             continue;
                         }
                         for (j = minvy; j <= maxvy; j++)
-                            pixels[x + i + rect.Width*(y - j)] = voltColor;
+                        {
+                            pixels[x + i + rect.Width * (y - j)] = voltColor;
+                           // imageSource.SetPixel(x, j, Color.Red);
+                        }
+                          
                     }
+                 //   imageSource.SetPixel(i, oy, Color.Red);
                 }
                 if (ox != - 1)
                     for (j = ox; j != x + i; j++)
@@ -765,7 +828,7 @@ namespace circuit_emulator
                     MethodInfo m = biclass.GetMethod("getRaster");
                     Object ras = m.Invoke(image, new object[0]);
                     Object db = rasclass.GetMethod("getDataBuffer").Invoke(ras, new object[0]);
-                    pixels = (int[]) dbiclass.GetMethod("getData").Invoke(db, new object[0]);
+                    pixels =  (Color[])dbiclass.GetMethod("getData").Invoke(db, new object[0]);
                 }
                 catch (Exception ee)
                 {
@@ -775,10 +838,10 @@ namespace circuit_emulator
             }
             if (pixels == null)
             {
-                pixels = new int[w*h];
+                pixels = new Color[w*h];
                 int i;
                 for (i = 0; i != w*h; i++)
-                    pixels[i] = unchecked((int)4278190080);
+                    pixels[i] = Color.Black;
                 imageSource = new Bitmap(w, h); // 0 - смещение ,pixels, w
                
                 

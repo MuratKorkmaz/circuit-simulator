@@ -211,7 +211,7 @@ namespace circuit_emulator
                     var ie = (InductorElm) c1;
                     var ce = (CapacitorElm) c2;
                     return "res.f = " +
-                           CircuitElm.getUnitText(1/(2*pi*Math.Sqrt(ie.inductance*ce.capacitance)), "Р“С†");
+                           CircuitElm.getUnitText(1/(2*pi*Math.Sqrt(ie.inductance*ce.capacitance)), "Гц");
                 }
                 if (hintType == HINT_RC)
                 {
@@ -221,7 +221,7 @@ namespace circuit_emulator
                         return null;
                     var re = (ResistorElm) c1;
                     var ce = (CapacitorElm) c2;
-                    return "RC = " + CircuitElm.getUnitText(re.resistance*ce.capacitance, "СЃ");
+                    return "RC = " + CircuitElm.getUnitText(re.resistance*ce.capacitance, "с");
                 }
                 if (hintType == HINT_3DB_C)
                 {
@@ -231,7 +231,7 @@ namespace circuit_emulator
                         return null;
                     var re = (ResistorElm) c1;
                     var ce = (CapacitorElm) c2;
-                    return "f.3db = " + CircuitElm.getUnitText(1/(2*pi*re.resistance*ce.capacitance), "Р“С†");
+                    return "f.3db = " + CircuitElm.getUnitText(1/(2*pi*re.resistance*ce.capacitance), "Гц");
                 }
                 if (hintType == HINT_3DB_L)
                 {
@@ -241,7 +241,7 @@ namespace circuit_emulator
                         return null;
                     var re = (ResistorElm) c1;
                     var ie = (InductorElm) c2;
-                    return "f.3db = " + CircuitElm.getUnitText(re.resistance/(2*pi*ie.inductance), "Р“С†");
+                    return "f.3db = " + CircuitElm.getUnitText(re.resistance/(2*pi*ie.inductance), "Гц");
                 }
                 if (hintType == HINT_TWINT)
                 {
@@ -251,7 +251,7 @@ namespace circuit_emulator
                         return null;
                     var re = (ResistorElm) c1;
                     var ce = (CapacitorElm) c2;
-                    return "fc = " + CircuitElm.getUnitText(1/(2*pi*re.resistance*ce.capacitance), "Р“С†");
+                    return "fc = " + CircuitElm.getUnitText(1/(2*pi*re.resistance*ce.capacitance), "Гц");
                 }
                 return null;
             }
@@ -1121,7 +1121,7 @@ namespace circuit_emulator
                 else
                 {
                     CircuitElm.showFormat.setMinimumFractionDigits(2);
-                    info[0] = "t = " + CircuitElm.getUnitText(t, "СЃ");
+                    info[0] = "t = " + CircuitElm.getUnitText(t, "с");
                     CircuitElm.showFormat.setMinimumFractionDigits(0);
                 }
                 if (hintType != -1)
