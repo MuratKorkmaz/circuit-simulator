@@ -422,7 +422,7 @@ namespace circuit_emulator
                 int yl = maxy - (int) (maxy*ll*gridStep/gridMax);
                 if (yl < 0 || yl >= rect.Height - 1)
                     continue;
-                col =  (ll == 0 ? Color.LightGray : Color.DarkGray);
+                col =  (ll == 0 ? Color.LightGray : Color.DarkSlateGray);
                 if (ll%10 != 0)
                 {
                     col = Color.Red;
@@ -461,7 +461,7 @@ namespace circuit_emulator
                     continue;
                 if (tl < 0)
                     continue;
-                col = Color.LightGray;
+                col = Color.DarkSlateGray;
                 first = 0;
                 if (((tl + gridStep/4)%(gridStep*10)) < gridStep)
                 {
