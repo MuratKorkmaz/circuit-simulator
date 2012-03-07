@@ -454,26 +454,31 @@ namespace circuit_emulator
             {
                 double tl = tx - gridStep*ll;
                 var gx = (int) ((tl - tstart)/ts);
+                //var gx = 10;
                 if (gx < 0)
                     break;
                 if (gx >= rect.Width)
                     continue;
                 if (tl < 0)
                     continue;
-                col = Color.Red;
+                col = Color.LightGray;
                 first = 0;
                 if (((tl + gridStep/4)%(gridStep*10)) < gridStep)
                 {
-                    col = Color.DarkViolet;
+                    
+                    col = Color.Blue;
                     if (((tl + gridStep/4)%(gridStep*100)) < gridStep)
-                        col = Color.Orange;
+                    {
+                         col = Color.Black ;
+                    }
+                       
                 }
-                for (i = 0; i < rect.Width; i += gx)
+                for (i = 0; i < rect.Width; i+=gx)
                 {
                     int x1 = rect.Location.X + i;
                     int y1 = rect.Location.Y;
                     int y2 = y1 + rect.Height;
-                    g.DrawLine(new Pen(col), x1, y1, x1, y2);
+                    g.DrawLine(new Pen(col), gx, y1, gx, y2);
                 }
             }
 
