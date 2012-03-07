@@ -358,6 +358,7 @@ namespace circuit_emulator
         public virtual void draw(Graphics g, Point step)
         {
             _dLoc = step;
+            _dLoc.Y += rect.Height*4;
             if (elm == null)
                 return;
             if (plot2d)
