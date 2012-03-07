@@ -78,7 +78,7 @@ namespace circuit_emulator
         }
         internal virtual void  setColor(System.Drawing.Graphics g, int p)
         {
-            SupportClass.GraphicsManager.manager.SetColor(g, pins[p].value_Renamed?System.Drawing.Color.Red:(sim.printableCheckItem.Checked?System.Drawing.Color.White:darkred));
+            SupportClass.GraphicsManager.manager.SetColor(g, pins[p].value_Renamed?System.Drawing.Color.Red:(System.Drawing.Color.White));
         }
     }
 }

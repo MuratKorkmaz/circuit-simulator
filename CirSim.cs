@@ -63,14 +63,10 @@ namespace circuit_emulator
         internal RowInfo[] circuitRowInfo;
         private Thread circuitThread;
         internal String clipboard;
-        internal MenuItem conductanceCheckItem;
         private BufferedGraphicsContext context;
         internal MenuItem conventionCheckItem;
         internal bool converged;
-        internal MenuItem copyItem;
         internal String ctrlMetaKey;
-        internal MenuItem cutItem;
-        //internal CircuitCanvas cv;
         internal Image dbimage;
         internal MenuItem dotsCheckItem;
         internal CircuitElm dragElm;
@@ -116,18 +112,14 @@ namespace circuit_emulator
         internal String mouseModeStr = "Select";
         internal int mousePost = -1;
         internal ArrayList nodeList;
-        internal MenuItem optionsItem;
 
         internal MenuItem optionsMenu;
         internal double[][] origMatrix;
         internal double[] origRightSide;
-        internal MenuItem pasteItem;
         internal int pause = 10;
         internal CircuitElm plotXElm, plotYElm;
         internal MenuItem powerCheckItem;
-        internal MenuItem printableCheckItem;
         internal Random random;
-        internal MenuItem redoItem;
         internal ArrayList redoStack;
         internal int[] scopeColCount;
         internal int scopeCount;
@@ -152,7 +144,6 @@ namespace circuit_emulator
         internal MenuItem scopeXYMenuItem;
         internal Scope[] scopes;
         internal long secTime;
-        internal MenuItem selectAllItem;
         internal Rectangle selectedArea_Renamed;
         internal int selectedSource;
         internal ArrayList setupList;
@@ -173,7 +164,6 @@ namespace circuit_emulator
         internal double timeStep;
         internal Label titleLabel;
         internal ContextMenu transScopeMenu;
-        internal MenuItem undoItem;
         internal ArrayList undoStack;
         internal bool useBufferedImage;
         public bool useFrame;
@@ -356,10 +346,7 @@ namespace circuit_emulator
 
             try
             {
-                //UPGRADE_TODO: Method 'java.applet.Applet.getDocumentBase' was converted to 'DocumentBase' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaappletAppletgetDocumentBase'"
                 baseURL = applet.DocumentBase.PathAndQuery;
-                // look for circuit embedded in URL
-                //UPGRADE_TODO: Method 'java.applet.Applet.getDocumentBase' was converted to 'DocumentBase' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaappletAppletgetDocumentBase'"
                 String doc = applet.DocumentBase.ToString();
                 int in_Renamed = doc.IndexOf('#');
                 if (in_Renamed > 0)
@@ -406,21 +393,10 @@ namespace circuit_emulator
             else
                 main = applet;
 
-            //UPGRADE_TODO: Method 'java.lang.System.getProperty' was converted to 'System.Environment.GetEnvironmentVariable' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javalangSystemgetProperty_javalangString'"
             String os = Environment.GetEnvironmentVariable("OS");
             isMac = (os.IndexOf("Mac ", StringComparison.Ordinal) == 0);
             ctrlMetaKey = (isMac) ? "\u2318" : "Ctrl";
-            //UPGRADE_ISSUE: Method 'java.lang.System.getProperty' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javalangSystem'"
-            //System.String jv = System_Renamed.getProperty("java.class.version");
-            //UPGRADE_TODO: The differences in the format  of parameters for constructor 'java.lang.Double.Double'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-            //double jvf = System.Double.Parse(jv);
-            //if (jvf >= 48)
-            //{
-            //    muString = "РјРє";
             muString = "мк";
-            //    ohmString = "\u03a9";
-            //    useBufferedImage = true;
-            //}
 
             dumpTypes = new Type[300];
             // these characters are reserved
@@ -430,8 +406,6 @@ namespace circuit_emulator
             dumpTypes['%'] = typeof (Scope);
             dumpTypes['?'] = typeof (Scope);
             dumpTypes['B'] = typeof (Scope);
-
-            //todo revert comment: main.setLayout(new CircuitLayout());
 
             mainMenu = new ContextMenu();
             MainMenu mb = null;
@@ -447,48 +421,6 @@ namespace circuit_emulator
             m.MenuItems.Add(exportLinkItem = getMenuItem("Экспорт. ссылку"));
             m.MenuItems.Add(new MenuItem("-"));
             m.MenuItems.Add(exitItem = getMenuItem("Выход"));
-
-            m = new MenuItem("Правка");
-            m.MenuItems.Add(undoItem = getMenuItem("Отменить"));
-            //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Shortcut temp_Shortcut = (Shortcut) ((int) Keys.Z + 131072);
-            undoItem.Shortcut = temp_Shortcut;
-            m.MenuItems.Add(redoItem = getMenuItem("Повторить"));
-            //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Shortcut temp_Shortcut2;
-            temp_Shortcut2 = new Shortcut();
-            temp_Shortcut2 = (Shortcut) ((int) Keys.Z + 196608);
-            redoItem.Shortcut = temp_Shortcut2;
-            m.MenuItems.Add(new MenuItem("-"));
-            m.MenuItems.Add(cutItem = getMenuItem("Вырезать"));
-            //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Shortcut temp_Shortcut3;
-            temp_Shortcut3 = new Shortcut();
-            temp_Shortcut3 = (Shortcut) ((int) Keys.X + 131072);
-            cutItem.Shortcut = temp_Shortcut3;
-            m.MenuItems.Add(copyItem = getMenuItem("Копировать"));
-            //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Shortcut temp_Shortcut4;
-            temp_Shortcut4 = new Shortcut();
-            temp_Shortcut4 = (Shortcut) ((int) Keys.C + 131072);
-            copyItem.Shortcut = temp_Shortcut4;
-            m.MenuItems.Add(pasteItem = getMenuItem("Вставить"));
-            //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Shortcut temp_Shortcut5;
-            temp_Shortcut5 = new Shortcut();
-            temp_Shortcut5 = (Shortcut) ((int) Keys.V + 131072);
-            pasteItem.Shortcut = temp_Shortcut5;
-            pasteItem.Enabled = false;
-            m.MenuItems.Add(selectAllItem = getMenuItem("Выбрать всё"));
-            //UPGRADE_TODO: The equivalent in .NET for constructor 'java.awt.MenuShortcut.MenuShortcut' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Shortcut temp_Shortcut6;
-            temp_Shortcut6 = new Shortcut();
-            temp_Shortcut6 = (Shortcut) ((int) Keys.A + 131072);
-            selectAllItem.Shortcut = temp_Shortcut6;
-            if (useFrame)
-                mb.MenuItems.Add(m);
-            else
-                mainMenu.MenuItems.Add(m);
 
             m = new MenuItem("Осциллограф");
             if (useFrame)
@@ -510,15 +442,11 @@ namespace circuit_emulator
             m.MenuItems.Add(powerCheckItem = getCheckItem("Показывать мощность"));
             m.MenuItems.Add(showValuesCheckItem = getCheckItem("Показывать значения"));
             showValuesCheckItem.Checked = true;
-            //m.add(conductanceCheckItem = getCheckItem("Show Conductance"));
             m.MenuItems.Add(smallGridCheckItem = getCheckItem("Мелкая сетка"));
             m.MenuItems.Add(euroResistorCheckItem = getCheckItem("Резисторы по ГОСТ")); //must be default in russia
             euroResistorCheckItem.Checked = euro;
-            m.MenuItems.Add(printableCheckItem = getCheckItem("Белый фон"));
-            printableCheckItem.Checked = printable;
             m.MenuItems.Add(conventionCheckItem = getCheckItem("Общепринятое направление тока"));
             conventionCheckItem.Checked = convention;
-            m.MenuItems.Add(optionsItem = getMenuItem("Другие настройки..."));
 
             var circuitsMenu = new MenuItem("Схемы");
             if (useFrame)
@@ -626,7 +554,6 @@ namespace circuit_emulator
             temp_Button3 = new Button();
             temp_Button3.Text = "Dump Matrix";
             dumpMatrixButton = temp_Button3;
-            //main.add(dumpMatrixButton);
             SupportClass.CommandManager.CheckCommand(dumpMatrixButton);
 
             lbSimSpeed.Text = "Скорость симуляции";
@@ -639,46 +566,18 @@ namespace circuit_emulator
             powerBar.Enabled = false;
             powerLabel.Enabled = false;
 
-            var temp_Label8 = new Label();
-            temp_Label8.Text = "www.falstad.com";
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control7;
-            temp_Control7 = temp_Label8;
-            main.Controls.Add(temp_Control7);
-            Label temp_Label10;
-            temp_Label10 = new Label();
-            temp_Label10.Text = "Перевод licrym.org";
-            //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control8 = temp_Label10;
-            main.Controls.Add(temp_Control8); //"translated into russian by licrym.org"
-
-            if (useFrame)
-            {
-                var temp_Label12 = new Label();
-                temp_Label12.Text = "";
-                //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-                Control temp_Control9;
-                temp_Control9 = temp_Label12;
-                main.Controls.Add(temp_Control9);
-            }
             //UPGRADE_NOTE: If the given Font Name does not exist, a default Font instance is created. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1075'"
-            var f = new Font("SansSerif", 10, FontStyle.Regular);
-            Label l;
-            var temp_Label13 = new Label();
-            temp_Label13.Text = "Текущая схема:";
-            l = temp_Label13;
+            var f = new Font("SansSerif", 8, FontStyle.Regular);
+            var l = new Label();
+            l.Text = "Текущая схема:";
             l.Font = f;
-            var temp_Label14 = new Label();
-            temp_Label14.Text = "Метка";
-            titleLabel = temp_Label14;
+            l.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(l);
+            titleLabel = new Label();
+            titleLabel.Text = "Метка";
             titleLabel.Font = f;
-            if (useFrame)
-            {
-                //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-                main.Controls.Add(l);
-                //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-                main.Controls.Add(titleLabel);
-            }
+            titleLabel.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(titleLabel);
 
             setGrid();
             elmList = ArrayList.Synchronized(new ArrayList(10));
@@ -715,17 +614,9 @@ namespace circuit_emulator
 
             if (useFrame)
             {
-                //UPGRADE_ISSUE: Method 'java.awt.Window.getToolkit' was not converted. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1000_javaawtWindowgetToolkit'"
-                //todo remove comment: getToolkit();
-                Size screen = Screen.PrimaryScreen.Bounds.Size;
-                Size = new Size(860, 720);
+                Size = new Size(960, 720);
                 handleResize();
-                Size x = Size;
-                //UPGRADE_TODO: Method 'java.awt.Component.setLocation' was converted to 'System.Windows.Forms.Control.Location' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentsetLocation_int_int'"
-                //Location = new Point((screen.Width - x.Width)/2, (screen.Height - x.Height)/2);
-                //UPGRADE_TODO: 'System.Windows.Forms.Application.Run' must be called to start a main form. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1135'"
                 Show();
-                //Application.Run(this);
             }
             else
             {
@@ -754,7 +645,6 @@ namespace circuit_emulator
         {
             if (!shown)
             {
-                //UPGRADE_TODO: 'System.Windows.Forms.Application.Run' must be called to start a main form. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1135'"
                 Show();
             }
             shown = true;
@@ -881,7 +771,7 @@ namespace circuit_emulator
             dbimage = new Bitmap(winSize.Width, winSize.Height);
             int h = winSize.Height/5;
             /*if (h < 128 && winSize.height > 300)
-		h = 128;*/
+        h = 128;*/
             circuitArea = new Rectangle(0, 0, winSize.Width, winSize.Height - h);
             int i;
             int minx = 1000, maxx = 0, miny = 1000, maxy = 0;
@@ -984,7 +874,7 @@ namespace circuit_emulator
                     analyzeFlag = false;
                 }
                 if (editDialog != null && editDialog.elm is CircuitElm)
-                    mouseElm = (CircuitElm)(editDialog.elm);
+                    mouseElm = (CircuitElm) (editDialog.elm);
                 CircuitElm realMouseElm = mouseElm;
                 if (mouseElm == null)
                     mouseElm = stopElm;
@@ -992,18 +882,9 @@ namespace circuit_emulator
                 Graphics g = Graphics.FromImage(dbimage);
 
                 CircuitElm.selectColor = Color.Cyan;
-                if (printableCheckItem.Checked)
-                {
-                    CircuitElm.whiteColor = Color.Black;
-                    CircuitElm.lightGrayColor = Color.Black;
-                    SupportClass.GraphicsManager.manager.SetColor(g, Color.White);
-                }
-                else
-                {
-                    CircuitElm.whiteColor = Color.White;
-                    CircuitElm.lightGrayColor = Color.LightGray;
-                    SupportClass.GraphicsManager.manager.SetColor(g, Color.Black);
-                }
+                CircuitElm.whiteColor = Color.White;
+                CircuitElm.lightGrayColor = Color.LightGray;
+                SupportClass.GraphicsManager.manager.SetColor(g, Color.Black);
                 g.FillRectangle(SupportClass.GraphicsManager.manager.GetPaint(g), 0, 0, winSize.Width, winSize.Height);
                 if (!stoppedCheck.Checked)
                 {
@@ -1021,13 +902,13 @@ namespace circuit_emulator
                 }
                 if (!stoppedCheck.Checked)
                 {
-                    long sysTime = (DateTime.Now.Ticks - 621355968000000000) / 10000;
+                    long sysTime = (DateTime.Now.Ticks - 621355968000000000)/10000;
                     if (lastTime != 0)
                     {
-                        var inc = (int)(sysTime - lastTime);
+                        var inc = (int) (sysTime - lastTime);
                         double c = currentBar.Value;
-                        c = Math.Exp(c / 3.5 - 14.2);
-                        CircuitElm.currentMult = 1.7 * inc * c;
+                        c = Math.Exp(c/3.5 - 14.2);
+                        CircuitElm.currentMult = 1.7*inc*c;
                         if (!conventionCheckItem.Checked)
                             CircuitElm.currentMult = -CircuitElm.currentMult;
                     }
@@ -1043,7 +924,7 @@ namespace circuit_emulator
                 }
                 else
                     lastTime = 0;
-                CircuitElm.powerMult = Math.Exp(powerBar.Value / 4.762 - 7);
+                CircuitElm.powerMult = Math.Exp(powerBar.Value/4.762 - 7);
 
                 int i;
                 Font oldfont = SupportClass.GraphicsManager.manager.GetFont(g);
@@ -1055,7 +936,8 @@ namespace circuit_emulator
                 g.setColor(Color.white);*/
                     getElm(i).draw(g);
                 }
-                if (tempMouseMode == MODE_DRAG_ROW || tempMouseMode == MODE_DRAG_COLUMN || tempMouseMode == MODE_DRAG_POST ||
+                if (tempMouseMode == MODE_DRAG_ROW || tempMouseMode == MODE_DRAG_COLUMN ||
+                    tempMouseMode == MODE_DRAG_POST ||
                     tempMouseMode == MODE_DRAG_SELECTED)
                     for (i = 0; i != elmList.Count; i++)
                     {
@@ -1072,7 +954,7 @@ namespace circuit_emulator
                     if (!cn.internal_Renamed && cn.links.Count == 1)
                     {
                         int bb = 0, j;
-                        var cnl = (CircuitNodeLink)cn.links[0];
+                        var cnl = (CircuitNodeLink) cn.links[0];
                         for (j = 0; j != elmList.Count; j++)
                             if (cnl.elm != getElm(j) && getElm(j).boundingBox.Contains(cn.x, cn.y))
                                 bb++;
@@ -1125,7 +1007,7 @@ namespace circuit_emulator
                     else
                     {
                         CircuitElm.showFormat.setMinimumFractionDigits(2);
-                    info[0] = "t = " + CircuitElm.getUnitText(t, "с");
+                        info[0] = "t = " + CircuitElm.getUnitText(t, "с");
                         CircuitElm.showFormat.setMinimumFractionDigits(0);
                     }
                     if (hintType != -1)
@@ -1141,7 +1023,7 @@ namespace circuit_emulator
                     int x = 0;
                     if (ct != 0)
                         x = scopes[ct - 1].rightEdge() + 20;
-                    x = max(x, winSize.Width * 2 / 3);
+                    x = max(x, winSize.Width*2/3);
 
                     // count lines of data
                     for (i = 0; info[i] != null; i++)
@@ -1150,7 +1032,7 @@ namespace circuit_emulator
                         info[i++] = badnodes + ((badnodes == 1) ? " плохое соединение" : " плохие соединения");
 
                     // find where to show data; below circuit, not too high unless we need it
-                    int ybase = winSize.Height - 15 * i - 5;
+                    int ybase = winSize.Height - 15*i - 5;
                     ybase = min(ybase, circuitArea.Height);
                     ybase = max(ybase, circuitBottom);
                     for (i = 0; info[i] != null; i++)
@@ -1158,7 +1040,7 @@ namespace circuit_emulator
                         //UPGRADE_TODO: Method 'java.awt.Graphics.drawString' was converted to 'System.Drawing.Graphics.DrawString' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtGraphicsdrawString_javalangString_int_int'"
                         g.DrawString(info[i], SupportClass.GraphicsManager.manager.GetFont(g),
                                      SupportClass.GraphicsManager.manager.GetBrush(g), x,
-                                     ybase + 15 * (i + 1) - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
+                                     ybase + 15*(i + 1) - SupportClass.GraphicsManager.manager.GetFont(g).GetHeight());
                     }
                 }
                 if (!selectedArea.IsEmpty)
@@ -1180,19 +1062,19 @@ namespace circuit_emulator
                 //UPGRADE_WARNING: Method 'java.awt.Graphics.drawImage' was converted to 'System.Drawing.Graphics.drawImage' which may throw an exception. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1101'"
                 lock (_lockGraphics)
                 {
-                    realg.DrawImage(dbimage, 0, 0);
+                    realg.DrawImage(dbimage, cv.Location);
                 }
                 if (!stoppedCheck.Checked && circuitMatrix != null)
                 {
                     // Limit to 50 fps (thanks to JСЊrgen KlС†tzer for this)
-                    long delay = 1000 / 50 - ((DateTime.Now.Ticks - 621355968000000000) / 10000 - lastFrameTime);
+                    long delay = 1000/50 - ((DateTime.Now.Ticks - 621355968000000000)/10000 - lastFrameTime);
                     //realg.drawString("delay: " + delay,  10, 90);
                     if (delay > 0)
                     {
                         try
                         {
                             //UPGRADE_TODO: Method 'java.lang.Thread.sleep' was converted to 'System.Threading.Thread.Sleep' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javalangThreadsleep_long'"
-                            Thread.Sleep(new TimeSpan(10000 * delay));
+                            Thread.Sleep(new TimeSpan(10000*delay));
                         }
                         catch (ThreadInterruptedException e)
                         {
@@ -2178,15 +2060,14 @@ namespace circuit_emulator
             String ac = SupportClass.CommandManager.GetCommand(event_sender);
             if (event_sender == resetButton)
             {
-                lock(_lockGraphics)
+                lock (_lockGraphics)
                 {
-                    dbimage = new Bitmap(winSize.Width, winSize.Height);
+                    dbimage = new Bitmap(cv.Width, cv.Height);
                     cv.Image = dbimage;
                     for (int i = 0; i != elmList.Count; i++)
                         getElm(i).reset();
                     for (int i = 0; i != scopeCount; i++)
                         scopes[i].resetGraph();
-                    
                 }
                 analyzeFlag = true;
                 t = 0;
@@ -2198,16 +2079,11 @@ namespace circuit_emulator
                 dumpMatrix = true;
             if (event_sender == exportItem)
                 doImport(false, false);
-            if (event_sender == optionsItem)
-                doEdit(new EditOptions(this));
             if (event_sender == importItem)
                 doImport(true, false);
             if (event_sender == exportLinkItem)
                 doImport(false, true);
-            if (event_sender == undoItem)
-                doUndo();
-            if (event_sender == redoItem)
-                doRedo();
+
             if (String.CompareOrdinal(ac, "Вырезать") == 0)
             {
                 if (event_sender != elmCutMenuItem)
@@ -2222,8 +2098,6 @@ namespace circuit_emulator
             }
             if (String.CompareOrdinal(ac, "Вставить") == 0)
                 doPaste();
-            if (event_sender == selectAllItem)
-                doSelectAll();
             if (event_sender == exitItem)
             {
                 destroyFrame();
@@ -2456,6 +2330,7 @@ namespace circuit_emulator
                         menuItems.Add(item);
                         if (isFirst)
                         {
+                            startLabel = title;
                             startCircuit = filePath;
                         }
                     }
@@ -3383,7 +3258,6 @@ namespace circuit_emulator
                 powerBar.Enabled = false;
                 powerLabel.Enabled = false;
             }
-            enableUndoRedo();
         }
 
         public virtual void itemStateChanged(Object event_sender, EventArgs e)
@@ -3450,7 +3324,8 @@ namespace circuit_emulator
 
         internal virtual void setGrid()
         {
-            gridSize = (smallGridCheckItem.Checked) ? 8 : 16;
+            gridSize = 16;
+            //gridSize = (smallGridCheckItem.Checked) ? 8 : 16;
             gridMask = ~(gridSize - 1);
             gridRound = gridSize/2 - 1;
         }
@@ -3462,7 +3337,6 @@ namespace circuit_emulator
             if (undoStack.Count > 0 && String.CompareOrdinal(s, (String) (undoStack[undoStack.Count - 1])) == 0)
                 return;
             undoStack.Add(s);
-            enableUndoRedo();
         }
 
         internal virtual void doUndo()
@@ -3475,7 +3349,6 @@ namespace circuit_emulator
             undoStack.RemoveAt(undoStack.Count - 1);
             var s = (String) (tempObject);
             readSetup(s);
-            enableUndoRedo();
         }
 
         internal virtual void doRedo()
@@ -3488,13 +3361,6 @@ namespace circuit_emulator
             redoStack.RemoveAt(redoStack.Count - 1);
             var s = (String) (tempObject);
             readSetup(s);
-            enableUndoRedo();
-        }
-
-        internal virtual void enableUndoRedo()
-        {
-            redoItem.Enabled = redoStack.Count > 0;
-            undoItem.Enabled = undoStack.Count > 0;
         }
 
         internal virtual void setMenuSelection()
@@ -3524,7 +3390,6 @@ namespace circuit_emulator
                     elmList.RemoveAt(i);
                 }
             }
-            enablePaste();
             needAnalyze();
         }
 
@@ -3556,12 +3421,6 @@ namespace circuit_emulator
                 if (ce.Selected)
                     clipboard += (ce.dump() + "\n");
             }
-            enablePaste();
-        }
-
-        internal virtual void enablePaste()
-        {
-            pasteItem.Enabled = clipboard.Length > 0;
         }
 
         internal virtual void doPaste()

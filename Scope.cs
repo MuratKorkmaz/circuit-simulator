@@ -319,9 +319,6 @@ namespace circuit_emulator
             
             if (dpixels == null)
                 return;
-            Color col =  ((sim.printableCheckItem.Checked) ? Color.White : Color.Transparent);
-            //todo for (int i = 0; i != pixels.Length; i++)
-            //    pixels[i] = col;
             for (int i = 0; i != rect.Width; i++)
             {
                imageSource.SetPixel(i, rect.Height / 2, Color.Green );
@@ -370,7 +367,7 @@ namespace circuit_emulator
                 return;
             }
             int i;
-            Color col = ((sim.printableCheckItem.Checked) ? Color.White : Color.Transparent);
+            Color col = Color.Black;
             g.DrawRectangle(new Pen(col), rect);
 
             int x = 0;

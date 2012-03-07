@@ -86,7 +86,7 @@ namespace circuit_emulator
                 drawDots(g, ref b, ref a, p.curcount);
                 if (p.bubble)
                 {
-                    SupportClass.GraphicsManager.manager.SetColor(g, sim.printableCheckItem.Checked?System.Drawing.Color.White:System.Drawing.Color.Black);
+                    SupportClass.GraphicsManager.manager.SetColor(g, System.Drawing.Color.White);
                     drawThickCircle(g, p.bubbleX, p.bubbleY, 1);
                     SupportClass.GraphicsManager.manager.SetColor(g, lightGrayColor);
                     drawThickCircle(g, p.bubbleX, p.bubbleY, 3);
