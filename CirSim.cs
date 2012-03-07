@@ -806,10 +806,11 @@ namespace circuit_emulator
 
         protected virtual void destroyFrame()
         {
-            if (applet == null)
-                Dispose();
-            else
-                applet.destroyFrame();
+            if (circuitThread.IsAlive)
+            {
+                circuitThread.Abort();
+            }
+            Application.Exit();
         }
 
         protected override void OnPaint(PaintEventArgs g_EventArg)
