@@ -358,7 +358,10 @@ namespace circuit_emulator
         public virtual void draw(Graphics g, Point step)
         {
             _dLoc = step;
-            _dLoc.Y += rect.Height*4;
+            _dLoc.Y += rect.Location.Y;
+            _dLoc.X += rect.Location.X;
+            int dx = _dLoc.X;
+            int dy = _dLoc.Y;
             if (elm == null)
                 return;
             if (plot2d)
@@ -475,10 +478,13 @@ namespace circuit_emulator
                 }
                 for (i = 0; i < rect.Width; i+=gx)
                 {
-                    int x1 = rect.Location.X + i;
                     int y1 = rect.Location.Y;
                     int y2 = y1 + rect.Height;
-                    g.DrawLine(new Pen(col), gx, y1, gx, y2);
+                    g.DrawLine(new Pen(col), gx + dx, y1, gx + dx, y2);
+                    if(gx == 0)
+                    {
+                        break;
+                    }
                 }
             }
 
