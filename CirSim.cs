@@ -2228,6 +2228,7 @@ namespace circuit_emulator
             editDialog = new EditDialog(eable, this);
             //UPGRADE_TODO: Method 'java.awt.Dialog.show' was converted to 'System.Windows.Forms.Form.ShowDialog' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtDialogshow'"
             editDialog.ShowDialog();
+            editDialog = null;
         }
 
         internal virtual void doImport(bool imp, bool url)
@@ -2935,9 +2936,8 @@ namespace circuit_emulator
 
         public virtual void mouseMoved(Object event_sender, MouseEventArgs e)
         {
-            //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
-            if ((state4 & (int) MouseButtons.Left) != 0)
-                return;
+            //if ((state4 & (int) MouseButtons.Left) != 0)
+            //    return;
             int x = e.X;
             int y = e.Y;
             dragX = snapGrid(x);
@@ -3060,19 +3060,14 @@ namespace circuit_emulator
 
         public virtual void mousePressed(Object event_sender, MouseEventArgs e)
         {
-            //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
             Console.Out.WriteLine(state4);
-            //todo int ex = e.getModifiersEx();
-            //UPGRADE_TODO: Method 'java.awt.event.MouseEvent.isPopupTrigger' was converted to 'System.Windows.Forms.MouseButtons.Right' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawteventMouseEventisPopupTrigger'"
             if (e.Button == MouseButtons.Right)
             {
                 doPopupMenu(event_sender, e);
                 return;
             }
-            //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
             if ((state4 & (int) MouseButtons.Left) != 0)
             {
-                // left mouse
                 tempMouseMode = mouseMode;
                 //todo uncomment after refactoring
                 //if ((ex & MouseEvent.ALT_DOWN_MASK) != 0 && (ex & MouseEvent.META_DOWN_MASK) != 0)
@@ -3088,17 +3083,14 @@ namespace circuit_emulator
             }
             else
             {
-                //UPGRADE_NOTE: The 'java.awt.event.InputEvent.getModifiers' method simulation might not work for some controls. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1284'"
                 if ((state4 & (int) MouseButtons.Right) != 0)
                 {
-                    // right mouse
-                    //todo uncomment after refactoring
                     //if ((ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
-                    //    tempMouseMode = MODE_DRAG_ROW;
+                        tempMouseMode = MODE_DRAG_ROW;
                     //else if ((ex & (MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) != 0)
                     //    tempMouseMode = MODE_DRAG_COLUMN;
                     //else
-                    //    return ;
+                    //    return;
                 }
             }
 
@@ -3168,7 +3160,6 @@ namespace circuit_emulator
                 menuScope = scopeSelected;
                 if (m != null)
                 {
-                    //UPGRADE_TODO: Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPopupMenushow_javaawtComponent_int_int'"
                     m.Show(((Control) event_sender), new Point(e.X, e.Y));
                 }
             }
@@ -3176,27 +3167,22 @@ namespace circuit_emulator
             {
                 elmEditMenuItem.Enabled = mouseElm.getEditInfo(0) != null;
                 elmScopeMenuItem.Enabled = mouseElm.canViewInScope();
-                //UPGRADE_TODO: Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPopupMenushow_javaawtComponent_int_int'"
                 elmMenu.Show(((Control) event_sender), new Point(e.X, e.Y));
             }
             else
             {
-                //todo doMainMenuChecks(mainMenu);
-                //UPGRADE_TODO: Method 'java.awt.PopupMenu.show' was converted to 'System.Windows.Forms.ContextMenu.Show' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPopupMenushow_javaawtComponent_int_int'"
+                doMainMenuChecks(mainMenu);
                 mainMenu.Show(((Control) event_sender), new Point(e.X, e.Y));
             }
         }
 
-        internal virtual void doMainMenuChecks(MenuItem m)
+        internal virtual void doMainMenuChecks(ContextMenu m)
         {
-            int i;
-            if (m == optionsMenu)
-                return;
-            for (i = 0; i != m.MenuItems.Count; i++)
+            for (int i = 0; i != m.MenuItems.Count; i++)
             {
                 MenuItem mc = m.MenuItems[i];
                 if (mc is MenuItem)
-                    doMainMenuChecks(mc);
+                    //doMainMenuChecks(mc);
                 if (mc is MenuItem)
                 {
                     MenuItem cmi = mc;
@@ -3207,14 +3193,11 @@ namespace circuit_emulator
 
         public virtual void mouseReleased(Object event_sender, MouseEventArgs e)
         {
-            //todo int ex = e.getModifiersEx();
-            //UPGRADE_TODO: Method 'java.awt.event.MouseEvent.isPopupTrigger' was converted to 'System.Windows.Forms.MouseButtons.Right' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawteventMouseEventisPopupTrigger'"
-            //todo
-            //if ((ex & (MouseEvent.SHIFT_DOWN_MASK | MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) == 0 && e.Button == System.Windows.Forms.MouseButtons.Right)
-            //{
-            //    doPopupMenu(event_sender, e);
-            //    return ;
-            //}
+            if (e.Button == MouseButtons.Right)
+            {
+                doPopupMenu(event_sender, e);
+                return;
+            }
             tempMouseMode = mouseMode;
             selectedArea = Rectangle.Empty;
             dragging = false;
