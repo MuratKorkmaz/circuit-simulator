@@ -627,6 +627,8 @@ namespace circuit_emulator
                 handleResize();
                 applet.Invalidate();
             }
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             SetBuferization();
             SubscribeOnEvents();
         }
