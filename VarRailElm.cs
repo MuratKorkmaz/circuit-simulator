@@ -51,18 +51,18 @@ namespace circuit_emulator
             label = new Label();
             label.Text = sliderText;
             label.TextAlign = ContentAlignment.MiddleCenter;
-            CirSim.main.Controls.Add(label);
+            CirSim.main.flowLayoutPanel1.Controls.Add(label);
             var value_Renamed = (int) ((frequency - bias)*100/(maxVoltage - bias));
             slider = new HScrollBar();
             slider.Value = value_Renamed;
-            CirSim.main.Controls.Add(slider);
-            CirSim.main.Invalidate();
+            CirSim.main.flowLayoutPanel1.Controls.Add(slider);
+            CirSim.main.flowLayoutPanel1.Invalidate();
         }
 
         internal override void delete()
         {
-            CirSim.main.Controls.Remove(label);
-            CirSim.main.Controls.Remove(slider);
+            CirSim.main.flowLayoutPanel1.Controls.Remove(label);
+            CirSim.main.flowLayoutPanel1.Controls.Remove(slider);
         }
 
         public override EditInfo getEditInfo(int n)

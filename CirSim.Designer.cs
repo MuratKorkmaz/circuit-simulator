@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pbFooter = new System.Windows.Forms.PictureBox();
             this.cv = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pbFooter = new System.Windows.Forms.PictureBox();
             this.resetButton = new System.Windows.Forms.Button();
             this.stoppedCheck = new System.Windows.Forms.CheckBox();
             this.lbSimSpeed = new System.Windows.Forms.Label();
@@ -41,9 +41,9 @@
             this.powerLabel = new System.Windows.Forms.Label();
             this.powerBar = new System.Windows.Forms.HScrollBar();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cv)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -60,18 +60,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(489, 471);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // pbFooter
-            // 
-            this.pbFooter.BackColor = System.Drawing.Color.White;
-            this.pbFooter.BackgroundImage = global::circuit_emulator.Properties.Resources.footer;
-            this.pbFooter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbFooter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbFooter.Location = new System.Drawing.Point(3, 3);
-            this.pbFooter.Name = "pbFooter";
-            this.pbFooter.Size = new System.Drawing.Size(282, 91);
-            this.pbFooter.TabIndex = 0;
-            this.pbFooter.TabStop = false;
             // 
             // cv
             // 
@@ -99,6 +87,18 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(294, 465);
             this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // pbFooter
+            // 
+            this.pbFooter.BackColor = System.Drawing.Color.White;
+            this.pbFooter.BackgroundImage = global::circuit_emulator.Properties.Resources.footer;
+            this.pbFooter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbFooter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbFooter.Location = new System.Drawing.Point(3, 3);
+            this.pbFooter.Name = "pbFooter";
+            this.pbFooter.Size = new System.Drawing.Size(282, 91);
+            this.pbFooter.TabIndex = 0;
+            this.pbFooter.TabStop = false;
             // 
             // resetButton
             // 
@@ -177,10 +177,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CirSim";
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cv)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFooter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -190,7 +190,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox pbFooter;
         internal System.Windows.Forms.PictureBox cv;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button resetButton;
         internal System.Windows.Forms.CheckBox stoppedCheck;
         private System.Windows.Forms.Label lbSimSpeed;
@@ -199,5 +198,6 @@
         private System.Windows.Forms.HScrollBar powerBar;
         private System.Windows.Forms.Label lbCurrentSpeed;
         private System.Windows.Forms.Label powerLabel;
+        internal System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

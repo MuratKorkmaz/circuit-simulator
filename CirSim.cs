@@ -40,7 +40,7 @@ namespace circuit_emulator
         #region Fields
 
         private static Int32 state4;
-        internal static Control main;
+        internal static CirSim main;
         internal static EditDialog editDialog;
         internal static ImportDialog impDialog;
         internal static String muString = "мк";
@@ -388,11 +388,8 @@ namespace circuit_emulator
 
             bool euro = (euroResistor != null && euroResistor.ToUpper().Equals("true".ToUpper()));
             useFrame = (useFrameStr == null || !useFrameStr.ToUpper().Equals("false".ToUpper()));
-            if (useFrame)
-                main = this;
-            else
-                main = applet;
-
+            main = this;
+            
             String os = Environment.GetEnvironmentVariable("OS");
             isMac = (os.IndexOf("Mac ", StringComparison.Ordinal) == 0);
             ctrlMetaKey = (isMac) ? "\u2318" : "Ctrl";
