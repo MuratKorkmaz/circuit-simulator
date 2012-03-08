@@ -611,7 +611,7 @@ namespace circuit_emulator
 
             if (useFrame)
             {
-                Size = new Size(960, 720);
+                Size = new Size(1024, 710);
                 handleResize();
                 Show();
             }
@@ -2155,11 +2155,12 @@ namespace circuit_emulator
                 //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint'"
                 UpdateGraphics();
             }
-            if (ac.IndexOf("setup ") == 0)
+            if (ac.IndexOf("setup ", StringComparison.Ordinal) == 0)
             {
                 pushUndo();
                 StopCircuitThread();
                 readSetupFile(ac.Substring(6), ((MenuItem) event_sender).Text);
+                handleResize();
                 UpdateCircuitAsync();
             }
         }
