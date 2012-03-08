@@ -428,10 +428,10 @@ namespace circuit_emulator
 
         internal virtual GraphicsPath createPolygon(Point[] a)
         {
-            byte[] types = new byte[a.Length];
+            var types = new byte[a.Length];
             for (int i = 0; i < a.Length; i++)
             {
-                if(i == 0)
+                if (i == 0)
                 {
                     types[i] = (byte) PathPointType.Start;
                 }
