@@ -383,20 +383,19 @@ namespace circuit_emulator
         //UPGRADE_NOTE: ref keyword was added to struct-type parameters. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1303'"
         internal virtual GraphicsPath calcArrow(ref Point a, ref Point b, double al, double aw)
         {
-            var poly = new GraphicsPath();
             var p1 = new Point(0, 0);
             var p2 = new Point(0, 0);
             int adx = b.X - a.X;
             int ady = b.Y - a.Y;
             double l = Math.Sqrt(adx*adx + ady*ady);
-            //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-            SupportClass.AddPointToGraphicsPath(poly, b.X, b.Y);
-            //UPGRADE_NOTE: ref keyword was added to struct-type parameters. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1303'"
             interpPoint2(ref a, ref b, ref p1, ref p2, 1 - al/l, aw);
-            //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-            SupportClass.AddPointToGraphicsPath(poly, p1.X, p1.Y);
-            //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-            SupportClass.AddPointToGraphicsPath(poly, p2.X, p2.Y);
+            var poly = new GraphicsPath(new[] {b, p1, p2},
+                                        new[]
+                                            {
+                                                (byte) PathPointType.Start,
+                                                (byte) PathPointType.Line,
+                                                (byte) PathPointType.Line
+                                            });
             return poly;
         }
 
@@ -416,15 +415,14 @@ namespace circuit_emulator
         //UPGRADE_NOTE: ref keyword was added to struct-type parameters. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1303'"
         internal virtual GraphicsPath createPolygon(ref Point a, ref Point b, ref Point c, ref Point d)
         {
-            var p = new GraphicsPath();
-            //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-            SupportClass.AddPointToGraphicsPath(p, a.X, a.Y);
-            //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-            SupportClass.AddPointToGraphicsPath(p, b.X, b.Y);
-            //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-            SupportClass.AddPointToGraphicsPath(p, c.X, c.Y);
-            //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-            SupportClass.AddPointToGraphicsPath(p, d.X, d.Y);
+            var p = new GraphicsPath(new[] {a, b, c, d},
+                                     new[]
+                                         {
+                                             (byte) PathPointType.Start,
+                                             (byte) PathPointType.Line,
+                                             (byte) PathPointType.Line,
+                                             (byte) PathPointType.Line
+                                         });
             return p;
         }
 
