@@ -428,13 +428,19 @@ namespace circuit_emulator
 
         internal virtual GraphicsPath createPolygon(Point[] a)
         {
-            var p = new GraphicsPath();
-            int i;
-            for (i = 0; i != a.Length; i++)
+            byte[] types = new byte[a.Length];
+            for (int i = 0; i < a.Length; i++)
             {
-                //UPGRADE_TODO: Method 'java.awt.Polygon.addPoint' was converted to 'SupportClass.AddPointToGraphicsPath' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtPolygonaddPoint_int_int'"
-                SupportClass.AddPointToGraphicsPath(p, a[i].X, a[i].Y);
+                if(i == 0)
+                {
+                    types[i] = (byte) PathPointType.Start;
+                }
+                else
+                {
+                    types[i] = (byte) PathPointType.Line;
+                }
             }
+            var p = new GraphicsPath(a, types);
             return p;
         }
 
