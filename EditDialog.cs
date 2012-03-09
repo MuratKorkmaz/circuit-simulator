@@ -40,37 +40,37 @@ namespace circuit_emulator
                 if (einfos[i] == null)
                     break;
                 EditInfo ei = einfos[i];
-                Label temp_Label2;
-                temp_Label2 = new Label();
+                Label temp_Label2 = new Label();
                 temp_Label2.Text = ei.name;
-                Control temp_Control;
-                temp_Control = temp_Label2;
-                temp_Control.Dock = DockStyle.Fill;
-                flowLayoutPanel.Controls.Add(temp_Control);
+                temp_Label2.Dock = DockStyle.Fill;
+                flowLayoutPanel.Controls.Add(temp_Label2);
                 if (ei.choice != null)
                 {
+                    ei.choice.Dock = DockStyle.Fill;
                     flowLayoutPanel.Controls.Add(ei.choice);
                     ei.choice.SelectedIndexChanged += itemStateChanged;
                 }
                 else if (ei.checkbox != null)
                 {
+                    ei.checkbox.Dock = DockStyle.Fill;
                     flowLayoutPanel.Controls.Add(ei.checkbox);
                     ei.checkbox.Click += itemStateChanged;
                 }
                 else
                 {
-                    TextBox temp_TextBox2;
-                    temp_TextBox2 = new TextBox();
+                    TextBox temp_TextBox2 = new TextBox();
                     temp_TextBox2.Text = unitString(ei);
-                    Control temp_Control2;
-                    temp_Control2 = ei.textf = temp_TextBox2;
-                    temp_Control2.Dock = DockStyle.Fill;
-                    flowLayoutPanel.Controls.Add(temp_Control2);
+                    temp_TextBox2.Dock = DockStyle.Fill;
+                    flowLayoutPanel.Controls.Add(temp_TextBox2);
                     if (ei.text != null)
+                    {
                         ei.textf.Text = ei.text;
-                    ei.textf.KeyPress += actionPerformed;
+                        ei.textf.KeyPress += actionPerformed;
+                    }
+                        
                     if (ei.text == null)
                     {
+                        ei.bar.Dock = DockStyle.Fill;
                         flowLayoutPanel.Controls.Add(ei.bar);
                         Bar = ei;
                         ei.bar.Scroll += adjustmentValueChanged;
@@ -78,22 +78,16 @@ namespace circuit_emulator
                 }
             }
             einfocount = i;
-            Button temp_Button2;
-            temp_Button2 = new Button();
-            temp_Button2.Text = "Применить";
-            Control temp_Control4;
-            temp_Control4 = applyButton = temp_Button2;
-            temp_Control4.Dock = DockStyle.Fill;
-            flowLayoutPanel.Controls.Add(temp_Control4);
+            applyButton = new Button();
+            applyButton.Text = "Применить";
+            applyButton.Width = flowLayoutPanel.Width - 6;
+            flowLayoutPanel.Controls.Add(applyButton);
             applyButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(applyButton);
-            Button temp_Button4;
-            temp_Button4 = new Button();
-            temp_Button4.Text = "OK";
-            Control temp_Control5;
-            temp_Control5 = okButton = temp_Button4;
-            temp_Control5.Dock = DockStyle.Fill;
-            flowLayoutPanel.Controls.Add(temp_Control5);
+            okButton = new Button();
+            okButton.Text = "OK";
+            okButton.Width = flowLayoutPanel.Width - 6;
+            flowLayoutPanel.Controls.Add(okButton);
             okButton.Click += actionPerformed;
             SupportClass.CommandManager.CheckCommand(okButton);
         }
@@ -306,24 +300,31 @@ namespace circuit_emulator
 
         private void InitializeComponent()
         {
-            flowLayoutPanel = new FlowLayoutPanel();
-            SuspendLayout();
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.SuspendLayout();
             // 
             // flowLayoutPanel
             // 
-            flowLayoutPanel.Dock = DockStyle.Fill;
-            flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel.Location = new Point(0, 0);
-            flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(265, 188);
-            flowLayoutPanel.TabIndex = 0;
+            this.flowLayoutPanel.AutoSize = true;
+            this.flowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(265, 188);
+            this.flowLayoutPanel.TabIndex = 0;
             // 
             // EditDialog
             // 
-            ClientSize = new Size(265, 188);
-            Controls.Add(flowLayoutPanel);
-            Name = "EditDialog";
-            ResumeLayout(false);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(265, 188);
+            this.Controls.Add(this.flowLayoutPanel);
+            this.MinimumSize = new System.Drawing.Size(200, 0);
+            this.Name = "EditDialog";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
     }
 }
