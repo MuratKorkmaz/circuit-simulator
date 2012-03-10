@@ -47,6 +47,8 @@ namespace circuit_emulator
         internal static String ohmString = "Ом";
         private readonly object _lockGraphics;
         private bool _isSimulate;
+        private bool _isElmDragging;
+        private bool _isElmAdding;
         internal Type addingClass;
         internal bool analyzeFlag;
         internal Circuit applet;
@@ -2939,6 +2941,12 @@ namespace circuit_emulator
         {
             //if ((state4 & (int) MouseButtons.Left) != 0)
             //    return;
+            if (dragElm != null)
+            {
+                dragElm.x2 = e.X;
+                dragElm.y2 = e.Y;
+                dragElm.setPoints();
+            }
             int x = e.X;
             int y = e.Y;
             dragX = snapGrid(x);
@@ -3216,6 +3224,7 @@ namespace circuit_emulator
                     dragElm.delete();
                 else
                 {
+                    dragElm.setPoints();
                     elmList.Add(dragElm);
                     circuitChanged = true;
                 }
@@ -3247,8 +3256,7 @@ namespace circuit_emulator
         public virtual void itemStateChanged(Object event_sender, EventArgs e)
         {
             if (event_sender is MenuItem)
-                ((MenuItem) event_sender).Checked =
-                    !((MenuItem) event_sender).Checked;
+                ((MenuItem) event_sender).Checked = !((MenuItem) event_sender).Checked;
             //UPGRADE_TODO: Method 'java.awt.Component.repaint' was converted to 'System.Windows.Forms.Control.Refresh' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtComponentrepaint_long'"
             UpdateGraphics();
             Object mi = event_sender;
@@ -3295,7 +3303,7 @@ namespace circuit_emulator
                     try
                     {
                         //UPGRADE_TODO: The differences in the format  of parameters for method 'java.lang.Class.forName'  may cause compilation errors.  "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1092'"
-                        addingClass = Type.GetType(s);
+                        addingClass = Type.GetType("circuit_emulator." + s);
                     }
                     catch (Exception ee)
                     {
