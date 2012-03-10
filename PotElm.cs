@@ -70,19 +70,18 @@ namespace circuit_emulator
 
         internal virtual void createSlider()
         {
-            slider = new HScrollBar();
+            
             //UPGRADE_TODO: The equivalent in .NET for field 'java.awt.Label.CENTER' may return a different value. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1043'"
-            Label temp_Label2 = new Label();
-            temp_Label2.Text = sliderText;
-            temp_Label2.TextAlign = ContentAlignment.MiddleCenter;
+            label = new Label();
+            label.Text = sliderText;
+            label.TextAlign = ContentAlignment.MiddleCenter;
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control = label = temp_Label2;
-            CirSim.main.flowLayoutPanel1.Controls.Add(temp_Control);
+            CirSim.main.flowLayoutPanel1.Controls.Add(label);
             //UPGRADE_WARNING: Data types in Visual C# might be different.  Verify the accuracy of narrowing conversions. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1042'"
-            var value_Renamed = (int) (position*100);
             //UPGRADE_TODO: Method 'java.awt.Container.add' was converted to 'System.Windows.Forms.ContainerControl.Controls.Add' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtContaineradd_javaawtComponent'"
-            Control temp_Control2 = null;
-            CirSim.main.flowLayoutPanel1.Controls.Add(temp_Control2);
+            slider = new HScrollBar();
+            slider.Dock = DockStyle.Fill;
+            CirSim.main.flowLayoutPanel1.Controls.Add(slider);
             CirSim.main.Invalidate();
             //UPGRADE_TODO: Method 'java.awt.Scrollbar.addAdjustmentListener' was converted to 'System.Windows.Forms.ScrollEventArgs' which has a different behavior. "ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?index='!DefaultContextWindowIndex'&keyword='jlca1073_javaawtScrollbaraddAdjustmentListener_javaawteventAdjustmentListener'"
             slider.Scroll += adjustmentValueChanged;
