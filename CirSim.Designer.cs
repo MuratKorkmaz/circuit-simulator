@@ -113,7 +113,7 @@
             // 
             this.stoppedCheck.Location = new System.Drawing.Point(3, 129);
             this.stoppedCheck.Name = "stoppedCheck";
-            this.stoppedCheck.Size = new System.Drawing.Size(104, 24);
+            this.stoppedCheck.Size = new System.Drawing.Size(282, 24);
             this.stoppedCheck.TabIndex = 1;
             this.stoppedCheck.Text = "Остановлено";
             this.stoppedCheck.UseVisualStyleBackColor = true;
@@ -129,6 +129,7 @@
             // 
             // speedBar
             // 
+            this.speedBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.speedBar.Location = new System.Drawing.Point(0, 169);
             this.speedBar.Name = "speedBar";
             this.speedBar.Size = new System.Drawing.Size(288, 17);
@@ -145,9 +146,10 @@
             // 
             // currentBar
             // 
+            this.currentBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentBar.Location = new System.Drawing.Point(0, 199);
             this.currentBar.Name = "currentBar";
-            this.currentBar.Size = new System.Drawing.Size(285, 17);
+            this.currentBar.Size = new System.Drawing.Size(288, 17);
             this.currentBar.TabIndex = 4;
             // 
             // powerLabel
@@ -161,9 +163,10 @@
             // 
             // powerBar
             // 
+            this.powerBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.powerBar.Location = new System.Drawing.Point(0, 229);
             this.powerBar.Name = "powerBar";
-            this.powerBar.Size = new System.Drawing.Size(285, 15);
+            this.powerBar.Size = new System.Drawing.Size(288, 15);
             this.powerBar.TabIndex = 5;
             // 
             // CirSim
