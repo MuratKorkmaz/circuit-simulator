@@ -61,6 +61,7 @@ namespace circuit_emulator
                     TextBox temp_TextBox2 = new TextBox();
                     temp_TextBox2.Text = unitString(ei);
                     temp_TextBox2.Dock = DockStyle.Fill;
+                    ei.textf = temp_TextBox2;
                     flowLayoutPanel.Controls.Add(temp_TextBox2);
                     if (ei.text != null)
                     {
