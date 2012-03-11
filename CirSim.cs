@@ -102,6 +102,7 @@ namespace circuit_emulator
         internal int hintItem1, hintItem2;
         internal int hintType = -1;
         internal MenuItem importItem;
+        internal MenuItem aboutItem, copyrightItem;
         internal int initDragX, initDragY;
         internal bool isMac;
         internal long lastFrameTime, lastIterTime;
@@ -448,6 +449,9 @@ namespace circuit_emulator
             m.MenuItems.Add(conventionCheckItem = getCheckItem("Общепринятое направление тока"));
             conventionCheckItem.Checked = convention;
 
+           
+
+
             var circuitsMenu = new MenuItem("Схемы");
             if (useFrame)
                 mb.MenuItems.Add(circuitsMenu);
@@ -456,6 +460,11 @@ namespace circuit_emulator
 
             mainMenu.MenuItems.Add(getClassCheckItem("Добавить Соединение", "WireElm"));
             mainMenu.MenuItems.Add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
+
+
+
+            
+           
 
             var passMenu = new MenuItem("Пассивные компоненты");
             mainMenu.MenuItems.Add(passMenu);
@@ -547,6 +556,19 @@ namespace circuit_emulator
             //otherMenu.MenuItems.Add(getCheckItem("Drag Selected", "DragSelected"));
             //otherMenu.MenuItems.Add(getCheckItem("Drag Post (" + ctrlMetaKey + "-drag)", "DragPost"));
 
+            var aboutMenu = new MenuItem("Справка");
+            if (useFrame)
+                mb.MenuItems.Add(aboutMenu);
+            else
+                mainMenu.MenuItems.Add(aboutMenu);
+            aboutMenu.MenuItems.Add(aboutItem = getMenuItem("О программе"));
+            aboutMenu.MenuItems.Add(copyrightItem = getMenuItem("Авторы"));
+
+
+            
+
+
+
             mainMenu.MenuItems.Add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
             main.ContextMenu = mainMenu;
             SupportClass.CommandManager.CheckCommand(resetButton);
@@ -555,6 +577,7 @@ namespace circuit_emulator
             temp_Button3.Text = "Dump Matrix";
             dumpMatrixButton = temp_Button3;
             SupportClass.CommandManager.CheckCommand(dumpMatrixButton);
+
 
             lbSimSpeed.Text = "Скорость симуляции";
             lbCurrentSpeed.Text = "Скорость тока";
@@ -2101,6 +2124,40 @@ namespace circuit_emulator
             }
             if (String.CompareOrdinal(ac, "Вставить") == 0)
                 doPaste();
+            if (event_sender == aboutItem)
+            {
+                Form frmAbout = new Form();
+                frmAbout.Width = 500;
+                frmAbout.Height = 75;
+                frmAbout.Text = "О программе";
+                Label lbAbout = new Label();
+                lbAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 15, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lbAbout.Dock = DockStyle.Fill;
+                lbAbout.TextAlign = (ContentAlignment)HorizontalAlignment.Center;
+                lbAbout.Text  = "Программа моделирования электронных схем\n"+"v. 1.3.0";
+                lbAbout.Parent = frmAbout;
+                frmAbout.MaximizeBox = false;
+                frmAbout.MinimizeBox = false;
+                frmAbout.FormBorderStyle = FormBorderStyle.FixedDialog;
+                frmAbout.Show();
+            }
+            if (event_sender == copyrightItem)
+            {
+                Form frmAbout = new Form();
+                frmAbout.Width = 500;
+                frmAbout.Height = 75;
+                frmAbout.Text = "Авторы";
+                Label lbAbout = new Label();
+                lbAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 15, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lbAbout.Dock = DockStyle.Fill;
+                lbAbout.TextAlign = (ContentAlignment)HorizontalAlignment.Center;
+                lbAbout.Text = "Разработчик программы:\nФИО";
+                lbAbout.Parent = frmAbout;
+                frmAbout.MaximizeBox = false;
+                frmAbout.MinimizeBox = false;
+                frmAbout.FormBorderStyle = FormBorderStyle.FixedDialog;
+                frmAbout.Show();
+            }
             if (event_sender == exitItem)
             {
                 destroyFrame();
