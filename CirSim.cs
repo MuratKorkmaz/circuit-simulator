@@ -46,9 +46,10 @@ namespace circuit_emulator
         internal static String muString = "мк";
         internal static String ohmString = "Ом";
         private readonly object _lockGraphics;
-        private bool _isSimulate;
-        private bool _isElmDragging;
         private bool _isElmAdding;
+        private bool _isElmDragging;
+        private bool _isSimulate;
+        internal MenuItem aboutItem;
         internal Type addingClass;
         internal bool analyzeFlag;
         internal Circuit applet;
@@ -68,6 +69,7 @@ namespace circuit_emulator
         private BufferedGraphicsContext context;
         internal MenuItem conventionCheckItem;
         internal bool converged;
+        internal MenuItem copyrightItem;
         internal String ctrlMetaKey;
         internal Image dbimage;
         internal MenuItem dotsCheckItem;
@@ -82,7 +84,6 @@ namespace circuit_emulator
         internal MenuItem elmCutMenuItem;
         internal MenuItem elmDeleteMenuItem;
         internal MenuItem elmEditMenuItem;
-        private MenuItem lastMenuItem;
         internal ArrayList elmList;
         internal ContextMenu elmMenu;
         internal MenuItem elmScopeMenuItem;
@@ -102,10 +103,10 @@ namespace circuit_emulator
         internal int hintItem1, hintItem2;
         internal int hintType = -1;
         internal MenuItem importItem;
-        internal MenuItem aboutItem, copyrightItem;
         internal int initDragX, initDragY;
         internal bool isMac;
         internal long lastFrameTime, lastIterTime;
+        private MenuItem lastMenuItem;
         internal long lastTime;
         internal ContextMenu mainMenu;
 
@@ -393,7 +394,7 @@ namespace circuit_emulator
             bool euro = (euroResistor != null && euroResistor.ToUpper().Equals("true".ToUpper()));
             useFrame = (useFrameStr == null || !useFrameStr.ToUpper().Equals("false".ToUpper()));
             main = this;
-            
+
             String os = Environment.GetEnvironmentVariable("OS");
             isMac = (os.IndexOf("Mac ", StringComparison.Ordinal) == 0);
             ctrlMetaKey = (isMac) ? "\u2318" : "Ctrl";
@@ -449,8 +450,6 @@ namespace circuit_emulator
             m.MenuItems.Add(conventionCheckItem = getCheckItem("Общепринятое направление тока"));
             conventionCheckItem.Checked = convention;
 
-           
-
 
             var circuitsMenu = new MenuItem("Схемы");
             if (useFrame)
@@ -461,10 +460,6 @@ namespace circuit_emulator
             mainMenu.MenuItems.Add(getClassCheckItem("Добавить Соединение", "WireElm"));
             mainMenu.MenuItems.Add(getClassCheckItem("Добавить Резистор", "ResistorElm"));
 
-
-
-            
-           
 
             var passMenu = new MenuItem("Пассивные компоненты");
             mainMenu.MenuItems.Add(passMenu);
@@ -563,10 +558,6 @@ namespace circuit_emulator
                 mainMenu.MenuItems.Add(aboutMenu);
             aboutMenu.MenuItems.Add(aboutItem = getMenuItem("О программе"));
             aboutMenu.MenuItems.Add(copyrightItem = getMenuItem("Авторы"));
-
-
-            
-
 
 
             mainMenu.MenuItems.Add(getCheckItem("Выбор/перетаскивание выбранного (пробел или Shift+щелчок)", "Select"));
@@ -2126,37 +2117,11 @@ namespace circuit_emulator
                 doPaste();
             if (event_sender == aboutItem)
             {
-                Form frmAbout = new Form();
-                frmAbout.Width = 500;
-                frmAbout.Height = 75;
-                frmAbout.Text = "О программе";
-                Label lbAbout = new Label();
-                lbAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 15, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                lbAbout.Dock = DockStyle.Fill;
-                lbAbout.TextAlign = (ContentAlignment)HorizontalAlignment.Center;
-                lbAbout.Text  = "Программа моделирования электронных схем\n"+"v. 1.3.0";
-                lbAbout.Parent = frmAbout;
-                frmAbout.MaximizeBox = false;
-                frmAbout.MinimizeBox = false;
-                frmAbout.FormBorderStyle = FormBorderStyle.FixedDialog;
-                frmAbout.Show();
+                ShowAboutForm();
             }
             if (event_sender == copyrightItem)
             {
-                Form frmAbout = new Form();
-                frmAbout.Width = 500;
-                frmAbout.Height = 75;
-                frmAbout.Text = "Авторы";
-                Label lbAbout = new Label();
-                lbAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 15, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                lbAbout.Dock = DockStyle.Fill;
-                lbAbout.TextAlign = (ContentAlignment)HorizontalAlignment.Center;
-                lbAbout.Text = "Разработчик программы:\nФИО";
-                lbAbout.Parent = frmAbout;
-                frmAbout.MaximizeBox = false;
-                frmAbout.MinimizeBox = false;
-                frmAbout.FormBorderStyle = FormBorderStyle.FixedDialog;
-                frmAbout.Show();
+                ShowAutorsForm();
             }
             if (event_sender == exitItem)
             {
@@ -2223,6 +2188,55 @@ namespace circuit_emulator
                 handleResize();
                 UpdateCircuitAsync();
             }
+        }
+
+        private void ShowAutorsForm()
+        {
+            const string title = "Авторы";
+            string text = GetAutorsString();
+            ShowHelpDialogForm(title, text);
+        }
+
+        private void ShowAboutForm()
+        {
+            const string title = "О программе";
+            string text = GetAboutString();
+            ShowHelpDialogForm(title, text);
+        }
+
+        private void ShowHelpDialogForm(string title, string text)
+        {
+            var frmAbout = new Form
+                               {
+                                   Width = 200,
+                                   Height = 200,
+                                   Text = title,
+                                   MaximizeBox = false,
+                                   MinimizeBox = false,
+                                   FormBorderStyle = FormBorderStyle.FixedDialog
+                               };
+            var tbAbout = new TextBox
+                              {
+                                  Font = SystemFonts.MessageBoxFont,
+                                  Dock = DockStyle.Fill,
+                                  Multiline = true,
+                                  TextAlign = HorizontalAlignment.Left,
+                                  ReadOnly = true,
+                                  Text = text,
+                                  Parent = frmAbout
+                              };
+            frmAbout.ShowDialog();
+        }
+        
+        private string GetAutorsString()
+        {
+            return "Разработчик программы:\nФИО";
+        }
+
+        private string GetAboutString()
+        {
+            return "Программа моделирования электронных схем\n" +
+                   "v. 1.3.0";
         }
 
         internal virtual void stackScope(int s)
@@ -3153,7 +3167,7 @@ namespace circuit_emulator
                 if ((state4 & (int) MouseButtons.Right) != 0)
                 {
                     //if ((ex & MouseEvent.SHIFT_DOWN_MASK) != 0)
-                        tempMouseMode = MODE_DRAG_ROW;
+                    tempMouseMode = MODE_DRAG_ROW;
                     //else if ((ex & (MouseEvent.CTRL_DOWN_MASK | MouseEvent.META_DOWN_MASK)) != 0)
                     //    tempMouseMode = MODE_DRAG_COLUMN;
                     //else
@@ -3250,11 +3264,12 @@ namespace circuit_emulator
                 MenuItem mc = m.MenuItems[i];
                 if (mc is MenuItem)
                     //doMainMenuChecks(mc);
-                if (mc is MenuItem)
-                {
-                    MenuItem cmi = mc;
-                    cmi.Checked = String.CompareOrdinal(mouseModeStr, SupportClass.CommandManager.GetCommand(cmi)) == 0;
-                }
+                    if (mc is MenuItem)
+                    {
+                        MenuItem cmi = mc;
+                        cmi.Checked =
+                            String.CompareOrdinal(mouseModeStr, SupportClass.CommandManager.GetCommand(cmi)) == 0;
+                    }
             }
         }
 
