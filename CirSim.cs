@@ -2230,13 +2230,14 @@ namespace circuit_emulator
         
         private string GetAutorsString()
         {
-            return "Разработчик программы:\nФИО";
+            return "Разработчик программы:\r\n" +
+                   "ФИО";
         }
 
         private string GetAboutString()
         {
-            return "Программа моделирования электронных схем\n" +
-                   "v. 1.3.0";
+            return "Программа моделирования электронных схем\r\n" +
+                   Application.ProductVersion;
         }
 
         internal virtual void stackScope(int s)
